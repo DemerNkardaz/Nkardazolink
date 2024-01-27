@@ -3,10 +3,10 @@
     --text_primary: #333;
     --background_light_main: #FFFFFFB3;
     --background_light_person_block: #FFFFFF80;
-    --light_border: #EBEDF04D;
+    --light_border: #ebedf0;
 
     --banner_gradient: linear-gradient(45deg, #c29819, #f0b607);
-    --banner_pattern_麻の葉: ;
+    --avatar_background_gradient: linear-gradient(193deg, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 24%, rgba(255, 255, 255, 1) 69%, rgba(238, 238, 238, 1) 90%, rgba(254, 254, 254, 1) 100%);
 }
 
 * {}
@@ -62,7 +62,7 @@ body {
     flex-direction: row;
     justify-content: start;
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: content-box;
     background-color: var(--background_light_main);
     overflow: hidden;
 
@@ -71,23 +71,52 @@ body {
 
 
 #personBlock {
+    position: relative;
     width: 384px;
     background-color: var(--background_light_person_block);
-    border: 2px solid var(--light_border);
+    border-right: 5px solid var(--light_border);
     box-shadow: 5px 0 10px var(--shadow_primary);
 }
 
 
 #personBanner {
-    background: url(../resources/svg/pattern_麻の葉_90deg.svg), var(--banner_gradient);
-    --svg_background-scale: 0.2;
-    --svg_background-color: var(--pattern_color);
-    --svg_background-rotate: 90deg;
-    background-size: 225%;
+    background: url(../resources/svg/pattern_asanoha_90deg.svg), var(--banner_gradient);
+    background-size: 115%;
     background-position: center 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    border: 5px solid var(--light_border);
+    border-radius: 15px;
+    transition: all 0.3s ease;
     width: inherit;
     height: 160px;
+}
+
+#personBanner:hover,
+#personAvatarImg:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+#personAvatar {
+    position: absolute;
+    left: 50%;
+    top: calc(160px - 64px);
+    transform: translateX(-50%);
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    padding: 4px;
+    overflow: hidden;
+    background: var(--avatar_background_gradient);
+    box-shadow: 0 5px 10px var(--shadow_primary);
+}
+
+#personAvatarImg {
+    width: 100%;
+    height: 100%;
+    background: url(../resources/cherepkhed32.png);
+    transition: all 0.3s ease;
+    background-size: 130%;
+    background-repeat: no-repeat;
+    background-position: center 50%;
+    border-radius: 50%;
 }
