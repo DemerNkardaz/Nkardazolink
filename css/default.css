@@ -80,14 +80,21 @@ body {
 
 
 #personBanner {
-    background: url(../resources/svg/pattern_asanoha_90deg.svg), var(--banner_gradient);
-    background-size: 115%;
-    background-position: center 50%;
+    background: var(--light_border);
     border: 5px solid var(--light_border);
-    border-radius: 15px;
+    border-radius: 0 0 15px 15px;
     transition: all 0.3s ease;
     width: inherit;
     height: 160px;
+}
+
+#personBannerImg {
+    background: url(../resources/svg/pattern_asanoha_90deg.svg), var(--banner_gradient);
+    background-size: 115%;
+    background-position: center 50%;
+    border-radius: 15px;
+    transition: inherit;
+    height: inherit;
 }
 
 #personBanner:hover,
