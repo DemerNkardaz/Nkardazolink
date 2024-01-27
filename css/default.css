@@ -1,0 +1,93 @@
+:root {
+    --shadow_primary: #22222210;
+    --text_primary: #333;
+    --background_light_main: #FFFFFFB3;
+    --background_light_person_block: #FFFFFF80;
+    --light_border: #EBEDF04D;
+
+    --banner_gradient: linear-gradient(45deg, #c29819, #f0b607);
+    --banner_pattern_麻の葉: ;
+}
+
+* {}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    position: relative;
+    height: 100vh;
+    color: var(--text_primary);
+}
+
+#siteBackdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: url(https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg);
+    background-size: cover;
+    background-position: center 50%;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#rootContainer {
+    position: relative;
+    display: flex;
+    width: 1920px;
+    height: 100vh;
+}
+
+#siteBackdropInverter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: -1;
+}
+
+#siteBackdropInverter.active {
+    filter: invert(100%)
+}
+
+.contentContainerBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--background_light_main);
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+
+#personBlock {
+    width: 384px;
+    background-color: var(--background_light_person_block);
+    border: 2px solid var(--light_border);
+    box-shadow: 5px 0 10px var(--shadow_primary);
+}
+
+
+#personBanner {
+    background: url(../resources/svg/pattern_麻の葉_90deg.svg), var(--banner_gradient);
+    --svg_background-scale: 0.2;
+    --svg_background-color: var(--pattern_color);
+    --svg_background-rotate: 90deg;
+    background-size: 225%;
+    background-position: center 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: 160px;
+}
