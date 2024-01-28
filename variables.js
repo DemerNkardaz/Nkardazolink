@@ -24,7 +24,9 @@ let selectedGalleryTitle;
 let gallery_trigger;
 let gallery_title;
 let galleryThumbnail;
-
+let selectedPictureDownload;
+let selectedPictureFullscreen;
+let selectedPictureBlankPage;
 
 $(document).ready(function () {
     personFlex = $('.personFlex');
@@ -53,6 +55,9 @@ $(document).ready(function () {
     gallery_trigger = $('.gallery-trigger');
     gallery_title = $('.galleryTitle');
     galleryThumbnail = $('.galleryThumbnail');
+    selectedPictureDownload = $('#selectedPictureDownload');
+    selectedPictureFullscreen = $('#selectedPictureFullscreen');
+    selectedPictureBlankPage = $('#selectedPictureBlankPage');
 
 });
 
@@ -82,5 +87,8 @@ export {
     selectedGalleryTitle,
     gallery_trigger,
     gallery_title,
-    galleryThumbnail
+    galleryThumbnail,
+    selectedPictureDownload,
+    selectedPictureFullscreen,
+    selectedPictureBlankPage
 };

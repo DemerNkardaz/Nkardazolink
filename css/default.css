@@ -731,3 +731,12 @@ a.gallery-trigger {
 #personAvatarImg.bright>img {
     filter: brightness(110%);
 }
+
+#selectedPictureControls span {
+    user-select: none;
+    cursor: pointer;
+}
+
+#selectedPictureControls span:hover {
+    color: var(--color_orange_gold)
+}

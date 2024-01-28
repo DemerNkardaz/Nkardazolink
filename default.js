@@ -155,4 +155,34 @@ $(document).ready(function () {
         }, 200);
     });
 
+
+
+    $item.selectedPictureDownload.on('click', function () {
+        var imageUrl = $('#selectedGalleryPicture').attr('src');
+        var downloadLink = document.createElement('a');
+        var originalFileName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+        downloadLink.href = imageUrl;
+        downloadLink.download = originalFileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    });
+
+
+    $item.selectedPictureFullscreen.on('click', function () {
+        var imageElement = $('#selectedGalleryPicture')[0];
+        if (imageElement.requestFullscreen) {
+            imageElement.requestFullscreen();
+        } else if (imageElement.mozRequestFullScreen) {
+            imageElement.mozRequestFullScreen();
+        } else if (imageElement.webkitRequestFullscreen) {
+            imageElement.webkitRequestFullscreen();
+        }
+    });
+
+    $item.selectedPictureBlankPage.on('click', function () {
+        var imageUrl = $('#selectedGalleryPicture').attr('src');
+        window.open(imageUrl, '_blank');
+    });
+
 })
