@@ -29,6 +29,10 @@
     --color_pale_gold_semi_light: #ffd228;
     --color_pale_gold: #E2B13C;
     --color_dirty_gold: #C29819;
+
+
+    --water_element_gradient: linear-gradient(to top, #4575b5, #7db9e8, #b6e2ff);
+    --metal_element_gradient: linear-gradient(to top, #9b9b9b, #e4e4e4, #e8e8e8);
 }
 
 * {
@@ -66,6 +70,40 @@ body {
 
 .headerDefault {
     font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+}
+
+
+.defElemSym {
+    position: relative;
+    font-family: 'Shagor El P1', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    line-height: 1em;
+    font-size: 1.3em;
+    margin-left: 5px;
+    margin-right: 5px;
+    z-index: 1;
+}
+
+.defElemSym.water,
+.defElemSym.metal,
+.defElemSym.earth,
+.defElemSym.fire,
+.defElemSym.cold,
+.defElemSym.life,
+.defElemSym.void,
+.defElemSym.chaos {
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--shadow_inset_info);
+}
+
+.defElemSym.water {
+    background: var(--water_element_gradient);
+}
+
+.defElemSym.metal {
+    background: var(--metal_element_gradient);
 }
 
 
@@ -212,6 +250,15 @@ body {
 
 .emoji {
     font-size: 2em;
+}
+
+.emoji-small {
+    font-size: 1em;
+}
+
+.emoji-small.elemental {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .emojiShadow {
@@ -362,6 +409,11 @@ body {
     transition: all 0.3s ease;
     margin-top: 5px;
     border-radius: 15px;
+}
+
+.listButton span {
+    display: flex;
+    align-items: center;
 }
 
 .listButton:hover {
