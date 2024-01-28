@@ -482,6 +482,8 @@ body {
 }
 
 
+
+
 .personKamon {
     display: flex;
     flex-direction: column;
@@ -671,7 +673,7 @@ body {
 }
 
 .miniFolioMain .tab-content {
-    padding: 10px 15px 10px 15px;
+    padding: 17px 15px 17px 15px;
 }
 
 .galleryGrid {
@@ -690,6 +692,23 @@ a.gallery-trigger {
     display: none;
 }
 
+.personSeal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    align-self: center;
+    transition: all 0.3s ease;
+}
+
+.personSeal:hover {
+    transform: scale(1.05);
+}
+
+.personSeal img {
+    width: 50%;
+}
 
 #lightBoxGalleryCloseBtn {
     display: flex;
