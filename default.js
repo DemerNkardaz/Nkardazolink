@@ -194,4 +194,6 @@ $(document).ready(function () {
         window.open(imageUrl, '_blank');
     });
 
+
+
 })
