@@ -40,6 +40,7 @@ $(document).ready(function () {
     $item.moreInfoBlock.hide();
     $item.settingsBlock.hide();
     $item.lightBoxContainer.hide();
+    $item.selectedPictureSpecials.hide();
     $item.personInformationBlock.show();
     $item.personLinksBlock.show();
 
@@ -83,7 +84,16 @@ $(document).ready(function () {
         var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
 
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
+        var pdfUrl = $(this).data('pdf');
         var currentImage = $item.selectedGalleryPicture.attr('src');
+
+        if (pdfUrl) {
+            $item.selectedPictureSpecials.show('slow');
+            $item.selectedPicturePDFVersion.attr('data-pdf', pdfUrl);
+        } else {
+            $item.selectedPictureSpecials.hide('slow');
+            $item.selectedPicturePDFVersion.removeAttr('data-pdf');
+        }
 
         if (fullresUrl !== currentImage) {
             $item.selectedPictureParent.append(progressBar);
@@ -126,6 +136,7 @@ $(document).ready(function () {
         var mouseY = e.pageY - $(this).offset().top;
 
         var zoomFactor = 3;
+        var mouseWhellZoomFactor = 0.2;
         var originX = (mouseX / $(this).width()) * 100 + '%';
         var originY = (mouseY / $(this).height()) * 100 + '%';
 
@@ -180,8 +191,6 @@ $(document).ready(function () {
     });
 
 
-
-
     $item.selectedPictureDownload.on('click', function () {
         var imageUrl = $('#selectedGalleryPicture').attr('src');
         var downloadLink = document.createElement('a');
@@ -209,6 +218,11 @@ $(document).ready(function () {
         var imageUrl = $('#selectedGalleryPicture').attr('src');
         window.open(imageUrl, '_blank');
     });
+
+    $item.selectedPicturePDFVersion.on('click', function () {
+        var pdfUrl = $(this).attr('data-pdf');
+        window.open(pdfUrl, '_blank');
+    })
 
 
 

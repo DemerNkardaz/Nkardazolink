@@ -277,6 +277,11 @@ body {
     border-right: var(--border_grey_entity);
 }
 
+
+#selectedPictureSpecials.personInfo {
+    min-width: 128px;
+}
+
 .emoji {
     font-size: 2em;
 }
@@ -480,9 +485,6 @@ body {
     width: 250px;
     font-size: 0.9em;
 }
-
-
-
 
 .personKamon {
     display: flex;
@@ -816,11 +818,13 @@ a.gallery-trigger {
     filter: brightness(110%);
 }
 
+#selectedPictureSpecials span,
 #selectedPictureControls span {
     user-select: none;
     cursor: pointer;
 }
 
+#selectedPictureSpecials span:hover,
 #selectedPictureControls span:hover {
     color: var(--color_orange_gold)
 }

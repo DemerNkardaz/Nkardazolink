@@ -27,6 +27,8 @@ let galleryThumbnail;
 let selectedPictureDownload;
 let selectedPictureFullscreen;
 let selectedPictureBlankPage;
+let selectedPicturePDFVersion;
+let selectedPictureSpecials;
 
 
 $(document).ready(function () {
@@ -59,6 +61,8 @@ $(document).ready(function () {
     selectedPictureDownload = $('#selectedPictureDownload');
     selectedPictureFullscreen = $('#selectedPictureFullscreen');
     selectedPictureBlankPage = $('#selectedPictureBlankPage');
+    selectedPicturePDFVersion = $('#selectedPicturePDFVersion');
+    selectedPictureSpecials = $('#selectedPictureSpecials');
 
 });
 
@@ -91,5 +95,7 @@ export {
     galleryThumbnail,
     selectedPictureDownload,
     selectedPictureFullscreen,
-    selectedPictureBlankPage
+    selectedPictureBlankPage,
+    selectedPicturePDFVersion,
+    selectedPictureSpecials
 };
