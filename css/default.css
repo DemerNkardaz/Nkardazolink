@@ -777,6 +777,22 @@ a.gallery-trigger {
     object-fit: cover;
 }
 
+.galleryThumbnail.sizeIncrease.gun img {
+    position: relative;
+    top: 55%;
+    left: 65%;
+    width: 150%;
+    height: 90%;
+}
+
+.galleryThumbnail.sizeIncrease.tank img {
+    position: relative;
+    top: 45%;
+    left: 65%;
+    width: 150%;
+    height: 120%;
+}
+
 .galleryThumbnail.sashimono img {
     position: absolute;
     top: 50%;
