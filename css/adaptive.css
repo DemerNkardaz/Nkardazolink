@@ -1,13 +1,14 @@
 @media screen and (max-width: 700px) {
     .contentContainerBlock {
         flex-direction: column;
+        overflow: auto !important;
     }
 
     #personBlock {
         width: 100%;
         border-right: none;
         border-bottom: 5px solid var(--light_border);
-        min-height: 400px;
+        height: auto !important;
         margin-bottom: 20px;
     }
 }
