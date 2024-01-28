@@ -583,6 +583,7 @@ body {
 #miniFolioBlock {
     position: relative;
     margin-top: 25px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -616,6 +617,16 @@ body {
     justify-content: start;
     width: 100%;
     height: 100%;
+}
+
+.miniFolioMain .nav-link.active:hover,
+.miniFolioMain .nav-link:hover {
+    background: var(--color_gold_hover_light);
+}
+
+.miniFolioMain .nav-link.active:active,
+.miniFolioMain .nav-link:active {
+    background: var(--color_orange_gold);
 }
 
 .miniFolioMain .nav-link.active {
@@ -739,6 +750,16 @@ a.gallery-trigger {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.galleryThumbnail.sashimono img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 

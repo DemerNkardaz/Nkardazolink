@@ -8,7 +8,11 @@
         width: 100%;
         border-right: none;
         border-bottom: 5px solid var(--light_border);
-        min-height: 900px;
+        min-height: 950px;
         margin-bottom: 20px;
+    }
+
+    #selectedGalleryTitle {
+        font-size: 1.2em !important;
     }
 }
