@@ -59,6 +59,10 @@
     text-shadow: 1px 1px 3px #000000;
 }
 
+.material-icons {
+    user-select: none;
+}
+
 #progressEntityDummy {
     display: none;
 }
@@ -432,9 +436,6 @@ body {
 
 
 .listButton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
