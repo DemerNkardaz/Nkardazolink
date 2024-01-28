@@ -81,11 +81,17 @@ $(document).ready(function () {
     $item.gallery_trigger.on('click', function (e) {
         e.preventDefault();
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
-        var title = $(this).find($item.gallery_title).text();
-        $item.selectedGalleryPicture.attr('src', fullresUrl);
-        $item.selectedGalleryTitle.text(title);
-        $item.lightBoxContainer.show('slow');
-        $item.personLinksBlock.hide('slow');
+        var currentImage = $item.selectedGalleryPicture.attr('src');
+
+        if (fullresUrl !== currentImage) {
+            $item.selectedGalleryPicture.fadeOut('fast', function () {
+                $(this).attr('src', fullresUrl).fadeIn('fast');
+            });
+            var title = $(this).find($item.gallery_title).text();
+            $item.selectedGalleryTitle.text(title);
+            $item.lightBoxContainer.show('slow');
+            $item.personLinksBlock.hide('slow');
+        }
     });
 
     $item.lightBoxGalleryCloseBtn.on('click', function () {
@@ -122,5 +128,28 @@ $(document).ready(function () {
         $item.selectedPictureParent.toggleClass('zoomed');
     });
 
+    $item.galleryThumbnail.on('click', function () {
+        var $this = $(this);
+        $this.addClass('clicked');
+        $this.addClass('bright');
+        setTimeout(function () {
+            $this.removeClass('clicked');
+        }, 100);
+        setTimeout(function () {
+            $this.removeClass('bright');
+        }, 200);
+    });
+
+    $item.personAvatarImg.on('click', function () {
+        var $this = $(this);
+        $this.addClass('clicked');
+        $this.addClass('bright');
+        setTimeout(function () {
+            $this.removeClass('clicked');
+        }, 100);
+        setTimeout(function () {
+            $this.removeClass('bright');
+        }, 200);
+    });
 
 })

@@ -23,6 +23,7 @@ let selectedGalleryPicture;
 let selectedGalleryTitle;
 let gallery_trigger;
 let gallery_title;
+let galleryThumbnail;
 
 
 $(document).ready(function () {
@@ -51,6 +52,7 @@ $(document).ready(function () {
     selectedGalleryTitle = $('#selectedGalleryTitle');
     gallery_trigger = $('.gallery-trigger');
     gallery_title = $('.galleryTitle');
+    galleryThumbnail = $('.galleryThumbnail');
 
 });
 
@@ -79,5 +81,6 @@ export {
     selectedGalleryPicture,
     selectedGalleryTitle,
     gallery_trigger,
-    gallery_title
+    gallery_title,
+    galleryThumbnail
 };

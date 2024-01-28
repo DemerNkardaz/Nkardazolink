@@ -29,6 +29,7 @@
     --color_pale_gold_semi_light: #ffd228;
     --color_pale_gold: #E2B13C;
     --color_dirty_gold: #C29819;
+    --color_gold_selected: ##EBC824;
 
     --kamon_red: #dc4032;
     --kamon_red_shadow_dark: #70231c9a;
@@ -215,14 +216,27 @@ body {
 }
 
 #personAvatarImg {
+    position: relative;
+    display: flex;
     width: 100%;
     height: 100%;
-    background: url(../resources/cherepkhed32.png);
     transition: all 0.3s ease;
     background-size: 130%;
     background-repeat: no-repeat;
     background-position: center 50%;
     border-radius: 50%;
+    overflow: hidden;
+}
+
+#personAvatarImg img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: inherit;
+    left: 0;
+    top: 0;
+    object-fit: cover;
 }
 
 .personInfo {
@@ -557,9 +571,100 @@ body {
     text-align: center;
 }
 
+
+#miniFolioBlock {
+    position: relative;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 350px;
+    height: 400px;
+    background: var(--background_light_person_block);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    z-index: 0;
+    overflow: hidden;
+}
+
+#miniFolioBlock::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: inset 0 4px 6px var(--shadow_inset_info);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.miniFolioMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+}
+
+.miniFolioMain .nav-link.active {
+    background: var(--color_gold_hover);
+}
+
+.miniFolioMain .nav-tabs {
+    box-shadow: 0 3px 5px var(--shadow_primary);
+}
+
+.miniFolioMain .nav-item {
+    flex-grow: 1;
+    height: 100%;
+}
+
+.miniFolioMain .nav-item .nav-link {
+    height: 100%;
+}
+
+.miniFolioMain .nav-tabs,
+.miniFolioMain .tab-content {
+    width: 100%;
+}
+
+.miniFolioMain .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.miniFolioMain .nav-link,
+.miniFolioMain .nav-link.active {
+    border: none;
+    border-radius: 0;
+
+}
+
+.miniFolioMain .tab-content {
+    padding: 10px 15px 10px 15px;
+}
+
+.galleryGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    height: 100%;
+}
+
+a.gallery-trigger {
+    text-decoration: none;
+}
+
 .galleryTitle {
     display: none;
 }
+
 
 #lightBoxGalleryCloseBtn {
     display: flex;
@@ -573,7 +678,6 @@ body {
     right: 20px;
     width: 32px;
     height: 32px;
-    font-size: 28px;
     transition: all 0.3s ease;
     user-select: none;
     cursor: pointer;
@@ -584,4 +688,46 @@ body {
     background: var(--color_dark_gold);
     color: var(--color_gold_hover);
     text-shadow: 0 1px 2px var(--shadow_half);
+}
+
+.galleryThumbnail {
+    width: 70px;
+    height: 70px;
+    padding: 5px;
+    border-radius: 10px;
+    background: var(--background_light_person_block);
+    box-shadow: 0 3px 5px var(--shadow_half);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.galleryThumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.galleryThumbnail:hover {
+    transform: scale(1.05);
+}
+
+.galleryThumbnail.clicked {
+    transform: scale(1);
+}
+
+.galleryThumbnail.bright {
+    filter: brightness(110%);
+}
+
+#personAvatarImg:hover>img {
+    transform: scale(1.15);
+}
+
+#personAvatarImg.clicked>img {
+    transform: scale(1);
+}
+
+#personAvatarImg.bright>img {
+    filter: brightness(110%);
 }

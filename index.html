@@ -32,7 +32,12 @@
                         <div id="personBannerImg"></div>
                     </div>
                     <div id="personAvatar">
-                        <div id="personAvatarImg"></div>
+
+                        <a id="personAvatarImg" href="#" class="gallery-trigger avatarThumbnail" data-fullres="resources/cherepkhed32.png" data-src="resources/cherepkhed32.png">
+                            <img src="resources/cherepkhed32.png" alt="All Elements" width="74">
+                            <h1 class="galleryTitle">Личный ОС-Фурсона — Хертахирон</h1>
+                        </a>
+
                     </div>
                     <span class="personFlex">
                         <span class="personFlexButton">
@@ -175,19 +180,106 @@
                         <div class="personDescription">
                             <span>Писатель в жанре фэнтези, автор вселенной «Царства Шагора», Hard-Surface моделлер, художник и верстальщик.</span>
                         </div>
-                        <div class="personInfo">
-                            <span>Ориентирован на тему Востока</span>
-                        </div>
 
                         <div id="miniFolioBlock">
-                            <a href="#" class="gallery-trigger" data-fullres="resources/png/magic/all_elements.png" data-src="resources/png/magic/lunna_03_fire_02.png">
-                                <img src="resources/png/magic/lunna_03_fire_02.png" alt="All Elements" width="74">
-                                <h1 class="galleryTitle">Сеты иконок магических стихий и чакр (справа)</h1>
-                            </a>
-                            <a href="#" class="gallery-trigger" data-fullres="resources/png/japan/sashimono_of_deidara_clan_set.png" data-src="resources/png/japan/kamon_of_deidara_clan.png">
-                                <img src="resources/png/japan/kamon_of_deidara_clan.png" width="74">
-                                <h1 class="galleryTitle">Камон и сасимоно рода Дэидара【「出居田荒氏」家紋と指物の旗】</h1>
-                            </a>
+                            <div class="miniFolioMain">
+
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <span
+                                            class="nav-link active"
+                                            id="artwork-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#artwork"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="artwork"
+                                            aria-selected="true">
+                                            <img src="resources/svg/icos/art.svg" width="28">
+                                        </span>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <span
+                                            class="nav-link"
+                                            id="modeling-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#modeling"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="modeling"
+                                            aria-selected="false">
+                                            <img src="resources/svg/icos/3d.svg" width="28">
+                                        </span>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <span
+                                            class="nav-link"
+                                            id="layout-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#layout"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="layout"
+                                            aria-selected="false">
+                                            <img src="resources/svg/icos/book.svg" width="28">
+                                        </span>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <span
+                                            class="nav-link"
+                                            id="git-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#git"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="git"
+                                            aria-selected="false">
+                                            <img src="resources/svg/icos/github.svg" width="24">
+                                        </span>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <span
+                                            class="nav-link"
+                                            id="mods-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#mods"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="layout"
+                                            aria-selected="false">
+                                            <img src="resources/svg/icos/mods.svg" width="24">
+                                        </span>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="artwork" role="tabpanel" aria-labelledby="artwork-tab">
+
+                                        <div class="galleryGrid">
+
+                                            <a href="#" class="gallery-trigger galleryThumbnail" data-fullres="resources/png/japan/sashimono_of_deidara_clan_set.png" data-src="resources/png/japan/kamon_of_deidara_clan.png">
+                                                <img src="resources/png/japan/kamon_of_deidara_clan.png" width="74">
+                                                <h1 class="galleryTitle">Камон и сасимоно рода Дэидара【「出居田荒氏」家紋と指物の旗】</h1>
+                                            </a>
+
+                                            <a href="#" class="gallery-trigger galleryThumbnail" data-fullres="resources/png/magic/all_elements.png" data-src="resources/png/magic/lunna_03_fire_02.png">
+                                                <img src="resources/png/magic/lunna_03_fire_02.png" alt="All Elements" width="74">
+                                                <h1 class="galleryTitle">Сеты иконок магических стихий и чакр (справа)</h1>
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane" id="modeling" role="tabpanel" aria-labelledby="modeling-tab">
+                                        profile
+                                    </div>
+                                    <div class="tab-pane" id="layout" role="tabpanel" aria-labelledby="layout-tab">
+                                        messages
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
 
                         <div class="personKamon">
