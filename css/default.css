@@ -548,6 +548,7 @@ body {
     border-radius: 15px;
     background: var(--background_light_person_block);
     display: flex;
+    flex-direction: column;
     padding: 15px;
     box-shadow: 0 3px 5px var(--shadow_primary);
     justify-content: center;
@@ -782,4 +783,21 @@ a.gallery-trigger {
 
 #selectedPictureControls span:hover {
     color: var(--color_orange_gold)
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: var(--color_pale_gold_semi_light);
+    padding: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar:before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 0;
+    background-color: #4CAF50;
 }

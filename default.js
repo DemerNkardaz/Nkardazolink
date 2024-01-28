@@ -80,13 +80,33 @@ $(document).ready(function () {
 
     $item.gallery_trigger.on('click', function (e) {
         e.preventDefault();
+        $item.selectedPictureParent.find('.progress-bar').remove();
+        var progressBar = $('<div class="progress-bar"></div>');
+
+
+
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
         var currentImage = $item.selectedGalleryPicture.attr('src');
 
         if (fullresUrl !== currentImage) {
+            $item.selectedPictureParent.append(progressBar);
+            $item.selectedGalleryPicture.removeAttr('src');
+
+            progressBar.width('0%').animate({ width: '100%' }, {
+                duration: 1000,
+                step: function (now, fx) {
+                    progressBar.text(Math.round(now) + '%');
+                },
+                complete: function () {
+                    progressBar.fadeOut('fast', function () {
+                        $(this).remove();
+                    });
+                }
+            });
             $item.selectedGalleryPicture.fadeOut('fast', function () {
                 $(this).attr('src', fullresUrl).fadeIn('fast');
             });
+
             var title = $(this).find($item.gallery_title).text();
             $item.selectedGalleryTitle.text(title);
         }
@@ -96,6 +116,7 @@ $(document).ready(function () {
             $item.personLinksBlock.hide('slow');
         }
     });
+
 
     $item.lightBoxGalleryCloseBtn.on('click', function () {
         $item.lightBoxContainer.hide('slow');

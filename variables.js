@@ -28,6 +28,7 @@ let selectedPictureDownload;
 let selectedPictureFullscreen;
 let selectedPictureBlankPage;
 
+
 $(document).ready(function () {
     personFlex = $('.personFlex');
     personFlexButton = $('.personFlexButton');
