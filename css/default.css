@@ -1,15 +1,43 @@
 :root {
     --shadow_primary: #22222210;
+    --shadow_secondary: #22222286;
+    --shadow_half: #22222264;
+    --shadow_inset_info: #22222229;
+
     --text_primary: #333;
+    --text_lightgrey: #d5d5d5;
+    --text_light: #eee;
+    --text_very_light: #fefefefe;
+
+    --text_options: #ededed;
+
     --background_light_main: #FFFFFFB3;
     --background_light_person_block: #FFFFFF80;
+    --button_light: #ffffff48;
     --light_border: #ebedf0;
+    --grey_border: #b3b3b3;
+    --border_grey_entity: 1px solid var(--grey_border);
 
     --banner_gradient: linear-gradient(45deg, #c29819, #f0b607);
     --avatar_background_gradient: linear-gradient(193deg, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 24%, rgba(255, 255, 255, 1) 69%, rgba(238, 238, 238, 1) 90%, rgba(254, 254, 254, 1) 100%);
+
+    --color_dark_gold: #E1AA4B;
+    --color_orange_gold: #E08A1E;
+    --color_gold_hover: #FEDB1D;
+    --color_gold_hover_prelight: #FFE727;
+    --color_gold_hover_light: #FFF527;
+    --color_pale_gold: #E2B13C;
+    --color_dirty_gold: #C29819;
 }
 
 * {}
+
+*::selection {
+    background-color: var(--color_dark_gold);
+    color: var(--text_very_light);
+    text-shadow: 1px 1px 3px #000000;
+}
+
 
 body {
     display: flex;
@@ -20,8 +48,14 @@ body {
     left: 0;
     position: relative;
     height: 100vh;
+    font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
     color: var(--text_primary);
 }
+
+.headerDefault {
+    font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+}
+
 
 #siteBackdrop {
     position: fixed;
@@ -71,6 +105,9 @@ body {
 
 
 #personBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     width: 384px;
     background-color: var(--background_light_person_block);
@@ -78,6 +115,11 @@ body {
     box-shadow: 5px 0 10px var(--shadow_primary);
 }
 
+#personName {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0;
+}
 
 #personBanner {
     background: var(--light_border);
@@ -126,4 +168,127 @@ body {
     background-repeat: no-repeat;
     background-position: center 50%;
     border-radius: 50%;
+}
+
+.personInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0 2px 0;
+    border-radius: 0 0 10px 10px;
+    min-width: 200px;
+    background: var(--button_light);
+    box-shadow: 0 3px 5px var(--shadow_primary);
+}
+
+.personInfo span {
+    display: flex;
+    align-items: inherit;
+    justify-content: inherit;
+    text-align: center;
+    min-width: 32px;
+    padding: 0 10px 0 10px;
+}
+
+.personInfo span:not(:first-of-type):not(:last-of-type) {
+    border-left: var(--border_grey_entity);
+    border-right: var(--border_grey_entity);
+}
+
+.emoji {
+    font-size: 2em;
+}
+
+.emojiShadow {
+    text-shadow: 0 1px 1px var(--shadow_secondary);
+}
+
+
+.personFlex {
+    display: flex;
+    margin-top: 75px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 350px;
+}
+
+.personFlex .personFlexButton:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.personFlex .personFlexButton:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.personPlate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    background: var(--button_light);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    z-index: 1;
+}
+
+.personFlexButton {
+    position: relative;
+    width: 36px;
+    height: 100%;
+    margin-left: 3px;
+    margin-right: 3px;
+    background: var(--button_light);
+    border-radius: 8px;
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    transform-origin: center center;
+    z-index: 1;
+}
+
+.personFlexButton:hover {
+    background: var(--color_dark_gold);
+    box-shadow: 0 3px 5px var(--shadow_primary), inset 0 0 5px var(--shadow_half);
+}
+
+.personFlexButton>.material-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: var(--text_options);
+    transition: inherit;
+    transform-origin: center center;
+    text-shadow: 0 1px 2px var(--shadow_half);
+}
+
+.personFlexButton>.material-icons:hover {
+    color: var(--color_gold_hover);
+    transform: translate(-12px, -12px) rotate(-180deg);
+    text-shadow: 0 -1px 2px var(--shadow_half);
+}
+
+
+.blockumInformatorum {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 0px;
+    border-radius: 15px;
+    margin-top: 25px;
+    background: var(--button_light);
+    box-shadow: inset 0 4px 6px var(--shadow_inset_info);
+    transition: all 1s ease;
+    overflow: auto;
+    z-index: 1;
+}
+
+.blockumInformatorum.active {
+    height: 600px;
 }
