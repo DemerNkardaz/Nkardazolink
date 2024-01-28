@@ -155,6 +155,15 @@ $(document).ready(function () {
         }, 200);
     });
 
+    $item.personBannerImg.on('click', function () {
+        var $this = $(this);
+        $this.addClass('clicked');
+        setTimeout(function () {
+            $this.removeClass('clicked');
+        }, 200);
+    });
+
+
 
 
     $item.selectedPictureDownload.on('click', function () {
