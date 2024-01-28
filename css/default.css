@@ -30,6 +30,9 @@
     --color_pale_gold: #E2B13C;
     --color_dirty_gold: #C29819;
 
+    --kamon_red: #dc4032;
+    --kamon_red_shadow_dark: #70231c9a;
+    --kamon_red_shadow_light: #ffada5;
 
     --water_element_gradient: linear-gradient(to top, #4575b5, #7db9e8, #b6e2ff);
     --metal_element_gradient: linear-gradient(to top, #9b9b9b, #e4e4e4, #e8e8e8);
@@ -341,8 +344,6 @@ body {
     width: 350px;
     height: 0px;
     border-radius: 15px;
-    margin-top: 25px;
-    margin-bottom: 25px;
     background: var(--button_light);
     box-shadow: inset 0 4px 6px var(--shadow_inset_info);
     transition: all 1s ease;
@@ -352,6 +353,8 @@ body {
 
 .blockumInformatorum.active {
     height: 95%;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .blockumInformatorum #moreInfoBlock,
@@ -419,4 +422,154 @@ body {
 .listButton:hover {
     cursor: pointer;
     transform: scale(1.05);
+}
+
+
+.personDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 350px;
+    background: var(--background_light_person_block);
+    transition: all 0.3s ease;
+    padding: 10px 0 10px 0;
+    border-radius: 15px;
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    margin-top: 25px;
+
+}
+
+#personInformationBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-bottom: 15px;
+}
+
+#personInformationBlock .personInfo {
+    width: 250px;
+    font-size: 0.9em;
+}
+
+
+.personKamon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.personKamonParent {
+    background: var(--kamon_red);
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: inset 0 2px 4px var(--kamon_red_shadow_light), inset 0 -2px 4px var(--kamon_red_shadow_dark), 0 2px 3px var(--shadow_half);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.personKamonParent:hover {
+    filter: brightness(110%);
+}
+
+#linkBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+#lightBoxContainer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--background_light_person_block);
+    overflow: hidden;
+    z-index: 1;
+}
+
+#selectedPictureContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 85%;
+    max-height: 50%;
+    margin: auto;
+}
+
+#selectedPictureParent {
+    max-width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: var(--background_light_person_block);
+    object-fit: contain;
+    padding: 15px;
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+#selectedGalleryPicture {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+#selectedPictureParent.zoomed {
+    cursor: zoom-out;
+}
+
+#selectedGalleryTitle {
+    background: var(--background_light_person_block);
+    padding: 15px;
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    padding: 5px 15px 5px 15px;
+    border-radius: 15px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.galleryTitle {
+    display: none;
+}
+
+#lightBoxGalleryCloseBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background: var(--background_light_person_block);
+    box-shadow: 0 3px 5px var(--shadow_inset_info);
+    border-radius: 10px;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    font-size: 28px;
+    transition: all 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+}
+
+#lightBoxGalleryCloseBtn:hover {
+    background: var(--color_dark_gold);
+    color: var(--color_gold_hover);
+    text-shadow: 0 1px 2px var(--shadow_half);
 }

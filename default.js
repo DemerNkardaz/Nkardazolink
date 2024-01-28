@@ -39,17 +39,20 @@ $(document).ready(function () {
 
     $item.moreInfoBlock.hide();
     $item.settingsBlock.hide();
+    $item.personInformationBlock.show();
 
     $item.settingsOpt.parent().on('click', function () {
         $item.blockumInformatorum.toggleClass('opens-settings');
         $item.moreInfoBlock.hide();
         $item.settingsBlock.show('slow');
+        $item.personInformationBlock.hide('slow');
 
         if (!$item.blockumInformatorum.hasClass('active')) {
             $item.blockumInformatorum.addClass('active');
         } else if (!$item.blockumInformatorum.hasClass('opens-moreInfo')) {
             $item.blockumInformatorum.removeClass('active');
             $item.settingsBlock.hide('slow');
+            $item.personInformationBlock.show('slow');
         }
         $item.blockumInformatorum.removeClass('opens-moreInfo');
     });
@@ -58,17 +61,56 @@ $(document).ready(function () {
         $item.blockumInformatorum.toggleClass('opens-moreInfo');
         $item.settingsBlock.hide();
         $item.moreInfoBlock.show('slow');
+        $item.personInformationBlock.hide('slow');
 
         if (!$item.blockumInformatorum.hasClass('active')) {
             $item.blockumInformatorum.addClass('active');
         } else if (!$item.blockumInformatorum.hasClass('opens-settings')) {
             $item.blockumInformatorum.removeClass('active');
             $item.moreInfoBlock.hide('slow');
+            $item.personInformationBlock.show('slow');
         }
 
         $item.blockumInformatorum.removeClass('opens-settings');
     });
 
+
+    $item.gallery_trigger.on('click', function (e) {
+        e.preventDefault();
+        var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
+        var title = $(this).find($item.gallery_title).text();
+        $item.selectedGalleryPicture.attr('src', fullresUrl);
+        $item.selectedGalleryTitle.text(title);
+    });
+
+    var lastZoomX;
+    var lastZoomY;
+    $item.selectedPictureParent.on('click', function (e) {
+        var $selectedGalleryPicture = $item.selectedGalleryPicture;
+        var mouseX = e.pageX - $(this).offset().left;
+        var mouseY = e.pageY - $(this).offset().top;
+
+        var zoomFactor = 3;
+        var originX = (mouseX / $(this).width()) * 100 + '%';
+        var originY = (mouseY / $(this).height()) * 100 + '%';
+
+
+
+        if ($item.selectedPictureParent.hasClass('zoomed')) {
+            $selectedGalleryPicture.css({
+                'transform': 'none',
+                'transform-origin': lastZoomX + ' ' + lastZoomY
+            });
+        } else {
+            $selectedGalleryPicture.css({
+                'transform': 'scale(' + zoomFactor + ')',
+                'transform-origin': originX + ' ' + originY
+            });
+            lastZoomX = originX;
+            lastZoomY = originY;
+        }
+        $item.selectedPictureParent.toggleClass('zoomed');
+    });
 
 
 })

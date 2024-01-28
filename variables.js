@@ -14,6 +14,16 @@ let moreInfoOpt;
 let blockumInformatorum;
 let moreInfoBlock;
 let settingsBlock;
+let personInformationBlock;
+let personLinksBlock;
+let lightBoxContainer;
+let lightBoxGalleryCloseBtn;
+let selectedPictureParent;
+let selectedGalleryPicture;
+let selectedGalleryTitle;
+let gallery_trigger;
+let gallery_title;
+
 
 $(document).ready(function () {
     personFlex = $('.personFlex');
@@ -32,6 +42,15 @@ $(document).ready(function () {
     blockumInformatorum = $('.blockumInformatorum');
     moreInfoBlock = $('#moreInfoBlock');
     settingsBlock = $('#settingsBlock');
+    personInformationBlock = $('#personInformationBlock');
+    personLinksBlock = $('#personLinksBlock');
+    lightBoxContainer = $('#lightBoxContainer');
+    lightBoxGalleryCloseBtn = $('#lightBoxGalleryCloseBtn');
+    selectedPictureParent = $('#selectedPictureParent');
+    selectedGalleryPicture = $('#selectedGalleryPicture');
+    selectedGalleryTitle = $('#selectedGalleryTitle');
+    gallery_trigger = $('.gallery-trigger');
+    gallery_title = $('.galleryTitle');
 
 });
 
@@ -51,5 +70,14 @@ export {
     moreInfoOpt,
     blockumInformatorum,
     moreInfoBlock,
-    settingsBlock
+    settingsBlock,
+    personInformationBlock,
+    personLinksBlock,
+    lightBoxContainer,
+    lightBoxGalleryCloseBtn,
+    selectedPictureParent,
+    selectedGalleryPicture,
+    selectedGalleryTitle,
+    gallery_trigger,
+    gallery_title
 };
