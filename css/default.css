@@ -136,6 +136,7 @@ body {
 #personBanner {
     background: var(--light_border);
     border: 5px solid var(--light_border);
+    margin-bottom: 75px;
     border-radius: 0 0 15px 15px;
     transition: all 0.3s ease;
     width: inherit;
@@ -220,7 +221,6 @@ body {
 
 .personFlex {
     display: flex;
-    margin-top: 75px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -304,7 +304,7 @@ body {
 }
 
 .blockumInformatorum.active {
-    height: 600px;
+    height: 95%;
 }
 
 .blockumInformatorum #moreInfoBlock,
