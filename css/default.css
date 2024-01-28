@@ -148,7 +148,7 @@ body {
     background-position: center 50%;
     border-radius: 15px;
     transition: inherit;
-    height: inherit;
+    height: 100%;
 }
 
 #personBanner:hover,
