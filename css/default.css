@@ -292,3 +292,12 @@ body {
 .blockumInformatorum.active {
     height: 600px;
 }
+
+.blockumInformatorum #moreInfoBlock,
+.blockumInformatorum #settingsBlock {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}

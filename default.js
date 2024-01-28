@@ -37,28 +37,36 @@ $(document).ready(function () {
         }
     })
 
+    $item.moreInfoBlock.hide();
+    $item.settingsBlock.hide();
+
     $item.settingsOpt.parent().on('click', function () {
         $item.blockumInformatorum.toggleClass('opens-settings');
+        $item.moreInfoBlock.hide();
+        $item.settingsBlock.show('slow');
+
         if (!$item.blockumInformatorum.hasClass('active')) {
             $item.blockumInformatorum.addClass('active');
         } else if (!$item.blockumInformatorum.hasClass('opens-moreInfo')) {
             $item.blockumInformatorum.removeClass('active');
         }
         $item.blockumInformatorum.removeClass('opens-moreInfo');
-
     });
-
 
     $item.moreInfoOpt.parent().on('click', function () {
         $item.blockumInformatorum.toggleClass('opens-moreInfo');
+        $item.settingsBlock.hide();
+        $item.moreInfoBlock.show('slow');
+
         if (!$item.blockumInformatorum.hasClass('active')) {
             $item.blockumInformatorum.addClass('active');
         } else if (!$item.blockumInformatorum.hasClass('opens-settings')) {
             $item.blockumInformatorum.removeClass('active');
         }
-        $item.blockumInformatorum.removeClass('opens-settings');
 
+        $item.blockumInformatorum.removeClass('opens-settings');
     });
+
 
 
 })
