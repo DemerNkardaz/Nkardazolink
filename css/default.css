@@ -24,13 +24,25 @@
     --color_dark_gold: #E1AA4B;
     --color_orange_gold: #E08A1E;
     --color_gold_hover: #FEDB1D;
-    --color_gold_hover_prelight: #FFE727;
+    --color_gold_hover_pre_light: #FFE727;
     --color_gold_hover_light: #FFF527;
+    --color_pale_gold_semi_light: #ffd228;
     --color_pale_gold: #E2B13C;
     --color_dirty_gold: #C29819;
 }
 
-* {}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
+    }
+}
 
 *::selection {
     background-color: var(--color_dark_gold);
@@ -285,7 +297,7 @@ body {
     background: var(--button_light);
     box-shadow: inset 0 4px 6px var(--shadow_inset_info);
     transition: all 1s ease;
-    overflow: auto;
+    overflow: hidden;
     z-index: 1;
 }
 
@@ -297,7 +309,60 @@ body {
 .blockumInformatorum #settingsBlock {
     position: absolute;
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    padding: 10px;
+    padding: 15px;
+    overflow: auto;
+}
+
+.blockumInformatorum *>div {
+    width: 100%;
+}
+
+.constellationBlockParent {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.constellationBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.25em;
+    width: 100%;
+}
+
+
+.infoBlockTitle {
+    font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    font-size: 1em;
+}
+
+
+
+.listButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    background: var(--background_light_main);
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    border-radius: 15px;
+}
+
+.listButton:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }

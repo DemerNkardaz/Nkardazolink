@@ -49,6 +49,7 @@ $(document).ready(function () {
             $item.blockumInformatorum.addClass('active');
         } else if (!$item.blockumInformatorum.hasClass('opens-moreInfo')) {
             $item.blockumInformatorum.removeClass('active');
+            $item.settingsBlock.hide('slow');
         }
         $item.blockumInformatorum.removeClass('opens-moreInfo');
     });
@@ -62,6 +63,7 @@ $(document).ready(function () {
             $item.blockumInformatorum.addClass('active');
         } else if (!$item.blockumInformatorum.hasClass('opens-settings')) {
             $item.blockumInformatorum.removeClass('active');
+            $item.moreInfoBlock.hide('slow');
         }
 
         $item.blockumInformatorum.removeClass('opens-settings');
