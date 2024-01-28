@@ -83,8 +83,6 @@ $(document).ready(function () {
         $item.selectedPictureParent.find('.progress-bar').remove();
         var progressBar = $('<div class="progress-bar"></div>');
 
-
-
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
         var currentImage = $item.selectedGalleryPicture.attr('src');
 
@@ -92,17 +90,23 @@ $(document).ready(function () {
             $item.selectedPictureParent.append(progressBar);
             $item.selectedGalleryPicture.removeAttr('src');
 
-            progressBar.width('0%').animate({ width: '100%' }, {
-                duration: 1000,
-                step: function (now, fx) {
-                    progressBar.text(Math.round(now) + '%');
-                },
-                complete: function () {
-                    progressBar.fadeOut('fast', function () {
-                        $(this).remove();
-                    });
+            var img = new Image();
+            img.onload = function () {
+                // Изображение полностью загружено
+                progressBar.fadeOut('fast', function () {
+                    $(this).remove();
+                });
+            };
+
+            img.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    var percent = (e.loaded / e.total) * 100;
+                    progressBar.width(percent + '%').text(Math.round(percent) + '%');
                 }
-            });
+            };
+
+            img.src = fullresUrl;
+
             $item.selectedGalleryPicture.fadeOut('fast', function () {
                 $(this).attr('src', fullresUrl).fadeIn('fast');
             });
@@ -116,6 +120,7 @@ $(document).ready(function () {
             $item.personLinksBlock.hide('slow');
         }
     });
+
 
 
     $item.lightBoxGalleryCloseBtn.on('click', function () {
