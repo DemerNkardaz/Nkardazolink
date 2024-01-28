@@ -39,7 +39,9 @@ $(document).ready(function () {
 
     $item.moreInfoBlock.hide();
     $item.settingsBlock.hide();
+    $item.lightBoxContainer.hide();
     $item.personInformationBlock.show();
+    $item.personLinksBlock.show();
 
     $item.settingsOpt.parent().on('click', function () {
         $item.blockumInformatorum.toggleClass('opens-settings');
@@ -75,13 +77,21 @@ $(document).ready(function () {
     });
 
 
+
     $item.gallery_trigger.on('click', function (e) {
         e.preventDefault();
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
         var title = $(this).find($item.gallery_title).text();
         $item.selectedGalleryPicture.attr('src', fullresUrl);
         $item.selectedGalleryTitle.text(title);
+        $item.lightBoxContainer.show('slow');
+        $item.personLinksBlock.hide('slow');
     });
+
+    $item.lightBoxGalleryCloseBtn.on('click', function () {
+        $item.lightBoxContainer.hide('slow');
+        $item.personLinksBlock.show('slow');
+    })
 
     var lastZoomX;
     var lastZoomY;
