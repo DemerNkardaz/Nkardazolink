@@ -89,6 +89,9 @@ $(document).ready(function () {
             });
             var title = $(this).find($item.gallery_title).text();
             $item.selectedGalleryTitle.text(title);
+        }
+
+        if (!$item.lightBoxContainer.is(':visible')) {
             $item.lightBoxContainer.show('slow');
             $item.personLinksBlock.hide('slow');
         }
