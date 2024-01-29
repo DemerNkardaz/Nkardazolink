@@ -32,6 +32,10 @@ $(document).ready(function () {
         var bgPos = $(this).data('bg-pos');
         var arrBlend = $(this).data('arrow-blend');
         var avatar = $(this).data('avatar');
+        var avatar_tooltip = $(this).data('avatar-tooltip');
+        var avatar_tooltip_pos = $(this).data('avatar-tooltip-pos');
+        var avatar_tooltip_title = $(this).data('avatar-tooltip-title');
+        var avatar_tooltip_key = $(this).data('avatar-tooltip-title-key');
         var title = $(this).data('title');
         var titleKey = $(this).data('title-key');
         var types = $(this).data('types');
@@ -45,7 +49,13 @@ $(document).ready(function () {
         $(this).css('--arrow-blend', arrBlend || 'color-burn');
 
         if (avatar) {
-            $(this).append('<img class="linkAvatarImage" src="' + avatar + '">');
+            var tooltip = avatar_tooltip ? 'data-bs-toggle="' + avatar_tooltip + '"' : '';
+            var tooltipPos = avatar_tooltip_pos ? 'data-bs-placement="' + avatar_tooltip_pos + '"' : '';
+            var tooltipTitle = avatar_tooltip_title ? 'title="' + avatar_tooltip_title + '"' : '';
+            var tooltipTitleKey = avatar_tooltip_key ? 'data-key="' + avatar_tooltip_key + '"' : '';
+
+            $(this).append('<img class="linkAvatarImage" src="' + avatar + '" ' + tooltip + ' ' + tooltipPos + ' ' + tooltipTitle + ' ' + tooltipTitleKey + '>');
+
         }
         if (title) {
             var titleKeyCheck = titleKey ? 'data-key="' + titleKey + '"' : '';
@@ -53,9 +63,9 @@ $(document).ready(function () {
         }
         if (types) {
             var svgIcons = {
-                artwork: 'resources/svg/icos/art.svg',
+                artwork: 'resources/svg/icos/art_alt.svg',
                 modeling: 'resources/svg/icos/3d.svg',
-                layout: 'resources/svg/icos/book.svg',
+                layout: 'resources/svg/icos/book_alt.svg',
                 github: 'resources/svg/icos/github.svg',
                 writing: 'resources/svg/icos/scorpio_pen.svg',
                 mods: 'resources/svg/icos/mods.svg'
@@ -77,6 +87,10 @@ $(document).ready(function () {
                 $(this).find('.linkSiteParent').css('--pos-right', positions[1] || '5px');
             }
         }
+        $item.linkBlock.each(function () {
+            var $this = $(this);
+            $this.find('img[data-bs-toggle="tooltip"]').tooltip({ container: $this });
+        })
 
     });
     $item.linkBlock.on({
@@ -89,6 +103,19 @@ $(document).ready(function () {
             $(this).find('.linkType').removeClass('active');
         }
     });
+
+    $('.scrollControls [data-scroll]').on('click', function () {
+        var scrollDirection = $(this).data('scroll');
+        var linksSet = $(this).closest('.scrollControlsParent').next('.linksSet');
+
+        if (scrollDirection === 'up') {
+            linksSet.animate({ scrollTop: '-=168.5px' }, 'fast');
+        } else if (scrollDirection === 'down') {
+            linksSet.animate({ scrollTop: '+=168.5px' }, 'fast');
+        }
+    });
+
+
 
 
     $item.personFlexButton.on({
