@@ -65,7 +65,7 @@ $(document).ready(function () {
             var tooltipTitle = avatar_tooltip_title ? 'title="' + avatar_tooltip_title + '"' : '';
             var tooltipTitleKey = avatar_tooltip_key ? 'data-key="' + avatar_tooltip_key + '"' : '';
 
-            $(this).append('<img class="linkAvatarImage" src="' + avatar + '" ' + tooltip + ' ' + tooltipPos + ' ' + tooltipTitle + ' ' + tooltipTitleKey + '>');
+            $(this).append('<img loading="eager" class="linkAvatarImage" src="' + avatar + '" ' + tooltip + ' ' + tooltipPos + ' ' + tooltipTitle + ' ' + tooltipTitleKey + '>');
 
         }
         if (title) {
@@ -86,7 +86,7 @@ $(document).ready(function () {
             var typesArray = types.split(', ');
             typesArray.forEach(type => {
                 if (svgIcons[type]) {
-                    $(this).find('.linkTypes').append('<span class="linkType"><img src="' + svgIcons[type] + '" width="20px"></span>');
+                    $(this).find('.linkTypes').append('<span class="linkType"><img src="' + svgIcons[type] + '" width="20px" loading="eager"></span>');
                 }
             });
         }
