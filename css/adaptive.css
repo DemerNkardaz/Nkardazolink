@@ -16,3 +16,21 @@
         font-size: 1.2em !important;
     }
 }
+
+@media screen and (min-height: 2000px) {
+    #rootContainer {
+        height: 2000px;
+        max-height: 2000px;
+        border-radius: 10px;
+        align-self: center;
+        overflow: hidden;
+        width: 1925px;
+        box-shadow: 0 3px 5px var(--shadow_secondary);
+    }
+
+    #personBlock {
+        border-left: 5px solid var(--light_border);
+        width: 389px;
+    }
+
+}
