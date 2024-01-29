@@ -92,7 +92,7 @@ $(document).ready(function () {
         var currentYt = $item.selectedYouTubeVideo.attr('src');
         var currentImage = $item.selectedGalleryPicture.attr('src');
 
-        $item.selectedYouTubeVideo.hide('slow');
+        $item.selectedYouTubeVideo.hide();
         $item.selectedYouTubeVideo.removeAttr('src');
         if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
 
@@ -257,10 +257,10 @@ $(document).ready(function () {
         }
 
         if (!$item.selectedYouTubeVideo.is(':visible')) {
-            $item.selectedGalleryPicture.hide('slow');
+            $item.selectedGalleryPicture.hide();
             $item.selectedYouTubeVideo.show('slow');
         } else {
-            $item.selectedYouTubeVideo.hide('slow');
+            $item.selectedYouTubeVideo.hide();
             $item.selectedYouTubeVideo.removeAttr('src');
             if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
             $item.selectedGalleryPicture.show('slow');
