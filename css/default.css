@@ -460,8 +460,8 @@ body {
     font-size: 32px;
     transition: all 0.15s ease;
     color: #eff6fc;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: var(--shadow_secondary);
+    text-shadow: 0 1px 2px var(--shadow_half);
+    filter: drop-shadow(0 0px 1px var(--shadow_half));
     cursor: pointer;
 }
 
