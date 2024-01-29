@@ -17,15 +17,10 @@
     }
 }
 
-@media screen and (min-height: 2000px) {
+
+@media screen and (min-height: 1925px) {
     #rootContainer {
-        height: 2000px;
-        max-height: 2000px;
         border-radius: 10px;
-        align-self: center;
-        overflow: hidden;
-        width: 1925px;
-        box-shadow: 0 3px 5px var(--shadow_secondary);
     }
 
     #personBlock {

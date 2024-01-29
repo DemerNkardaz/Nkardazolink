@@ -150,8 +150,22 @@ body {
 #rootContainer {
     position: relative;
     display: flex;
-    width: 1920px;
-    height: 100vh;
+    width: clamp(1920px, 1925px, 1925px);
+    height: clamp(950px, 100vh, 1925px);
+    overflow: hidden;
+    align-self: center;
+    box-shadow: 0 3px 5px var(--shadow_secondary);
+}
+
+#personLinksBlock {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
 }
 
 #siteBackdropInverter {
