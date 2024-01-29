@@ -1,0 +1,6 @@
+#personBannerImg.black_clover {
+    background: url('https://i.imgur.com/gKTwCKZ.jpeg');
+    background-size: 100%;
+    background-position: center 50%;
+    transition: inherit;
+}
