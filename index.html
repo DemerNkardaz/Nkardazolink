@@ -436,15 +436,57 @@
                                     </div>
 
                                     <div class="tab-pane" id="git" role="tabpanel" aria-labelledby="layout-tab">
-                                        <div class="galleryGrid">
-                                            git
+
+                                        <div class="galleryGrid vertical">
+
+                                            <div class="verticalGalleryBlock">
+                                                <a href="#" class="gallery-trigger galleryThumbnail sizeIncrease" data-fullres="resources/gif/mechanicodeus.gif" data-src="resources/png/mechanicodeus_thumb.png">
+                                                    <img src="resources/png/mechanicodeus_thumb.png" width="74">
+                                                    <h1 class="galleryTitle">МеханиКодеус</h1>
+                                                </a>
+                                                <div class="vertGallDesc">
+                                                    <a href="https://demernkardaz.github.io/MechaniCodeus/" target="_blank">
+                                                        <h5>МеханиКодеус</h5>
+                                                    </a>
+                                                    <p>Разрабатываемый интерфейс для нужд моддинга Dawn of War.</p>
+                                                </div>
+                                            </div>
+                                            <div class="verticalGalleryBlock">
+                                                <a href="#" class="gallery-trigger galleryThumbnail sizeIncrease" data-fullres="resources/png/misc_scripts.png" data-src="resources/png/misc_scripts_thumb.png">
+                                                    <img src="resources/png/misc_scripts_thumb.png" width="74">
+                                                    <h1 class="galleryTitle">Различные скрипты...</h1>
+                                                </a>
+                                                <div class="vertGallDesc">
+                                                    <a href="https://github.com/DemerNkardaz/Misc-Scripts" target="_blank">
+                                                        <h5>Misc Scripts</h5>
+                                                    </a>
+                                                    <p>Репозиторий со всякими скриптами...</p>
+                                                </div>
+                                            </div>
+
                                         </div>
+
                                     </div>
 
                                     <div class="tab-pane" id="mods" role="tabpanel" aria-labelledby="layout-tab">
-                                        <div class="galleryGrid">
-                                            mods
+
+                                        <div class="galleryGrid vertical">
+
+                                            <div class="verticalGalleryBlock">
+                                                <a href="#" class="gallery-trigger galleryThumbnail sizeIncrease" data-fullres="resources/png/factorio_mods/prometheus.png" data-src="resources/png/factorio_mods/prometheus_thumb.png" data-youtube="https://www.youtube.com/embed/-ib1mqXvNl4">
+                                                    <img src="resources/png/factorio_mods/prometheus_thumb.png" width="74">
+                                                    <h1 class="galleryTitle">«Прометей» 40-мм</h1>
+                                                </a>
+                                                <div class="vertGallDesc">
+                                                    <a href="https://mods.factorio.com/mod/PLORD_Prometheus_GrenadeLauncher" target="_blank">
+                                                        <h5>«Прометей» 40-мм</h5>
+                                                    </a>
+                                                    <p>Мод для Факторио, добавляющий ручной и стационарный гранатомёты с различными типами боеприпасов.</p>
+                                                </div>
+                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -477,6 +519,7 @@
                             <div id="selectedPictureContainer">
                                 <div id="selectedPictureParent">
                                     <img src alt id="selectedGalleryPicture">
+                                    <iframe id="selectedYouTubeVideo" width="100%" src frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 </div>
                                 <span id="selectedPictureControls" class="personInfo">
                                     <span class="material-icons" id="selectedPictureDownload">download</span>
@@ -485,6 +528,7 @@
                                 </span>
                                 <span id="selectedPictureSpecials" class="personInfo">
                                     <span class="material-icons" id="selectedPicturePDFVersion" data-pdf>picture_as_pdf</span>
+                                    <span class="material-icons" id="selectedPictureYouTubeVideo" data-pdf><img src="resources/svg/social_youtube_dark.svg" width="20" class="socialIconSVG"></span>
                                 </span>
                                 <h1 id="selectedGalleryTitle"></h1>
                             </div>

@@ -41,6 +41,9 @@ $(document).ready(function () {
     $item.settingsBlock.hide();
     $item.lightBoxContainer.hide();
     $item.selectedPictureSpecials.hide();
+    $item.selectedPicturePDFVersion.hide();
+    $item.selectedYouTubeVideo.hide();
+    $item.selectedPictureYouTubeVideo.hide();
     $item.personInformationBlock.show();
     $item.personLinksBlock.show();
 
@@ -85,15 +88,26 @@ $(document).ready(function () {
 
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
         var pdfUrl = $(this).data('pdf');
+        var ytUrl = $(this).data('youtube');
         var currentImage = $item.selectedGalleryPicture.attr('src');
 
-        if (pdfUrl) {
+        $item.selectedYouTubeVideo.hide('slow');
+
+        if (ytUrl || pdfUrl) {
             $item.selectedPictureSpecials.show('slow');
-            $item.selectedPicturePDFVersion.attr('data-pdf', pdfUrl);
+            if (ytUrl) {
+                $item.selectedPicturePDFVersion.hide('slow');
+                $item.selectedPictureYouTubeVideo.show('slow');
+                $item.selectedPictureYouTubeVideo.attr('data-youtube', ytUrl);
+            } else if (pdfUrl) {
+                $item.selectedPictureYouTubeVideo.hide('slow');
+                $item.selectedPicturePDFVersion.show('slow');
+                $item.selectedPicturePDFVersion.attr('data-pdf', pdfUrl);
+            }
         } else {
             $item.selectedPictureSpecials.hide('slow');
-            $item.selectedPicturePDFVersion.removeAttr('data-pdf');
         }
+
 
         if (fullresUrl !== currentImage) {
             $item.selectedPictureParent.append(progressBar);
@@ -223,6 +237,25 @@ $(document).ready(function () {
         var pdfUrl = $(this).attr('data-pdf');
         window.open(pdfUrl, '_blank');
     })
+
+    $item.selectedPictureYouTubeVideo.on('click', function () {
+        var ytfUrl = $(this).attr('data-youtube');
+        var currentYt = $item.selectedYouTubeVideo.attr('src');
+
+        if (ytfUrl !== currentYt) {
+            $item.selectedYouTubeVideo.attr('src', ytfUrl);
+        }
+
+        if (!$item.selectedYouTubeVideo.is(':visible')) {
+            $item.selectedGalleryPicture.hide('slow');
+            $item.selectedYouTubeVideo.show('slow');
+        } else {
+            $item.selectedYouTubeVideo.hide('slow');
+            $item.selectedGalleryPicture.show('slow');
+        }
+
+    })
+
 
 
 

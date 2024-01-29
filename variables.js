@@ -29,6 +29,8 @@ let selectedPictureFullscreen;
 let selectedPictureBlankPage;
 let selectedPicturePDFVersion;
 let selectedPictureSpecials;
+let selectedYouTubeVideo;
+let selectedPictureYouTubeVideo;
 
 
 $(document).ready(function () {
@@ -63,6 +65,8 @@ $(document).ready(function () {
     selectedPictureBlankPage = $('#selectedPictureBlankPage');
     selectedPicturePDFVersion = $('#selectedPicturePDFVersion');
     selectedPictureSpecials = $('#selectedPictureSpecials');
+    selectedYouTubeVideo = $('#selectedYouTubeVideo');
+    selectedPictureYouTubeVideo = $('#selectedPictureYouTubeVideo');
 
 });
 
@@ -97,5 +101,7 @@ export {
     selectedPictureFullscreen,
     selectedPictureBlankPage,
     selectedPicturePDFVersion,
-    selectedPictureSpecials
+    selectedPictureSpecials,
+    selectedYouTubeVideo,
+    selectedPictureYouTubeVideo
 };

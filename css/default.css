@@ -40,6 +40,22 @@
     --metal_element_gradient: linear-gradient(to top, #9b9b9b, #e4e4e4, #e8e8e8);
 }
 
+a {
+    text-decoration: none;
+    color: var(--color_orange_gold);
+}
+
+a:hover {
+    color: var(--color_gold_hover);
+}
+
+a:focus,
+a:active {
+    color: var(--color_pale_gold);
+}
+
+
+
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
@@ -284,6 +300,7 @@ body {
 
 #selectedPictureSpecials.personInfo {
     min-width: 128px;
+    height: 32px;
 }
 
 .emoji {
@@ -576,6 +593,16 @@ body {
     transition: transform 0.5s ease;
 }
 
+#selectedYouTubeVideo {
+    min-width: 1024px;
+    min-height: 576px;
+    max-width: 1024px;
+    max-height: 576px;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
 #selectedPictureParent.zoomed {
     cursor: zoom-out;
 }
@@ -687,6 +714,10 @@ body {
     height: 100%;
 }
 
+.galleryGrid.vertical {
+    grid-template-columns: 1fr;
+}
+
 a.gallery-trigger {
     text-decoration: none;
 }
@@ -739,6 +770,7 @@ a.gallery-trigger {
 
 .galleryThumbnail {
     position: relative;
+    display: block;
     width: 70px;
     height: 70px;
     padding: 5px;
@@ -894,4 +926,48 @@ a.gallery-trigger {
     }
 
 
+}
+
+
+
+.verticalGalleryBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    max-height: 70px;
+
+}
+
+.verticalGalleryBlock * {
+    font-family: 'Philosopher', serif;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+.verticalGalleryBlock p {
+    font-size: 0.87em;
+    line-height: 1em;
+}
+
+.verticalGalleryBlock h1,
+.verticalGalleryBlock h2,
+.verticalGalleryBlock h3,
+.verticalGalleryBlock h4,
+.verticalGalleryBlock h5,
+.verticalGalleryBlock h6 {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.vertGallDesc {
+    width: calc(100% - 70px - 14px);
+    margin-left: 10px;
+}
+
+.socialIconSVG {}
+
+.socialIconSVG:hover {
+    filter: brightness(250%) sepia(100%) saturate(400%);
 }
