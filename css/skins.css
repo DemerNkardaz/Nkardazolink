@@ -4,3 +4,11 @@
     background-position: center 50%;
     transition: inherit;
 }
+
+#personBannerImg.black_clover:hover {
+    background-size: 115%;
+}
+
+#personBannerImg.black_clover.clicked {
+    background-size: 125%;
+}
