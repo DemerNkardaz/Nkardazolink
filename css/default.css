@@ -40,6 +40,40 @@
     --metal_element_gradient: linear-gradient(to top, #9b9b9b, #e4e4e4, #e8e8e8);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+}
+
+h1 {
+    font-size: calc(1.75em);
+}
+
+h2 {
+    font-size: calc(1.60em);
+}
+
+h3 {
+    font-size: calc(1.45em);
+}
+
+h4 {
+    font-size: calc(1.30em);
+}
+
+h5 {
+    font-size: calc(1.15em);
+}
+
+h6 {
+    font-size: calc(1.00em);
+}
+
+
 a {
     text-decoration: none;
     color: var(--color_orange_gold);
@@ -167,6 +201,189 @@ body {
     height: 100%;
     box-sizing: content-box;
 }
+
+
+
+#linkBlockParent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 85%;
+    margin-top: 65px;
+}
+
+
+.linksOfPerson {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.linksOfPersonHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    padding: 0 175px 0 175px;
+}
+
+.linksOfPersonHeader h1,
+.linksOfPersonHeader h2,
+.linksOfPersonHeader h3,
+.linksOfPersonHeader h4,
+.linksOfPersonHeader h5,
+.linksOfPersonHeader h6 {
+    margin: 0 40px 0 40px;
+    font-weight: 700;
+}
+
+.linksOfPersonHeader h1 {
+    font-size: 2em;
+}
+
+.linksOfPersonHeader hr {
+    width: 100%;
+    margin: 0;
+}
+
+.linksSet {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    place-items: center;
+    margin: 20px auto 40px auto;
+}
+
+.linksSet a {
+    color: var(--text_primary);
+}
+
+.linksSet a:hover {
+    color: var(--color_dark_gold);
+}
+
+.linkBlock {
+    position: relative;
+    display: flex;
+    width: 384px;
+    height: 128px;
+    background: var(--background_light_person_block);
+    box-shadow: 0 3px 5px var(--shadow_primary);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.linkBlock::before {
+    position: absolute;
+    content: '';
+    background: var(--background-url);
+    background-size: var(--background-size);
+    background-position: var(--background-pos);
+    width: 100%;
+    height: 50px;
+    z-index: -1;
+}
+
+.linkBlock::after {
+    position: absolute;
+    content: 'arrow_outward';
+    font-family: 'material icons';
+    line-height: 1em;
+    color: var(--text_primary);
+    mix-blend-mode: var(--arrow-blend);
+    top: 0;
+    right: 0;
+    font-size: 1.5em;
+    z-index: -1;
+}
+
+
+.linkAvatarImage {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    padding: 4px;
+    overflow: hidden;
+    background: var(--background_light_main);
+    box-shadow: 0 5px 5px var(--shadow_secondary);
+    transition: all 0.3s ease;
+    z-index: 1;
+    clip-path: circle(50% at 50% 50%);
+}
+
+
+.linkTitle {
+    position: absolute;
+    transition: all 0.3s ease;
+    bottom: 34px;
+    left: 93px;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.linkTypes {
+    position: absolute;
+    transition: all 0.3s ease;
+    bottom: 4px;
+    left: 93px;
+    z-index: 1;
+}
+
+.linkTypes img {
+    position: relative;
+    transition: all 0.3s ease;
+    filter: brightness(400%);
+
+}
+
+.linkTypes .linkType {
+    background: var(--background_light_main);
+    box-shadow: inset 1px 2px 3px var(--shadow_inset_info);
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    margin-right: 7px;
+}
+
+.linkTypes .linkType.active {
+    transition: all 0.3s ease;
+    box-shadow: inset 2px 2px 3px var(--color_gold_hover_light),
+        inset -2px -2px 3px var(--shadow_inset_info),
+        2px 1.5px 1px var(--shadow_inset_info);
+    background: var(--color_dark_gold);
+}
+
+.linkTypes .linkType.active img {
+    filter: brightness(480%);
+}
+
+
+.linkSiteParent {
+    position: absolute;
+    bottom: var(--pos-bottom);
+    right: var(--pos-right);
+    transition: all 0.3s ease;
+}
+
+.linkSiteParent img {
+    filter: brightness(450%);
+}
+
+
 
 #siteBackdropInverter {
     position: absolute;
@@ -551,7 +768,7 @@ body {
 
 #lightBoxContainer {
     position: relative;
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -561,6 +778,11 @@ body {
     overflow: hidden;
     z-index: 1;
 }
+
+#lightBoxContainer[style*='display: block'] {
+    display: flex !important;
+}
+
 
 #selectedPictureContainer {
     display: flex;

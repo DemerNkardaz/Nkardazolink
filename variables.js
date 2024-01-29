@@ -31,6 +31,7 @@ let selectedPicturePDFVersion;
 let selectedPictureSpecials;
 let selectedYouTubeVideo;
 let selectedPictureYouTubeVideo;
+let linkBlock;
 
 
 $(document).ready(function () {
@@ -67,6 +68,7 @@ $(document).ready(function () {
     selectedPictureSpecials = $('#selectedPictureSpecials');
     selectedYouTubeVideo = $('#selectedYouTubeVideo');
     selectedPictureYouTubeVideo = $('#selectedPictureYouTubeVideo');
+    linkBlock = $('.linkBlock');
 
 });
 
@@ -103,5 +105,6 @@ export {
     selectedPicturePDFVersion,
     selectedPictureSpecials,
     selectedYouTubeVideo,
-    selectedPictureYouTubeVideo
+    selectedPictureYouTubeVideo,
+    linkBlock
 };

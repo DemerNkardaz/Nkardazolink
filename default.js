@@ -22,10 +22,73 @@ function headerInit() {
 
 
 $(document).ready(function () {
-    headerInit();
     siteTitleOnLang();
 
     const color_gold_hover = $(':root').css('--color_gold_hover');
+
+    $item.linkBlock.each(function () {
+        var bgUrl = $(this).data('bg');
+        var bgSz = $(this).data('bg-size');
+        var bgPos = $(this).data('bg-pos');
+        var arrBlend = $(this).data('arrow-blend');
+        var avatar = $(this).data('avatar');
+        var title = $(this).data('title');
+        var titleKey = $(this).data('title-key');
+        var types = $(this).data('types');
+        var site = $(this).data('site');
+        var site_scale = $(this).data('site-scale');
+        var site_pos = $(this).data('site-pos');
+
+        $(this).css('--background-url', bgUrl);
+        $(this).css('--background-size', bgSz || 'cover');
+        $(this).css('--background-pos', bgPos || 'center center');
+        $(this).css('--arrow-blend', arrBlend || 'color-burn');
+
+        if (avatar) {
+            $(this).append('<img class="linkAvatarImage" src="' + avatar + '">');
+        }
+        if (title) {
+            var titleKeyCheck = titleKey ? 'data-key="' + titleKey + '"' : '';
+            $(this).append('<h3 class="linkTitle" ' + titleKeyCheck + '>' + title + '</h3>');
+        }
+        if (types) {
+            var svgIcons = {
+                artwork: 'resources/svg/icos/art.svg',
+                modeling: 'resources/svg/icos/3d.svg',
+                layout: 'resources/svg/icos/book.svg',
+                github: 'resources/svg/icos/github.svg',
+                writing: 'resources/svg/icos/scorpio_pen.svg',
+                mods: 'resources/svg/icos/mods.svg'
+            };
+            $(this).append('<span class="linkTypes"></span>');
+
+            var typesArray = types.split(', ');
+            typesArray.forEach(type => {
+                if (svgIcons[type]) {
+                    $(this).find('.linkTypes').append('<span class="linkType"><img src="' + svgIcons[type] + '" width="20px"></span>');
+                }
+            });
+        }
+        if (site) {
+            $(this).append('<span class="linkSiteParent"><img src="' + site + '" width="' + (site_scale || '70px') + '"></span>');
+            if (site_pos) {
+                var positions = site_pos.split(', ');
+                $(this).find('.linkSiteParent').css('--pos-bottom', positions[0] || '5px');
+                $(this).find('.linkSiteParent').css('--pos-right', positions[1] || '5px');
+            }
+        }
+
+    });
+    $item.linkBlock.on({
+        mouseover: function () {
+            $(this).css('transform', 'translate3d(0px, -15px, 0px)');
+            $(this).find('.linkType').addClass('active');
+        },
+        mouseout: function () {
+            $(this).css('transform', 'translate3d(0px, 0px, 0px)');
+            $(this).find('.linkType').removeClass('active');
+        }
+    });
 
 
     $item.personFlexButton.on({
