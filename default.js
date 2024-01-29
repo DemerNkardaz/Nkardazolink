@@ -22,6 +22,16 @@ function headerInit() {
 
 
 $(document).ready(function () {
+    $item.moreInfoBlock.hide();
+    $item.settingsBlock.hide();
+    $item.lightBoxContainer.hide();
+    $item.selectedPictureSpecials.hide();
+    $item.selectedPicturePDFVersion.hide();
+    $item.selectedYouTubeVideo.hide();
+    $item.scrollControlsParent.hide();
+    $item.selectedPictureYouTubeVideo.hide();
+    $item.personInformationBlock.show();
+    $item.personLinksBlock.show();
     siteTitleOnLang();
 
     const color_gold_hover = $(':root').css('--color_gold_hover');
@@ -42,6 +52,7 @@ $(document).ready(function () {
         var site = $(this).data('site');
         var site_scale = $(this).data('site-scale');
         var site_pos = $(this).data('site-pos');
+        var textPlate = $(this).data('text');
 
         $(this).css('--background-url', bgUrl);
         $(this).css('--background-size', bgSz || 'cover');
@@ -87,6 +98,9 @@ $(document).ready(function () {
                 $(this).find('.linkSiteParent').css('--pos-right', positions[1] || '5px');
             }
         }
+        if (textPlate) {
+            $(this).append('<p class="linkTextPlate">' + textPlate + '</p>');
+        }
         $item.linkBlock.each(function () {
             var $this = $(this);
             $this.find('img[data-bs-toggle="tooltip"]').tooltip({ container: $this });
@@ -104,7 +118,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.scrollControls [data-scroll]').on('click', function () {
+    $item.scrollControls.on('click', function () {
         var scrollDirection = $(this).data('scroll');
         var linksSet = $(this).closest('.scrollControlsParent').next('.linksSet');
 
@@ -114,6 +128,16 @@ $(document).ready(function () {
             linksSet.animate({ scrollTop: '+=168.5px' }, 'fast');
         }
     });
+
+    $item.scrollControlsParent.each(function () {
+        var $this = $(this);
+        var linksSet = $(this).siblings('.linksSet');
+        if (linksSet[0].scrollHeight > linksSet[0].clientHeight) {
+            $this.show();
+        } else {
+            $this.hide();
+        }
+    })
 
 
 
@@ -127,15 +151,7 @@ $(document).ready(function () {
         }
     })
 
-    $item.moreInfoBlock.hide();
-    $item.settingsBlock.hide();
-    $item.lightBoxContainer.hide();
-    $item.selectedPictureSpecials.hide();
-    $item.selectedPicturePDFVersion.hide();
-    $item.selectedYouTubeVideo.hide();
-    $item.selectedPictureYouTubeVideo.hide();
-    $item.personInformationBlock.show();
-    $item.personLinksBlock.show();
+
 
     $item.settingsOpt.parent().on('click', function () {
         $item.blockumInformatorum.toggleClass('opens-settings');

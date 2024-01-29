@@ -32,6 +32,8 @@ let selectedPictureSpecials;
 let selectedYouTubeVideo;
 let selectedPictureYouTubeVideo;
 let linkBlock;
+let scrollControls;
+let scrollControlsParent;
 
 
 $(document).ready(function () {
@@ -69,6 +71,8 @@ $(document).ready(function () {
     selectedYouTubeVideo = $('#selectedYouTubeVideo');
     selectedPictureYouTubeVideo = $('#selectedPictureYouTubeVideo');
     linkBlock = $('.linkBlock');
+    scrollControls = $('.scrollControls [data-scroll]');
+    scrollControlsParent = $('.scrollControlsParent');
 
 });
 
@@ -106,5 +110,7 @@ export {
     selectedPictureSpecials,
     selectedYouTubeVideo,
     selectedPictureYouTubeVideo,
-    linkBlock
+    linkBlock,
+    scrollControls,
+    scrollControlsParent
 };
