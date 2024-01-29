@@ -129,6 +129,10 @@ $(document).ready(function () {
             $item.selectedGalleryTitle.text(title);
         }
 
+        if (!$item.selectedGalleryPicture.is(':visible')) {
+            $item.selectedGalleryPicture.show('slow');
+        }
+
         if (!$item.lightBoxContainer.is(':visible')) {
             $item.lightBoxContainer.show('slow');
             $item.personLinksBlock.hide('slow');
