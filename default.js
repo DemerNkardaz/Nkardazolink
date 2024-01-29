@@ -82,16 +82,19 @@ $(document).ready(function () {
 
 
 
+    var ytfUrl = $item.selectedPictureYouTubeVideo.attr('data-youtube');
     $item.gallery_trigger.on('click', function (e) {
         e.preventDefault();
         var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
-
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
         var pdfUrl = $(this).data('pdf');
         var ytUrl = $(this).data('youtube');
+        var currentYt = $item.selectedYouTubeVideo.attr('src');
         var currentImage = $item.selectedGalleryPicture.attr('src');
 
         $item.selectedYouTubeVideo.hide('slow');
+        $item.selectedYouTubeVideo.removeAttr('src');
+        if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
 
         if (ytUrl || pdfUrl) {
             $item.selectedPictureSpecials.show('slow');
@@ -242,6 +245,9 @@ $(document).ready(function () {
         window.open(pdfUrl, '_blank');
     })
 
+    var player;
+    function onYouTubePlayerAPIReady() { player = new YT.Player($item.selectedYouTubeVideo); }
+
     $item.selectedPictureYouTubeVideo.on('click', function () {
         var ytfUrl = $(this).attr('data-youtube');
         var currentYt = $item.selectedYouTubeVideo.attr('src');
@@ -255,6 +261,8 @@ $(document).ready(function () {
             $item.selectedYouTubeVideo.show('slow');
         } else {
             $item.selectedYouTubeVideo.hide('slow');
+            $item.selectedYouTubeVideo.removeAttr('src');
+            if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
             $item.selectedGalleryPicture.show('slow');
         }
 
