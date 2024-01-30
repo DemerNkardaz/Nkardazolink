@@ -1,22 +1,165 @@
+@media screen and (max-width: 1700px) {
+    .linksSetParent {
+        width: 85%;
+    }
+
+    .linksSet {
+        width: 100%;
+    }
+
+    .linkBlock {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .linksSet {
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .linkBlock h3 {
+
+        font-size: 1.75vw;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .linksOfPersonHeader {
+        padding: 0 128px 0 128px;
+    }
+
+}
+
+
+@media screen and (max-height: 1000px) {
+    .linksOfPersonHeader {
+        padding: 0 75px 0 75px;
+    }
+
+    #rootContainer {
+        align-self: auto;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    .linkBlock h3 {
+        font-size: calc(1.45em);
+    }
+
+    .galleryThumbnail {
+        width: 50px;
+        height: 50px;
+    }
+
+    #rootContainer {
+        height: 100vh;
+    }
+
+    .galleryGrid {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+
+
+
+    #miniFolioBlock {
+        height: 320px;
+    }
+
+    .linksSet {
+        height: auto !important;
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .linksSetParent {
+        width: 100%;
+        align-self: auto;
+        overflow: visible;
+    }
+
+
+    .scrollControlsParent {
+        right: 20px;
+    }
+
+    .linksSetParent {
+
+        height: auto !important;
+    }
+
+
+
+    .linkBlock {
+        width: 75%;
+    }
+
+
+}
+
+
 @media screen and (max-width: 700px) {
+    .galleryThumbnail {
+        width: 74px;
+        height: 74px;
+    }
+
+    #personBlock {
+        width: 100%;
+    }
+
+    .galleryGrid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    #miniFolioBlock {
+        height: 400px;
+    }
+
     .contentContainerBlock {
         flex-direction: column;
         overflow: auto !important;
     }
 
+    .linkBlock {
+        width: 384px;
+    }
+
     #personBlock {
-        width: 100%;
         border-right: none;
         border-bottom: 5px solid var(--light_border);
         min-height: 950px;
-        margin-bottom: 20px;
+        margin-bottom: 0;
     }
 
     #selectedGalleryTitle {
         font-size: 1.2em !important;
     }
+
+
+    #linkBlockParent {
+        margin-top: 20px;
+    }
+
+    body {
+        overflow: auto;
+    }
+
+
 }
 
+@media screen and (max-width: 450px) {
+    .linkBlock {
+        width: 75%;
+    }
+
+    .linkBlock h3 {
+
+        font-size: 5.5vw;
+    }
+
+}
 
 @media screen and (min-height: 1925px) {
     #rootContainer {
