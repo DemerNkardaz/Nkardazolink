@@ -80,6 +80,7 @@ a {
     color: var(--color_orange_gold);
 }
 
+a.listButton:hover,
 a:hover {
     color: var(--color_gold_hover);
 }
@@ -89,7 +90,9 @@ a:active {
     color: var(--color_pale_gold);
 }
 
-
+a.listButton {
+    color: var(--text_primary);
+}
 
 * {
     scrollbar-width: thin;

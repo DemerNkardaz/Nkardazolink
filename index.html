@@ -13,8 +13,12 @@
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css">
 
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
         <script type="module" src="variables.js"></script>
         <script type="module" src="default.js"></script>
+        <script type="module" src="core/shieldsio.js"></script>
         <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/adaptive.css">
@@ -143,6 +147,32 @@
                                 <span>Обложка:</span>
                                 <span><span class="emoji-small elemental">🌿</span>Аса-но ха</span>
                             </div>
+                            <span class="mt-auto">
+
+                            </span>
+                            <div id="repoSize" class="listButton d-flex justify-content-between">
+                                <span>Размер репозитория:</span>
+                            </div>
+                            <div id="repoCreated" class="listButton d-flex justify-content-between">
+                                <span>Создано:</span>
+                            </div>
+                            <div id="repoUpdated" class="listButton d-flex justify-content-between">
+                                <span>Обновлено:</span>
+                            </div>
+                            <hr class="col-9 mx-auto">
+                            <h2 class="mx-auto">Библиотеки</h2>
+                            <a href="https://github.com/twbs/bootstrap" target="_blank" class="listButton d-flex justify-content-between">
+                                <span>Bootstrap 5.3.2</span>
+                                <span><img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" width="20"></span>
+                            </a>
+                            <a href="https://github.com/jquery/jquery" target="_blank" class="listButton d-flex justify-content-between">
+                                <span>JQuery 3.7.1</span>
+                                <span><img src="https://avatars.githubusercontent.com/u/70142?s=48&v=4" width="20"></span>
+                            </a>
+                            <a href="https://github.com/jquery/jquery" target="_blank" class="listButton d-flex justify-content-between" style="display: none !important;">
+                                <span>ReactJS 18 [планируется]</span>
+                                <span><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="20"></span>
+                            </a>
                         </div>
                     </div>
                     <div id="personInformationBlock">
