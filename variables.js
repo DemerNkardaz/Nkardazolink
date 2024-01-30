@@ -30,6 +30,8 @@ let selectedPictureBlankPage;
 let selectedPicturePDFVersion;
 let selectedPictureSpecials;
 let selectedYouTubeVideo;
+let selectedPictureMAXRES;
+let selectedPictureMetas;
 let selectedPictureYouTubeVideo;
 let linkBlock;
 let scrollControls;
@@ -74,6 +76,8 @@ $(document).ready(function () {
     linkBlock = $('.linkBlock');
     scrollControls = $('.scrollControls [data-scroll]');
     scrollControlsParent = $('.scrollControlsParent');
+    selectedPictureMAXRES = $('#selectedPictureMAXRES');
+    selectedPictureMetas = $('#selectedPictureMetas');
 
 });
 
@@ -108,6 +112,8 @@ export {
     selectedPictureFullscreen,
     selectedPictureBlankPage,
     selectedPicturePDFVersion,
+    selectedPictureMAXRES,
+    selectedPictureMetas,
     selectedPictureSpecials,
     selectedYouTubeVideo,
     selectedPictureYouTubeVideo,

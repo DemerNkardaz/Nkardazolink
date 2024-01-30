@@ -637,16 +637,64 @@ body {
     padding: 0 10px 0 10px;
 }
 
+
 .personInfo span:not(:first-of-type):not(:last-of-type) {
     border-left: var(--border_grey_entity);
     border-right: var(--border_grey_entity);
 }
 
 
+
 #selectedPictureSpecials.personInfo {
+    position: relative;
+
     min-width: 128px;
     height: 32px;
 }
+
+#selectedPictureSpecials.personInfo>span {
+    position: relative;
+
+    max-width: 46px;
+    border-left: var(--border_grey_entity);
+    border-right: var(--border_grey_entity);
+}
+
+#selectedPictureSpecials .helptext {
+    position: absolute;
+    font-family: sans-serif;
+    font-size: 0.7em;
+    bottom: -25px;
+}
+
+#selectedPictureMetasParent {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#selectedPictureMetas {
+    position: absolute;
+    width: 256px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background_light_person_block);
+    box-shadow: 0 0 5px var(--shadow_inset_info), inset 0px -5px 5px -5px var(--shadow_inset_info);
+    border-radius: 10px 10px 0 0;
+    top: -32px;
+    pointer-events: auto;
+    z-index: -1;
+}
+
+
+#SelectedPictureWrapper {
+    overflow: auto;
+}
+
 
 .emoji {
     font-size: 2em;
@@ -899,6 +947,7 @@ body {
 
 
 #selectedPictureContainer {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -919,6 +968,7 @@ body {
 }
 
 #selectedPictureParent {
+    position: relative;
     /*
     min-width: 100%;
     max-width: 100%;
@@ -1200,6 +1250,10 @@ a.gallery-trigger {
 
 #personAvatarImg.bright>img {
     filter: brightness(110%);
+}
+
+#selectedPictureControls {
+    position: relative;
 }
 
 #selectedPictureSpecials span,

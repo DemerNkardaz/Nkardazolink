@@ -349,7 +349,7 @@
                                             </a>
 
                                             <!-- Stack -->
-                                            <a href="#" class="gallery-trigger galleryThumbnail sizeIncrease" data-fullres="resources/png/factorio_mods/Factorio_resources_PLORD_vol_1.png" data-src="resources/png/factorio_mods/16_tin_thumb.png">
+                                            <a href="#" class="gallery-trigger galleryThumbnail sizeIncrease" data-fullres="resources/png/factorio_mods/Factorio_resources_PLORD_vol_1.png" data-src="resources/png/factorio_mods/16_tin_thumb.png" data-maxres="true">
                                                 <img src="resources/png/factorio_mods/16_tin_thumb.png" width="74" loading="lazy">
                                                 <h1 class="galleryTitle">Ресурсы для мода Факторио</h1>
                                             </a>
@@ -608,19 +608,28 @@
                         <div id="lightBoxGalleryPicture">
 
                             <div id="selectedPictureContainer">
+                                <span id="selectedPictureMetasParent">
+                                    <span id="selectedPictureMetas">
+
+                                    </span>
+                                </span>
                                 <div id="selectedPictureParent">
-                                    <img src alt id="selectedGalleryPicture">
+                                    <div id="SelectedPictureWrapper"><img src alt id="selectedGalleryPicture"></div>
                                     <iframe id="selectedYouTubeVideo" width="100%" src frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+
                                 </div>
                                 <span id="selectedPictureControls" class="personInfo">
                                     <span class="material-icons" id="selectedPictureDownload">download</span>
                                     <span class="material-icons" id="selectedPictureFullscreen">fullscreen</span>
                                     <span class="material-icons" id="selectedPictureBlankPage">launch</span>
+
                                 </span>
                                 <span id="selectedPictureSpecials" class="personInfo">
                                     <span class="material-icons" id="selectedPicturePDFVersion" data-pdf>picture_as_pdf</span>
                                     <span class="material-icons" id="selectedPictureYouTubeVideo" data-pdf><img src="resources/svg/social_youtube_dark.svg" width="20" class="socialIconSVG"></span>
+                                    <span id="selectedPictureMAXRES" data-pdf><span class="material-icons">hd</span><span class="helptext">MAX</span></span>
                                 </span>
+
                                 <h1 id="selectedGalleryTitle"></h1>
                             </div>
                         </div>
