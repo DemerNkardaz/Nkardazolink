@@ -303,25 +303,32 @@ $(document).ready(function () {
 
     var lastZoomX;
     var lastZoomY;
+    var $selectedGalleryPicture = $item.selectedGalleryPicture;
+    var naturalWidth;
+    var naturalHeight;
+    var zoomFactorY;
+    var zoomFactorX;
+    var originX;
+    var originY;
     $item.selectedGalleryPicture.on('click', function (e) {
-        var $selectedGalleryPicture = $item.selectedGalleryPicture;
         var mouseX = e.pageX - $(this).offset().left;
         var mouseY = e.pageY - $(this).offset().top;
 
-        var naturalWidth = $selectedGalleryPicture[0].naturalWidth;
-        var naturalHeight = $selectedGalleryPicture[0].naturalHeight;
+        naturalWidth = $selectedGalleryPicture[0].naturalWidth;
+        naturalHeight = $selectedGalleryPicture[0].naturalHeight;
 
-        var zoomFactorY = naturalWidth / $selectedGalleryPicture.width();
-        var zoomFactorX = naturalHeight / $selectedGalleryPicture.height();
+        zoomFactorY = naturalWidth / $selectedGalleryPicture.width();
+        zoomFactorX = naturalHeight / $selectedGalleryPicture.height();
 
-        var originX = (mouseX / $selectedGalleryPicture.width()) * 100 + '%';
-        var originY = (mouseY / $selectedGalleryPicture.height()) * 100 + '%';
+        originX = (mouseX / $selectedGalleryPicture.width()) * 100 + '%';
+        originY = (mouseY / $selectedGalleryPicture.height()) * 100 + '%';
 
         if ($item.selectedPictureParent.hasClass('zoomed')) {
             $selectedGalleryPicture.css({
                 'transform': 'none',
                 'transform-origin': lastZoomX + ' ' + lastZoomY
             });
+
         } else {
             $selectedGalleryPicture.css({
                 'transform': 'scale(' + zoomFactorX + ', ' + zoomFactorY + ')',
@@ -331,6 +338,24 @@ $(document).ready(function () {
             lastZoomY = originY;
         }
         $item.selectedPictureParent.toggleClass('zoomed');
+    });
+    $item.selectedGalleryPicture.on('wheel', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var zoomStep = 1.25;
+        if ($item.selectedPictureParent.hasClass('zoomed')) {
+            if (e.originalEvent.deltaY > 0) {
+                zoomFactorX /= zoomStep;
+                zoomFactorY /= zoomStep;
+            } else if (e.originalEvent.deltaY < 0) {
+                zoomFactorX *= zoomStep;
+                zoomFactorY *= zoomStep;
+            }
+            $selectedGalleryPicture.css({
+                'transform': 'scale(' + zoomFactorX + ', ' + zoomFactorY + ')',
+                'transform-origin': originX + ' ' + originY
+            });
+        }
     });
 
 

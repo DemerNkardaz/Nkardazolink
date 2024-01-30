@@ -692,8 +692,10 @@ body {
 
 
 #SelectedPictureWrapper {
-    overflow: auto;
+    overflow: hidden;
 }
+
+
 
 
 .emoji {
