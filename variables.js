@@ -34,7 +34,7 @@ let selectedPictureYouTubeVideo;
 let linkBlock;
 let scrollControls;
 let scrollControlsParent;
-
+let selectedPictureContainer;
 
 $(document).ready(function () {
     personFlex = $('.personFlex');
@@ -69,6 +69,7 @@ $(document).ready(function () {
     selectedPicturePDFVersion = $('#selectedPicturePDFVersion');
     selectedPictureSpecials = $('#selectedPictureSpecials');
     selectedYouTubeVideo = $('#selectedYouTubeVideo');
+    selectedPictureContainer = $('#selectedPictureContainer');
     selectedPictureYouTubeVideo = $('#selectedPictureYouTubeVideo');
     linkBlock = $('.linkBlock');
     scrollControls = $('.scrollControls [data-scroll]');
@@ -112,5 +113,6 @@ export {
     selectedPictureYouTubeVideo,
     linkBlock,
     scrollControls,
-    scrollControlsParent
+    scrollControlsParent,
+    selectedPictureContainer
 };

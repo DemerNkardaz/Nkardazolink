@@ -187,7 +187,8 @@ $(document).ready(function () {
     });
 
 
-
+    var image_view_aspect_w;
+    var image_view_aspect_h;
     var ytfUrl = $item.selectedPictureYouTubeVideo.attr('data-youtube');
     $item.gallery_trigger.on('click', function (e) {
         e.preventDefault();
@@ -231,12 +232,25 @@ $(document).ready(function () {
             img.src = fullresUrl;
 
             $item.selectedGalleryPicture.fadeOut('fast', function () {
-                $(this).attr('src', fullresUrl).fadeIn('fast');
+                var $this = $(this);
+                $this.attr('src', fullresUrl).fadeIn('fast');
+
+
+                if ($this.attr('src').includes('svg')) {
+                    $this.parent().css('width', '100%');
+                } else {
+                    $this.parent().css('width', 'auto');
+                }
+                image_view_aspect_w = $item.selectedGalleryPicture[0].naturalWidth;
+                image_view_aspect_h = $item.selectedGalleryPicture[0].naturalHeight;
+
             });
+
 
             var title = $(this).find($item.gallery_title).text();
             $item.selectedGalleryTitle.text(title);
         }
+
 
         if (!$item.selectedGalleryPicture.is(':visible')) {
             $item.selectedGalleryPicture.show('slow');
@@ -246,6 +260,14 @@ $(document).ready(function () {
             $item.lightBoxContainer.show('slow');
             $item.personLinksBlock.hide('slow');
         }
+
+        $item.selectedGalleryPicture.on('load', function () {
+            $item.selectedPictureParent.css('aspect-ratio', image_view_aspect_w / image_view_aspect_h);
+        });
+        if ($item.selectedPictureParent.css('aspect-ratio') !== (image_view_aspect_w / image_view_aspect_h).toString()) {
+            $item.selectedPictureParent.css('aspect-ratio', image_view_aspect_w / image_view_aspect_h);
+        }
+
     });
 
 
@@ -358,16 +380,21 @@ $(document).ready(function () {
         var ytfUrl = $(this).attr('data-youtube');
         var currentYt = $item.selectedYouTubeVideo.attr('src');
 
+
         if (ytfUrl !== currentYt) {
             $item.selectedYouTubeVideo.attr('src', ytfUrl);
         }
 
         if (!$item.selectedYouTubeVideo.is(':visible')) {
             $item.selectedGalleryPicture.hide();
+            $item.selectedPictureParent.css('aspect-ratio', '16 / 9');
             $item.selectedYouTubeVideo.show('slow');
         } else {
             $item.selectedYouTubeVideo.hide();
             $item.selectedYouTubeVideo.removeAttr('src');
+
+            $item.selectedPictureParent.css('aspect-ratio', image_view_aspect_w / image_view_aspect_h);
+
             if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
             $item.selectedGalleryPicture.show('slow');
         }

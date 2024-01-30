@@ -916,14 +916,15 @@ body {
 }
 
 #selectedPictureParent {
+    /*
     min-width: 100%;
     max-width: 100%;
-    height: 100%;
+    height: 100%;*/
     border-radius: 15px;
     background: var(--background_light_person_block);
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 0;
     box-shadow: 0 3px 5px var(--shadow_primary);
     justify-content: center;
     align-items: center;
@@ -934,7 +935,7 @@ body {
 #selectedGalleryPicture {
     max-width: 100%;
     max-height: 100%;
-    width: 100%;
+    /* width: 100%;*/
     object-fit: contain;
     border-radius: 15px;
     transition: transform 0.5s ease;
