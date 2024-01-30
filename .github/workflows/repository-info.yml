@@ -21,6 +21,8 @@ jobs:
         run: npm install
 
       - name: Run script to get repository info
-        run: npm run get-repository-info
+        run: |
+          cd core
+          npm run get-repository-info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
