@@ -190,6 +190,7 @@ $(document).ready(function () {
     var image_view_aspect_w;
     var image_view_aspect_h;
     var $imgSelectedGall;
+    var $imgIsSVG = '';
     var ytfUrl = $item.selectedPictureYouTubeVideo.attr('data-youtube');
     $item.gallery_trigger.on('click', function (e) {
         e.preventDefault();
@@ -247,11 +248,13 @@ $(document).ready(function () {
                 $this.attr('src', fullresUrl);
 
 
-                if ($this.attr('src').includes('svg')) {
+                /*if ($this.attr('src').includes('svg')) {
+                    $this.parent().parent().css('width', '100%');
                     $this.parent().css('width', '100%');
                 } else {
                     $this.parent().css('width', 'auto');
-                }
+                    $this.parent().parent().css('width', 'auto');
+                }*/
                 /*image_view_aspect_w = $item.selectedGalleryPicture[0].naturalWidth;
                 image_view_aspect_h = $item.selectedGalleryPicture[0].naturalHeight;*/
                 $imgSelectedGall = $item.selectedGalleryPicture;
@@ -259,7 +262,12 @@ $(document).ready(function () {
                     image_view_aspect_w = this.naturalWidth;
                     image_view_aspect_h = this.naturalHeight;
                     $item.selectedPictureParent.css('aspect-ratio', image_view_aspect_w / image_view_aspect_h);
-                    $item.selectedPictureMetas.html(image_view_aspect_w + '&ensp;×&ensp;' + image_view_aspect_h);
+                    if ($this.attr('src').includes('svg')) {
+                        $imgIsSVG = '<span data-key="Vector">[вектор]</span>';
+                    } else {
+                        $imgIsSVG = '';
+                    }
+                    $item.selectedPictureMetas.html(image_view_aspect_w + '&ensp;×&ensp;' + image_view_aspect_h + '&ensp;' + $imgIsSVG);
                     $this.fadeIn('slow');
                 });
 
@@ -295,17 +303,19 @@ $(document).ready(function () {
 
     var lastZoomX;
     var lastZoomY;
-    $item.selectedPictureParent.on('click', function (e) {
+    $item.selectedGalleryPicture.on('click', function (e) {
         var $selectedGalleryPicture = $item.selectedGalleryPicture;
         var mouseX = e.pageX - $(this).offset().left;
         var mouseY = e.pageY - $(this).offset().top;
 
-        var zoomFactor = 3;
-        var mouseWhellZoomFactor = 0.2;
-        var originX = (mouseX / $(this).width()) * 100 + '%';
-        var originY = (mouseY / $(this).height()) * 100 + '%';
+        var naturalWidth = $selectedGalleryPicture[0].naturalWidth;
+        var naturalHeight = $selectedGalleryPicture[0].naturalHeight;
 
+        var zoomFactorY = naturalWidth / $selectedGalleryPicture.width();
+        var zoomFactorX = naturalHeight / $selectedGalleryPicture.height();
 
+        var originX = (mouseX / $selectedGalleryPicture.width()) * 100 + '%';
+        var originY = (mouseY / $selectedGalleryPicture.height()) * 100 + '%';
 
         if ($item.selectedPictureParent.hasClass('zoomed')) {
             $selectedGalleryPicture.css({
@@ -314,7 +324,7 @@ $(document).ready(function () {
             });
         } else {
             $selectedGalleryPicture.css({
-                'transform': 'scale(' + zoomFactor + ')',
+                'transform': 'scale(' + zoomFactorX + ', ' + zoomFactorY + ')',
                 'transform-origin': originX + ' ' + originY
             });
             lastZoomX = originX;
@@ -322,6 +332,7 @@ $(document).ready(function () {
         }
         $item.selectedPictureParent.toggleClass('zoomed');
     });
+
 
     $item.galleryThumbnail.on('click', function () {
         var $this = $(this);
