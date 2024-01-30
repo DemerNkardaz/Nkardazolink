@@ -310,6 +310,13 @@ $(document).ready(function () {
     var zoomFactorX;
     var originX;
     var originY;
+
+    var lastZoomFactorY;
+    var lastZoomFactorX;
+
+    var wheelZoomFactorY;
+    var wheelZoomFactorX;
+
     $item.selectedGalleryPicture.on('click', function (e) {
         var mouseX = e.pageX - $(this).offset().left;
         var mouseY = e.pageY - $(this).offset().top;
@@ -320,6 +327,12 @@ $(document).ready(function () {
         zoomFactorY = naturalWidth / $selectedGalleryPicture.width();
         zoomFactorX = naturalHeight / $selectedGalleryPicture.height();
 
+        lastZoomFactorY = zoomFactorY;
+        lastZoomFactorX = zoomFactorX;
+
+        wheelZoomFactorY = zoomFactorY;
+        wheelZoomFactorX = zoomFactorX;
+
         originX = (mouseX / $selectedGalleryPicture.width()) * 100 + '%';
         originY = (mouseY / $selectedGalleryPicture.height()) * 100 + '%';
 
@@ -328,7 +341,6 @@ $(document).ready(function () {
                 'transform': 'none',
                 'transform-origin': lastZoomX + ' ' + lastZoomY
             });
-
         } else {
             $selectedGalleryPicture.css({
                 'transform': 'scale(' + zoomFactorX + ', ' + zoomFactorY + ')',
@@ -339,24 +351,46 @@ $(document).ready(function () {
         }
         $item.selectedPictureParent.toggleClass('zoomed');
     });
+
+
     $item.selectedGalleryPicture.on('wheel', function (e) {
         e.preventDefault();
         e.stopPropagation();
+
         var zoomStep = 1.25;
+        var minimumScale = 1;
+
+        const transformValue = $item.selectedGalleryPicture.css('transform');
+        const transformMatrix = transformValue !== 'none' ? transformValue.split(', ') : [];
+        const scaleValue = transformMatrix.length >= 6 ? parseFloat(transformMatrix[3]) : 1;
+
         if ($item.selectedPictureParent.hasClass('zoomed')) {
             if (e.originalEvent.deltaY > 0) {
-                zoomFactorX /= zoomStep;
-                zoomFactorY /= zoomStep;
+                if (scaleValue >= minimumScale) {
+                    wheelZoomFactorY /= zoomStep;
+                    wheelZoomFactorX /= zoomStep;
+                    console.log(wheelZoomFactorY, wheelZoomFactorX);
+                }
             } else if (e.originalEvent.deltaY < 0) {
-                zoomFactorX *= zoomStep;
-                zoomFactorY *= zoomStep;
+                wheelZoomFactorY *= zoomStep;
+                wheelZoomFactorX *= zoomStep;
             }
-            $selectedGalleryPicture.css({
-                'transform': 'scale(' + zoomFactorX + ', ' + zoomFactorY + ')',
+
+            const newScaleX = Math.max(minimumScale, wheelZoomFactorX);
+            const newScaleY = Math.max(minimumScale, wheelZoomFactorY);
+
+            if (newScaleX === minimumScale && newScaleY === minimumScale) {
+                wheelZoomFactorX = 1;
+                wheelZoomFactorY = 1;
+            }
+
+            $item.selectedGalleryPicture.css({
+                'transform': 'scale(' + newScaleX + ', ' + newScaleY + ')',
                 'transform-origin': originX + ' ' + originY
             });
         }
     });
+
 
 
     $item.galleryThumbnail.on('click', function () {
