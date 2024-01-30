@@ -231,7 +231,7 @@ $(document).ready(function () {
 
         if (fullresUrl !== currentImage) {
             $item.selectedGalleryPicture.hide();
-            $item.selectedPictureParent.append(progressBar);
+            $item.lightBoxContainer.append(progressBar);
             $item.selectedGalleryPicture.removeAttr('src');
 
             var img = new Image();
@@ -392,11 +392,16 @@ $(document).ready(function () {
     $item.selectedPictureMAXRES.on('click', function () {
         var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
         var imgSrc = $item.selectedGalleryPicture.attr('src');
-        var hightResURL = imgSrc.replace(/(\.\w+)$/, '_maxres$1').replace('https://demernkardaz.github.io/Nkardazolink/', 'https://media.githubusercontent.com/media/DemerNkardaz/Nkardazolink/main/');
+        var isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        var hightResURL = imgSrc.replace(/(\.\w+)$/, '_maxres$1');
+
+        if (!isLocalhost) {
+            hightResURL = hightResURL.replace('resources/', 'https://media.githubusercontent.com/media/DemerNkardaz/Nkardazolink/main/resources/');
+        }
         var currentImage = $item.selectedGalleryPicture.attr('src');
         if (hightResURL !== currentImage && !imgSrc.includes('_maxres')) {
             $item.selectedGalleryPicture.hide();
-            $item.selectedPictureParent.append(progressBar);
+            $item.lightBoxContainer.append(progressBar);
             $item.selectedGalleryPicture.removeAttr('src');
 
             var img = new Image();
