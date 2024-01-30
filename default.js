@@ -392,7 +392,7 @@ $(document).ready(function () {
     $item.selectedPictureMAXRES.on('click', function () {
         var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
         var imgSrc = $item.selectedGalleryPicture.attr('src');
-        var hightResURL = imgSrc.replace(/(\.\w+)$/, '_maxres$1');
+        var hightResURL = imgSrc.replace(/(\.\w+)$/, '_maxres$1').replace('https://demernkardaz.github.io/Nkardazolink/', 'https://media.githubusercontent.com/media/DemerNkardaz/Nkardazolink/main/');
         var currentImage = $item.selectedGalleryPicture.attr('src');
         if (hightResURL !== currentImage && !imgSrc.includes('_maxres')) {
             $item.selectedGalleryPicture.hide();
