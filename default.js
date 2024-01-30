@@ -219,7 +219,7 @@ $(document).ready(function () {
             $item.selectedPictureSpecials.hide('slow');
         }
         if (!$item.selectedGalleryPicture.is(':visible')) {
-            $item.selectedGalleryPicture.show('slow');
+            $item.selectedGalleryPicture.fadeIn('fast');
         }
 
         if (fullresUrl !== currentImage) {
@@ -404,7 +404,7 @@ $(document).ready(function () {
             $item.selectedPictureParent.css('aspect-ratio', image_view_aspect_w / image_view_aspect_h);
 
             if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
-            $item.selectedGalleryPicture.show('slow');
+            $item.selectedGalleryPicture.fadeIn('fast');
         }
 
     })
