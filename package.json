@@ -2,7 +2,7 @@
     "name": "Nkardazolink",
     "version": "1.0.0",
     "scripts": {
-        "get-repository-info": "node get-repository-info.js"
+        "get-repository-info": "node core/get-repository-info.js"
     },
     "dependencies": {
         "axios": "^0.21.1"
