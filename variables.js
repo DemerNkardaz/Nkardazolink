@@ -37,6 +37,7 @@ let linkBlock;
 let scrollControls;
 let scrollControlsParent;
 let selectedPictureContainer;
+let SelectedPictureWrapper;
 
 $(document).ready(function () {
     personFlex = $('.personFlex');
@@ -78,6 +79,7 @@ $(document).ready(function () {
     scrollControlsParent = $('.scrollControlsParent');
     selectedPictureMAXRES = $('#selectedPictureMAXRES');
     selectedPictureMetas = $('#selectedPictureMetas');
+    SelectedPictureWrapper = $('#SelectedPictureWrapper');
 
 });
 
@@ -120,5 +122,6 @@ export {
     linkBlock,
     scrollControls,
     scrollControlsParent,
-    selectedPictureContainer
+    selectedPictureContainer,
+    SelectedPictureWrapper
 };

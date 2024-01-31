@@ -192,7 +192,9 @@ $(document).ready(function () {
     var $imgSelectedGall;
     var $imgIsSVG = '';
     var ytfUrl = $item.selectedPictureYouTubeVideo.attr('data-youtube');
+
     $item.gallery_trigger.on('click', function (e) {
+
         e.preventDefault();
         var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
         var fullresUrl = $(this).data('fullres') || $(this).data('src') || $(this).attr('src');
@@ -202,6 +204,14 @@ $(document).ready(function () {
         var currentYt = $item.selectedYouTubeVideo.attr('src');
         var currentImage = $item.selectedGalleryPicture.attr('src');
 
+        $item.selectedPictureParent.css({
+            'width': '',
+            'height': ''
+        });
+        $item.SelectedPictureWrapper.css({
+            'width': '',
+            'height': ''
+        })
         $item.selectedYouTubeVideo.hide();
         $item.selectedYouTubeVideo.removeAttr('src');
         if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
@@ -294,7 +304,19 @@ $(document).ready(function () {
         }
     });
 
+    $item.selectedGalleryPicture.on('dblclick', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
+        $item.selectedPictureParent.css({
+            'width': '',
+            'height': ''
+        });
+        $item.SelectedPictureWrapper.css({
+            'width': '',
+            'height': ''
+        })
+    });
 
     $item.lightBoxGalleryCloseBtn.on('click', function () {
         $item.lightBoxContainer.hide('slow');
@@ -519,7 +541,23 @@ $(document).ready(function () {
             $item.selectedGalleryPicture.fadeIn('fast');
         }
 
-    })
+    });
+
+
+
+    $(function () {
+        $item.selectedPictureParent.resizable({
+            maxWidth: 1400,
+            resize: function (event, ui) {
+                var newWidth = ui.size.width;
+                if (newWidth > 1400) {
+                    $item.selectedPictureParent.width(1400);
+                }
+                $item.SelectedPictureWrapper.width(newWidth);
+            }
+        });
+    });
+
 
 
 })
