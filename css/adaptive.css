@@ -33,16 +33,15 @@
 
 
 @media screen and (max-height: 1000px) {
-    .linksOfPersonHeader {
-        padding: 0 75px 0 75px;
-    }
-
     #rootContainer {
         align-self: auto;
     }
 }
 
 @media screen and (max-width: 1000px) {
+    .linksOfPersonHeader {
+        padding: 0 75px 0 75px;
+    }
 
     .linkBlock h3 {
         font-size: calc(1.45em);
