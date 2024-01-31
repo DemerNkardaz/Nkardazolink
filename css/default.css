@@ -1,4 +1,6 @@
 :root {
+    --white: #fff;
+
     --shadow_primary: #22222210;
     --shadow_secondary: #22222286;
     --shadow_half: #22222264;
@@ -314,7 +316,7 @@ body {
     display: flex;
     width: 384px;
     height: 128px;
-    background: var(--background_light_person_block);
+    background: var(--white);
     box-shadow: 0 3px 5px var(--shadow_primary);
     border-radius: 5px;
     transition: all 0.3s ease;
