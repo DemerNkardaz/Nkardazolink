@@ -27,7 +27,7 @@ jobs:
           cd core
           npm run get-repository-info
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SUPER_SECRET }}
 
       - name: Check for changes
         run: |
@@ -36,10 +36,11 @@ jobs:
             exit 0
           fi
 
-      - name: Commit and push changes
+      - name: Commit changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
+          git checkout -b workflow-repo-info
           git add .
           git commit -m "Update repository-info.json"
-          git push
+          git push origin workflow-repo-info 
