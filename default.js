@@ -234,7 +234,6 @@ $(document).ready(function () {
     });
 
 
-
     var ytfUrl = $item.selectedPictureYouTubeVideo.attr('data-youtube');
 
     $item.gallery_trigger.on('click', function (e) {
