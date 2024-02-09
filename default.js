@@ -244,7 +244,9 @@ $(document).ready(function () {
         var maxres = $(this).data('maxres');
         var currentYt = $item.selectedYouTubeVideo.attr('src');
         var currentImage = $item.selectedGalleryPicture.attr('src');
-
+        $item.selectedYouTubeVideo.hide();        
+        $item.selectedYouTubeVideo.removeAttr('src');
+        
         $item.selectedPictureParent.css({
             'width': '',
             'height': ''
@@ -253,8 +255,7 @@ $(document).ready(function () {
             'width': '',
             'height': ''
         })
-        $item.selectedYouTubeVideo.hide();
-        $item.selectedYouTubeVideo.removeAttr('src');
+
         if (ytfUrl !== currentYt) { $item.selectedYouTubeVideo.attr('src', ytfUrl); }
 
         if (ytUrl || pdfUrl || maxres) {
