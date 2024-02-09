@@ -1376,6 +1376,7 @@ a.gallery-trigger {
 }
 
 .vertGallDesc {
+    position: relative;
     width: calc(100% - 70px - 14px);
     margin-left: 10px;
 }
@@ -1384,4 +1385,17 @@ a.gallery-trigger {
 
 .socialIconSVG:hover {
     filter: brightness(250%) sepia(100%) saturate(400%);
+}
+
+.badges {
+  height: 28px;
+  position: absolute;
+  bottom: -13px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.badges img {
+  border-radius: 5px;
+  box-shadow: 0 1px 2px var(--shadow_secondary);
 }
