@@ -17,6 +17,7 @@
     --background_light_main: #FFFFFFB3;
     --background_light_person_block: #FFFFFF80;
     --button_light: #ffffff48;
+    --white_border: #ffffff20;
     --light_border: #ebedf0;
     --grey_border: #b3b3b3;
     --border_grey_entity: 1px solid var(--grey_border);
@@ -797,6 +798,7 @@ body {
     flex-direction: column;
     width: 350px;
     height: 0px;
+    border: 1.5px solid var(--white_border);
     border-radius: 15px;
     background: var(--button_light);
     box-shadow: inset 0 4px 6px var(--shadow_inset_info);
@@ -1039,6 +1041,7 @@ body {
     width: 350px;
     height: 400px;
     background: var(--background_light_person_block);
+    border: 1.25px solid var(--white_border);
     border-radius: 15px;
     transition: all 0.3s ease;
     z-index: 0;
