@@ -5,9 +5,9 @@ function siteTitleOnLang() {
 		var userLanguage = navigator.language || navigator.userLanguage;
 
 		if (userLanguage.toLowerCase() === 'ru') {
-				$item.siteTitle.text('Нкардазолинк');
+				$item.siteTitle.text('Демер Нкардаз・2D・3D・Писательство・Вёрстка');
 		} else {
-				$item.siteTitle.text('Nkardazolink');
+				$item.siteTitle.text('Demer Nkardaz・2D・3D・Writer・Layout');
 		}
 }
 function headerInit() {
