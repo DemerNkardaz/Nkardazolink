@@ -2,14 +2,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const mode = urlParams.get('mode')?.toLowerCase();
 
 if (mode === 'cv') {
-  $(document).ready(function () {
     var userLanguage = navigator.language || navigator.userLanguage;
     if (userLanguage.toLowerCase() === 'ru') {
       $('title').text('Демер Нкардаз・2D/3D Художник');
     } else {
       $('title').text('Demer Nkardaz・2D/3D Artist');
-    }
-  
+    } 
     $('meta[name="description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
     $('meta[property="og:url"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink?mode=CV');
     $('meta[property="og:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
@@ -17,10 +15,10 @@ if (mode === 'cv') {
     $('meta[property="og:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv.png');
 
     $('meta[property="twitter:url"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink?mode=CV');
-    $('meta[property="twitter:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
+    $('meta[name="twitter:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
     $('meta[name="twitter:description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
     $('meta[name="twitter:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_en.png');
-  });
+
 
 
   $('#miniFolioBlock').remove();
