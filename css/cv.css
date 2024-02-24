@@ -4,6 +4,10 @@
   border-radius: 8px;
 }
 
+#personInformationBlock.cv_mode {
+  justify-content: start;
+}
+
 .cv_iconLinks img {
   border-radius: 8px;
   overflow: hidden;
