@@ -4,7 +4,7 @@
   border-radius: 8px;
 }
 
-#cv_main_socials img {
+.cv_iconLinks img {
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.1s ease;
@@ -13,13 +13,27 @@
   box-shadow: 0 3px 2px var(--shadow_inset_info);
   padding: 2px;
 }
-#cv_main_socials img:hover {
+.cv_iconLinks img:hover {
   filter: brightness(150%);
   transform: scale(1.1);
 }
 
+.personDescription.cv_mode {
+  box-shadow: none;
+  background: none;
+  margin: 0;
+}
+.personDescription.cv_mode img {
+  width: 32px;
+}
+
 #cv_main_description {
   width: 250px;
+}
+#cv_main_description ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: "\2014\2002";
 }
 
 #cv_main_description .cv_skills {
