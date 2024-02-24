@@ -3,8 +3,9 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <url>
+    <loc>https://demernkardaz.github.io/Nkardazolink/</loc>
     <image:image>
-      <image:loc>/resources/png/3DBooks/Nakabashira.png</image:loc>
+      <image:loc>resources/png/3DBooks/Nakabashira.png</image:loc>
       <image:title>Книга «Сказ о деревушке Накабасира»</image:title>
       <image:caption><![CDATA[
         <p>АКУЦУХАРА ・ СМУТА ГОФУН</p>
