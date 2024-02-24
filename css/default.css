@@ -137,6 +137,12 @@ a.listButton {
     display: none;
 }
 
+img {
+  color: transparent;
+  font-size: 0;
+  text-indent: -9999px;
+}
+
 body {
     display: flex;
     justify-content: center;
