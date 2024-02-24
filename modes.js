@@ -14,7 +14,7 @@ if (mode === 'cv') {
     $('meta[property="og:url"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink?mode=CV');
     $('meta[property="og:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
     $('meta[property="og:description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
-    $('meta[name="og:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv.png');
+    $('meta[property="og:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv.png');
 
     $('meta[property="twitter:url"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink?mode=CV');
     $('meta[property="twitter:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
