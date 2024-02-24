@@ -1,0 +1,37 @@
+
+.personPlate.cv_mode:has(#personName) {
+  width: 345px;
+  border-radius: 8px;
+}
+
+#cv_main_socials img {
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.1s ease;
+  width: 36px;
+  background: var(--background_light_person_block);
+  box-shadow: 0 3px 2px var(--shadow_inset_info);
+  padding: 2px;
+}
+#cv_main_socials img:hover {
+  filter: brightness(150%);
+  transform: scale(1.1);
+}
+
+#cv_main_description {
+  width: 250px;
+}
+
+#cv_main_description .cv_skills {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: start;
+  text-align: left;
+}
+
+.cv_title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
