@@ -31,16 +31,16 @@
   width: 32px;
 }
 
-#cv_main_description {
+.cv_main_description {
   width: 250px;
 }
-#cv_main_description ul {
+.cv_main_description ul {
   padding: 0 !important;
   margin: 0 !important;
   list-style-type: "\2014\2002" !important;
 }
 
-#cv_main_description .cv_skills {
+.cv_main_description .cv_skills {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -48,7 +48,7 @@
   text-align: left;
 }
 
-#cv_main_description .cv_skills .starred li {
+.cv_main_description .cv_skills .starred li {
   display: flex;
   flex-direction: row;
   justify-content:space-between;

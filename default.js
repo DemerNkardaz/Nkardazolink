@@ -67,7 +67,7 @@ function imageProgressMon(url) {
 		};
 		img.src = url;
 }
-siteTitleOnLang();
+
 $(document).ready(function () {
 		$item.moreInfoBlock.hide();
 		$item.settingsBlock.hide();
@@ -79,7 +79,7 @@ $(document).ready(function () {
 		$item.selectedPictureYouTubeVideo.hide();
 		$item.personInformationBlock.show();
 		$item.personLinksBlock.show();
-		
+		siteTitleOnLang();
 
 		const color_gold_hover = $(':root').css('--color_gold_hover');
 
