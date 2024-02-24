@@ -35,9 +35,9 @@
   width: 250px;
 }
 #cv_main_description ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: "\2014\2002";
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style-type: "\2014\2002" !important;
 }
 
 #cv_main_description .cv_skills {
@@ -46,6 +46,14 @@
   gap: 5px;
   justify-content: start;
   text-align: left;
+}
+
+#cv_main_description .cv_skills .starred li {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  text-align: left;
+  width: 100%;
 }
 
 .cv_title {
