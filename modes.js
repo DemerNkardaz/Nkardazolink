@@ -38,6 +38,8 @@ if (mode === 'cv') {
   $('#personInformationBlock').children('.personDescription').eq(0).children().remove();
   $('#personInformationBlock').addClass('cv_mode');
   $('#personName').parent().addClass('cv_mode');
+  $('[data-key="SaitamaOnmyoji"]').after($('<span>').text('Bălți, Republica Moldova'));
+  $('[data-key="SaitamaOnmyoji"').remove();
 
   var cv_description;
   if (sel === '3d') {
