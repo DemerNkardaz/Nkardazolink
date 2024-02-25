@@ -35,6 +35,7 @@
 
 .cv_main_description {
   width: 250px;
+  hyphens: auto;
 }
 .cv_main_description ul {
   padding: 0 !important;
@@ -62,4 +63,45 @@
   font-size: 18px;
   font-weight: 800;
   margin-bottom: 5px;
+}
+
+.cv_page {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--background_light_person_block);
+  box-shadow: 0 3px 5px var(--shadow_primary);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+#CVListWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#open_graph_banner {
+  position: absolute;
+  width: 128px;
+  border-radius: 0 0 0 8px;
+  overflow: hidden;
+  border-bottom: 3px solid var(--color_pale_gold);
+  border-left: 3px solid var(--color_pale_gold);
+  box-shadow: 0 3px 3px var(--shadow_inset_info);
+  right: 0;
+  top: 0;
+}
+#open_graph_banner img {
+  width: 100%;
 }
