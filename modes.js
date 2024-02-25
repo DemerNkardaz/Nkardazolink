@@ -8,6 +8,10 @@ window.clearModesURL = function() {
     window.open(urlWithoutParams);
 }
 
+window.executeTooltipsCVLeft = function() {
+      $('.cv_main_description [data-bs-toggle="tooltip"]').tooltip();
+}
+
 if (mode === 'cv') {
   /*
   $(document).ready(function () {
@@ -59,4 +63,7 @@ if (mode === 'cv') {
 
   $('#linkBlock').prepend('<div id="CVList" class="cv_page"><div id="CVListWrapper"></div></div>');
   $('#CVListWrapper').eq(0).load('cv.html ' + cv_contents);
+  $(document).ready(function(){
+    executeTooltipsCVLeft();
+  });
 }
