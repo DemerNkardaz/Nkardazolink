@@ -13,6 +13,7 @@
   overflow: hidden;
   transition: all 0.1s ease;
   width: 36px;
+  height: 36px;
   background: var(--background_light_person_block);
   box-shadow: 0 3px 2px var(--shadow_inset_info);
   padding: 2px;
@@ -29,6 +30,7 @@
 }
 .personDescription.cv_mode img {
   width: 32px;
+  height: 32px;
 }
 
 .cv_main_description {
