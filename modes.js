@@ -9,6 +9,7 @@ window.clearModesURL = function() {
 }
 
 if (mode === 'cv') {
+  /*
   $(document).ready(function () {
     var userLanguage = navigator.language || navigator.userLanguage;
     if (userLanguage.toLowerCase() === 'ru') {
@@ -27,7 +28,7 @@ if (mode === 'cv') {
     $('meta[name="twitter:description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
     $('meta[name="twitter:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_en.png');
   });
-
+  */
 
 
   $('#miniFolioBlock').remove();
