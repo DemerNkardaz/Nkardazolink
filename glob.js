@@ -11,14 +11,26 @@ window.redirOrigin = function() {
     window.location.replace('./');
   }
 }
-window.redirTo = function({ index, url }) {
-  if (index) {
-    if (window.localHostIP) {
-      window.location.replace('index.html' + url);
+window.redirTo = function({ index, url, new_tab }) {
+  if (new_tab) {
+    if (index) {
+      if (window.localHostIP) {
+        window.open('index.html' + url, '_blank');
+      } else {
+        window.open('./' + url, '_blank');
+      }
     } else {
-      window.location.replace('./' + url);
+      window.open(url, '_blank');
     }
   } else {
-    window.location.replace(url);
+    if (index) {
+      if (window.localHostIP) {
+        window.location.replace('index.html' + url);
+      } else {
+        window.location.replace('./' + url);
+      }
+    } else {
+      window.location.replace(url);
+    }
   }
 }
