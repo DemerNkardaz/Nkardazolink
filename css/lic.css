@@ -25,6 +25,9 @@
   column-count: 3;
   column-fill: auto;
 }
+.licensePages p span::before {
+  content: "\2003";
+}
 
 #kamonGlyphLic {
   width: 128px;
