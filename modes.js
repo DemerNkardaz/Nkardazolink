@@ -42,8 +42,9 @@ if (modeUrlPar === 'cv') {
   });
 }
 
-
+window.titleMode = '';
 if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' || modeUrlPar === 'webs') {
+  
   $('#miniFolioBlock').remove();
   $('#personLinksBlock').remove();
   $('#personAvatar').remove();
@@ -60,8 +61,14 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   $('#personInformationBlock').children('.personDescription').eq(0).clone().insertAfter($('#personInformationBlock .personDescription').last()).load('cv.html #cv_second_socials').addClass('cv_mode');
 
   if (modeUrlPar === 'kamon') {
+    window.titleMode = 'Мон-дзōсё | Галерея Монсё';
+
     $('[data-key="DemerNkardaz"]').attr('id', 'SelectedEntityTitle').removeAttr('data-key').text('Мару-ни мицуаой').attr('data-key', 'Mon_Tokugawa_Title');
     $('[data-key="SaitamaOnmyoji"]').attr('id', 'SelectedEntitySubTitle').removeAttr('data-key').text('Камон рода Токугава').attr('data-key', 'Mon_Tokugawa');
   }
+
+  $('#linkBlock').prepend('<div class="modeGalleryWrapper"></div>').find('.modeGalleryWrapper').load('modes.html #titleModeNBack', function() {
+    $('#titleMode').html(titleMode);
+  });
 
 }

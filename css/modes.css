@@ -3,3 +3,23 @@
   border-right: none;
   box-shadow: -5px 0 10px var(--shadow_primary);
 }
+
+#titleModeNBack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  
+}
+#titleModeNBack .material-icons {
+  font-size: 2em;
+  margin-right: 10px;
+  cursor: pointer;
+  opacity: 0.25;
+  transition: all 0.3s ease;
+}
+
+#titleModeNBack .material-icons:hover {
+  color: var(--color_dark_gold);
+  opacity: 1;
+}
