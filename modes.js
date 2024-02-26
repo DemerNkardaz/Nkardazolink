@@ -1,7 +1,3 @@
-const urlParams = new URLSearchParams(window.location.search);
-const mode = urlParams.get('mode')?.toLowerCase();
-const sel = urlParams.get('sel')?.toLowerCase();
-
 window.clearModesURL = function() {
     var currentUrl = location.href;
     var urlWithoutParams = currentUrl.split('?')[0];
@@ -12,29 +8,7 @@ window.executeTooltipsCVLeft = function() {
       $('.cv_main_description [data-bs-toggle="tooltip"]').tooltip();
 }
 
-if (mode === 'cv') {
-  /*
-  $(document).ready(function () {
-    var userLanguage = navigator.language || navigator.userLanguage;
-    if (userLanguage.toLowerCase() === 'ru') {
-      $('title').text('Демер Нкардаз・2D/3D Художник');
-    } else {
-      $('title').text('Demer Nkardaz・2D/3D Artist');
-    }
-    $('meta[name="description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
-    $('meta[property="og:url"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink?mode=CV');
-    $('meta[property="og:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
-    $('meta[property="og:description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
-    $('meta[property="og:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv.png');
-
-    $('meta[property="twitter:url"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink?mode=CV');
-    $('meta[name="twitter:title"]').attr('content', 'Демер Нкардаз・2D/3D Художник');
-    $('meta[name="twitter:description"]').attr('content', 'CV Демера Нкардаза, художника в областях 2D/3D');
-    $('meta[name="twitter:image"]').attr('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_en.png');
-  });
-  */
-
-
+if (modeUrlPar === 'cv') {
   $('#miniFolioBlock').remove();
   $('#personLinksBlock').remove();
   $('.personFlexButton').remove();
@@ -48,10 +22,10 @@ if (mode === 'cv') {
 
   var cv_description;
   var cv_contents;
-  if (sel === '3d') {
+  if (selUrlPar === '3d') {
     cv_description = '#cv_main_description_3d';
     cv_contents = '#cv_contents_3d';
-  } else if (sel === '2d') {
+  } else if (selUrlPar === '2d') {
     cv_description = '#cv_main_description_2d';
     cv_contents = '#cv_contents_2d';
   }

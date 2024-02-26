@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="ru">
-
 	<head>
+    <script id="globJS" type="text/javascript" src="glob.js"></script>
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ669488HJ"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -37,9 +36,6 @@
 		<meta name="metasAnchor">
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const mode = (urlParams.get('mode') || '').toLowerCase();
-        const sel = (urlParams.get('sel') || '').toLowerCase();
         const metasAnchor = document.querySelector('meta[name="metasAnchor"]');
 
         const title = document.createElement('title');
@@ -78,7 +74,7 @@
         twitter_domain.setAttribute('property', 'twitter:domain');
         twitter_domain.setAttribute('content', 'demernkardaz.github.io');
 
-        if (mode === 'cv' && sel === '2d') {
+        if (modeUrlPar === 'cv' && selUrlPar === '2d') {
           title.textContent = 'Демер Нкардаз・2D-Художник';
           title.setAttribute('data-key', 'Title_CV_2D');
           title.setAttribute('id', 'CV2D_Title');
@@ -96,7 +92,7 @@
           og_image.setAttribute('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_2D.png');
           twitter_image.setAttribute('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_2D_en.png');
 
-        } else if (mode === 'cv' && sel === '3d') {
+        } else if (modeUrlPar === 'cv' && selUrlPar === '3d') {
           title.textContent = 'Демер Нкардаз・3D-Художник';
           title.setAttribute('data-key', 'Title_CV_3D');
           title.setAttribute('id', 'CV3D_Title');
@@ -114,7 +110,7 @@
           og_image.setAttribute('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_3D.png');
           twitter_image.setAttribute('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_3D_en.png');
 
-        } else if (!mode) {
+        } else if (!modeUrlPar) {
           title.textContent = 'Демер Нкардаз・2D・3D・Писательство・Вёрстка';
           title.setAttribute('data-key', 'Title_Nkardazolink');
           title.setAttribute('id', 'siteTitle');

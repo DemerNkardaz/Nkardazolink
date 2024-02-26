@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script id="globJS" type="text/javascript" src="glob.js"></script>
   <title id="siteTitle" data-key="Title_Nkardazolink">Демер Нкардаз・2D・3D・Писательство・Вёрстка</title>
   <meta name="description" content="🧊 Портфолио и ссылки на контент-ресурсы: я писатель в жанре фэнтези, автор вселенной «Царства Шагора», Hard-Surface моделер, художник и верстальщик.">
   <meta property="og:title" content="Демер Нкардаз・2D・3D・Писательство・Вёрстка">
@@ -14,12 +15,7 @@
   <meta property="twitter:domain" content="demernkardaz.github.io">
   <meta name="twitter:image" content="https://demernkardaz.github.io/Nkardazolink/resources/seo/img_en.png">
     <script type="text/javascript">
-        var currentUrl = window.location.href;
-        if (currentUrl.startsWith("http://localhost") || currentUrl.startsWith("http://127.0.0.1") || currentUrl.startsWith("http://192.168")) {
-            window.location.replace('index.html');
-        } else {
-            window.location.replace('./');
-        }
+        window.redirTo({ index: true, url: '' });
     </script>
 </head>
 </html>

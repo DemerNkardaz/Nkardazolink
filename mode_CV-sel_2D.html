@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script id="globJS" type="text/javascript" src="glob.js"></script>
   <title id="CV2D_Title" data-key="Title_CV_2D">Демер Нкардаз・2D-Художник</title>
   <meta name="description" content="CV Демера Нкардаза, художника в областях 2D/3D">
   <meta property="og:title" content="Демер Нкардаз・2D-Художник">
@@ -13,14 +14,8 @@
   <meta property="twitter:url" content="https://demernkardaz.github.io/Nkardazolink/?mode=CV&sel=2D">
   <meta property="twitter:domain" content="demernkardaz.github.io">
   <meta name="twitter:image" content="https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_2D_en.png">
-
     <script type="text/javascript">
-        var currentUrl = window.location.href;
-        if (currentUrl.startsWith("http://localhost") || currentUrl.startsWith("http://127.0.0.1") || currentUrl.startsWith("http://192.168")) {
-            window.location.replace('index.html?mode=CV&sel=2D');
-        } else {
-            window.location.replace('./?mode=CV&sel=2D');
-        }
+        window.redirTo({ index: true, url: '?mode=CV&sel=2D' });
     </script>
 </head>
 </html>
