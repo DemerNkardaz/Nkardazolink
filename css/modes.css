@@ -1,0 +1,5 @@
+#personBlock.kamon_mode {
+  border-left: 5px solid var(--light_border);
+  border-right: none;
+  box-shadow: -5px 0 10px var(--shadow_primary);
+}
