@@ -56,3 +56,16 @@ window.copyCurrentURL = function() {
         document.body.removeChild(tempInput);
     }
 };
+
+window.addEventListener('load', function() {
+    var preloader = document.getElementById('preloader');
+    if(preloader) {
+        preloader.style.transition = 'opacity 0.5s ease';
+        setTimeout(function() {
+            preloader.style.opacity = '0';
+        }, 500);
+        setTimeout(function() {
+            preloader.parentNode.removeChild(preloader);
+        }, 1000);
+    }
+});

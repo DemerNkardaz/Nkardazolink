@@ -12,3 +12,5 @@ function updateCopyrightYears() {
     });
 }
 document.addEventListener('DOMContentLoaded', updateCopyrightYears);
+
+
