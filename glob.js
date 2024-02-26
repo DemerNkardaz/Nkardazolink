@@ -34,3 +34,25 @@ window.redirTo = function({ index, url, new_tab }) {
     }
   }
 }
+
+window.copyCurrentURL = function() {
+    var currentURL = window.location.href;
+    var tempInput = document.createElement('input');
+    tempInput.value = currentURL;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+
+    try {
+        navigator.clipboard.writeText(currentURL)
+            .then(() => {
+                console.log('URL скопирован в буфер обмена');
+            })
+            .catch(err => {
+                console.error('Не удалось скопировать URL в буфер обмена: ', err);
+            });
+    } catch (err) {
+        console.error('Ошибка при копировании URL в буфер обмена: ', err);
+    } finally {
+        document.body.removeChild(tempInput);
+    }
+};
