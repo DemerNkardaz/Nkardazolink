@@ -44,24 +44,14 @@ if (modeUrlPar === 'cv') {
 
 window.titleMode = '';
 if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' || modeUrlPar === 'webs') {
-  $('#personBlock').children().remove();
-  $('#personLinksBlock').remove();
-  
-  $('#linkBlock').addClass('galleryMode');
-  
-  $('#rootContainer > .contentContainerBlock').append($('#personBlock'));
-  $('#personBlock').addClass('kamon_mode');
+  $('#rootContainer').children().eq(1).remove();
   
   if (modeUrlPar === 'kamon') {
     window.titleMode = 'Мон-дзōсё | Галерея Монсё';
-    
-    $('[data-key="DemerNkardaz"]').attr('id', 'SelectedEntityTitle').removeAttr('data-key').text('Мару-ни мицуаой').attr('data-key', 'Mon_Tokugawa_Title');
-    $('[data-key="SaitamaOnmyoji"]').attr('id', 'SelectedEntitySubTitle').removeAttr('data-key').text('Камон рода Токугава').attr('data-key', 'Mon_Tokugawa');
   }
   
-  $('#linkBlock').prepend('<div class="modeGalleryWrapper"></div>').find('.modeGalleryWrapper').load('modes.html #titleModeNBack', function() {
+  $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
     $('#titleMode').html(titleMode);
   });
-  
-  $('#personBlock').load('modes.html #galleryInfoBanner');
+
 }

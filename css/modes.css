@@ -19,8 +19,9 @@
   align-items: center;
   justify-content: start;
   width: 100%;
-  border-bottom: 2px solid var(--light_border);
-  background: var(--background_light_person_block);
+  border-bottom: 4px solid var(--light_border);
+  background: var(--background_light_mode_gallery);
+  box-shadow: 0 3px 5px var(--shadow_primary);
   padding-top: 15px;
   padding-bottom: 15px;
   z-index: 1;
@@ -37,7 +38,74 @@
 }
 
 #galleryInfoBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 76px;
+  height: 60px;
+
+  color: var(--text_light);
   background: darkred;
+}
+
+#galleryInfoBanner h1, #galleryInfoBanner h2, #galleryInfoBanner h3, #galleryInfoBanner h4, #galleryInfoBanner h5, #galleryInfoBanner h6 {
+  padding-top: 8px;
+  font-family: 'Cormorant SC', serif;
+  font-weight: 700; 
+}
+
+#galleryModeMainWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+}
+
+.contentContainerBlock.galleryMode {
+  height: 100%;
+}
+
+
+#galleryModeContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    background-color: var(--background_light_main);
+    overflow: hidden;
+    z-index: 0;
+}
+
+#galleyContentMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+
+#gallerySelectedItemBlockWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+#gallerySelectedItemBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 480px;
+  height: 780px;
+  background: var(--background_light_person_block);
+  border: 2px solid var(--light_border);
+  box-shadow: 0 3px 5px var(--shadow_inset_info);
+  border-radius: 10px;
+  overflow: hidden;
 }
