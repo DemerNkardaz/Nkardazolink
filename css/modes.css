@@ -46,6 +46,7 @@
   height: 100px;
   color: var(--text_light);
   background: var(--gallery_banner);
+  box-shadow: inset 3px 3px 3px var(--gallery_emboss_up), inset -1px -1px 3px var(--gallery_emboss_down);
 }
 
 #galleryInfoBannerOrnate {
@@ -79,8 +80,7 @@
   background: var(--gallery_selected_bg) url('../resources/svg/pattern_yagasuri.svg') no-repeat;
   background-size: 121%;
   background-position: 45% 50%;
-  border-top: 5px solid var(--gallery_selected_border);
-  border-bottom: 5px solid var(--gallery_selected_border);
+  border: 5px solid var(--gallery_selected_border);
   z-index: 1;
 }
 
@@ -115,7 +115,7 @@
 #gallerySelectedItem img {
   height: 95%;
   max-width: 70%;
-  filter: invert(90%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px 2px 2px var(--gallery_emboss_down));
+  filter: drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
   z-index: 1;
 }
 
@@ -130,6 +130,7 @@
 
   padding: 10px 2px 10px 1px;
   background: var(--gallery_banner);
+  
   --s: 7px;
   z-index: 12;
 }
