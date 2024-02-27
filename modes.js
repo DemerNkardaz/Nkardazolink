@@ -55,5 +55,21 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     window.setRLTBPositions();
     window.setWidthFromChildren();
   });
+
+
+
+  $(document).on('mouseover', '#galleryInfoSelectedTitle', function(){
+    var $element = $(this)[0];
+    if ($element.offsetWidth < $element.scrollWidth) {
+      $("#galleryFullTitle").addClass('active');
+      $("#galleryFullTitle").text($element.textContent);
+    }
+  });
+  $(document).on('mouseout', '#galleryFullTitle', function(){
+    $("#galleryFullTitle").removeClass('active');
+    $("#galleryFullTitle").text('');
+  });
 }
+
+
 
