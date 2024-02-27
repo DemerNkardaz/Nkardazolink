@@ -4,22 +4,33 @@
   box-shadow: -5px 0 10px var(--shadow_primary);
 }
 
+.modeGalleryWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 #titleModeNBack {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
-  
+  width: 100%;
+  border-bottom: 2px solid var(--light_border);
+  background: var(--background_light_person_block);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  z-index: 1;
 }
-#titleModeNBack .material-icons {
-  font-size: 2em;
-  margin-right: 10px;
-  cursor: pointer;
-  opacity: 0.25;
-  transition: all 0.3s ease;
+#linkBlock.galleryMode {
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
 }
 
-#titleModeNBack .material-icons:hover {
-  color: var(--color_dark_gold);
-  opacity: 1;
+#titleMode {
+  font-weight: 800;
+  margin: 0;
 }

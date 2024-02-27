@@ -109,6 +109,25 @@
 
 					og_image.setAttribute('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_3D.png');
 					twitter_image.setAttribute('content', 'https://demernkardaz.github.io/Nkardazolink/resources/seo/img_cv_3D_en.png');
+        } else if (modeUrlPar === 'kamon') {
+					title.textContent = 'Мон-дзōсё | Галерея Монсё';
+					title.setAttribute('data-key', 'Title_Gallery_Kamon');
+					title.setAttribute('id', 'Title_Gallery_Kamon');
+
+        } else if (modeUrlPar === 'pattern') {
+					title.textContent = 'Моньё-тэнтō | Галерея Узора';
+					title.setAttribute('data-key', 'Title_Gallery_Pattern');
+					title.setAttribute('id', 'Title_Gallery_Pattern');
+
+        } else if (modeUrlPar === 'webs') {
+					title.textContent = 'Веб-проекты | Галерея Ресурсов';
+					title.setAttribute('data-key', 'Title_Gallery_Webs');
+					title.setAttribute('id', 'Title_Gallery_Webs');
+
+        } else if (modeUrlPar === 'mods') {
+					title.textContent = 'Моды | Галерея';
+					title.setAttribute('data-key', 'Title_Gallery_Mods');
+					title.setAttribute('id', 'Title_Gallery_Mods');
 
 				} else if (!modeUrlPar) {
 					title.textContent = 'Демер Нкардаз・2D・3D・Писательство・Вёрстка';

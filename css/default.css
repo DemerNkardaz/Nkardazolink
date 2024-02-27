@@ -17,6 +17,7 @@
 
     --background_light_main: #FFFFFFB3;
     --background_light_person_block: #FFFFFF80;
+    --background_circle_button: white;
     --button_light: #ffffff48;
     --white_border: #ffffff20;
     --light_border: #ebedf0;
@@ -1425,4 +1426,43 @@ a.gallery-trigger {
 #bookReader {
   width: 100%;
   height: 100%;
+}
+
+.circle_button {
+  position: relative;
+  background: var(--background_circle_button);
+  border: 4px solid var(--light_border);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px var(--shadow_inset_info);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Material Icons';
+  font-size: 2em;
+  line-height: 1em;
+  cursor: pointer;
+  color: var(--text_lightgrey);
+  transition: all 0.3s ease;
+  margin-right: 20px;
+  margin-left: 20px;
+  width: 44px;
+  height: 44px;
+  user-select: none;
+}
+
+.circle_button:hover {
+  color: var(--color_dark_gold);
+  border-color: var(--color_dark_gold);
+}
+.circle_button:active {
+  color: var(--color_gold_light);
+  border-color: var(--color_gold_light);
+  background: var(--color_dark_gold);
+}
+
+.button_code_name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

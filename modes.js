@@ -44,21 +44,13 @@ if (modeUrlPar === 'cv') {
 
 window.titleMode = '';
 if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' || modeUrlPar === 'webs') {
-  
-  $('#miniFolioBlock').remove();
+  $('#personBlock').children().remove();
   $('#personLinksBlock').remove();
-  $('#personAvatar').remove();
-  $('.personFlexButton').remove();
-  $('.personKamon').remove();
-  $('#personInformationBlock').children('.personDescription').eq(0).children().remove();
-  $('#personBlock').children('.blockumInformatorum').eq(0).remove();
-  $('#personInformationBlock').addClass('cv_mode');
-  $('#personName').parent().addClass('cv_mode');
+
+  $('#linkBlock').addClass('galleryMode');
 
   $('#rootContainer > .contentContainerBlock').append($('#personBlock'));
   $('#personBlock').addClass('kamon_mode');
-
-  $('#personInformationBlock').children('.personDescription').eq(0).clone().insertAfter($('#personInformationBlock .personDescription').last()).load('cv.html #cv_second_socials').addClass('cv_mode');
 
   if (modeUrlPar === 'kamon') {
     window.titleMode = 'Мон-дзōсё | Галерея Монсё';
