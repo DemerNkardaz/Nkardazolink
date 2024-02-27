@@ -113,10 +113,18 @@
 }
 
 #gallerySelectedItem img {
-
   max-width: 70%;
   filter: drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
   z-index: 1;
+  cursor: pointer;
+}
+
+#gallerySelectedItem img:hover {
+  filter: brightness(110%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
+}
+
+#gallerySelectedItem img:active {
+  filter: brightness(115%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
 }
 
 #gallerySelectedTranslatedName {
@@ -132,7 +140,7 @@
   background: var(--gallery_banner);
   
   --s: 7px;
-  z-index: 12;
+  z-index: 10;
 }
 
 .shadowDropWrapper {
@@ -291,4 +299,17 @@
   box-shadow: 0 3px 5px var(--shadow_inset_info);
   border-radius: 10px;
   overflow: hidden;
+}
+
+.shadowDropWrapper:has(#gallerySelectedImageProps),
+#gallerySelectedImageProps {
+  width: 48px;
+}
+#gallerySelectedImageProps [data-imgprop] {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 1px 5px;
+  background: var(--background_light_main);
+  --s: 5px;
+  display: none;
 }

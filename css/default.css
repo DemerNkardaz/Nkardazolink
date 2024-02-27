@@ -108,6 +108,17 @@ a.listButton {
     color: var(--text_primary);
 }
 
+ruby rt {
+  font-family: sans-serif;
+}
+.ruby_bottom {
+  ruby-position: under;
+}
+
+.ruby_bottom > ruby {
+  ruby-position: over;
+}
+
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);

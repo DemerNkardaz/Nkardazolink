@@ -65,10 +65,32 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       $("#galleryFullTitle").text($element.textContent);
     }
   });
-  $(document).on('mouseout', '#galleryFullTitle', function(){
+  $(document).on('mouseover', '[data-transcript]', function(){
+    var transcript = $(this).attr('data-transcript');
+      $("#galleryFullTitle").addClass('active');
+      $("#galleryFullTitle").html(transcript);
+  });
+
+
+  $(document).on('mouseleave', '#galleryFullTitle', function(){
     $("#galleryFullTitle").removeClass('active');
     $("#galleryFullTitle").text('');
   });
+
+  $(document).on('click', '#gallerySelectedItemImg', function(){
+      var $this = $(this);
+      var src = $this.attr('src');
+
+      if (src.endsWith('.png')) {
+        src = src.replace('.png', '.svg');
+        $('[data-imgprop="SVG"]').css('display', 'block');
+      } else if (src.endsWith('.svg')) {
+        src = src.replace('.svg', '.png');
+        $('[data-imgprop="SVG"]').css('display', 'none');
+      }
+      $this.attr('src', src);
+  });
+
 }
 
 
