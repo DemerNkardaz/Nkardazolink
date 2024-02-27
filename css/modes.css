@@ -69,11 +69,11 @@
   filter: brightness(110%);
 }
 
-[data-gallery_groups]:not(.active) img:hover {
-  filter: brightness(350%) sepia(1) saturate(1000%) hue-rotate(-30deg);
+[data-gallery_groups]:not(.active):hover {
+  filter: brightness(500%) sepia(1) saturate(1000%) hue-rotate(-30deg);
 }
 
-[data-gallery_groups]:not(.active) img:active {
+[data-gallery_groups]:not(.active):active {
   filter: brightness(110%);
 }
 
