@@ -45,6 +45,14 @@
 
     --water_element_gradient: linear-gradient(to top, #4575b5, #7db9e8, #b6e2ff);
     --metal_element_gradient: linear-gradient(to top, #9b9b9b, #e4e4e4, #e8e8e8);
+
+    --gallery_banner: #CA6924;
+    --gallery_banner_border: #FFA400;
+    --gallery_emboss_up: #eb7a2a;
+    --gallery_emboss_down: #794017;
+
+    --gallery_selected_bg: #9F5233;
+    --gallery_selected_border: #914b2e;
 }
 
 h1,
