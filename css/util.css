@@ -31,3 +31,14 @@
 .rotate--45 {
   transform: rotate(-45deg);
 }
+
+
+.vertical_kanji {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
+
+.chinese_corner_mask {
+  mask: radial-gradient(var(--s) at var(--s) var(--s), #0000 98%, #000) calc(-1*var(--s)) calc(-1*var(--s));
+}

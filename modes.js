@@ -52,6 +52,8 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
     $('#titleMode').html(titleMode);
+    window.setRLTBPositions();
+    window.setWidthFromChildren();
   });
-
 }
+
