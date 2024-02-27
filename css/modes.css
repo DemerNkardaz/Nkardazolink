@@ -19,6 +19,9 @@
   align-items: center;
   justify-content: start;
   width: 100%;
+  height: 90px;
+  padding-left: 15px;
+  padding-right: 15px;
   border-bottom: 4px solid var(--light_border);
   background: var(--background_light_mode_gallery);
   box-shadow: 0 3px 5px var(--shadow_primary);
@@ -32,9 +35,85 @@
   justify-content: start;
 }
 
+#titleModeLogo {
+  width: 50px;
+  margin-right: 15px;
+  margin-left: 15px;
+  filter: drop-shadow(0px 1px 1px var(--shadow_half)) drop-shadow(0px 1px 2px var(--shadow_half));
+}
+
+#titleModeGalleryGroups {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+  }
+
+[data-gallery_groups] {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1;
+  cursor: pointer;
+}
+
+[data-gallery_groups]:hover {
+  filter: brightness(120%);
+}
+[data-gallery_groups]:active {
+  filter: brightness(110%);
+}
+
+[data-gallery_groups]:not(.active) img:hover {
+  filter: brightness(350%) sepia(1) saturate(1000%) hue-rotate(-30deg);
+}
+
+[data-gallery_groups]:not(.active) img:active {
+  filter: brightness(110%);
+}
+
+[data-gallery_groups].active::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background: var(--kamon_red);
+  z-index: -1;
+}
+
+
+[data-gallery_groups] img {
+  transition: all 0.3s ease;
+  width: 60px;
+}
+
+[data-gallery_groups].active img {
+  filter: invert(100%);
+}
+
+
+
+#titleModeLogo:hover {
+  filter: brightness(80%) sepia(1) saturate(500%) hue-rotate(180deg) drop-shadow(0px 1px 1px var(--shadow_half)) drop-shadow(0px 1px 2px var(--shadow_half));
+}
+
 #titleMode {
+  width: 520px;
   font-weight: 800;
   margin: 0;
+}
+
+#galleryCounter {
+  display: flex;
+  font-weight: 800;
+  font-size: 1.15em;
 }
 
 #galleryInfoBanner {
@@ -313,3 +392,4 @@
   --s: 5px;
   display: none;
 }
+

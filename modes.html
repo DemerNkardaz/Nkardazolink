@@ -1,7 +1,23 @@
 <div id="galleryModeMainWrapper">
   <div id="titleModeNBack">
-    <div class="circle_button" onclick="window.redirTo({ index: true, url: ''});"><span class="button_code_name">home</span></div>
+    <img id="titleModeLogo" src="resources/svg/japan/mode_kamon.svg">
     <h1 id="titleMode"></h1>
+    <div id="titleModeGalleryGroups">
+      <div data-gallery_groups="1" data-filter_groups="JP" class="active">
+        <img src="resources/svg/japan/kamon/Mon_Kiku_8_double.svg">
+      </div>
+      <div data-gallery_groups="2" data-filter_groups="ZH">
+        <img src="resources/svg/china/禄_lù_or_子_zi_symbol---red.svg">
+      </div>
+      <div data-gallery_groups="3" data-filter_groups="VI">
+        <img src="resources/svg/viet/daingu_crest.svg" style="width: 80px;">
+      </div>
+      <div data-gallery_groups="4" data-filter_groups="KR">
+        <img src="resources/svg/korea/Imperial_Seal_of_the_Korean_Empire.svg">
+      </div>
+    </div>
+    <span id="galleryCounter" class="ms-auto me-1"><span data-counter_title="All">Родовых знаков</span>&ensp;<span data-counter="All">0</span>/10000</span>
+    <div class="circle_button" onclick="window.redirTo({ index: true, url: ''});"><span class="button_code_name">home</span></div>
   </div>
   <div id="galleryModeContent">
     <div id="galleyContentMain">

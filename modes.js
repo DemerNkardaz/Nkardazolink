@@ -90,6 +90,14 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       }
       $this.attr('src', src);
   });
+  $(document).on('click', '[data-gallery_groups]', function(){
+    var $this = $(this);
+    if (!$this.hasClass('active')) {
+      $('[data-gallery_groups]').removeClass('active');
+      $this.addClass('active');
+    }
+  });
+  
 
 }
 
