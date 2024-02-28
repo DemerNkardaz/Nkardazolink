@@ -212,7 +212,7 @@
   filter: brightness(115%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
 }
 
-#gallerySelectedTranslatedName {
+.gallerySelectedTranslatedName {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,6 +301,8 @@
   bottom: 0;
   left: 0;
   opacity: 0.1;
+  user-select: none;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -665,7 +667,18 @@
   justify-content: center;
 }
 
+.galleryItemDescription {
+  display: none;
+}
 
+#gallerySelectedDescription {
+  width: 82%;
+  height: 200px;
+  padding: 0 15px 0 15px;
+  font-size: 1em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 
 

@@ -68,6 +68,8 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     window.initializeFilters();
     OverlayScrollbars($('.galleryContentGridWrapper'), {
     });
+    OverlayScrollbars($('#gallerySelectedDescription'), {
+    });
 
     var items = $('.galleryItemCommon');
     if ($('[data-filter_group]')) {
@@ -217,9 +219,23 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   });
   $(document).on('click', '.galleryItemCommon', function () {
     var $this = $(this);
+    var image = $this.find('img').attr('src');
     if (!$this.hasClass('selected')) {
       $('.galleryItemCommon').removeClass('selected');
       $this.addClass('selected');
+
+      $('#gallerySelectedSubTitleText').text($this.find('.galleryItemTitle').text() || 'Название отсутствует');
+
+      $('#gallerySelectedDescription').find('.os-content').html($this.find('.galleryItemDescription').html() || 'Описание отсутствует');
+
+      $('#galleryInfoSelectedTitle').text($this.data('mon_title') || 'Название отсутствует').attr('data-key', $this.data('mon_key'));
+
+      $('#gallerySelectedItem').find('.gallerySelectedTranslatedName').eq(0).text($this.data('mon_kanji_first') || 'Не найдено').attr('data-transcript', $this.data('mon_transcript_first') || 'Руби-подсказка не найдена');
+
+      $('#gallerySelectedItem').find('.gallerySelectedTranslatedName').eq(1).text($this.data('mon_kanji_second') || 'Не найдено').attr('data-transcript', $this.data('mon_transcript_second') || 'Руби-подсказка не найдена');
+
+      $('#gallerySelectedItemImg').attr('src', image.replace("_thumb", ""));
+
     }
   });
 
