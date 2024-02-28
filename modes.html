@@ -15,6 +15,9 @@
       <div data-gallery_groups="4" data-filter_groups="KR">
         <img src="resources/svg/korea/Imperial_Seal_of_the_Korean_Empire.svg">
       </div>
+      <div data-gallery_groups="5" data-filter_groups="Glyphs">
+        <img src="resources/svg/japan/Person_Inekama.svg" style="width: 80px;">
+      </div>
     </div>
     <span id="galleryCounter" class="ms-auto me-1"><span data-counter_title="All">Родовых знаков</span>&ensp;<span data-counter="All">0</span>/10000</span>
     <div class="circle_button" onclick="window.redirTo({ index: true, url: ''});"><span class="button_code_name">home</span></div>
@@ -22,12 +25,20 @@
   <div id="galleryModeContent">
     <div id="galleyContentMain">
       <div id="galleryContentHeader">
-        <div id="galleryContentSearch">
-
+        <div id="galleryGroupTitle" data-key="JP">
+          Япония
         </div>
+        <div class="vr ms-3 me-3"></div>
+        <div id="galleryContentSearch">
+          <input id="galleryContentSearchInput" type="text" placeholder="Поиск знака…" data-key="searchMonItem">
+        </div>
+        <div class="vr ms-3 me-3"></div>
       </div>
+      <hr class="w-100 mt-4">
       <div id="galleryContentGrid">
 
+      </div>
+      <div id="galleryControlButtons">
       </div>
     </div>
     <div id="gallerySelectedItemBlockWrapper">
@@ -77,13 +88,9 @@
           </div>
         </div>
 
-
+        <div>Какой-то текст</div>
         <div id="gallerySelectedCorners"></div>
       </div>
     </div>
   </div>
 </div>
-<div id="galleryInfoBanner">
-
-</div>
-

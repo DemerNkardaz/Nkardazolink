@@ -15,6 +15,7 @@
 
     --text_options: #ededed;
 
+    --background_dark: #000000B3;
     --background_light_main: #FFFFFFB3;
     --background_light_person_block: #FFFFFF80;
     --background_light_mode_gallery: #FFFFFFF0;
@@ -1485,4 +1486,60 @@ a.gallery-trigger {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.vr {
+  display: inline-block;
+  height: 100%;
+  width: 1px;
+  background: var(--text_primary);
+}
+
+
+.button_rounded_common {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  user-select: none;
+  cursor: pointer;
+  font-weight: 800;
+  background: var(--background_circle_button);
+  border: 1.25px solid var(--grey_border);
+  padding: 5px 15px;
+  box-shadow: 0 3px 2px var(--shadow_inset_info);
+  transition: all 0.3s ease;
+}
+
+.button_rounded_common:has(.maticon) {
+  padding-left: 40px;
+}
+.button_rounded_common .maticon {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  transform: translate(0, -50%);
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 1em;
+  color: var(--text_light);
+  background: var(--background_dark);
+  border: 2px solid white;
+  box-shadow: 0 0 2px var(--shadow_secondary);
+  border-radius: 50%;
+  padding: 4.25px;
+  transition: all 0.3s ease;
+}
+
+.button_rounded_common:hover {  
+  background: var(--background_dark);
+  border-color: black;
+  color: var(--text_light);
+}
+
+.button_rounded_common:hover .maticon {
+  border-color: var(--color_dark_gold);
+  color: var(--color_dark_gold);
 }

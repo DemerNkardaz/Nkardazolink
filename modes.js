@@ -52,6 +52,14 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
     $('#titleMode').html(titleMode);
+    if (modeUrlPar === 'kamon') {
+      $('#galleryControlButtons').append(
+        '<div class="button_rounded_common" onclick="window.redirTo({ index: true, url: \'?mode=banners\' });">' +
+        '<span class="maticon">flag</span>' +
+        'Смотреть штандарты' +
+        '</div>'
+      );
+    }
     window.setRLTBPositions();
     window.setWidthFromChildren();
   });
@@ -95,6 +103,22 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     if (!$this.hasClass('active')) {
       $('[data-gallery_groups]').removeClass('active');
       $this.addClass('active');
+      if ($this.attr('data-filter_groups') === 'JP') {
+        $('#galleryGroupTitle').text('Япония');
+        $('#galleryGroupTitle').attr('data-key', 'jp');
+      } else if ($this.attr('data-filter_groups') === 'ZH') {
+        $('#galleryGroupTitle').text('Китай');
+        $('#galleryGroupTitle').attr('data-key', 'zh');
+      } else if ($this.attr('data-filter_groups') === 'VI') {
+        $('#galleryGroupTitle').text('Вьетнам');
+        $('#galleryGroupTitle').attr('data-key', 'vi');
+      } else if ($this.attr('data-filter_groups') === 'KR') {
+        $('#galleryGroupTitle').text('Корея');
+        $('#galleryGroupTitle').attr('data-key', 'kr');
+      } else if ($this.attr('data-filter_groups') === 'Glyphs') {
+        $('#galleryGroupTitle').text('Глифы');
+        $('#galleryGroupTitle').attr('data-key', 'glyphs');
+      }
     }
   });
   
