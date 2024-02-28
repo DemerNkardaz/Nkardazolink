@@ -244,19 +244,79 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
         $(this).removeClass('active');
       }
     });
+    filter_items_by_swap();
   }
 
   window.filter_show_items_by_type = function() {
     
   }
 
-  window.filter_items_by_swap = function() {
+  window.filter_items_by_swap = function () {
+    var selected_filter = $('[data-filter_menu] > .active').attr('value');
     if ($('[data-filter_entity="swapper"]').attr('data-filter_swap') === 'true') {
-      
+        if (selected_filter === 'clan_status') {
+          var items = $('.galleryItemCommon');
+
+          items.sort(function(a, b) {
+              return $(a).data('filter_status') - $(b).data('filter_status');
+          });
+
+          items.each(function() {
+              $(this).appendTo($(this).parent());
+          });
+        } else if (selected_filter === 'clan_name') {
+            var items = $('.galleryItemCommon');
+
+            items.sort(function(a, b) {
+                var nameA = $(a).find('.galleryItemTitle').text().toUpperCase();
+                var nameB = $(b).find('.galleryItemTitle').text().toUpperCase();
+                if (nameA > nameB) {
+                    return -1;
+                }
+                if (nameA < nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            items.each(function() {
+                $(this).appendTo($(this).parent());
+            });
+        }
     } else {
-      
-    }
+        if (selected_filter === 'clan_status') {
+          var items = $('.galleryItemCommon');
+
+          items.sort(function(a, b) {
+              return $(b).data('filter_status') - $(a).data('filter_status');
+          });
+
+          items.each(function() {
+              $(this).appendTo($(this).parent());
+          });
+        } else if (selected_filter === 'clan_name') {
+            var items = $('.galleryItemCommon');
+
+            items.sort(function(a, b) {
+                var nameA = $(a).find('.galleryItemTitle').text().toUpperCase();
+                var nameB = $(b).find('.galleryItemTitle').text().toUpperCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            items.each(function() {
+                $(this).appendTo($(this).parent());
+            });
+        }
+      }
   }
+  
+
 
   window.filterSwapper = function () {
     if ($('[data-filter_entity="swapper"]').attr('data-filter_swap') === 'false') {
