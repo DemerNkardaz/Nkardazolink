@@ -12,12 +12,15 @@
   justify-content: center;
   width: 100%;
 }
-
+#titleModeNBack h1, #titleModeNBack h2, #titleModeNBack h3, #titleModeNBack h4, #titleModeNBack h5, #titleModeNBack h6 {
+  font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif Tangut', serif;
+}
 #titleModeNBack {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
+  
   width: 100%;
   height: 90px;
   padding-left: 15px;
@@ -105,6 +108,9 @@
 }
 
 #titleMode {
+  display: flex;
+  align-items: start;
+  justify-content: start;
   width: 520px;
   font-weight: 800;
   margin: 0;
@@ -143,7 +149,7 @@
 
 #galleryInfoBanner h1, #galleryInfoBanner h2, #galleryInfoBanner h3, #galleryInfoBanner h4, #galleryInfoBanner h5, #galleryInfoBanner h6 {
   padding-top: 8px;
-  font-family: 'Cormorant SC', serif;
+  font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif Tangut', serif;
   font-weight: 700; 
   text-shadow: 0 2px 4px var(--shadow_secondary);
 }
@@ -363,6 +369,7 @@
   align-items: start;
   justify-content: start;
   height: 36px;
+  z-index: 2;
 }
 
 #galleryGroupTitle {
@@ -465,3 +472,167 @@
   color: var(--kamon_red);
   filter: drop-shadow(0px 0px 1px var(--shadow_secondary));
 }
+
+.galleryContentGridWrapper {
+  width: 100%;
+  height: 95%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 28px 10px 0px 22px;
+  box-sizing: border-box;
+}
+
+.contentGrid {
+  position: relative;
+  width: 99%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  row-gap: 30px;
+  column-gap: 5px;
+}
+
+.contentGrid::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.galleryItemCommon {
+  --rarity_color_gold: linear-gradient(-25deg, #d1934b, #9a7251);
+  --rarity_color_common: linear-gradient(-25deg, #96d069, #769566);
+  --rarity_bg_gold: url();
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 128px;
+  height: 170px;
+  background: var(--background_light_main);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--shadow_inset_info);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;
+  transition: all 0.1s ease;
+  outline: 4px solid transparent;
+}
+
+.galleryItemCommon:hover {
+  outline: 2px solid white;
+  transform: scale(1.12);
+}
+
+.galleryItemCommon:active {
+  transform: scale(1.05);
+}
+
+.galleryItemCommon.selected {
+  outline: 2px solid white;
+  animation: var(--rarity_animation) 5s ease infinite;
+}
+
+
+
+@keyframes selected_pulse_shadow {
+  0% {
+    box-shadow: 5px 0 15px #5fff2f, -5px -0 15px #5fff2f;
+  }
+
+  50%,
+  85% {
+    box-shadow: 5px 0 15px #5fff2f90, -5px -0 15px #5fff2f90;
+  }
+
+  100% {
+    box-shadow: 5px 0 15px #5fff2f, -5px -0 15px #5fff2f;
+  }
+}
+
+
+
+@keyframes selected_pulse_shadow_gold {
+  0% {
+    box-shadow: 5px 0 15px #ffb32fff, -5px -0 15px #ffb32fff;
+  }
+
+  50%, 85% {
+    box-shadow: 5px 0 15px #ffb32f90, -5px -0 15px #ffb32f90;
+  }
+
+  100% {
+    box-shadow: 5px 0 15px #ffb32fff, -5px -0 15px #ffb32fff;
+  }
+}
+
+.galleryItemCommon[rarity="gold"]::before {
+  --rarity_color: var(--rarity_color_gold);
+}
+
+.galleryItemCommon.selected[rarity="gold"] {
+  --rarity_animation: selected_pulse_shadow_gold;
+}
+
+.galleryItemCommon[rarity="common"]::before,
+.galleryItemCommon:not([rarity])::before {
+  --rarity_color: var(--rarity_color_common);
+}
+
+
+.galleryItemCommon.selected[rarity="common"],
+.galleryItemCommon:not([rarity]) {
+  --rarity_animation: selected_pulse_shadow;
+}
+.galleryItemCommon::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 140px;
+  border-radius: 0 0 35px 0;
+  top: 0;
+  background: var(--rarity_color);
+  z-index: -1;
+}
+
+.galleryItemImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 140px;
+  margin-bottom: 3px;
+}
+
+.galleryItemImg img {
+  width: 80%;
+  filter: drop-shadow(0px 1px 3px var(--shadow_tretiary));
+}
+
+.galleryItemTitle {
+  width: 100%;
+  font-weight: 800;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+

@@ -4,6 +4,7 @@
 
     --shadow_primary: #22222210;
     --shadow_secondary: #22222286;
+    --shadow_tretiary: #00000095;
     --shadow_half: #22222264;
     --shadow_inset_info: #22222229;
 
@@ -1489,8 +1490,9 @@ a.gallery-trigger {
 }
 
 .vr {
-  display: inline-block;
+  display: inline-flex;
   height: 100%;
+  align-self: center;
   width: 1px;
   background: var(--text_primary);
 }
@@ -1635,4 +1637,26 @@ div:has(.dropdown_menu) {
   margin-left: auto;
   display: inline-block;
   transform: scaleX(0.8);
+}
+
+.os-scrollbar-track.os-scrollbar-track-off {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: #00000020 !important;
+  box-shadow: inset 0px 0px 1px var(--shadow_secondary);
+}
+.os-scrollbar-handle {
+  position: absolute;
+  background: #ffffffd0 !important;
+  filter: drop-shadow(0 0 2px var(--shadow_secondary));
+  transition: all 0.3s ease !important;
+}
+
+.os-scrollbar-handle:hover {
+
+}
+
+
+.os-scrollbar {
 }

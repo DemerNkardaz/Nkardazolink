@@ -21,29 +21,29 @@ window.setRLTBPositions = function() {
     var style = {};
     
     classes.forEach(function(className) {
-      if (className.includes("top") || className.includes("bottom") || className.includes("left") || className.includes("right")) {
+      if (className.startsWith("top") || className.startsWith("bottom") || className.startsWith("left") || className.startsWith("right")) {
         var value = className.split("_")[1];
         style.position = "absolute";
         
-        if (className.includes("top")) {
+        if (className.startsWith("top")) {
           style.top = value;
-        } else if (className.includes("bottom")) {
+        } else if (className.startsWith("bottom")) {
           style.bottom = value;
-        } else if (className.includes("left")) {
+        } else if (className.startsWith("left")) {
           style.left = value;
-        } else if (className.includes("right")) {
+        } else if (className.startsWith("right")) {
           style.right = value;
         }
-        if (className.includes("topright")) {
+        if (className.startsWith("topright")) {
           style.top = value;
           style.right = value;
-        } else if (className.includes("topleft")) {
+        } else if (className.startsWith("topleft")) {
           style.top = value;
           style.left = value;
-        } else if (className.includes("bottomright")) {
+        } else if (className.startsWith("bottomright")) {
           style.bottom = value;
           style.right = value;
-        } else if (className.includes("bottomleft")) {
+        } else if (className.startsWith("bottomleft")) {
           style.bottom = value;
           style.left = value;
         }

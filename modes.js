@@ -47,7 +47,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   $('#rootContainer').children().eq(1).remove();
   
   if (modeUrlPar === 'kamon') {
-    window.titleMode = 'Мон-дзōсё | Галерея Монсё';
+    window.titleMode = '<div class="vr ms-3 me-3"></div>Галерея Монсё';
   }
   
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
@@ -66,7 +66,16 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     window.setRLTBPositions();
     window.setWidthFromChildren();
     window.initializeFilters();
+    OverlayScrollbars($('.galleryContentGridWrapper'), {
+      className: "os-theme-light",
+      sizeAutoCapable: true,
+      paddingAbsolute : false,
+    });
   });
+
+  window.updateGalleryScrollbar = function() {
+    OverlayScrollbars($('.galleryContentGridWrapper')).scroll().update();
+  }
 
 
 
@@ -125,7 +134,13 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       }
     }
   });
-
+  $(document).on('click', '.galleryItemCommon', function () {
+    var $this = $(this);
+    if (!$this.hasClass('selected')) {
+      $('.galleryItemCommon').removeClass('selected');
+      $this.addClass('selected');
+    }
+  });
 
   $(document).on('click', '[data-filter_menu] > [value]', function(){
     var selected = $('[data-filter_selected]');
