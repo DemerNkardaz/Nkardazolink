@@ -67,14 +67,28 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     window.setWidthFromChildren();
     window.initializeFilters();
     OverlayScrollbars($('.galleryContentGridWrapper'), {
-
     });
+
+    var items = $('.galleryItemCommon');
+    if ($('[data-filter_group]')) {
+      items.each(function(){
+        if ($(this).attr('data-filter_group') === 'JP') {
+          $(this).removeClass('groupDisabled');
+        } else {
+          $(this).addClass('groupDisabled');
+        }
+      });
+    }
+    updateCrestCounter();
   });
 
   window.updateGalleryScrollbar = function() {
     OverlayScrollbars($('.galleryContentGridWrapper')).scroll().update();
   }
 
+  window.updateCrestCounter = function() {
+    $('span[data-counter]').text($('#galleryContentGrid > .galleryItemCommon:not(.groupDisabled)').length);
+  }
 
 
   $(document).on('mouseover', '#galleryInfoSelectedTitle', function(){
@@ -189,8 +203,17 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
 
 
       }
+    } else {
+      $this.removeClass('active');
+      $('#galleryGroupTitle').text('Все');
+      $('#galleryGroupTitle').attr('data-key', 'All');
+
+      if ($('[data-filter_group]')) {
+        items.removeClass('groupDisabled');
+      }
     }
     $('#galleryContentSearchInput').trigger('input');
+    updateCrestCounter();
   });
   $(document).on('click', '.galleryItemCommon', function () {
     var $this = $(this);
