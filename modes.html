@@ -33,12 +33,35 @@
           <input id="galleryContentSearchInput" type="text" placeholder="Поиск знака…" data-key="searchMonItem">
         </div>
         <div class="vr ms-3 me-3"></div>
+        <div id="galleryFiltersOpts">
+          <div class="button_rounded_common" onclick="filterUnset();" data-bs-toggle="tooltip" data-bs-placement="bottom" title="По умолчанию" data-filter_entity="reset">
+            <span class="icononly maticon">filter_alt</span>
+          </div>
+          <div class="dropdown_wrapper">
+            <div class="button_rounded_common filterButton" onclick="openTargetDropdown('filter');" data-filter_entity="filter" >
+              <span data-filter_selected=""></span>
+              <span class="downarrow"></span>
+            </div>
+            <div class="dropdown_menu" data-filter_menu data-dropid="filter">
+              <div value="clan_name" data-key="clan_name">Имя клана</div>
+              <div data-filter_value="default" value="clan_status" data-key="clan_status">Статус клана</div>
+            </div>
+          </div>
+
+          <div class="button_rounded_common" onclick="filterSwapper();" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Инвертировать фильтр" data-filter_entity="swapper" data-filter_swap="false">
+            <span class="icononly maticon">swap_vert</span>
+          </div>
+        </div>
       </div>
       <hr class="w-100 mt-4">
       <div id="galleryContentGrid">
 
       </div>
       <div id="galleryControlButtons">
+        <div class="button_rounded_common" onclick="window.redirTo({ index: true, url: '' });">
+          <span class="icononly maticon">home</span>
+        </div>
+
       </div>
     </div>
     <div id="gallerySelectedItemBlockWrapper">

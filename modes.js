@@ -60,8 +60,12 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
         '</div>'
       );
     }
+
+    $('[data-filter_entity]').tooltip();
+    $('[data-filter_selected]').attr('data-filter_selected', $('[data-filter_value="default"]').attr('value'));
     window.setRLTBPositions();
     window.setWidthFromChildren();
+    window.initializeFilters();
   });
 
 
@@ -121,9 +125,76 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       }
     }
   });
-  
 
+
+  $(document).on('click', '[data-filter_menu] > [value]', function(){
+    var selected = $('[data-filter_selected]');
+
+    selected.attr('data-filter_selected', $(this).attr('value'));
+    $(this).parent().removeClass('opened');
+    initializeFilters();
+  });
+
+  window.initializeFilters = function () {
+    var selected = $('[data-filter_selected]');
+    var value_items = $('[data-filter_menu] > [value]');
+
+    value_items.each(function() {
+      if (selected.attr('data-filter_selected') === $(this).attr('value')) {
+        $(this).addClass('active');
+        selected.text($(this).text());
+        selected.attr('data-key', $(this).attr('data-key'));
+      } else {
+        $(this).removeClass('active');
+      }
+    });
+  }
+
+  window.filter_show_items_by_type = function() {
+    
+  }
+
+  window.filter_items_by_swap = function() {
+    if ($('[data-filter_entity="swapper"]').attr('data-filter_swap') === 'true') {
+      
+    } else {
+      
+    }
+  }
+
+  window.filterSwapper = function () {
+    if ($('[data-filter_entity="swapper"]').attr('data-filter_swap') === 'false') {
+      $('[data-filter_entity="swapper"]').attr('data-filter_swap', 'true');
+    } else {
+      $('[data-filter_entity="swapper"]').attr('data-filter_swap', 'false');
+    }
+    filter_items_by_swap();
+  }
+
+  
+  window.filterUnset = function() {
+    $('[data-filter_entity="swapper"]').attr('data-filter_swap', 'false');
+    filter_items_by_swap();
+    $('[data-filter_selected]').attr('data-filter_selected', $('[data-filter_value="default"]').attr('value'));
+    initializeFilters();
+    }
 }
+
+window.openTargetDropdown = function (selector) {
+  $('[data-dropid="' + selector + '"]').toggleClass('opened');
+}
+
+window.toggleTooltip = function (element) {
+  $(element).tooltip('toggleEnabled');
+}
+
+
+$(document).on('click', function (e) {
+  var $target = $(e.target);
+  if ($target.closest($('[data-dropid]').parent()).length === 0) {
+    $('[data-dropid]').removeClass('opened');
+  }
+});
 
 
 

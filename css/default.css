@@ -1498,7 +1498,8 @@ a.gallery-trigger {
 
 .button_rounded_common {
   position: relative;
-  display: inline-flex;
+  height: 36px;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50px;
@@ -1510,10 +1511,11 @@ a.gallery-trigger {
   padding: 5px 15px;
   box-shadow: 0 3px 2px var(--shadow_inset_info);
   transition: all 0.3s ease;
+  z-index: 1;
 }
 
 .button_rounded_common:has(.maticon) {
-  padding-left: 40px;
+  padding-left: 45px;
 }
 .button_rounded_common .maticon {
   position: absolute;
@@ -1530,10 +1532,20 @@ a.gallery-trigger {
   box-shadow: 0 0 2px var(--shadow_secondary);
   border-radius: 50%;
   padding: 4.25px;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
-.button_rounded_common:hover {  
+.button_rounded_common .maticon.icononly {
+  position: unset;
+  transform: unset;
+}
+
+.button_rounded_common:has(.maticon.icononly) {
+  padding: 5px;
+}
+
+.button_rounded_common:hover,
+.dropdown_wrapper:has(.opened) > .button_rounded_common {
   background: var(--background_dark);
   border-color: black;
   color: var(--text_light);
@@ -1542,4 +1554,85 @@ a.gallery-trigger {
 .button_rounded_common:hover .maticon {
   border-color: var(--color_dark_gold);
   color: var(--color_dark_gold);
+}
+
+.button_rounded_common:active {
+  color: var(--color_dark_gold);
+  border-color: var(--color_dark_gold);
+}
+
+.button_rounded_common:active .maticon {
+  color: var(--text_light);
+  border-color: var(--text_light);
+}
+
+
+.downarrow {
+  margin-left: auto;
+}
+.downarrow::after {
+  content: '▼';
+  font-size: 0.7em;
+}
+
+.button_rounded_common.filterButton {
+  width: 200px;
+}
+
+div:has(.dropdown_menu) {
+  position: relative;
+  z-index: 1;
+}
+
+.dropdown_menu {
+  position: absolute;
+  top: 38px;
+  width: 100%;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  background: var(--background_circle_button);
+  border: 1.25px solid var(--grey_border);
+  padding: 1px;
+  box-shadow: 0 3px 2px var(--shadow_inset_info);
+  border-radius: 15px;
+  font-weight: 800;
+  user-select: none;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 1080;
+}
+
+.dropdown_menu.opened {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.dropdown_menu [value] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 3px 15px 3px 15px;
+  border-radius: 15px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.dropdown_menu [value]:hover {
+  background: var(--shadow_inset_info);
+}
+
+.dropdown_menu [value].active::after {
+  content: 'done';
+  font-family: 'Material Icons';
+  font-size: 1.2em;
+  line-height: 1em;
+  font-weight: 800;
+  margin-left: auto;
+  display: inline-block;
+  transform: scaleX(0.8);
 }

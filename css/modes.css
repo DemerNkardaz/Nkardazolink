@@ -428,3 +428,40 @@
   display: none;
 }
 
+#galleryControlButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#galleryFiltersOpts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  height: inherit;
+}
+
+.filterOption {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Material Icons';
+  font-size: 1.75em;
+  line-height: 1em;
+  color: var(--text_mid_grey);
+  cursor: pointer;
+  user-select: none;
+}
+
+.filterOption:hover {
+  color: var(--text_light);
+  filter: drop-shadow(0px 0px 1px var(--shadow_secondary));
+}
+
+.filterOption.active, .filterOption:active {
+  color: var(--kamon_red);
+  filter: drop-shadow(0px 0px 1px var(--shadow_secondary));
+}

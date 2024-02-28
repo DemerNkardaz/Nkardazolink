@@ -70,7 +70,8 @@ window.setWidthFromChildren = function() {
     });
 }
 
-// Вызов функции после загрузки страницы
+
 window.addEventListener('load', function() {
     setWidthToChildren();
 });
+
