@@ -109,28 +109,88 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       }
       $this.attr('src', src);
   });
+
   $(document).on('click', '[data-gallery_groups]', function(){
     var $this = $(this);
+    var items = $('.galleryItemCommon');
+
     if (!$this.hasClass('active')) {
       $('[data-gallery_groups]').removeClass('active');
       $this.addClass('active');
       if ($this.attr('data-filter_groups') === 'JP') {
         $('#galleryGroupTitle').text('Япония');
         $('#galleryGroupTitle').attr('data-key', 'jp');
+
+        if ($('[data-filter_group]')) {
+          items.each(function(){
+            if ($(this).attr('data-filter_group') === 'JP') {
+              $(this).removeClass('groupDisabled');
+            } else {
+              $(this).addClass('groupDisabled');
+            }
+          });
+        }
+
       } else if ($this.attr('data-filter_groups') === 'ZH') {
         $('#galleryGroupTitle').text('Китай');
         $('#galleryGroupTitle').attr('data-key', 'zh');
+
+        if ($('[data-filter_group]')) {
+          items.each(function(){
+            if ($(this).attr('data-filter_group') === 'ZH') {
+              $(this).removeClass('groupDisabled');
+            } else {
+              $(this).addClass('groupDisabled');
+            }
+          });
+        }
+
       } else if ($this.attr('data-filter_groups') === 'VI') {
         $('#galleryGroupTitle').text('Вьетнам');
         $('#galleryGroupTitle').attr('data-key', 'vi');
+
+        if ($('[data-filter_group]')) {
+          items.each(function(){
+            if ($(this).attr('data-filter_group') === 'VI') {
+              $(this).removeClass('groupDisabled');
+            } else {
+              $(this).addClass('groupDisabled');
+            }
+          });
+        }
+
       } else if ($this.attr('data-filter_groups') === 'KR') {
         $('#galleryGroupTitle').text('Корея');
         $('#galleryGroupTitle').attr('data-key', 'kr');
+
+        if ($('[data-filter_group]')) {
+          items.each(function(){
+            if ($(this).attr('data-filter_group') === 'KR') {
+              $(this).removeClass('groupDisabled');
+            } else {
+              $(this).addClass('groupDisabled');
+            }
+          });
+        }
+
       } else if ($this.attr('data-filter_groups') === 'Glyphs') {
         $('#galleryGroupTitle').text('Глифы');
         $('#galleryGroupTitle').attr('data-key', 'glyphs');
+
+        if ($('[data-filter_group]')) {
+          items.each(function(){
+            if ($(this).attr('data-filter_group') === 'Glyphs') {
+              $(this).removeClass('groupDisabled');
+            } else {
+              $(this).addClass('groupDisabled');
+            }
+          });
+        }
+
+
       }
     }
+    $('#galleryContentSearchInput').trigger('input');
   });
   $(document).on('click', '.galleryItemCommon', function () {
     var $this = $(this);
@@ -215,12 +275,14 @@ $(document).ready(function(){
     $('#galleryContentSearchInput').on('input', function(){
         var searchText = $(this).val().toLowerCase();
         $('.galleryItemCommon').each(function(){
-            var searchTags = $(this).attr('data-search_tags');
+          var searchTags = $(this).attr('data-search_tags');
+          if (!$(this).hasClass('groupDisabled')) {
             if((searchTags && searchTags.toLowerCase().indexOf(searchText) !== -1) || !searchTags){
                 $(this).show();
             } else {
                 $(this).hide();
             }
+          }
         });
     });
 });
