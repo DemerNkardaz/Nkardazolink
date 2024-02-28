@@ -1640,23 +1640,18 @@ div:has(.dropdown_menu) {
 }
 
 .os-scrollbar-track.os-scrollbar-track-off {
-  position: relative;
-  display: flex;
-  justify-content: center;
   background: #00000020 !important;
   box-shadow: inset 0px 0px 1px var(--shadow_secondary);
 }
 .os-scrollbar-handle {
-  position: absolute;
+  position: relative;
   background: #ffffffd0 !important;
   filter: drop-shadow(0 0 2px var(--shadow_secondary));
-  transition: all 0.3s ease !important;
+}
+.os-scrollbar-handle:hover, .os-scrollbar-handle:active {
+  background: #fffffff0 !important;
 }
 
-.os-scrollbar-handle:hover {
-
-}
-
-
-.os-scrollbar {
+.os-scrollbar.os-scrollbar-vertical {
+  right: 5px;
 }

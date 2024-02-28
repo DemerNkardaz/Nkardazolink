@@ -67,9 +67,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     window.setWidthFromChildren();
     window.initializeFilters();
     OverlayScrollbars($('.galleryContentGridWrapper'), {
-      className: "os-theme-light",
-      sizeAutoCapable: true,
-      paddingAbsolute : false,
+
     });
   });
 
@@ -213,3 +211,16 @@ $(document).on('click', function (e) {
 
 
 
+$(document).ready(function(){
+    $('#galleryContentSearchInput').on('input', function(){
+        var searchText = $(this).val().toLowerCase();
+        $('.galleryItemCommon').each(function(){
+            var searchTags = $(this).attr('data-search_tags');
+            if((searchTags && searchTags.toLowerCase().indexOf(searchText) !== -1) || !searchTags){
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
