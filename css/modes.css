@@ -204,11 +204,11 @@
   cursor: pointer;
 }
 
-#gallerySelectedItem img:hover {
+#gallerySelectedItem img:not(.progress_folder img):hover {
   filter: brightness(110%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
 }
 
-#gallerySelectedItem img:active {
+#gallerySelectedItem img:not(.progress_folder img):active {
   filter: brightness(115%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
 }
 
