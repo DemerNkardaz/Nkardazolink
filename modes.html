@@ -256,7 +256,18 @@
         <div class="button_rounded_common" onclick="window.redirTo({ index: true, url: '' });">
           <span class="icononly maticon">home</span>
         </div>
-
+        <div class="button_rounded_common" onclick="openTargetDropdown('options');">
+          <span class="icononly maticon">settings</span>
+        </div>
+        <div class="dropdown_menu" style="bottom: 38px; top: auto; width: 400px" data-dropid="options">
+          <b>Настройки</b>
+          <hr class="w-100 mt-1 mb-3">
+          <b class="mb-2">Локальное хранилище</b>
+          <div class="checkbox_option">
+            <input type="checkbox" name="search_result_save" checked>
+            <label for="search_result_save">Сохранять ввод строки поиска</label>
+          </div>
+        </div>
       </div>
     </div>
     <div id="gallerySelectedItemBlockWrapper">

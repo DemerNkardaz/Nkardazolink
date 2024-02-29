@@ -1695,3 +1695,11 @@ div:has(.dropdown_menu) {
   color: var(--color_dark_gold);
   border-color: var(--color_dark_gold);
 }
+
+
+.checkbox_option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

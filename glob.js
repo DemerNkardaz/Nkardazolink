@@ -17,6 +17,9 @@ window.setRandJSUrl = function(id, name) {
   }
 }
 
+window.global_saved_search_mode_kamon = localStorage.getItem('saved_search_mode_kamon');
+window.global_saved_opt_save_search = localStorage.getItem('search_result_save');
+
 window.modeUrlPar = new URLSearchParams(window.location.search).get('mode')?.toLowerCase();
 window.selUrlPar = new URLSearchParams(window.location.search).get('sel')?.toLowerCase();
 

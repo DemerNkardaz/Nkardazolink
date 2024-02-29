@@ -53,7 +53,15 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
     $('#titleMode').html(titleMode);
     if (modeUrlPar === 'kamon') {
-      loadMonsItems();
+      loadMonsItems(function () {
+        initializeFilters();
+        updateCrestCounter();
+        getHighestRarity();
+        if (global_saved_search_mode_kamon && global_saved_opt_save_search === "true") {
+          $('#galleryContentSearchInput').val(global_saved_search_mode_kamon).trigger('input');
+        };
+      });
+
       $('#galleryControlButtons').append(
         '<div class="button_rounded_common" onclick="window.redirTo({ index: true, url: \'?mode=banners\' });">' +
         '<span class="maticon">flag</span>' +
@@ -66,7 +74,6 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     $('[data-filter_selected]').attr('data-filter_selected', $('[data-filter_value="default"]').attr('value'));
     window.setRLTBPositions();
     window.setWidthFromChildren();
-    window.initializeFilters();
     OverlayScrollbars($('.galleryContentGridWrapper'), {
     });
     OverlayScrollbars($('#gallerySelectedDescription'), {
@@ -82,7 +89,6 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
         }
       });
     }
-    updateCrestCounter();
   });
 
   window.updateGalleryScrollbar = function() {
@@ -236,7 +242,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       $('#gallerySelectedItem').find('.gallerySelectedTranslatedName').eq(1).text($this.data('mon_kanji_second') || 'Не найдено').attr('data-transcript', $this.data('mon_transcript_second') || 'Руби-подсказка не найдена');
 
       $('#gallerySelectedItemImg').attr('src', image.replace("_thumb", ""));
-
+      
     }
   });
 
@@ -395,54 +401,54 @@ $(document).on('click', '.clickableSendSearch', function () {
 });
 
 
-$(document).ready(function(){
-    $('#galleryContentSearchInput').on('input', function(){
-        var searchText = $(this).val().toLowerCase();
-        var searchCriteria = searchText.split('eg:>:');
-        var searchTerm = searchCriteria[0].trim(); 
-        var searchTree = searchCriteria[1] ? searchCriteria[1].trim() : '';
-        
+$(document).on('input', '#galleryContentSearchInput', function(){
+  var savedSearch = $(this).val();
+  var searchText = savedSearch.toLowerCase();
+  var searchCriteria = searchText.split('eg:>:');
+  var searchTerm = searchCriteria[0].trim(); 
+  var searchTree = searchCriteria[1] ? searchCriteria[1].trim() : '';
 
-        var isNumericSearch = searchTerm.startsWith('eg:s:');
-        var numericFilter = null;
-        if (isNumericSearch) {
-            numericFilter = searchTerm.replace('eg:s:', '').trim();
-            // Разделяем числа в случае диапазона
-            if (numericFilter.includes('-')) {
-                var range = numericFilter.split('-');
-                var min = parseInt(range[0]);
-                var max = parseInt(range[1]);
-                numericFilter = {
-                    min: min,
-                    max: max
-                };
-            } else {
-                numericFilter = parseInt(numericFilter);
-            }
-        }
-
-        $('.galleryItemCommon').each(function(){
-            var searchTags = $(this).attr('data-search_tags');
-            var egTree = $(this).attr('data-eg_tree');
-            var filterStatus = parseInt($(this).attr('data-filter_status'));
-
-            var matchesSearchTags = !searchTags || (searchTags.toLowerCase().indexOf(searchTerm) !== -1);
-            var matchesNumericFilter = !isNaN(filterStatus) && (isNumericSearch && isNumericMatch(filterStatus, numericFilter));
-
-            if (!$(this).hasClass('groupDisabled')) {
-                if ((matchesSearchTags || matchesNumericFilter) && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            }
-        });
-      if(searchText.trim() !== '') {
-        $(this).siblings('[type="reset"]').addClass('active');
-      } else { 
-        $(this).siblings('[type="reset"]').removeClass('active');
+  var isNumericSearch = searchTerm.startsWith('eg:s:');
+  var numericFilter = null;
+  if (isNumericSearch) {
+      numericFilter = searchTerm.replace('eg:s:', '').trim();
+      if (numericFilter.includes('-')) {
+          var range = numericFilter.split('-');
+          var min = parseInt(range[0]);
+          var max = parseInt(range[1]);
+          numericFilter = {
+              min: min,
+              max: max
+          };
+      } else {
+          numericFilter = parseInt(numericFilter);
       }
-    });
+  }
+
+  $('.galleryItemCommon').each(function(){
+      var searchTags = $(this).attr('data-search_tags');
+      var egTree = $(this).attr('data-eg_tree');
+      var filterStatus = parseInt($(this).attr('data-filter_status'));
+
+  var matchesSearchTags = !searchTags || (searchTags.toLowerCase().indexOf(searchTerm) !== -1);
+  var matchesNumericFilter = !isNaN(filterStatus) && (isNumericSearch && isNumericMatch(filterStatus, numericFilter));
+
+    if (!$(this).hasClass('groupDisabled')) {
+        if ((matchesSearchTags || matchesNumericFilter) && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
+            $(this).show();
+          } else {
+              $(this).hide();
+          }
+    }
+  });
+  if(searchText.trim() !== '') {
+    $(this).siblings('[type="reset"]').addClass('active');
+  } else { 
+    $(this).siblings('[type="reset"]').removeClass('active');
+  }
+  if (global_saved_opt_save_search === 'true') {
+    localStorage.setItem('saved_search_mode_kamon', savedSearch);
+  }
 });
 
 $(document).on('click', '[type="reset"]', function () {
@@ -534,7 +540,7 @@ function isEgTreeMatchFlex(egTree, searchTree) {
 }
 
 
-window.loadMonsItems = function () {
+window.loadMonsItems = function (callback) {
     $.getJSON('data/mon_items.json', function(data) {
         var galleryContentGrid = $('#galleryContentGrid');
 
@@ -572,9 +578,9 @@ window.loadMonsItems = function () {
                 galleryItem.appendTo(galleryContentGrid);
             });
         });
-      window.filter_items_by_swap();
-      window.updateCrestCounter();
-      window.getHighestRarity();
+      if (typeof callback === 'function') {
+          callback();
+      }
     });
 }
 
@@ -594,3 +600,15 @@ window.getHighestRarity = function () {
 
   placenment.text(maxRarity);
 }
+
+
+$(document).ready(function(){
+    var isChecked = localStorage.getItem('search_result_save') === 'true';
+    $('input[name="search_result_save"]').prop('checked', isChecked);
+    $('input[name="search_result_save"]').change(function(){
+        localStorage.setItem('search_result_save', $(this).prop('checked'));
+        if(!$(this).prop('checked')) {
+            localStorage.removeItem('saved_search_mode_kamon');
+        }
+    });
+});
