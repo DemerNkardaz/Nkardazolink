@@ -121,18 +121,23 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   });
 
   $(document).on('click', '#gallerySelectedItemImg', function(){
-      var $this = $(this);
-      var src = $this.attr('src');
-
-      if (src.endsWith('.png')) {
+    showIMGProp($(this));
+  });
+  window.showIMGProp = function($element) {
+    var src = $element.attr('src');
+    if ($element.attr('data-imgprop') !== 'false') {
+      if (src.endsWith('.png') ) {
         src = src.replace('.png', '.svg');
         $('[data-imgprop="SVG"]').css('display', 'block');
       } else if (src.endsWith('.svg')) {
         src = src.replace('.svg', '.png');
         $('[data-imgprop="SVG"]').css('display', 'none');
       }
-      $this.attr('src', src);
-  });
+      $element.attr('src', src);
+    } else {
+      $('[data-imgprop="SVG"]').css('display', 'none');
+    }
+  }
 
   $(document).on('click', '[data-gallery_groups]', function(){
     var $this = $(this);
@@ -243,7 +248,28 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
 
     $('#gallerySelectedItem').find('.gallerySelectedTranslatedName').eq(1).text($element.data('mon_kanji_second') || 'Не найдено').attr('data-transcript', $element.data('mon_transcript_second') || 'Руби-подсказка не найдена');
 
+    $('#gallerySelectedItemImg').hide();
     $('#gallerySelectedItemImg').attr('src', image.replace("_thumb", ""));
+        var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
+        $('#gallerySelectedItem').append(progressBar);
+
+        var img = new Image();
+        img.onload = function () {
+            progressBar.fadeOut('fast', function () {
+              $(this).remove();
+              $('#gallerySelectedItemImg').fadeIn('fast');
+            });
+        };
+        img.src = image.replace("_thumb", "");
+
+
+
+
+    if ($element.attr('data-imgprop')) {
+      $('#gallerySelectedItemImg').attr('data-imgprop', $element.data('imgprop'));
+    } else {
+      $('#gallerySelectedItemImg').removeAttr('data-imgprop');
+    }
     
   }
 }
@@ -251,6 +277,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
 $(document).on('click', '.galleryItemCommon', function () {
   var clickedEntityProp = $(this).data('entity_prop');
   updateGalleryItem($(this));
+  $('[data-imgprop="SVG"]').css('display', 'none');
   if (global_save_selected_kamon === 'true' || $('input[name="save_selected_kamon"]').prop('checked')) {
     localStorage.setItem('saved_kamon_item', clickedEntityProp);
   }
@@ -577,7 +604,7 @@ window.loadMonsItems = function (callback) {
                     'data-filter_status': item.status,
                     'data-filter_group': category.category,
                     'data-search_tags': item.search_tags.join(', '),
-                    'data-mon_title': item.name,
+                    'data-mon_key': item.key,
                     'data-mon_key': item.key,
                     'data-entity_prop': item.entity_prop,
                     'data-mon_kanji_first': item.kanji_first,
@@ -587,6 +614,9 @@ window.loadMonsItems = function (callback) {
                 });
                 if (item.eg && item.eg.length > 0) {
                     galleryItem.attr('data-eg_tree', item.eg[0].tree);
+                }
+                if (item.imgprop) {
+                    galleryItem.attr('data-imgprop', item.imgprop);
                 }
 
                 var galleryItemImg = $('<div>').addClass('galleryItemImg');

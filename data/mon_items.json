@@ -51,10 +51,12 @@
               "</div>"
             ]
         },
+        
         {
           "name": "Золотые цветы, встающие на заре",
           "key": "maru_ni_mittsuaoi",
           "img": "Mon_of_Nkardaz",
+          "imgprop": "false",
           "status": 10,
           "rarity": "black",
           "search_tags": 

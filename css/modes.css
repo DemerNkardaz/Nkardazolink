@@ -197,7 +197,7 @@
   z-index: 1;
 }
 
-#gallerySelectedItem img {
+#gallerySelectedItem img:not(.progress_folder img) {
   max-width: 70%;
   filter: drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
   z-index: 1;

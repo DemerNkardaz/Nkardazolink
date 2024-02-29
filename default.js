@@ -53,7 +53,7 @@ function imageToLoad(url) {
 
 
 
-function imageProgressMon(url) {
+window.imageProgressMon = function (url) {
 		var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
 		$item.selectedGalleryPicture.hide();
 		$item.lightBoxContainer.append(progressBar);
