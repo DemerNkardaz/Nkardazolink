@@ -251,9 +251,13 @@
   top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
   filter: drop-shadow(0px 2px 1px var(--gallery_emboss_down)) drop-shadow(0px -2px 1px var(--gallery_emboss_up));
+  display: flex;
   text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 }
 
 #galleryFullTitle {
@@ -265,11 +269,15 @@
   --s: 15px;
   opacity: 0;
   display: none;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #galleryFullTitle.active {
   opacity: 1;
-  display: block;
+  display: flex;
 }
 
 
@@ -387,6 +395,7 @@
 #galleryContentSearch {
   width: 384px;
   height: inherit;
+  display: flex;
 }
 
 #galleryContentSearch input {
@@ -399,6 +408,11 @@
   background: var(--background_light_person_block);
   box-shadow: inset 0px 1px 2px var(--shadow_half);
 }
+
+#galleryContentSearch input:focus {
+  outline: 3px solid var(--background_light_person_block);
+}
+
 
 #gallerySelectedItemBlockWrapper {
   position: relative;

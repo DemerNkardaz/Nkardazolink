@@ -21,6 +21,10 @@
               "Три листа мальвы в кругу",
               "Благородный дом"
             ],
+          "eg":
+            [
+              {"tree": "Император > Минамото > Мацудайра"}
+            ],
           "clan": "Мацудайра",
           "clan_key": "Clan_Matsudaira",
           "kanji_first": "丸に三つ葵",
@@ -47,7 +51,7 @@
             ]
         },
         {
-          "name": "Три листа мальвы",
+          "name": "Золотые цветы, встающие на заре",
           "key": "maru_ni_mittsuaoi",
           "img": "Mon_of_Nkardaz",
           "status": 7,
@@ -62,10 +66,14 @@
               "Наэда Китэцуги",
               "Ониномё"
             ],
+          "eg":
+            [
+              {"tree": "Император > Минамото > Мацудайра > Токугава"}
+            ],
           "clan": "Никаикадзути",
           "clan_key": "Clan_Никаикадзути",
-          "kanji_first": "丸に三つ葵",
-          "kanji_second": "荷渦雷龍出異田荒尊の家紋",
+          "kanji_first": "暁起金花",
+          "kanji_second": "荷渦雷龍出異田荒尊の紋章",
           "transcript_first": 
             [
               "<ruby class='ruby_bottom'>",
@@ -75,8 +83,8 @@
           "transcript_second": 
             [
               "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>家<rt>Ke</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt data-key='matsudaira_ke_no_kamon_transcript'>Фамильный герб рода Мацудайра, самураев</rt>",
+                "<ruby>荷渦雷<rt>Nikaikaduzchi-no</rt>龍<rt>Tatsu-no</rt>出異田荒<rt>Deitara-no</rt></rt>尊<rt>Mikoto</rt>の<rt>No</rt>紋章<rt>Monshō</rt>",
+                "</ruby><rt data-key='matsudaira_ke_no_kamon_transcript'>Герб почтенного дракона Дэитара, несущего громовой вихрь</rt>",
               "</ruby>"
             ],
           "description_key": "maru_ni_mittsuaoi_description", 

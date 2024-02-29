@@ -387,26 +387,108 @@ $(document).on('click', function (e) {
   }
 });
 
+$(document).on('click', '.clickableSendSearch', function () {
+  var $this = $(this);
+  var $searchInput = $('#galleryContentSearchInput');
+
+  $searchInput.val($this.text().replace(/«|»/g, ''));
+  $searchInput.trigger('input');
+});
 
 
 $(document).ready(function(){
     $('#galleryContentSearchInput').on('input', function(){
         var searchText = $(this).val().toLowerCase();
+        var searchCriteria = searchText.split('eg:>:'); // Разбиваем ввод пользователя на критерии поиска
+        var searchTerm = searchCriteria[0].trim(); // Получаем основной критерий поиска
+        var searchTree = searchCriteria[1] ? searchCriteria[1].trim() : ''; // Получаем иерархию для поиска
+
         $('.galleryItemCommon').each(function(){
-          var searchTags = $(this).attr('data-search_tags');
-          if (!$(this).hasClass('groupDisabled')) {
-            if((searchTags && searchTags.toLowerCase().indexOf(searchText) !== -1) || !searchTags){
-                $(this).show();
-            } else {
-                $(this).hide();
+            var searchTags = $(this).attr('data-search_tags');
+            var egTree = $(this).attr('data-eg_tree');
+
+            var matchesSearchTags = !searchTags || (searchTags.toLowerCase().indexOf(searchTerm) !== -1);
+
+            if (!$(this).hasClass('groupDisabled')) {
+                if (matchesSearchTags && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
             }
-          }
         });
     });
 });
 
+function isEgTreeMatch(egTree, searchTree) {
+    if (!egTree || !searchTree) {
+        return false;
+    }
 
-window.loadMonsItems = function() {
+    var treeArray = egTree.split('>');
+    var searchArray = searchTree.split('>');
+
+    for (var i = 0; i < treeArray.length; i++) {
+        var treeNode = treeArray[i].trim().toLowerCase();
+        if (treeNode.indexOf(searchArray[0].trim().toLowerCase()) === 0) {
+            var found = true;
+            var searchIndex = 1;
+            for (var j = i + 1; j < treeArray.length && searchIndex < searchArray.length; j++) {
+                var nextTreeNode = treeArray[j].trim().toLowerCase();
+                var searchNode = searchArray[searchIndex].trim().toLowerCase();
+
+                if (nextTreeNode.indexOf(searchNode) === 0) {
+                    searchIndex++;
+                } else if (searchNode === '') {
+                    searchIndex++;
+                    continue;
+                } else {
+                    found = false;
+                    break;
+                }
+            }
+            if (found && searchIndex === searchArray.length) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+function isEgTreeMatchFlex(egTree, searchTree) {
+    if (!egTree || !searchTree) {
+        return false;
+    }
+
+    var treeArray = egTree.split('>');
+    var searchArray = searchTree.split('*');
+
+    var searchStart = searchArray[0].trim().toLowerCase();
+    var searchEnd = searchArray[1] ? searchArray[1].trim().toLowerCase() : '';
+
+    for (var i = 0; i < treeArray.length; i++) {
+        var treeNode = treeArray[i].trim().toLowerCase();
+
+        if (treeNode.indexOf(searchStart) === 0) {
+            if (searchEnd === '') {
+                return true; // Если конечная часть не задана, сразу возвращаем true
+            }
+
+            // Проверяем, что конечная часть соответствует
+            var lastIndex = treeArray.length - 1;
+            var lastTreeNode = treeArray[lastIndex].trim().toLowerCase();
+            if (lastTreeNode.indexOf(searchEnd) !== -1) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+window.loadMonsItems = function () {
     $.getJSON('data/mon_items.json', function(data) {
         var galleryContentGrid = $('#galleryContentGrid');
 
@@ -423,8 +505,11 @@ window.loadMonsItems = function() {
                     'data-mon_kanji_first': item.kanji_first,
                     'data-mon_kanji_second': item.kanji_second,
                     'data-mon_transcript_first': item.transcript_first.join(''),
-                    'data-mon_transcript_second': item.transcript_second.join('')
+                    'data-mon_transcript_second': item.transcript_second.join(''),
                 });
+                if (item.eg && item.eg.length > 0) {
+                    galleryItem.attr('data-eg_tree', item.eg[0].tree);
+                }
 
                 var galleryItemImg = $('<div>').addClass('galleryItemImg');
                 $('<img>').attr('src', data.default_img_path + imgFolder + item.img + "_thumb.png").appendTo(galleryItemImg);

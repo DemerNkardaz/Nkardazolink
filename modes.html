@@ -31,7 +31,23 @@
         <div class="vr ms-3 me-3"></div>
         <div id="galleryContentSearch">
           <input id="galleryContentSearchInput" type="text" placeholder="Поиск знака…" data-key="searchMonItem">
+          <div class="button_rounded_common ms-2" onclick="openTargetDropdown('search_desc');">
+            <span class="icononly maticon info">info</span>
+          </div>
+          <div class="dropdown_menu description" data-filter_menu data-dropid="search_desc">
+            <div>
+              <b>Операторы поиска : Примеры запросов</b>
+              <p class="text_small">
+                <b class="inlineButton clickableSendSearch">eg:>:</b> — позволяет искать знаки в соответствии с родословной семей, которым те принадлежат.<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото»</b> отобразит знаки, принадлежащие роду Минамото и его потомкам.<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото > Мацудайра»</b> отобразит все знаки, принадлежащие роду Мацудайра, следующего в иерархии родословной после Минамото, а так же знаки потомков Мацудайра.<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото >>>>»</b> позволит проигнорировать конкретные семьи в иерархии и отобразит знаки всех родов-потомков начиная с 4-го уровня.<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото * Токугава»</b> позволит пропустить все промежуточные семьи между Минамото и Токугава, и отобразить знаки начиная с Токугава.
+              </p>
+            </div>
+          </div>
         </div>
+
         <div class="vr ms-3 me-3"></div>
         <div id="galleryFiltersOpts">
           <div class="button_rounded_common" onclick="filterUnset();" data-bs-toggle="tooltip" data-bs-placement="bottom" title="По умолчанию" data-filter_entity="reset">
@@ -43,8 +59,8 @@
               <span class="downarrow"></span>
             </div>
             <div class="dropdown_menu" data-filter_menu data-dropid="filter">
-              <div value="clan_name" data-key="clan_name">Имя клана</div>
-              <div data-filter_value="default" value="clan_status" data-key="clan_status">Статус клана</div>
+              <div value="clan_name" data-key="clan_name">Имя</div>
+              <div data-filter_value="default" value="clan_status" data-key="clan_status">Статус</div>
             </div>
           </div>
 

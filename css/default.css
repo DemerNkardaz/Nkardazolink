@@ -1516,6 +1516,7 @@ a.gallery-trigger {
   z-index: 1;
 }
 
+
 .button_rounded_common:has(.maticon) {
   padding-left: 45px;
 }
@@ -1544,6 +1545,11 @@ a.gallery-trigger {
 
 .button_rounded_common:has(.maticon.icononly) {
   padding: 5px;
+}
+
+.maticon.info {
+  font-size: 1.25em;
+  padding: 2px;
 }
 
 .button_rounded_common:hover,
@@ -1597,15 +1603,19 @@ div:has(.dropdown_menu) {
   justify-content: center;
   background: var(--background_circle_button);
   border: 1.25px solid var(--grey_border);
-  padding: 1px;
+  padding: 10px;
   box-shadow: 0 3px 2px var(--shadow_inset_info);
   border-radius: 15px;
-  font-weight: 800;
-  user-select: none;
   transition: all 0.2s ease;
-  pointer-events: none;
   z-index: 1080;
 }
+.dropdown_menu:has([value]) {
+  user-select: none;
+  pointer-events: none;
+  font-weight: 800;
+  padding: 1px;
+}
+
 
 .dropdown_menu.opened {
   pointer-events: auto;
@@ -1654,4 +1664,29 @@ div:has(.dropdown_menu) {
 
 .os-scrollbar.os-scrollbar-vertical {
   right: 5px;
+}
+
+.inlineButton {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background_circle_button);
+  border: 1.25px solid var(--grey_border);
+  box-shadow: 0 3px 2px var(--shadow_inset_info);
+  border-radius: 15px;
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.inlineButton:hover {
+  background: var(--background_dark);
+    border-color: black;
+    color: var(--text_light);
+}
+
+.inlineButton:active {
+  color: var(--color_dark_gold);
+  border-color: var(--color_dark_gold);
 }
