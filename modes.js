@@ -609,6 +609,8 @@ $(document).ready(function(){
         localStorage.setItem('search_result_save', $(this).prop('checked'));
         if(!$(this).prop('checked')) {
             localStorage.removeItem('saved_search_mode_kamon');
+        } else {
+            localStorage.setItem('saved_search_mode_kamon', $('#galleryContentSearchInput').val());
         }
     });
 });
