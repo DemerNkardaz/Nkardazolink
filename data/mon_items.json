@@ -27,6 +27,7 @@
             ],
           "clan": "Мацудайра",
           "clan_key": "Clan_Matsudaira",
+          "entity_prop": "ent_clan_matsudaira_mon_maru_ni_mittsuaoi",
           "kanji_first": "丸に三つ葵",
           "kanji_second": "松平家の家紋、侍",
           "transcript_first": 
@@ -71,7 +72,8 @@
               {"tree": "Император > Минамото > Мацудайра > Токугава"}
             ],
           "clan": "Никаикадзути",
-          "clan_key": "Clan_Никаикадзути",
+          "clan_key": "Clan_Nikaikazuchi",
+          "entity_prop": "ent_mon_nkardaz",
           "kanji_first": "暁起金花",
           "kanji_second": "荷渦雷龍出異田荒尊の紋章",
           "transcript_first": 
