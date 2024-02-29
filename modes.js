@@ -604,8 +604,8 @@ window.getHighestRarity = function () {
 
 $(document).ready(function(){
     var isChecked = localStorage.getItem('search_result_save') === 'true';
-    $('input[name="search_result_save"]').prop('checked', isChecked);
-    $('input[name="search_result_save"]').change(function(){
+    
+    $(document).on('change', 'input[name="search_result_save"]', function(){
         localStorage.setItem('search_result_save', $(this).prop('checked'));
         if(!$(this).prop('checked')) {
             localStorage.removeItem('saved_search_mode_kamon');
@@ -613,4 +613,6 @@ $(document).ready(function(){
             localStorage.setItem('saved_search_mode_kamon', $('#galleryContentSearchInput').val());
         }
     });
+
+    $('input[name="search_result_save"]').prop('checked', isChecked).trigger('change');
 });
