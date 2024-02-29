@@ -1,0 +1,93 @@
+{
+  "default_img_path": "resources/svg",
+  "root": 
+  [
+    {
+      "category": "JP",
+      "img_folder": "/japan/kamon/",
+      "items": [
+        {
+          "name": "Три листа мальвы",
+          "key": "maru_ni_mittsuaoi",
+          "img": "Mon_of_clan_Matsudaira",
+          "status": 5,
+          "rarity": "gold",
+          "search_tags": 
+            [
+              "Мацудайра",
+              "Matsudaira",
+              "Япония",
+              "Japan",
+              "Три листа мальвы в кругу",
+              "Благородный дом"
+            ],
+          "clan": "Мацудайра",
+          "clan_key": "Clan_Matsudaira",
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+            [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt data-key='maru_ni_mittsuaoi_transcript'>Три листа мальвы в кругу</rt>",
+              "</ruby>"
+            ],
+          "transcript_second": 
+            [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>家<rt>Ke</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt data-key='matsudaira_ke_no_kamon_transcript'>Фамильный герб рода Мацудайра, самураев</rt>",
+              "</ruby>"
+            ],
+          "description_key": "maru_ni_mittsuaoi_description", 
+          "description": 
+            [
+              "<div>",
+              "Какой-то текст про герб рода Мацудайра<br>",
+              "</div>"
+            ]
+        },
+        {
+          "name": "Три листа мальвы",
+          "key": "maru_ni_mittsuaoi",
+          "img": "Mon_of_Nkardaz",
+          "status": 7,
+          "rarity": "black",
+          "search_tags": 
+            [
+              "Никаикадзути-но Тацу-но Дэйдара-но Микото",
+              "Демер Нкардаз",
+              "Япония",
+              "Japan",
+              "Хёсугэ Хисахидэ",
+              "Наэда Китэцуги",
+              "Ониномё"
+            ],
+          "clan": "Никаикадзути",
+          "clan_key": "Clan_Никаикадзути",
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "荷渦雷龍出異田荒尊の家紋",
+          "transcript_first": 
+            [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt data-key='maru_ni_mittsuaoi_transcript'>Три листа мальвы в кругу</rt>",
+              "</ruby>"
+            ],
+          "transcript_second": 
+            [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>家<rt>Ke</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt data-key='matsudaira_ke_no_kamon_transcript'>Фамильный герб рода Мацудайра, самураев</rt>",
+              "</ruby>"
+            ],
+          "description_key": "maru_ni_mittsuaoi_description", 
+          "description": 
+            [
+              "<div>",
+              "Какой-то текст про герб рода Мацудайра<br>",
+              "</div>"
+            ]
+        }
+      ]
+    }
+  ]
+}

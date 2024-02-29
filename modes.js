@@ -53,6 +53,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
     $('#titleMode').html(titleMode);
     if (modeUrlPar === 'kamon') {
+      loadMonsItems();
       $('#galleryControlButtons').append(
         '<div class="button_rounded_common" onclick="window.redirTo({ index: true, url: \'?mode=banners\' });">' +
         '<span class="maticon">flag</span>' +
@@ -226,7 +227,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
 
       $('#gallerySelectedSubTitleText').text($this.find('.galleryItemTitle').text() || 'Название отсутствует');
 
-      $('#gallerySelectedDescription').find('.os-content').html($this.find('.galleryItemDescription').html() || 'Описание отсутствует');
+      $('#gallerySelectedDescription').find('.os-content').html($this.find('.galleryItemDescription').html() || 'Описание отсутствует').attr('data-key', $this.find('.galleryItemDescription').attr('data-key') || '');
 
       $('#galleryInfoSelectedTitle').text($this.data('mon_title') || 'Название отсутствует').attr('data-key', $this.data('mon_key'));
 
@@ -270,17 +271,26 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   window.filter_items_by_swap = function () {
     var selected_filter = $('[data-filter_menu] > .active').attr('value');
     if ($('[data-filter_entity="swapper"]').attr('data-filter_swap') === 'true') {
-        if (selected_filter === 'clan_status') {
-          var items = $('.galleryItemCommon');
-
-          items.sort(function(a, b) {
-              return $(a).data('filter_status') - $(b).data('filter_status');
-          });
-
-          items.each(function() {
-              $(this).appendTo($(this).parent());
-          });
-        } else if (selected_filter === 'clan_name') {
+      if (selected_filter === 'clan_status') {
+        var items = $('.galleryItemCommon');
+      
+        items.sort(function(a, b) {
+          var statusA = $(a).data('filter_status');
+          var statusB = $(b).data('filter_status');
+          
+          if (statusA !== statusB) {
+            return statusA - statusB;
+          } else {
+            var titleA = $(a).find('.galleryItemTitle').text().toUpperCase();
+            var titleB = $(b).find('.galleryItemTitle').text().toUpperCase();
+            return titleA.localeCompare(titleB);
+          }
+        });
+      
+        items.each(function() {
+          $(this).appendTo($(this).parent());
+        });
+      } else if (selected_filter === 'clan_name') {
             var items = $('.galleryItemCommon');
 
             items.sort(function(a, b) {
@@ -302,13 +312,22 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     } else {
         if (selected_filter === 'clan_status') {
           var items = $('.galleryItemCommon');
-
+        
           items.sort(function(a, b) {
-              return $(b).data('filter_status') - $(a).data('filter_status');
-          });
+            var statusA = $(a).data('filter_status');
+            var statusB = $(b).data('filter_status');
 
+            if (statusA !== statusB) {
+              return statusB - statusA;
+            } else {
+              var titleA = $(a).find('.galleryItemTitle').text().toUpperCase();
+              var titleB = $(b).find('.galleryItemTitle').text().toUpperCase();
+              return titleA.localeCompare(titleB);
+            }
+          });
+        
           items.each(function() {
-              $(this).appendTo($(this).parent());
+            $(this).appendTo($(this).parent());
           });
         } else if (selected_filter === 'clan_name') {
             var items = $('.galleryItemCommon');
@@ -385,3 +404,43 @@ $(document).ready(function(){
         });
     });
 });
+
+
+window.loadMonsItems = function() {
+    $.getJSON('data/mon_items.json', function(data) {
+        var galleryContentGrid = $('#galleryContentGrid');
+
+        $.each(data.root, function(_, category) {
+            var imgFolder = category.img_folder;
+            $.each(category.items, function(_, item) {
+                var galleryItem = $('<div>').addClass('galleryItemCommon').attr({
+                    'rarity': item.rarity,
+                    'data-filter_status': item.status,
+                    'data-filter_group': category.category,
+                    'data-search_tags': item.search_tags.join(', '),
+                    'data-mon_title': item.name,
+                    'data-mon_key': item.key,
+                    'data-mon_kanji_first': item.kanji_first,
+                    'data-mon_kanji_second': item.kanji_second,
+                    'data-mon_transcript_first': item.transcript_first.join(''),
+                    'data-mon_transcript_second': item.transcript_second.join('')
+                });
+
+                var galleryItemImg = $('<div>').addClass('galleryItemImg');
+                $('<img>').attr('src', data.default_img_path + imgFolder + item.img + "_thumb.png").appendTo(galleryItemImg);
+                galleryItemImg.appendTo(galleryItem);
+
+                $('<div>').addClass('galleryItemTitle').attr('data-key', item.clan_key).text(item.clan).appendTo(galleryItem);
+
+                var galleryItemDescription = $('<div>').addClass('galleryItemDescription');
+                var descriptionHTML = item.description.join(''); 
+                galleryItemDescription.attr('data-key', item.description_key); 
+                galleryItemDescription.html(descriptionHTML); 
+                galleryItemDescription.appendTo(galleryItem);
+
+                galleryItem.appendTo(galleryContentGrid);
+            });
+        });
+      window.filter_items_by_swap();
+    });
+}
