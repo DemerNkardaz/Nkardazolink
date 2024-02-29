@@ -1,3 +1,22 @@
+window.setRandJSUrl = function(id, name) {
+  var scriptElement = document.getElementById(id);
+  if (scriptElement) {
+    var currentDate = new Date().getTime();
+    var randomThreeDigitNumber = Math.floor(Math.random() * 1000);
+    var randJSUrl = '?' + currentDate + randomThreeDigitNumber;
+    var scriptUrl = name + '.js' + randJSUrl;
+    
+    var newScriptElement = document.createElement('script');
+    newScriptElement.type = 'module';
+    newScriptElement.src = scriptUrl;
+    newScriptElement.id = id;
+
+    scriptElement.parentNode.replaceChild(newScriptElement, scriptElement);
+  } else {
+    console.error('Скрипт с ID ' + id + ' не найден');
+  }
+}
+
 window.modeUrlPar = new URLSearchParams(window.location.search).get('mode')?.toLowerCase();
 window.selUrlPar = new URLSearchParams(window.location.search).get('sel')?.toLowerCase();
 
