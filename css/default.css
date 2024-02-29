@@ -1609,9 +1609,14 @@ div:has(.dropdown_menu) {
   transition: all 0.2s ease;
   z-index: 1080;
 }
-.dropdown_menu:has([value]) {
+
+.dropdown_menu:not(.opened) {
   user-select: none;
   pointer-events: none;
+}
+
+.dropdown_menu:has([value]) {
+  user-select: none;
   font-weight: 800;
   padding: 1px;
 }

@@ -399,26 +399,71 @@ $(document).on('click', '.clickableSendSearch', function () {
 $(document).ready(function(){
     $('#galleryContentSearchInput').on('input', function(){
         var searchText = $(this).val().toLowerCase();
-        var searchCriteria = searchText.split('eg:>:'); // Разбиваем ввод пользователя на критерии поиска
-        var searchTerm = searchCriteria[0].trim(); // Получаем основной критерий поиска
-        var searchTree = searchCriteria[1] ? searchCriteria[1].trim() : ''; // Получаем иерархию для поиска
+        var searchCriteria = searchText.split('eg:>:');
+        var searchTerm = searchCriteria[0].trim(); 
+        var searchTree = searchCriteria[1] ? searchCriteria[1].trim() : '';
+        
+
+        var isNumericSearch = searchTerm.startsWith('eg:s:');
+        var numericFilter = null;
+        if (isNumericSearch) {
+            numericFilter = searchTerm.replace('eg:s:', '').trim();
+            // Разделяем числа в случае диапазона
+            if (numericFilter.includes('-')) {
+                var range = numericFilter.split('-');
+                var min = parseInt(range[0]);
+                var max = parseInt(range[1]);
+                numericFilter = {
+                    min: min,
+                    max: max
+                };
+            } else {
+                numericFilter = parseInt(numericFilter);
+            }
+        }
 
         $('.galleryItemCommon').each(function(){
             var searchTags = $(this).attr('data-search_tags');
             var egTree = $(this).attr('data-eg_tree');
+            var filterStatus = parseInt($(this).attr('data-filter_status'));
 
             var matchesSearchTags = !searchTags || (searchTags.toLowerCase().indexOf(searchTerm) !== -1);
+            var matchesNumericFilter = !isNaN(filterStatus) && (isNumericSearch && isNumericMatch(filterStatus, numericFilter));
 
             if (!$(this).hasClass('groupDisabled')) {
-                if (matchesSearchTags && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
+                if ((matchesSearchTags || matchesNumericFilter) && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
                     $(this).show();
                 } else {
                     $(this).hide();
                 }
             }
         });
+      if(searchText.trim() !== '') {
+        $(this).siblings('[type="reset"]').addClass('active');
+      } else { 
+        $(this).siblings('[type="reset"]').removeClass('active');
+      }
     });
 });
+
+$(document).on('click', '[type="reset"]', function () {
+  var $this = $(this);
+  $this.siblings('input').val('');
+  $this.siblings('input').trigger('input');
+});
+
+
+function isNumericMatch(value, filter) {
+    if (filter === null || filter === undefined) {
+        return false;
+    }
+    if (typeof filter === 'number') {
+        return value === filter;
+    } else if (typeof filter === 'object' && filter.hasOwnProperty('min') && filter.hasOwnProperty('max')) {
+        return value >= filter.min && value <= filter.max;
+    }
+    return false;
+}
 
 function isEgTreeMatch(egTree, searchTree) {
     if (!egTree || !searchTree) {
@@ -473,20 +518,22 @@ function isEgTreeMatchFlex(egTree, searchTree) {
 
         if (treeNode.indexOf(searchStart) === 0) {
             if (searchEnd === '') {
-                return true; // Если конечная часть не задана, сразу возвращаем true
+                return true; 
             }
 
-            // Проверяем, что конечная часть соответствует
-            var lastIndex = treeArray.length - 1;
-            var lastTreeNode = treeArray[lastIndex].trim().toLowerCase();
-            if (lastTreeNode.indexOf(searchEnd) !== -1) {
-                return true;
+            for (var j = i; j < treeArray.length; j++) {
+                var currentNode = treeArray[j].trim().toLowerCase();
+
+                if (currentNode.indexOf(searchEnd) !== -1) {
+                    return true;
+                }
             }
         }
     }
 
     return false;
 }
+
 
 window.loadMonsItems = function () {
     $.getJSON('data/mon_items.json', function(data) {
@@ -527,5 +574,6 @@ window.loadMonsItems = function () {
             });
         });
       window.filter_items_by_swap();
+      window.updateCrestCounter();
     });
 }

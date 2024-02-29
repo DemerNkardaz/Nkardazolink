@@ -31,6 +31,7 @@
         <div class="vr ms-3 me-3"></div>
         <div id="galleryContentSearch">
           <input id="galleryContentSearchInput" type="text" placeholder="Поиск знака…" data-key="searchMonItem">
+          <input type="reset" value="X" alt="Clear the search form">
           <div class="button_rounded_common ms-2" onclick="openTargetDropdown('search_desc');">
             <span class="icononly maticon info">info</span>
           </div>
@@ -43,6 +44,10 @@
                 Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото > Мацудайра»</b> отобразит все знаки, принадлежащие роду Мацудайра, следующего в иерархии родословной после Минамото, а так же знаки потомков Мацудайра.<br><br>
                 Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото >>>>»</b> позволит проигнорировать конкретные семьи в иерархии и отобразит знаки всех родов-потомков начиная с 4-го уровня.<br><br>
                 Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото * Токугава»</b> позволит пропустить все промежуточные семьи между Минамото и Токугава, и отобразить знаки начиная с Токугава.
+                <hr>
+                <b class="inlineButton clickableSendSearch">eg:s:</b> — ищет знаки в соответствии с уровнем статуса семьи.<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:s: 6»</b> отобразит знаки родов с уровнем статуса «6».<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:s: 3-6»</b> отобразит знаки родов с уровнем статуса в диапазоне «3–6».
               </p>
             </div>
           </div>
