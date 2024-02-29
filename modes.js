@@ -375,17 +375,16 @@ window.openTargetDropdown = function (selector) {
   $('[data-dropid="' + selector + '"]').toggleClass('opened');
 }
 
-window.toggleTooltip = function (element) {
-  $(element).tooltip('toggleEnabled');
-}
-
-
 $(document).on('click', function (e) {
   var $target = $(e.target);
   if ($target.closest($('[data-dropid]').parent()).length === 0) {
     $('[data-dropid]').removeClass('opened');
   }
 });
+
+window.toggleTooltip = function (element) {
+  $(element).tooltip('toggleEnabled');
+}
 
 $(document).on('click', '.clickableSendSearch', function () {
   var $this = $(this);
@@ -575,5 +574,23 @@ window.loadMonsItems = function () {
         });
       window.filter_items_by_swap();
       window.updateCrestCounter();
+      window.getHighestRarity();
     });
+}
+
+
+window.getHighestRarity = function () {
+  var placenment = $('[data-totalRarities]');
+  var rarities = $('[data-filter_status]').map(function() {
+    return parseInt($(this).attr('data-filter_status'));
+  }).get();
+  
+  if (rarities.length === 0) {
+    placenment.text("Нет данных");
+    return;
+  }
+  
+  var maxRarity = Math.max.apply(null, rarities);
+
+  placenment.text(maxRarity);
 }

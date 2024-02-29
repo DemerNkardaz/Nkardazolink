@@ -35,7 +35,7 @@
           <div class="button_rounded_common ms-2" onclick="openTargetDropdown('search_desc');">
             <span class="icononly maticon info">info</span>
           </div>
-          <div class="dropdown_menu description" data-filter_menu data-dropid="search_desc">
+          <div class="dropdown_menu description" data-dropid="search_desc">
             <div>
               <b>Операторы поиска : Примеры запросов</b>
               <p class="text_small">
@@ -45,10 +45,75 @@
                 Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото >>>>»</b> позволит проигнорировать конкретные семьи в иерархии и отобразит знаки всех родов-потомков начиная с 4-го уровня.<br><br>
                 Запрос <b class="inlineButton clickableSendSearch">«eg:>: Минамото * Токугава»</b> позволит пропустить все промежуточные семьи между Минамото и Токугава, и отобразить знаки начиная с Токугава.
                 <hr>
+                <b class="inlineButton" onclick="openTargetDropdown('itemRarities');">Уровни статуса</b>
+
+                
                 <b class="inlineButton clickableSendSearch">eg:s:</b> — ищет знаки в соответствии с уровнем статуса семьи.<br><br>
-                Запрос <b class="inlineButton clickableSendSearch">«eg:s: 6»</b> отобразит знаки родов с уровнем статуса «6».<br><br>
-                Запрос <b class="inlineButton clickableSendSearch">«eg:s: 3-6»</b> отобразит знаки родов с уровнем статуса в диапазоне «3–6».
+                Запрос <b class="inlineButton clickableSendSearch">«eg:s: 7»</b> отобразит знаки родов с уровнем статуса «7».<br><br>
+                Запрос <b class="inlineButton clickableSendSearch">«eg:s: 3-7»</b> отобразит знаки родов с уровнем статуса в диапазоне «3–7».
               </p>
+            </div>
+          </div>
+          <div class="dropdown_menu" style="left: calc(100% + 1.5px);" data-dropid="itemRarities">
+            <b>Статус рода</b>
+            <p>
+              Всего уровней статуса для родов в галерее определено <span data-totalRarities></span>
+            </p>
+            <div class="galleryTemplates_Grid">
+              <div class="galleryItem_Template" rarity="common">
+                <div class="galleryItemTitle" data-key="common">
+                  Крестьянский
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="uncommon">
+                <div class="galleryItemTitle" data-key="uncommon">
+                  Обычный
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="normal">
+                <div class="galleryItemTitle" data-key="normal">
+                  Влиятельный
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="venerable">
+                <div class="galleryItemTitle" data-key="venerable">
+                  Почтенный
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="highnoble">
+                <div class="galleryItemTitle" data-key="highnoble">
+                  Элита
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="gold">
+                <div class="galleryItemTitle" data-key="rare">
+                  Благородный
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="red">
+                <div class="galleryItemTitle" data-key="great">
+                  Великий
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="legendary">
+                <div class="galleryItemTitle" data-key="legendary">
+                  Легендарный
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="god">
+                <div class="galleryItemTitle" data-key="god">
+                  Божественный
+                </div>
+              </div>
+              <div class="galleryItem_Template" rarity="black">
+                <div class="galleryItemTitle" data-key="mythical">
+                  Мифический
+                </div>
+              </div>
+
+
+
+
             </div>
           </div>
         </div>

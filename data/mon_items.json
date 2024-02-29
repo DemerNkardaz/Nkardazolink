@@ -10,7 +10,7 @@
           "name": "Три листа мальвы",
           "key": "maru_ni_mittsuaoi",
           "img": "Mon_of_clan_Matsudaira",
-          "status": 5,
+          "status": 6,
           "rarity": "gold",
           "search_tags": 
             [
@@ -54,7 +54,7 @@
           "name": "Золотые цветы, встающие на заре",
           "key": "maru_ni_mittsuaoi",
           "img": "Mon_of_Nkardaz",
-          "status": 7,
+          "status": 10,
           "rarity": "black",
           "search_tags": 
             [

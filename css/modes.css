@@ -542,11 +542,18 @@
   display: none;
 }
 
+.galleryItem_Template,
 .galleryItemCommon {
   --rarity_color_black: linear-gradient(-25deg, #282828, #626262);
+  --rarity_color_god: linear-gradient(-25deg, #ebebeb, #bebebe);
+  --rarity_color_legendary: linear-gradient(-25deg, #4bc6d1, #51859a);
   --rarity_color_red: linear-gradient(-25deg, #d14b4b, #9a5151);
   --rarity_color_gold: linear-gradient(-25deg, #d1934b, #9a7251);
-  --rarity_color_common: linear-gradient(-25deg, #96d069, #769566);
+  --rarity_color_highnoble: linear-gradient(-25deg, #d0cd69, #8d9566);
+  --rarity_color_venerable: linear-gradient(-25deg, #d069a7, #95667d);
+  --rarity_color_normal: linear-gradient(-25deg, #69a0d0, #668495);
+  --rarity_color_uncommon: linear-gradient(-25deg, #96d069, #769566);
+  --rarity_color_common: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
   --rarity_bg_gold: url();
   position: relative;
   display: flex;
@@ -566,11 +573,13 @@
   outline: 4px solid transparent;
 }
 
+.galleryItem_Template:hover,
 .galleryItemCommon:hover {
   outline: 2px solid white;
   transform: scale(1.12);
 }
 
+.galleryItem_Template:active,
 .galleryItemCommon:active {
   transform: scale(1.05);
 }
@@ -579,7 +588,6 @@
   outline: 2px solid white;
   animation: var(--rarity_animation) 5s ease infinite;
 }
-
 
 
 @keyframes selected_pulse_shadow {
@@ -641,30 +649,67 @@
     box-shadow: 5px 0 15px #000000, -5px -0 15px #000000;
   }
 }
-
+.galleryItem_Template[rarity="gold"]::before,
 .galleryItemCommon[rarity="gold"]::before {
   --rarity_color: var(--rarity_color_gold);
 }
+.galleryItem_Template[rarity="red"]::before,
 .galleryItemCommon[rarity="red"]::before {
   --rarity_color: var(--rarity_color_red);
 }
+.galleryItem_Template[rarity="black"]::before,
 .galleryItemCommon[rarity="black"]::before {
   --rarity_color: var(--rarity_color_black);
 }
 
+.galleryItem_Template.selected[rarity="gold"],
 .galleryItemCommon.selected[rarity="gold"] {
   --rarity_animation: selected_pulse_shadow_gold;
 }
+.galleryItem_Template.selected[rarity="red"],
 .galleryItemCommon.selected[rarity="red"] {
   --rarity_animation: selected_pulse_shadow_red;
 }
+.galleryItem_Template.selected[rarity="black"],
 .galleryItemCommon.selected[rarity="black"] {
   --rarity_animation: selected_pulse_shadow_black;
 }
 
+.galleryItem_Template[rarity="common"]::before,
+.galleryItem_Template:not([rarity])::before,
 .galleryItemCommon[rarity="common"]::before,
 .galleryItemCommon:not([rarity])::before {
   --rarity_color: var(--rarity_color_common);
+}
+
+.galleryItem_Template[rarity="uncommon"]::before,
+.galleryItemCommon[rarity="uncommon"]::before {
+  --rarity_color: var(--rarity_color_uncommon);
+}
+
+.galleryItem_Template[rarity="normal"]::before,
+.galleryItemCommon[rarity="normal"]::before {
+  --rarity_color: var(--rarity_color_normal);
+}
+
+.galleryItem_Template[rarity="venerable"]::before,
+.galleryItemCommon[rarity="venerable"]::before {
+  --rarity_color: var(--rarity_color_venerable);
+}
+
+.galleryItem_Template[rarity="highnoble"]::before,
+.galleryItemCommon[rarity="highnoble"]::before {
+  --rarity_color: var(--rarity_color_highnoble);
+}
+
+.galleryItem_Template[rarity="legendary"]::before,
+.galleryItemCommon[rarity="legendary"]::before {
+  --rarity_color: var(--rarity_color_legendary);
+}
+
+.galleryItem_Template[rarity="god"]::before,
+.galleryItemCommon[rarity="god"]::before {
+  --rarity_color: var(--rarity_color_god);
 }
 
 
@@ -672,6 +717,7 @@
 .galleryItemCommon:not([rarity]) {
   --rarity_animation: selected_pulse_shadow;
 }
+.galleryItem_Template::before,
 .galleryItemCommon::before {
   content: '';
   position: absolute;
@@ -692,6 +738,23 @@
   margin-bottom: 3px;
 }
 
+.galleryItem_Template {
+  width: calc(128px * 0.8);
+  height: calc(170px * 0.8);
+}
+
+.galleryItem_Template::before {
+  height: calc(140px * 0.8);
+}
+
+.galleryTemplates_Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  justify-items: center;
+}
+
 .galleryItemImg img {
   width: 80%;
   filter: drop-shadow(0px 1px 3px var(--shadow_tretiary));
@@ -705,6 +768,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.galleryItem_Template .galleryItemTitle {
+  position: absolute;
+  bottom: 1.75px;
+  font-size: 0.85em;
 }
 
 .galleryItemDescription {
