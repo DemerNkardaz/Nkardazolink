@@ -603,6 +603,11 @@ window.getHighestRarity = function () {
 
 
 $(document).ready(function(){
+    // Устанавливаем значение в хранилище по умолчанию
+    if(localStorage.getItem('search_result_save') === null) {
+        localStorage.setItem('search_result_save', 'true');
+    }
+
     var isChecked = localStorage.getItem('search_result_save') === 'true';
     
     $(document).on('change', 'input[name="search_result_save"]', function(){
