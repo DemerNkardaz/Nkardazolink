@@ -56,6 +56,41 @@
 
     --gallery_selected_bg: #9F5233;
     --gallery_selected_border: #914b2e;
+
+
+  --mythical_banner: #363636;
+  --mythical_banner_lighted: #535353;
+  --mythical_bg: #303030;
+  --mythical_br: #494949;
+  --mythical_emboss_up: #5e5e5e;
+  --mythical_emboss_down: #212121;
+  --start_banner: #CA6924;
+  --start_emboss_up: #eb7a2a;
+  --start_emboss_down: #794017;
+
+
+  --great_banner: #9D2933;
+  --great_banner_lighted: #9D2933;
+  --great_bg: #913232;
+  --great_br: #913232;
+  --great_emboss_up: #C91F37;
+  --great_emboss_down: #5a2525;
+
+
+  --normal_banner: #587b9e;
+  --normal_banner_lighted: #587b9e;
+  --normal_bg: #2f557a;
+  --normal_br: #587b9e;
+  --normal_emboss_up: #7da4ca;
+  --normal_emboss_down: #2f3e4d;
+
+  --gold_banner: #CB7E1F;
+  --gold_banner_lighted: #CB7E1F;
+  --gold_bg: #a35e14;
+  --gold_br: #CB7E1F;
+  --gold_emboss_up: #FFA631;
+  --gold_emboss_down: #7F5D3B;
+
 }
 
 h1,
@@ -64,7 +99,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
 }
 
 h1 {
@@ -187,18 +222,18 @@ body {
     left: 0;
     position: relative;
     height: 100vh;
-    font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
     color: var(--text_primary);
 }
 
 .headerDefault {
-    font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
 }
 
 
 .defElemSym {
     position: relative;
-    font-family: 'Shagor El P1', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    font-family: 'Shagor El P1', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
     line-height: 1em;
     font-size: 1.3em;
     margin-left: 5px;
@@ -745,6 +780,7 @@ body {
 }
 
 
+.emoji_font {font-family: 'Noto Color Emoji',;}
 
 
 .emoji {
@@ -892,7 +928,7 @@ body {
 
 
 .infoBlockTitle {
-    font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Color Emoji', serif;
+    font-family: 'Philosopher', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
     font-size: 1em;
 }
 
@@ -1588,7 +1624,7 @@ a.gallery-trigger {
   width: 200px;
 }
 
-div:has(.dropdown_menu) {
+div:has(.dropdown_menu):not(.dropdown_menu) {
   position: relative;
   z-index: 1;
 }
@@ -1616,7 +1652,7 @@ div:has(.dropdown_menu) {
   pointer-events: none;
 }
 
-.dropdown_menu:has([value]) {
+.dropdown_menu:has(>[value]) {
   user-select: none;
   font-weight: 800;
   padding: 1px;
@@ -1673,6 +1709,7 @@ div:has(.dropdown_menu) {
 }
 
 .inlineButton {
+  position: relative;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -1686,7 +1723,8 @@ div:has(.dropdown_menu) {
   user-select: none;
 }
 
-.inlineButton:hover {
+.inlineButton:hover,
+.inlineButton_dropdownWrapper .opened + .inlineButton {
   background: var(--background_dark);
     border-color: black;
     color: var(--text_light);
@@ -1703,4 +1741,15 @@ div:has(.dropdown_menu) {
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+[data-language_selector].selected {
+  background: var(--background_dark);
+  border-color: black;
+  color: var(--text_light);
+}
+[data-language_selector].selected:hover {
+  background: var(--background_dark);
+  color: var(--color_dark_gold);
+  border-color: var(--color_dark_gold);
 }

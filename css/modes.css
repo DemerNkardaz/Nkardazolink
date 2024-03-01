@@ -123,6 +123,8 @@
 }
 
 #galleryInfoBanner {
+  --emboss_up: var(--start_emboss_up);
+  --emboss_down: var(--start_emboss_down);
   position: relative;
   display: flex;
   align-items: center;
@@ -130,21 +132,30 @@
   width: 100%;
   height: 100px;
   color: var(--text_light);
-  background: var(--gallery_banner);
-  box-shadow: inset 3px 3px 3px var(--gallery_emboss_up), inset -1px -1px 3px var(--gallery_emboss_down);
+  background: var(--start_banner);
+  box-shadow: inset 3px 3px 3px var(--emboss_up), inset -1px -1px 3px var(--emboss_down);
 }
 
 #galleryInfoBannerOrnate {
+  --emboss_up: var(--start_emboss_up);
+  --emboss_down: var(--start_emboss_down);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#galleryInfoBannerOrnate::after {
+  --background: url('../resources/svg/header_ornate.svg');
+  content: '';
   position: absolute;
   width: 460px;
   height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url('../resources/svg/header_ornate.svg') no-repeat;
+  background: var(--background) no-repeat;
   background-size: 100% 100%;
-  filter: drop-shadow(0px -1px 1px var(--gallery_emboss_up)) drop-shadow(0px 1px 1px var(--gallery_emboss_down));
-
+  filter: drop-shadow(0px -1px 1px var(--emboss_up)) drop-shadow(0px 1px 1px var(--emboss_down));
 }
 
 #galleryInfoBanner h1, #galleryInfoBanner h2, #galleryInfoBanner h3, #galleryInfoBanner h4, #galleryInfoBanner h5, #galleryInfoBanner h6 {
@@ -155,6 +166,8 @@
 }
 
 #gallerySelectedItem {
+  --background: var(--gallery_selected_bg);
+  --selected_border: var(--gallery_selected_border);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -162,10 +175,8 @@
   justify-content: center;
   width: 100%;
   height: 384px;
-  background: var(--gallery_selected_bg) url('../resources/svg/pattern_yagasuri.svg') no-repeat;
-  background-size: 121%;
-  background-position: 45% 50%;
-  border: 5px solid var(--gallery_selected_border);
+  background: var(--background);
+  border: 5px solid var(--selected_border);
   z-index: 1;
 }
 
@@ -191,16 +202,21 @@
   height: 100%;
   top: 0;
   left: 0;
+  background: url('../resources/svg/pattern_yagasuri.svg') no-repeat;
+  background-size: 121%;
+  background-position: 45% 50%;
   box-shadow: inset 0 0 100px var(--shadow_secondary), inset 0px 5px 5px var(--shadow_inset_info), inset 0px -5px 10px var(--shadow_inset_info);
   user-select: none;
   pointer-events: none;
   z-index: 1;
 }
 
+#gallerySelectedItem img {z-index: 10;}
+
 #gallerySelectedItem img:not(.progress_folder img) {
   max-width: 70%;
   filter: drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
-  z-index: 1;
+  z-index: 10;
   cursor: pointer;
 }
 
@@ -212,12 +228,14 @@
   filter: brightness(115%) drop-shadow(0px -2px 2px var(--gallery_emboss_up)) drop-shadow(0px -1px 0px #9c5235) drop-shadow(0px 2px 2px var(--gallery_emboss_down))drop-shadow(0px 2px 0px var(--gallery_emboss_down));
 }
 
+
 .gallerySelectedTranslatedName {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: #eee;
+  min-width: 32px;
   font-size: 1.2em;
   font-weight: 700;
 
@@ -227,6 +245,276 @@
   --s: 7px;
   z-index: 10;
 }
+
+
+[show_rarity="mythical"] #galleryInfoBanner {
+  background: var(--mythical_banner);
+}
+
+[show_rarity="mythical"] #galleryInfoBannerOrnate::after {
+  --emboss_up: var(--mythical_emboss_up);
+  --emboss_down: var(--mythical_emboss_down);
+  --background: url('../resources/svg/header_ornate_mythical.svg');
+}
+
+[show_rarity="mythical"] #galleryInfoBanner {
+  --emboss_up: var(--mythical_emboss_up);
+  --emboss_down: var(--mythical_emboss_down);
+}
+
+[show_rarity="mythical"] #gallerySelectedItem {
+  --background: var(--mythical_bg);
+  --selected_border: var(--mythical_br);
+}
+
+[show_rarity="mythical"] #gallerySelectedItem::before {
+  filter: brightness(55%) saturate(0%);
+}
+
+[show_rarity="mythical"] #gallerySelectedItem::after {
+  filter: brightness(60%) saturate(0%);
+}
+
+[show_rarity="mythical"] .gallerySelectedTranslatedName {
+  background: var(--mythical_banner_lighted);
+}
+[show_rarity="mythical"] .shadowDropWrapper:has(#galleryFullTitle) {
+  --emboss_up: var(--mythical_emboss_up);
+  --emboss_down: var(--mythical_emboss_down);
+}
+[show_rarity="mythical"] #galleryFullTitle {
+  background: var(--mythical_banner_lighted);
+}
+
+[show_rarity="mythical"] #gallerySelectedItem img:not(.progress_folder img) {
+  filter: drop-shadow(0px -2px 2px var(--mythical_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--mythical_emboss_down))drop-shadow(0px 2px 0px var(--mythical_emboss_down));
+}
+
+[show_rarity="mythical"] #gallerySelectedItem img:not(.progress_folder img):hover {
+  filter: brightness(110%) drop-shadow(0px -2px 2px var(--mythical_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--mythical_emboss_down))drop-shadow(0px 2px 0px var(--mythical_emboss_down));
+}
+
+[show_rarity="mythical"] #gallerySelectedItem img:not(.progress_folder img):active {
+  filter: brightness(115%) drop-shadow(0px -2px 2px var(--mythical_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--mythical_emboss_down))drop-shadow(0px 2px 0px var(--mythical_emboss_down));
+}
+
+
+
+
+
+
+
+
+
+
+[show_rarity="great"] #galleryInfoBanner {
+  background: var(--great_banner);
+}
+
+[show_rarity="great"] #galleryInfoBannerOrnate::after {
+  --emboss_up: var(--great_emboss_up);
+  --emboss_down: var(--great_emboss_down);
+  --background: url('../resources/svg/header_ornate_great.svg');
+}
+
+[show_rarity="great"] #galleryInfoBanner {
+  --emboss_up: var(--great_emboss_up);
+  --emboss_down: var(--great_emboss_down);
+}
+
+[show_rarity="great"] #gallerySelectedItem {
+  --background: var(--great_bg);
+  --selected_border: var(--great_br);
+}
+
+[show_rarity="great"] #gallerySelectedItem::before {
+  filter: brightness(85%) saturate(100%) hue-rotate(-10deg);
+}
+
+[show_rarity="great"] #gallerySelectedItem::after {
+  filter: brightness(90%) saturate(100%) hue-rotate(-10deg);
+}
+
+[show_rarity="great"] .gallerySelectedTranslatedName {
+  background: var(--great_banner_lighted);
+}
+
+[show_rarity="great"] .shadowDropWrapper:has(#galleryFullTitle) {
+  --emboss_up: var(--great_emboss_up);
+  --emboss_down: var(--great_emboss_down);
+}
+
+[show_rarity="great"] #galleryFullTitle {
+  background: var(--great_banner_lighted);
+}
+
+[show_rarity="great"] #gallerySelectedItem img:not(.progress_folder img) {
+  filter: drop-shadow(0px -2px 2px var(--great_emboss_up)) drop-shadow(0px -1px 0px #a43b3b) drop-shadow(0px 2px 2px var(--great_emboss_down))drop-shadow(0px 2px 0px var(--great_emboss_down));
+}
+
+[show_rarity="great"] #gallerySelectedItem img:not(.progress_folder img):hover {
+  filter: brightness(110%) drop-shadow(0px -2px 2px var(--great_emboss_up)) drop-shadow(0px -1px 0px #a43b3b) drop-shadow(0px 2px 2px var(--great_emboss_down))drop-shadow(0px 2px 0px var(--great_emboss_down));
+}
+
+[show_rarity="great"] #gallerySelectedItem img:not(.progress_folder img):active {
+  filter: brightness(115%) drop-shadow(0px -2px 2px var(--great_emboss_up)) drop-shadow(0px -1px 0px #a43b3b) drop-shadow(0px 2px 2px var(--great_emboss_down))drop-shadow(0px 2px 0px var(--great_emboss_down));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+[show_rarity="normal"] #galleryInfoBanner {
+  background: var(--normal_banner);
+}
+
+[show_rarity="normal"] #galleryInfoBannerOrnate::after {
+  --emboss_up: var(--normal_emboss_up);
+  --emboss_down: var(--normal_emboss_down);
+  --background: url('../resources/svg/header_ornate_normal.svg');
+}
+
+[show_rarity="normal"] #galleryInfoBanner {
+  --emboss_up: var(--normal_emboss_up);
+  --emboss_down: var(--normal_emboss_down);
+}
+
+[show_rarity="normal"] #gallerySelectedItem {
+  --background: var(--normal_bg);
+  --selected_border: var(--normal_br);
+}
+
+[show_rarity="normal"] #gallerySelectedItem::before {
+  filter: brightness(85%) saturate(100%) hue-rotate(200deg);
+}
+
+[show_rarity="normal"] #gallerySelectedItem::after {
+  filter: brightness(95%) saturate(100%) hue-rotate(200deg);
+}
+
+[show_rarity="normal"] .gallerySelectedTranslatedName {
+  background: var(--normal_banner_lighted);
+}
+
+[show_rarity="normal"] .shadowDropWrapper:has(#galleryFullTitle) {
+  --emboss_up: var(--normal_emboss_up);
+  --emboss_down: var(--normal_emboss_down);
+}
+
+[show_rarity="normal"] #galleryFullTitle {
+  background: var(--normal_banner_lighted);
+}
+
+[show_rarity="normal"] #gallerySelectedItem img:not(.progress_folder img) {
+  filter: drop-shadow(0px -2px 2px var(--normal_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--normal_emboss_down))drop-shadow(0px 2px 0px var(--normal_emboss_down));
+}
+
+[show_rarity="normal"] #gallerySelectedItem img:not(.progress_folder img):hover {
+  filter: brightness(110%) drop-shadow(0px -2px 2px var(--normal_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--normal_emboss_down))drop-shadow(0px 2px 0px var(--normal_emboss_down));
+}
+
+[show_rarity="normal"] #gallerySelectedItem img:not(.progress_folder img):active {
+  filter: brightness(115%) drop-shadow(0px -2px 2px var(--normal_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--normal_emboss_down))drop-shadow(0px 2px 0px var(--normal_emboss_down));
+}
+
+
+
+
+[show_rarity="gold"] #galleryInfoBanner {
+  background: var(--gold_banner);
+}
+
+[show_rarity="gold"] #galleryInfoBannerOrnate::after {
+  --emboss_up: var(--gold_emboss_up);
+  --emboss_down: var(--gold_emboss_down);
+  --background: url('../resources/svg/header_ornate_gold.svg');
+}
+
+[show_rarity="gold"] #galleryInfoBanner {
+  --emboss_up: var(--gold_emboss_up);
+  --emboss_down: var(--gold_emboss_down);
+}
+
+[show_rarity="gold"] #gallerySelectedItem {
+  --background: var(--gold_bg);
+  --selected_border: var(--gold_br);
+}
+
+[show_rarity="gold"] #gallerySelectedItem::before {
+  filter: brightness(105%) saturate(120%) hue-rotate(20deg);
+}
+
+[show_rarity="gold"] #gallerySelectedItem::after {
+  filter: brightness(115%) saturate(120%) hue-rotate(20deg);
+}
+
+[show_rarity="gold"] .gallerySelectedTranslatedName {
+  background: var(--gold_banner_lighted);
+}
+
+[show_rarity="gold"] .shadowDropWrapper:has(#galleryFullTitle) {
+  --emboss_up: var(--gold_emboss_up);
+  --emboss_down: var(--gold_emboss_down);
+}
+
+[show_rarity="gold"] #galleryFullTitle {
+  background: var(--gold_banner_lighted);
+}
+
+[show_rarity="gold"] #gallerySelectedItem img:not(.progress_folder img) {
+  filter: drop-shadow(0px -2px 2px var(--gold_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--gold_emboss_down))drop-shadow(0px 2px 0px var(--gold_emboss_down));
+}
+
+[show_rarity="gold"] #gallerySelectedItem img:not(.progress_folder img):hover {
+  filter: brightness(110%) drop-shadow(0px -2px 2px var(--gold_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--gold_emboss_down))drop-shadow(0px 2px 0px var(--gold_emboss_down));
+}
+
+[show_rarity="gold"] #gallerySelectedItem img:not(.progress_folder img):active {
+  filter: brightness(115%) drop-shadow(0px -2px 2px var(--gold_emboss_up)) drop-shadow(0px -1px 0px #2e2e2e) drop-shadow(0px 2px 2px var(--gold_emboss_down))drop-shadow(0px 2px 0px var(--gold_emboss_down));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .shadowDropWrapper {
   display: flex;
@@ -247,11 +535,13 @@
 }
 
 .shadowDropWrapper:has(#galleryFullTitle) {
+  --emboss_up: var(--gallery_emboss_up);
+  --emboss_down: var(--gallery_emboss_down);
   position: absolute;
   top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0px 2px 1px var(--gallery_emboss_down)) drop-shadow(0px -2px 1px var(--gallery_emboss_up));
+  filter: drop-shadow(0px 2px 1px var(--emboss_down)) drop-shadow(0px -2px 1px var(--emboss_up));
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -289,6 +579,13 @@
   font-size: 1.2em;
   width: 100%;
   margin: 15px;
+}
+
+#gallerySelectedSubTitleText {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .gallerySelectedBreakDecorator {
@@ -478,6 +775,7 @@
 }
 
 #galleryControlButtons {
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -740,12 +1038,12 @@
 .galleryItemCommon[rarity="gold"]::before {
   --rarity_color: var(--rarity_color_gold);
 }
-.galleryItem_Template[rarity="red"]::before,
-.galleryItemCommon[rarity="red"]::before {
+.galleryItem_Template[rarity="great"]::before,
+.galleryItemCommon[rarity="great"]::before {
   --rarity_color: var(--rarity_color_red);
 }
-.galleryItem_Template[rarity="black"]::before,
-.galleryItemCommon[rarity="black"]::before {
+.galleryItem_Template[rarity="mythical"]::before,
+.galleryItemCommon[rarity="mythical"]::before {
   --rarity_color: var(--rarity_color_black);
 }
 
@@ -778,8 +1076,8 @@
 .galleryItemCommon.selected[rarity="gold"] {
   --rarity_animation: selected_pulse_shadow_gold;
 }
-.galleryItem_Template.selected[rarity="red"],
-.galleryItemCommon.selected[rarity="red"] {
+.galleryItem_Template.selected[rarity="great"],
+.galleryItemCommon.selected[rarity="great"] {
   --rarity_animation: selected_pulse_shadow_red;
 }
 
@@ -793,8 +1091,8 @@
   --rarity_animation: selected_pulse_shadow_god;
 }
 
-.galleryItem_Template.selected[rarity="black"],
-.galleryItemCommon.selected[rarity="black"] {
+.galleryItem_Template.selected[rarity="mythical"],
+.galleryItemCommon.selected[rarity="mythical"] {
   --rarity_animation: selected_pulse_shadow_black;
 }
 
@@ -913,7 +1211,7 @@
 
 .galleryItemImg img {
   width: 80%;
-  filter: drop-shadow(0px 1px 3px var(--shadow_tretiary));
+  filter: drop-shadow(0px 1px 1px var(--shadow_tretiary));
 }
 
 .galleryItemTitle {
@@ -921,7 +1219,7 @@
   font-weight: 800;
   font-size: 1em;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -944,10 +1242,6 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-
-
-
-
 
 
 

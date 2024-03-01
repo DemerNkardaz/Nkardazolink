@@ -1,5 +1,24 @@
 import * as $item from './variables.js';
 
+
+window.loadJSON = function(url, callback) {
+  $.getJSON('data/' + url + '.json', function(data) {
+    if (typeof callback === 'function') {
+        callback(data);
+    }
+  });
+};
+
+window.defs_loc_values = {};
+loadJSON('lang', function(data) {
+  languageJSON = data;
+  defs_loc_values = (languageJSON && languageJSON[global_selected_language] && {
+    "titleLost": languageJSON[global_selected_language]['default']['titleLost'],
+    "descriptionLost": languageJSON[global_selected_language]['default']['descriptionLost'],
+    "subtitleLost": languageJSON[global_selected_language]['default']['subtitleLost']
+  });
+})
+
 function siteTitleOnLang() {
 
 		var userLanguage = navigator.language || navigator.userLanguage;

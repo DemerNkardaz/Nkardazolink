@@ -1,0 +1,89 @@
+{
+  "ru": 
+  {
+    "metas": {
+      "Title_Nkardazolink": "Демер Нкардаз・2D・3D・Писательство・Вёрстка"
+    },
+    "options": {
+      "language": "Язык"
+    },
+    "default": {
+      "titleLost": "Название отсутствует",
+      "subtitleLost": "Подзаголовок отсутствует",
+      "descriptionLost": "Описание отсутствует",
+      "DemerNkardaz": "Демер Нкардаз",
+      "SaitamaOnmyoji": "Оммёдзи из Сайтамы"
+    },
+    "mons": {
+      "maru_ni_mittsuaoi": "Три листа мальвы"
+    }
+  },
+  "en": 
+  {
+    "metas": {
+      "Title_Nkardazolink": "Demer Nkardaz・2D・3D・Writer・Layout"
+    },
+    "options": {
+      "language": "Language"
+    },
+    "default": {
+      "titleLost": "Name not found",
+      "subtitleLost": "Subtitle not found",
+      "descriptionLost": "Description not found",
+      "DemerNkardaz": "Demer Nkardaz",
+      "SaitamaOnmyoji": "Onmyoji from Saitama"
+    },
+    "mons": {
+      "maru_ni_mittsuaoi": "Three Leaves of Mallow"
+    }
+  },
+  "jp": 
+  {
+    "metas": {
+      "Title_Nkardazolink": "デメル・ンカルダズ・２Ｄ・３Ｄ・ライター・レイアウト"
+    },
+    "options": {
+      "language": "言語"
+    },
+    "default": {
+      "titleLost": "タイトルはありません",
+      "subtitleLost": "サブタイトルはありません",
+      "descriptionLost": "説明はありません",
+      "DemerNkardaz": "デメル・ンカルダズ",
+      "SaitamaOnmyoji": "埼玉県から陰陽師"
+    },
+    "mons": {
+      "maru_ni_mittsuaoi": "葵の三葉"
+    }
+  },
+  "zh":
+  {
+    "default": {
+      "titleLost": "名称未找到",
+      "subtitleLost": "副标题未找到",
+      "descriptionLost": "描述未找到",
+      "DemerNkardaz": "德梅尔·纳卡德斯",
+      "SaitamaOnmyoji": "埼玉陰陽師"
+    }
+  },
+  "kr":
+  {
+    "default": {
+      "titleLost": "이름을 찾을 수 없음",
+      "subtitleLost": "부제목을 찾을 수 없음",
+      "descriptionLost": "설명을 찾을 수 없음",
+      "DemerNkardaz": "데머 엔카르다즈",
+      "SaitamaOnmyoji": "사이타마의 음양사"
+    }
+  },
+  "vi":
+  {
+    "default": {
+      "titleLost": "Không tìm thấy tên",
+      "subtitleLost": "Không tìm thấy phụ đề",
+      "descriptionLost": "Không tìm thấy mô tả",
+      "DemerNkardaz": "Demer Nkardaz",
+      "SaitamaOnmyoji": "Onmyoji từ Saitama"
+    }
+  }
+}

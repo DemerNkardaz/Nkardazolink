@@ -53,14 +53,28 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function() {
     $('#titleMode').html(titleMode);
     if (modeUrlPar === 'kamon') {
-      loadMonsItems(function () {
-        defaultSelectedItem();
-        initializeFilters();
-        updateCrestCounter();
-        getHighestRarity();
-        if (global_saved_search_mode_kamon && global_saved_opt_save_search === "true") {
-          $('#galleryContentSearchInput').val(global_saved_search_mode_kamon).trigger('input');
-        };
+      loadJSON('mon_items', function(data) {
+        loadedMonsJSON = data;
+        loadMonsItems(function () {
+          initializeFilters();
+          
+          getHighestRarity();
+          if (global_saved_search_mode_kamon && global_saved_opt_save_search === "true") {
+            $('#galleryContentSearchInput').val(global_saved_search_mode_kamon).trigger('input');
+          };
+          $('[data-transcript]').hide();
+          defaultSelectedItem();
+          if ($('[data-filter_group]')) {
+            $('.galleryItemCommon').each(function(){
+              if ($(this).attr('data-filter_group') === 'JP') {
+                $(this).removeClass('groupDisabled');
+              } else {
+                $(this).addClass('groupDisabled');
+              }
+            });
+          }
+          updateCrestCounter();
+        });
       });
 
       $('#galleryControlButtons').append(
@@ -79,17 +93,6 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     });
     OverlayScrollbars($('#gallerySelectedDescription'), {
     });
-
-    var items = $('.galleryItemCommon');
-    if ($('[data-filter_group]')) {
-      items.each(function(){
-        if ($(this).attr('data-filter_group') === 'JP') {
-          $(this).removeClass('groupDisabled');
-        } else {
-          $(this).addClass('groupDisabled');
-        }
-      });
-    }
   });
 
   window.updateGalleryScrollbar = function() {
@@ -108,10 +111,37 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       $("#galleryFullTitle").text($element.textContent);
     }
   });
+
+  window.last_hovered_transcript = '';
+  window.updateTranscriptLocales = function(hidden) {
+    var selectedItem = $('.galleryItemCommon.selected');
+    var data = loadedMonsJSON;
+    $.each(data.root, function (_, category) {
+      var imgFolder = category.img_folder;
+      $.each(category.items, function (_, item) {
+        var item_transcript_first = (item.transcript_first && item.transcript_first[global_selected_language].join('')) || '';
+        var item_transcript_second = (item.transcript_second && item.transcript_second[global_selected_language].join('')) || '';
+
+        if (selectedItem.attr('data-entity_prop') === item.entity_prop) {
+          if (!hidden) {
+            $("#galleryFullTitle").addClass('active');
+          }
+
+          if (last_hovered_transcript === 'first') {
+            $("#galleryFullTitle").html(item_transcript_first);
+          } else {
+            $("#galleryFullTitle").html(item_transcript_second);
+          }
+        }
+
+      });
+    });
+  }
+
+  
   $(document).on('mouseover', '[data-transcript]', function(){
-    var transcript = $(this).attr('data-transcript');
-      $("#galleryFullTitle").addClass('active');
-      $("#galleryFullTitle").html(transcript);
+    last_hovered_transcript = $(this).attr('data-transcript');
+    updateTranscriptLocales();
   });
 
 
@@ -232,50 +262,98 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   });
 
   
-  window.updateGalleryItem = function($element) {
-  var image = $element.find('img').attr('src');
-  if (!$element.hasClass('selected')) {
+window.updateGalleryItem = function ($element) {
+    var item_entity = $element.data('entity_prop');
     $('.galleryItemCommon').removeClass('selected');
     $element.addClass('selected');
 
-    $('#gallerySelectedSubTitleText').text($element.find('.galleryItemTitle').text() || 'Название отсутствует');
-
-    $('#gallerySelectedDescription').find('.os-content').html($element.find('.galleryItemDescription').html() || 'Описание отсутствует').attr('data-key', $element.find('.galleryItemDescription').attr('data-key') || '');
-
-    $('#galleryInfoSelectedTitle').text($element.data('mon_title') || 'Название отсутствует').attr('data-key', $element.data('mon_key'));
-
-    $('#gallerySelectedItem').find('.gallerySelectedTranslatedName').eq(0).text($element.data('mon_kanji_first') || 'Не найдено').attr('data-transcript', $element.data('mon_transcript_first') || 'Руби-подсказка не найдена');
-
-    $('#gallerySelectedItem').find('.gallerySelectedTranslatedName').eq(1).text($element.data('mon_kanji_second') || 'Не найдено').attr('data-transcript', $element.data('mon_transcript_second') || 'Руби-подсказка не найдена');
-
-    $('#gallerySelectedItemImg').hide();
-    $('#gallerySelectedItemImg').attr('src', image.replace("_thumb", ""));
-        var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
-        $('#gallerySelectedItem').append(progressBar);
-
-        var img = new Image();
-        img.onload = function () {
-            progressBar.fadeOut('fast', function () {
-              $(this).remove();
-              $('#gallerySelectedItemImg').fadeIn('fast');
-            });
-        };
-        img.src = image.replace("_thumb", "");
+    var data = loadedMonsJSON;
+    var foundItem = false;
+    $.each(data.root, function(_, category) {
+        var imgFolder = category.img_folder;
+        $.each(category.items, function (_, item) {
+            var item_title = (item.localised_name && item.localised_name[global_selected_language]) || item.name || defs_loc_values.titleLost;
+            var item_subtitle = (item.localised_clan && item.localised_clan[global_selected_language]) || item.clan || defs_loc_values.subtitleLost;
+            var item_description = (item.description && item.description[global_selected_language] && (
+            '<div>' +
+            (item.description[global_selected_language].join('').replace(/\n/g, '<br>').replace(/\n/g, '<br>')) +
+            '</div>'
+            )) || defs_loc_values.descriptionLost || '';
 
 
+            var item_kanji_fist = (item.kanji_first) || '';
+            var item_kanji_second = (item.kanji_second) || '';;
 
+            if (item_entity === item.entity_prop) {
+                $('#galleryInfoSelectedTitle').html(item_title);
+                $('#gallerySelectedSubTitleText').html(item_subtitle);
+                $('#gallerySelectedDescription').find('.os-content').html(item_description);
+
+                $('#gallerySelectedItem').find('[data-transcript="first"]').text(item_kanji_fist);
+
+                $('#gallerySelectedItem').find('[data-transcript="second"]').text(item_kanji_second);
+                $('[data-transcript]').fadeIn();
+                var imgpath = data.default_img_path + imgFolder + item.img + ".png"
+                if ($('#gallerySelectedItemImg').attr('src') !== imgpath) {
+                    $('#gallerySelectedItemImg').hide();
+                    $('#gallerySelectedItemImg').attr('src', imgpath);
+
+                    var progressBar = $('#progressEntityDummy').clone().removeAttr('id').show();
+                    $('#gallerySelectedItem').append(progressBar);
+
+                    var img = new Image();
+                    img.onload = function () {
+                        progressBar.fadeOut('fast', function () {
+                            $(this).remove();
+                            $('#gallerySelectedItemImg').fadeIn('fast');
+                        });
+                    };
+                    img.src = imgpath;
+                }
+              var showBlock = $('#gallerySelectedItemBlock');
+              var data_status = $element.attr('data-filter_status');
+              if (data_status) {
+                  if (data_status == 1) {
+                    showBlock.attr('show_rarity', 'common');
+                  } else if (data_status == 2) {
+                    showBlock.attr('show_rarity', 'uncommon');
+                  } else if (data_status == 3) {
+                    showBlock.attr('show_rarity', 'normal');
+                  } else if (data_status == 4) {
+                    showBlock.attr('show_rarity', 'venerable');
+                  } else if (data_status == 5) {
+                    showBlock.attr('show_rarity', 'highnoble');
+                  } else if (data_status == 6) {
+                    showBlock.attr('show_rarity', 'gold');
+                  } else if (data_status == 7) {
+                    showBlock.attr('show_rarity', 'great');
+                  } else if (data_status == 8) {
+                    showBlock.attr('show_rarity', 'legendary');
+                  } else if (data_status == 9) {
+                    showBlock.attr('show_rarity', 'god');
+                  } else if (data_status == 10) {
+                    showBlock.attr('show_rarity', 'mythical');
+                }
+              }
+                foundItem = true;
+                return false;
+            }
+        });
+        if (foundItem) {
+            return false;
+        }
+    });
 
     if ($element.attr('data-imgprop')) {
-      $('#gallerySelectedItemImg').attr('data-imgprop', $element.data('imgprop'));
+        $('#gallerySelectedItemImg').attr('data-imgprop', $element.data('imgprop'));
     } else {
-      $('#gallerySelectedItemImg').removeAttr('data-imgprop');
+        $('#gallerySelectedItemImg').removeAttr('data-imgprop');
     }
-    
-  }
 }
 
 $(document).on('click', '.galleryItemCommon', function () {
   var clickedEntityProp = $(this).data('entity_prop');
+  $('#galleryFullTitle').removeClass('active');
   updateGalleryItem($(this));
   $('[data-imgprop="SVG"]').css('display', 'none');
   if (global_save_selected_kamon === 'true' || $('input[name="save_selected_kamon"]').prop('checked')) {
@@ -295,7 +373,7 @@ window.defaultSelectedItem = function () {
   } else {
     updateGalleryItem($('.galleryItemCommon').eq(0));
   }
-}
+  }
 
 
   $(document).on('click', '[data-filter_menu] > [value]', function(){
@@ -592,53 +670,94 @@ function isEgTreeMatchFlex(egTree, searchTree) {
 }
 
 
-window.loadMonsItems = function (callback) {
-    $.getJSON('data/mon_items.json', function(data) {
-        var galleryContentGrid = $('#galleryContentGrid');
 
-        $.each(data.root, function(_, category) {
-            var imgFolder = category.img_folder;
-            $.each(category.items, function(_, item) {
-                var galleryItem = $('<div>').addClass('galleryItemCommon').attr({
-                    'rarity': item.rarity,
-                    'data-filter_status': item.status,
-                    'data-filter_group': category.category,
-                    'data-search_tags': item.search_tags.join(', '),
-                    'data-mon_key': item.key,
-                    'data-mon_key': item.key,
-                    'data-entity_prop': item.entity_prop,
-                    'data-mon_kanji_first': item.kanji_first,
-                    'data-mon_kanji_second': item.kanji_second,
-                    'data-mon_transcript_first': item.transcript_first.join(''),
-                    'data-mon_transcript_second': item.transcript_second.join(''),
-                });
-                if (item.eg && item.eg.length > 0) {
-                    galleryItem.attr('data-eg_tree', item.eg[0].tree);
-                }
-                if (item.imgprop) {
-                    galleryItem.attr('data-imgprop', item.imgprop);
-                }
 
-                var galleryItemImg = $('<div>').addClass('galleryItemImg');
-                $('<img>').attr('src', data.default_img_path + imgFolder + item.img + "_thumb.png").appendTo(galleryItemImg);
-                galleryItemImg.appendTo(galleryItem);
+window.updateItemsLocales = function () {
+  var data = loadedMonsJSON;
+  var galleryItem = $('.galleryItemCommon');
 
-                $('<div>').addClass('galleryItemTitle').attr('data-key', item.clan_key).text(item.clan).appendTo(galleryItem);
+  $.each(data.root, function(_, category) {
+    $.each(category.items, function (_, item) {
+      var item_clan = (item.localised_clan && item.localised_clan[global_selected_language]) || item.clan || defs_loc_values.titleLost;
 
-                var galleryItemDescription = $('<div>').addClass('galleryItemDescription');
-                var descriptionHTML = item.description.join(''); 
-                galleryItemDescription.attr('data-key', item.description_key); 
-                galleryItemDescription.html(descriptionHTML); 
-                galleryItemDescription.appendTo(galleryItem);
-
-                galleryItem.appendTo(galleryContentGrid);
-            });
-        });
-      if (typeof callback === 'function') {
-          callback();
-      }
-    });
+      galleryItem.each(function() {
+        if ($(this).attr('data-entity_prop') === item.entity_prop) { 
+          $(this).find('.galleryItemTitle').html(item_clan);
+        }
+      });
+    })
+  })
 }
+
+window.loadMonsItems = function (callback) {
+    var data = loadedMonsJSON;
+    
+    var galleryContentGrid = $('#galleryContentGrid');
+
+    $.each(data.root, function(_, category) {
+        var imgFolder = category.img_folder;
+        $.each(category.items, function (_, item) {
+            var item_clan = (item.localised_clan && item.localised_clan[global_selected_language]) || item.clan || defs_loc_values.titleLost;
+        
+
+            var galleryItem = $('<div>').addClass('galleryItemCommon').attr({
+                'data-filter_status': item.status,
+                'data-filter_group': category.category,
+                'data-search_tags': item.search_tags.join(', '),
+                'data-entity_prop': item.entity_prop
+            });
+          
+
+            if (item.eg && item.eg.length > 0) {
+                galleryItem.attr('data-eg_tree', item.eg[0].tree);
+            }
+            if (item.imgprop) {
+                galleryItem.attr('data-imgprop', item.imgprop);
+            }
+
+            var galleryItemImg = $('<div>').addClass('galleryItemImg');
+            $('<img>').attr('src', data.default_img_path + imgFolder + item.img + "_thumb.png").appendTo(galleryItemImg);
+            galleryItemImg.appendTo(galleryItem);
+            
+
+            $('<div>').addClass('galleryItemTitle').html(item_clan).appendTo(galleryItem);
+
+
+          galleryItem.appendTo(galleryContentGrid).each(function () {
+            if (item.status === 1) {
+              galleryItem.attr('rarity', 'common');
+            } else if (item.status === 2) {
+              galleryItem.attr('rarity', 'uncommon');
+            } else if (item.status === 3) {
+              galleryItem.attr('rarity', 'normal');
+            } else if (item.status === 4) {
+              galleryItem.attr('rarity', 'venerable');
+            } else if (item.status === 5) {
+              galleryItem.attr('rarity', 'highnoble');
+            } else if (item.status === 6) {
+              galleryItem.attr('rarity', 'gold');
+            } else if (item.status === 7) {
+              galleryItem.attr('rarity', 'great');
+            } else if (item.status === 8) {
+              galleryItem.attr('rarity', 'legendary');
+            } else if (item.status === 9) {
+              galleryItem.attr('rarity', 'god');
+            } else if (item.status === 10) {
+              galleryItem.attr('rarity', 'mythical');
+            }
+          });
+          
+            if (item.lazy_load !== "false") {
+                galleryItem.find('img').attr('loading', "lazy");
+            }
+
+        });
+    });
+    if (typeof callback === 'function') {
+        callback();
+    }
+}
+
 
 
 window.getHighestRarity = function () {

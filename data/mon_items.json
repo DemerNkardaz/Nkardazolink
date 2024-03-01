@@ -7,11 +7,19 @@
       "img_folder": "/japan/kamon/",
       "items": [
         {
+          "entity_prop": "ent_clan_matsudaira_mon_maru_ni_mittsuaoi",
           "name": "Три листа мальвы",
-          "key": "maru_ni_mittsuaoi",
+          "localised_name": 
+            {
+              "ru": "Три листа мальвы",
+              "en": "Three Leaves of Mallow",
+              "jp": "葵の三葉",
+              "zh": "葵的三叶",
+              "kr": "월리의 모리",
+              "vi": "Tam la lá của Aoi"
+            },
           "img": "Mon_of_clan_Matsudaira",
           "status": 6,
-          "rarity": "gold",
           "search_tags": 
             [
               "Мацудайра",
@@ -23,42 +31,90 @@
             ],
           "eg":
             [
-              {"tree": "Император > Минамото > Мацудайра"}
+              {
+                "tree": "Император > Минамото > Мацудайра",
+                "tree_en": "Emperor > Minamoto > Matsudaira",
+                "tree_jp": "天皇 > 源 > 松平"
+              }
             ],
           "clan": "Мацудайра",
-          "clan_key": "Clan_Matsudaira",
-          "entity_prop": "ent_clan_matsudaira_mon_maru_ni_mittsuaoi",
+          "localised_clan": 
+            {
+              "ru": "Мацудайра",
+              "en": "Matsudaira",
+              "jp": "松平",
+              "zh": "松平",
+              "kr": "상파리",
+              "vi": "Matsudaira"
+            },
           "kanji_first": "丸に三つ葵",
           "kanji_second": "松平家の家紋、侍",
           "transcript_first": 
-            [
+          {
+            "ru": [
               "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt data-key='maru_ni_mittsuaoi_transcript'>Три листа мальвы в кругу</rt>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
               "</ruby>"
             ],
-          "transcript_second": 
-            [
+            "en": [
               "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>家<rt>Ke</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt data-key='matsudaira_ke_no_kamon_transcript'>Фамильный герб рода Мацудайра, самураев</rt>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
               "</ruby>"
             ],
-          "description_key": "maru_ni_mittsuaoi_description", 
-          "description": 
-            [
-              "<div>",
-              "Какой-то текст про герб рода Мацудайра<br>",
-              "</div>"
+            "jp": [
+                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
             ]
+          },
+          "transcript_second":
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt>Фамильный герб рода самураев «Мацудайра»</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt>The crest of samurai clan “Matsudaira”</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>松平<rt>まつだいら</rt>氏<rt>し</rt>の<rt></rt>家紋<rt>かもん</rt>、<rt></rt>侍<rt>さむらい</rt></ruby><rt>"
+            ]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
         },
         
         {
+          "entity_prop": "ent_mon_nkardaz",
           "name": "Золотые цветы, встающие на заре",
-          "key": "maru_ni_mittsuaoi",
+          "localised_name": 
+            {
+              "ru": "Золотые цветы, встающие на заре",
+              "en": "Gold Leaves, Standing on the Grass",
+              "jp": "金色の葉",
+              "zh": "金色的葉",
+              "kr": "보르",
+              "vi": "Bình minh hoa vàng"
+            },
           "img": "Mon_of_Nkardaz",
           "imgprop": "false",
           "status": 10,
-          "rarity": "black",
           "search_tags": 
             [
               "Никаикадзути-но Тацу-но Дэйдара-но Микото",
@@ -71,33 +127,324 @@
             ],
           "eg":
             [
-              {"tree": "Император > Минамото > Мацудайра > Токугава"}
+              {"tree": "Нкардаз"}
             ],
-          "clan": "Никаикадзути",
-          "clan_key": "Clan_Nikaikazuchi",
-          "entity_prop": "ent_mon_nkardaz",
+          "clan": "Никайкадзути",
+          "localised_clan":
+            {
+              "ru": "Никайкадзути",
+              "en": "Nikaikadzuchi",
+              "jp": "荷渦雷",
+              "zh": "荷渦雷",
+              "kr": "소용돌이 천둥",
+              "vi": "Nikaikadzuchi"
+            },
           "kanji_first": "暁起金花",
           "kanji_second": "荷渦雷龍出異田荒尊の紋章",
           "transcript_first": 
-            [
+          {
+            "ru": [
               "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt data-key='maru_ni_mittsuaoi_transcript'>Три листа мальвы в кругу</rt>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
               "</ruby>"
             ],
-          "transcript_second": 
-            [
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+            ]
+          },
+          "transcript_second":
+          {
+            "ru": [
               "<ruby class='ruby_bottom'>",
                 "<ruby>荷渦雷<rt>Nikaikazuchi-no</rt>龍<rt>Tatsu-no</rt>出異田荒<rt>Deitara-no</rt></rt>尊<rt>Mikoto</rt>の<rt>No</rt>紋章<rt>Monshō</rt>",
-                "</ruby><rt data-key='matsudaira_ke_no_kamon_transcript'>Герб почтенного дракона Дэитара, несущего громовой вихрь</rt>",
+                "</ruby><rt>Герб почтенного дракона Дэитара, несущего громовой вихрь</rt>",
               "</ruby>"
             ],
-          "description_key": "maru_ni_mittsuaoi_description", 
-          "description": 
-            [
-              "<div>",
-              "Какой-то текст про герб рода Мацудайра<br>",
-              "</div>"
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>荷渦雷<rt>Nikaikazuchi-no</rt>龍<rt>Tatsu-no</rt>出異田荒<rt>Deitara-no</rt></rt>尊<rt>Mikoto</rt>の<rt>No</rt>紋章<rt>Monshō</rt>",
+                "</ruby><rt>The crest of dragon, a venerable “Deitara”, carrying a wortex storm</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>荷渦雷<rt>にかいかずちの</rt>龍<rt>たつの</rt>出異田荒<rt>でいたらの</rt></rt>尊<rt>みこと</rt>の<rt>No</rt>紋章<rt>もんしょう</rt></ruby>"
             ]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
+        },
+
+        {
+          "entity_prop": "ent_tennou_monshou",
+          "name": "Хризантемовый императорский герб",
+          "localised_name":
+            {
+              "ru": "Хризантемовый императорский герб",
+              "en": "Chrysanthemum Imperial Crest of Tennō",
+              "jp": "菊の天皇紋章",
+              "zh": "菊天皇的紋章",
+              "kr": "크리산테미안의 국가장식",
+              "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"
+            },
+          "img": "Mon_of_Emperor",
+          "status": 7,
+          "search_tags": ["Император", "Emperor", "Хризантемовый императорский герб", "Chrysanthemum", "Тэнно", "Tenno", "Japan", "Япония", "Благородный дом", "Императосркая семья"],
+          "eg": [{"tree": "Император"}],
+          "clan": "Тэнно<span class=\"diacritic macron\">̄</span>",
+          "localised_clan":
+            {
+              "ru": "Тэнно<span class=\"diacritic macron\">̄</span>",
+              "en": "Tenno<span class=\"diacritic macron\">̄</span>",
+              "jp": "天皇",
+              "zh": "天皇",
+              "kr": "황제",
+              "vi": "Hoàng đế"
+            },
+          "kanji_first": "菊の御紋",
+          "kanji_second": "日本皇室の紋章",
+          "transcript_first": 
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>菊<rt>Kiku</rt>の<rt>No</rt>御紋<rt>Gomon</rt></ruby><rt>Хризантема, императорский герб</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>菊<rt>Kiku</rt>の<rt>No</rt>御紋<rt>Gomon</rt></ruby><rt>Chrysanthemum Imperial Crest</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>菊<rt>きく</rt>の<rt></rt>御紋<rt>ごもん</rt></ruby>"
+            ]
+          },
+          "transcript_second":
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>日本<rt>Nihon</rt>皇室<rt>Kōshitsu</rt>の<rt>No</rt></rt>紋章<rt>Monshō</rt>",
+                "</ruby><rt>Герб императорской семьи Японии</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>日本<rt>Nihon</rt>皇室<rt>Kōshitsu</rt>の<rt>No</rt></rt>紋章<rt>Monshō</rt>",
+                "</ruby><rt>The crest of the Japan Imperial family</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>日本<rt>にほん</rt>皇室<rt>こうしつ</rt>の<rt></rt></rt>紋章<rt>もんしょう</rt></ruby>"
+            ]
+          }
+        },
+
+        {
+          "entity_prop": "ent_clan_matsudaira_mon_mitsubaaoi",
+          "name": "Три листа мальвы",
+          "localised_name": 
+            {
+              "ru": "Три листа мальвы",
+              "en": "Three Leaves of Mallow",
+              "jp": "三つ葉葵",
+              "zh": "葵的三叶",
+              "kr": "월리의 모리",
+              "vi": "Tam la lá của Aoi"
+            },
+          "img": "Mon_of_clan_Tokugawa",
+          "status": 6,
+          "search_tags": 
+            [
+              "Токугава",
+              "Tokugawa",
+              "Япония",
+              "Japan",
+              "Три листа мальвы в кругу",
+              "Благородный дом"
+            ],
+          "eg":
+            [
+              {
+                "tree": "Император > Минамото > Мацудайра > Токугава",
+                "tree_en": "Emperor > Minamoto > Matsudaira > Tokugawa",
+                "tree_jp": "天皇 > 源 > 松平 > 徳川"
+              }
+            ],
+          "clan": "Токугава",
+          "localised_clan": 
+            {
+              "ru": "Токугава",
+              "en": "Tokugawa",
+              "jp": "徳川",
+              "zh": "徳川",
+              "kr": "도쿠가와",
+              "vi": "Tokugawa"
+            },
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+            ]
+          },
+          "transcript_second":
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt>Фамильный герб рода самураев «Мацудайра»</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt>The crest of samurai clan “Matsudaira”</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>松平<rt>まつだいら</rt>氏<rt>し</rt>の<rt></rt>家紋<rt>かもん</rt>、<rt></rt>侍<rt>さむらい</rt></ruby><rt>"
+            ]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
+        }
+      ]
+    },
+    {
+      "category": "ZH",
+      "img_folder": "/china/crests/",
+      "items": [
+        {
+          "entity_prop": "ent_clan_linguang_kan_province",
+          "name": "Печать из лесной маски",
+          "localised_name": 
+            {
+              "ru": "Печать из лесной маски",
+              "en": "Seal from Forest Mask",
+              "jp": "森林マスクの紋章",
+              "zh": "林林蒙蒙的紋章",
+              "kr": "숲마스크의 목걸이",
+              "vi": "Dấu từ Mặt Rừng"
+            },
+          "img": "Linguang_Family_Crest",
+          "status": 3,
+          "search_tags": 
+            [
+              "Линь Гуан",
+              "Lin Guang",
+              "Китай",
+              "China",
+              "Печать из лесной маски",
+              "Seal from Forest Mask"
+            ],
+          "eg":
+            [
+              {
+                "tree": "Император > Минамото > Мацудайра"
+              }
+            ],
+          "clan": "Линь Гуан",
+          "localised_clan": 
+            {
+              "ru": "Линь Гуан",
+              "en": "Lin Guang",
+              "jp": "林光",
+              "zh": "林光",
+              "kr": "농구",
+              "vi": "Lâm Quang"
+            },
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+            ]
+          },
+          "transcript_second":
+          {
+            "ru": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt>Фамильный герб рода самураев «Мацудайра»</rt>",
+              "</ruby>"
+            ],
+            "en": [
+              "<ruby class='ruby_bottom'>",
+                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
+                "</ruby><rt>The crest of samurai clan “Matsudaira”</rt>",
+              "</ruby>"
+            ],
+            "jp": [
+                "<ruby>松平<rt>まつだいら</rt>氏<rt>し</rt>の<rt></rt>家紋<rt>かもん</rt>、<rt></rt>侍<rt>さむらい</rt></ruby><rt>"
+            ]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
         }
       ]
     }

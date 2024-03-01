@@ -17,10 +17,25 @@ window.setRandJSUrl = function(id, name) {
   }
 }
 
+window.loadedMonsJSON = {};
+window.languageJSON = {};
+
+
 window.global_saved_search_mode_kamon = localStorage.getItem('saved_search_mode_kamon');
 window.global_saved_opt_save_search = localStorage.getItem('search_result_save');
 window.global_save_selected_kamon = localStorage.getItem('save_selected_kamon');
 window.global_saved_kamon_item = localStorage.getItem('saved_kamon_item');
+
+const supportedLanguages = ['ru', 'en', 'jp', 'zh', 'kr', 'vi'];
+let userLanguage = localStorage.getItem('selected_language') || navigator.language.toLowerCase();
+
+if (!supportedLanguages.includes(userLanguage)) {
+    userLanguage = 'ru';
+}
+
+window.global_selected_language = userLanguage;
+
+
 
 window.modeUrlPar = new URLSearchParams(window.location.search).get('mode')?.toLowerCase();
 window.selUrlPar = new URLSearchParams(window.location.search).get('sel')?.toLowerCase();
