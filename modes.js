@@ -96,6 +96,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
 
   window.updateCrestCounter = function() {
     $('span[data-counter]').text($('#galleryContentGrid > .galleryItemCommon:not(.groupDisabled)').length);
+    $('#groupTotalCount').text($('#galleryContentGrid > .galleryItemCommon:not(.groupDisabled)').length);
   }
 
 
