@@ -22,6 +22,9 @@
     --background_light_person_block: #FFFFFF80;
     --background_light_mode_gallery: #FFFFFFF0;
     --background_circle_button: white;
+    --background_grad_light: linear-gradient(0deg, #efefef, #ffffff);
+    --background_grad_light_b3: linear-gradient(0deg, #efefefb3, #ffffffb3);
+    --background_grad_light_80: linear-gradient(0deg, #efefef80, #ffffff80);
     --button_light: #ffffff48;
     --white_border: #ffffff20;
     --light_border: #ebedf0;
@@ -622,8 +625,8 @@ body {
     align-items: center;
     position: relative;
     width: 384px;
-    background-color: var(--background_light_person_block);
-    border-right: 5px solid var(--light_border);
+    background: var(--background_grad_light_80);
+    border-right: 0px solid var(--light_border);
     box-shadow: 5px 0 10px var(--shadow_primary);
 }
 
@@ -1648,7 +1651,7 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  background: var(--background_circle_button);
+  background: var(--background_grad_light);
   border: 1.25px solid var(--grey_border);
   padding: 10px;
   box-shadow: 0 3px 2px var(--shadow_inset_info);

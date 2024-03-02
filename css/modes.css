@@ -655,7 +655,7 @@
     width: 100%;
     height: 100%;
     box-sizing: content-box;
-    background-color: var(--background_light_main);
+    background: var(--background_grad_light_b3);
     overflow: hidden;
     z-index: 0;
 }
@@ -754,7 +754,7 @@
   justify-content: start;
   width: 480px;
   height: 780px;
-  background: var(--background_light_person_block);
+  background: var(--background_grad_light);
   border: 2px solid var(--light_border);
   box-shadow: 0 3px 5px var(--shadow_inset_info);
   border-radius: 10px;

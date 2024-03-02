@@ -56,35 +56,25 @@
           "transcript_first": 
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
-              "</ruby>"
+              "—{{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Три листа мальвы в кругу]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
-              "</ruby>"
+              "—{{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Three Leaves of Mallow]}—"
             ],
             "jp": [
-                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+                "{(丸:まる)(に:)(三つ:)(葵:あおい)}"
             ]
           },
           "transcript_second":
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt>Фамильный герб рода самураев «Мацудайра»</rt>",
-              "</ruby>"
+              "—{{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(:)(侍:Samurai)}[Фамильный герб рода самураев «Мацудайра»]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt>The crest of samurai clan “Matsudaira”</rt>",
-              "</ruby>"
+              "—{{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(:)(侍:Samurai)}[The crest of samurai clan “Matsudaira”]}—"
             ],
             "jp": [
-                "<ruby>松平<rt>まつだいら</rt>氏<rt>し</rt>の<rt></rt>家紋<rt>かもん</rt>、<rt></rt>侍<rt>さむらい</rt></ruby><rt>"
+              "{(松平:まつだいら)(氏:し)(の:)(家紋:かもｎ)、(侍:さむらい)}"
             ]
           },
           "description": 
@@ -148,35 +138,25 @@
           "transcript_first": 
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
-              "</ruby>"
+              "—{{(:)}[]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
-              "</ruby>"
+              "—{{(:)}[]}—"
             ],
             "jp": [
-                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+              "—{{(:)}[]}—"
             ]
           },
           "transcript_second":
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>荷渦雷<rt>Nikaikazuchi-no</rt>龍<rt>Tatsu-no</rt>出異田荒<rt>Deitara-no</rt></rt>尊<rt>Mikoto</rt>の<rt>No</rt>紋章<rt>Monshō</rt>",
-                "</ruby><rt>Герб почтенного дракона Дэитара, несущего громовой вихрь</rt>",
-              "</ruby>"
+              "—{{(荷渦雷:Nikaikazuchi-no)(龍:Tatsu-no)(出異田荒:Deitara-no)(尊:Mikoto)(の:No)(紋章:Monshō)}[Герб несущего громовой вихрь почтенного дракона Дэитара]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>荷渦雷<rt>Nikaikazuchi-no</rt>龍<rt>Tatsu-no</rt>出異田荒<rt>Deitara-no</rt></rt>尊<rt>Mikoto</rt>の<rt>No</rt>紋章<rt>Monshō</rt>",
-                "</ruby><rt>The crest of dragon, a venerable “Deitara”, carrying a wortex storm</rt>",
-              "</ruby>"
+              "—{{(荷渦雷:Nikaikazuchi-no)(龍:Tatsu-no)(出異田荒:Deitara-no)(尊:Mikoto)(の:No)(紋章:Monshō)}[Crest of the Vortex Storm's Carrier, The Venerable Dragon “Deitara”]}—"
             ],
             "jp": [
-                "<ruby>荷渦雷<rt>にかいかずちの</rt>龍<rt>たつの</rt>出異田荒<rt>でいたらの</rt></rt>尊<rt>みこと</rt>の<rt>No</rt>紋章<rt>もんしょう</rt></ruby>"
+              "{(荷渦雷:にかいかずちの)(龍:たつの)(出異田荒:でいたらの)(尊:みことの)(紋章:もんしょう)}"
             ]
           },
           "description": 
@@ -227,35 +207,25 @@
           "transcript_first": 
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>菊<rt>Kiku</rt>の<rt>No</rt>御紋<rt>Gomon</rt></ruby><rt>Хризантема, императорский герб</rt>",
-              "</ruby>"
+              "—{{(菊:Kiku)(の:No)(御紋:Gomon)}[Императорский герб хризантемы]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>菊<rt>Kiku</rt>の<rt>No</rt>御紋<rt>Gomon</rt></ruby><rt>Chrysanthemum Imperial Crest</rt>",
-              "</ruby>"
+              "—{{(菊:Kiku)(の:No)(御紋:Gomon)}[Chrysanthemum Imperial Crest]}—"
             ],
             "jp": [
-                "<ruby>菊<rt>きく</rt>の<rt></rt>御紋<rt>ごもん</rt></ruby>"
+              "{(菊:きく)(の:)(御紋:ごもん)}"
             ]
           },
           "transcript_second":
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>日本<rt>Nihon</rt>皇室<rt>Kōshitsu</rt>の<rt>No</rt></rt>紋章<rt>Monshō</rt>",
-                "</ruby><rt>Герб императорской семьи Японии</rt>",
-              "</ruby>"
+              "—{{(日本:Nihon)(皇室:Kōshitsu)(の:No)(紋章:Monshō)}[Герб императорской семьи Японии]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>日本<rt>Nihon</rt>皇室<rt>Kōshitsu</rt>の<rt>No</rt></rt>紋章<rt>Monshō</rt>",
-                "</ruby><rt>The crest of the Japan Imperial family</rt>",
-              "</ruby>"
+              "—{{(日本:Nihon)(皇室:Kōshitsu)(の:No)(紋章:Monshō)}[The Crest of The Japan Imperial family]}—"
             ],
             "jp": [
-                "<ruby>日本<rt>にほん</rt>皇室<rt>こうしつ</rt>の<rt></rt></rt>紋章<rt>もんしょう</rt></ruby>"
+              "{(日本:にほん)(皇室:こうしつ)(の:)(紋章:もんしょう)}"
             ]
           }
         },
@@ -311,35 +281,25 @@
           "transcript_first": 
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
-              "</ruby>"
+              "—{{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Три листа мальвы в кругу]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
-              "</ruby>"
+              "—{{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Three Leaves of Mallow]}—"
             ],
             "jp": [
-                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+                "{(丸:まる)(に:)(三つ:)(葵:あおい)}"
             ]
           },
           "transcript_second":
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt>Фамильный герб рода самураев «Мацудайра»</rt>",
-              "</ruby>"
+              "—{{(徳川:Tokugawa)(氏:Shi)(の:No)(家紋:Kamon)、(:)(侍:Samurai)}[Фамильный герб рода самураев «Мацудайра»]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt>The crest of samurai clan “Matsudaira”</rt>",
-              "</ruby>"
+              "—{{(徳川:Tokugawa:)(氏:Shi)(の:No)(家紋:Kamon)、(:)(侍:Samurai)}[The crest of samurai clan “Matsudaira”]}—"
             ],
             "jp": [
-                "<ruby>松平<rt>まつだいら</rt>氏<rt>し</rt>の<rt></rt>家紋<rt>かもん</rt>、<rt></rt>侍<rt>さむらい</rt></ruby><rt>"
+              "{(徳川:とくがわ)(氏:し)(の:)(家紋:かもｎ)、(侍:さむらい)}"
             ]
           },
           "description": 
@@ -408,35 +368,25 @@
           "transcript_first": 
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Три листа мальвы в кругу</rt>",
-              "</ruby>"
+              "—{{(:)}[]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>丸<rt>Maru</rt>に<rt>Ni</rt>三つ<rt>Mittsu</rt>葵<rt>Aoi</rt></ruby><rt>Three Leaves of Mallow</rt>",
-              "</ruby>"
+              "—{{(:)}[]}—"
             ],
             "jp": [
-                "<ruby>丸<rt>まる</rt>に<rt></rt>三つ<rt></rt>葵<rt>あおい</rt></ruby>"
+              "—{{(:)}[]}—"
             ]
           },
           "transcript_second":
           {
             "ru": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt>Фамильный герб рода самураев «Мацудайра»</rt>",
-              "</ruby>"
+              "—{{(:)}[]}—"
             ],
             "en": [
-              "<ruby class='ruby_bottom'>",
-                "<ruby>松平<rt>Matsudaira</rt>氏<rt>Shi</rt>の<rt>No</rt>家紋<rt>Kamon</rt>、<rt></rt>侍<rt>Samurai</rt>",
-                "</ruby><rt>The crest of samurai clan “Matsudaira”</rt>",
-              "</ruby>"
+              "—{{(:)}[]}—"
             ],
             "jp": [
-                "<ruby>松平<rt>まつだいら</rt>氏<rt>し</rt>の<rt></rt>家紋<rt>かもん</rt>、<rt></rt>侍<rt>さむらい</rt></ruby><rt>"
+              "—{{(:)}[]}—"
             ]
           },
           "description": 

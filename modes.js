@@ -43,13 +43,28 @@ if (modeUrlPar === 'cv') {
 }
 
 window.titleMode = '';
+
+/*
+if (!modeUrlPar) {
+$.get('def.html', function(data) {
+    if (data) {
+        var content = $(data).filter('#personLinksCard');
+        if (content.length) {
+            $('#rootContainer').append(content);
+        } else {
+            console.error('Элемент #personLinksCard не найден в загруженном содержимом.');
+        }
+    } else {
+        console.error('Не удалось загрузить содержимое HTML файла.');
+    }
+});
+}*/
+
 if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' || modeUrlPar === 'webs') {
   $('#rootContainer').children().eq(1).remove();
   
   if (modeUrlPar === 'kamon') {
     window.titleMode = '<div class="vr ms-3 me-3"></div>Галерея Монсё';
-  }
-  
   $('#rootContainer').append('<div id="galleryModeMainWrapper"></div>').children().eq(1).load('modes.html #galleryModeMainWrapper > *', function () {
     $('#titleMode').html(titleMode);
     if (modeUrlPar === 'kamon') {
@@ -89,15 +104,22 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     OverlayScrollbars($('#gallerySelectedDescription'), {
     });
   });
-
   window.updateGalleryScrollbar = function () {
     OverlayScrollbars($('.galleryContentGridWrapper')).scroll().update();
   }
-
   window.updateCrestCounter = function () {
     $('span[data-counter]').text($('#galleryContentGrid > .galleryItemCommon:not(.groupDisabled)').length);
     $('#groupTotalCount').text($('#galleryContentGrid > .galleryItemCommon:not(.groupDisabled)').length);
+    }
+    
+
   }
+  
+
+
+
+
+
 
 
   $(document).on('mouseover', '#galleryInfoSelectedTitle', function () {
@@ -108,6 +130,27 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     }
   });
 
+  window.transcriptReplacement = function (text) {
+    return text
+      .replace(/\n/g, '<br>')
+      .replace(/\″(.*?)\←(.*?)\″/g, function(match, p1, p2) {
+        return "<ruby>" + p1 + "<rt>" + p2 + "</rt></ruby>";
+      })
+      .replace(/\—{(.*?)\}—/g, function(match, p1) {
+        return "<ruby class=\'ruby_bottom\'>" + p1 + "</ruby>";
+      })
+      .replace(/\{(.*?)\}/g, function(match, p1) {
+        return "<ruby>" + p1 + "</ruby>";
+      })
+      .replace(/\((.*?)\:(.*?)\)/g, function(match, p1, p2) {
+        return p1 + "<rt>" + p2 + "</rt>";
+      })
+      .replace(/\[(.*?)\]/g, function(match, p1) {
+        return "<rt>" + p1 + "</rt>";
+      });
+    
+  }
+
   window.last_hovered_transcript = '';
   window.updateTranscriptLocales = function (hidden) {
     var selectedItem = $('.galleryItemCommon.selected');
@@ -117,6 +160,8 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       $.each(category.items, function (_, item) {
         var item_transcript_first = (item.transcript_first && item.transcript_first[global_selected_language].join('')) || '';
         var item_transcript_second = (item.transcript_second && item.transcript_second[global_selected_language].join('')) || '';
+        item_transcript_first = transcriptReplacement(item_transcript_first);
+        item_transcript_second = transcriptReplacement(item_transcript_second);
 
         if (selectedItem.attr('data-entity_prop') === item.entity_prop) {
           if (!hidden) {
@@ -260,6 +305,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
   window.handleImageError = function($element) {
     $($element).attr('src', $($element).attr('src').replace(/(_thumb)?\.png/, '.svg'));
   }
+
 
   window.updateGalleryItem = function ($element) {
     var item_entity = $element.data('entity_prop');
