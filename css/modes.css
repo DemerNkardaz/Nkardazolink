@@ -1246,3 +1246,13 @@
 
 
 
+#currentSearchedItems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 128px;
+  height: 100%;
+  font-size: 1.2em;
+  opacity: 0.5;
+}

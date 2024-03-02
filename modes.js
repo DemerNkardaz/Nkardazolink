@@ -57,11 +57,8 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
         loadedMonsJSON = data;
         loadMonsItems(function () {
           initializeFilters();
-          
+          $('#foundedItemsCount').parent().hide();
           getHighestRarity();
-          if (global_saved_search_mode_kamon && global_saved_opt_save_search === "true") {
-            $('#galleryContentSearchInput').val(global_saved_search_mode_kamon).trigger('input');
-          };
           $('[data-transcript]').hide();
           defaultSelectedItem();
           if ($('[data-filter_group]')) {
@@ -74,15 +71,13 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
             });
           }
           updateCrestCounter();
+          if (global_saved_search_mode_kamon && global_saved_opt_save_search === "true") {
+            $('#galleryContentSearchInput').val(global_saved_search_mode_kamon).trigger('input');
+          };
         });
       });
 
-      $('#galleryControlButtons').append(
-        '<div class="button_rounded_common" onclick="window.redirTo({ index: true, url: \'?mode=banners\' });">' +
-        '<span class="maticon">flag</span>' +
-        'Смотреть штандарты' +
-        '</div>'
-      );
+
     }
 
     $('[data-filter_entity]').tooltip();
@@ -538,6 +533,7 @@ $(document).on('input', '#galleryContentSearchInput', function(){
   var searchTerm = searchCriteria[0].trim(); 
   var searchTree = searchCriteria[1] ? searchCriteria[1].trim() : '';
 
+
   var isNumericSearch = searchTerm.startsWith('eg:s:');
   var numericFilter = null;
   if (isNumericSearch) {
@@ -565,7 +561,7 @@ $(document).on('input', '#galleryContentSearchInput', function(){
 
     if (!$(this).hasClass('groupDisabled')) {
         if ((matchesSearchTags || matchesNumericFilter) && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
-            $(this).show();
+          $(this).show();
           } else {
               $(this).hide();
           }
@@ -579,6 +575,15 @@ $(document).on('input', '#galleryContentSearchInput', function(){
   if (global_saved_opt_save_search === 'true'|| $('input[name="search_result_save"]').prop('checked')) {
     localStorage.setItem('saved_search_mode_kamon', savedSearch);
   }
+  var countWithoutDisabled = $('#galleryContentGrid > .galleryItemCommon:visible').length;
+  $('#foundedItemsCount').text(countWithoutDisabled);
+
+  if (!savedSearch) {
+    $('#foundedItemsCount').parent().fadeOut('fast');
+  } else {
+    $('#foundedItemsCount').parent().fadeIn('fast');
+  }
+
 });
 
 $(document).on('click', '[type="reset"]', function () {
