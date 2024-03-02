@@ -1763,3 +1763,8 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   color: var(--color_dark_gold);
   border-color: var(--color_dark_gold);
 }
+
+
+.black_img_filter {
+  filter: brightness(0) saturate(0) invert(10%);
+}
