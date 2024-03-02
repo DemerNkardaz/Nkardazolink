@@ -759,6 +759,9 @@
   border-radius: 10px;
   overflow: hidden;
 }
+:has(#gallerySelectedImageProps) {
+  z-index: 10;
+}
 
 .shadowDropWrapper:has(#gallerySelectedImageProps),
 #gallerySelectedImageProps {
