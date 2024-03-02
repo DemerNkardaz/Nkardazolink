@@ -216,17 +216,65 @@
 
 	<body>
 		<div id="preloader">
-			<div class="progress_bar_block">
+			<div class="preloadProgressBar">
 				<div class="progress_folder"><img src="resources/svg/NkardazKamon.svg" width="100"></div>
 			</div>
+      <progress id="pageLoadProgress" value="0" max="100"></progress>
+      <script>
+        window.onload = function() {
+            var progressBar = document.getElementById('pageLoadProgress');
+
+            function updateProgress(evt) {
+                if (evt.lengthComputable) {
+                    var percentComplete = (evt.loaded / evt.total) * 100;
+                    progressBar.value = percentComplete;
+                }
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("progress", updateProgress);
+            xhr.open("GET", "example.zip", true);
+            xhr.send();
+        };
+      </script>
 		</div>
+<!--
+    <section container="root">
+      <header container="siteHeader">
+        <section id="site-header" container="headWrapper">
+        ffsf
+        </section>
+
+      </header>
+      <main container="siteMain">A</main>
+      <footer container="siteFooter">B</footer>
+      <script>
+        window.$root_container = $('[container="root"]');
+        window.$site_header = $('[container="siteHeader"]');
+        window.$site_hwr = $('[container="siteHeader"] > [container="headWrapper"]');
+        window.$site_main = $('[container="siteMain"]');
+        window.$site_footer = $('[container="siteFooter"]');
+        if (!modeUrlPar) {
+          window.$root_container.attr('actived', 'default');
+        } else if (modeUrlPar) {
+          if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'banners') {
+            window.$root_container.attr('actived', 'gallery');
+          } else if (modeUrlPar === 'cv') {
+            window.$root_container.attr('actived', 'cv');
+          }
+        }
+      </script>
+    </section>
+-->
+
+
 		<div id="siteBackdrop"></div>
 
 		<div id="rootContainer">
 			<div id="siteBackdropInverter"></div>
 			<div class="contentContainerBlock">
 
-				<div id="personBlock">
+				<header id="personBlock">
 					<div id="personBanner">
 						<div id="personBannerImg"></div>
 					</div>
@@ -752,9 +800,9 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</header>
 
-				<div id="linkBlock">
+				<main id="linkBlock">
 					<div id="personLinksBlock">
 						<div id="linkBlockParent">
 							<div class="linksOfPerson" id="linksContent">
@@ -864,7 +912,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</main>
 
 			</div>
 

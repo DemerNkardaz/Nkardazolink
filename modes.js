@@ -148,8 +148,8 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
       .replace(/\[(.*?)\]/g, function(match, p1) {
         return "<rt>" + p1 + "</rt>";
       });
-    
   }
+
 
   window.last_hovered_transcript = '';
   window.updateTranscriptLocales = function (hidden) {
