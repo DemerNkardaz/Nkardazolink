@@ -551,14 +551,14 @@ $(document).on('input', '#galleryContentSearchInput', function(){
           numericFilter = parseInt(numericFilter);
       }
   }
-
   $('.galleryItemCommon').each(function(){
-      var searchTags = $(this).attr('data-search_tags');
-      var egTree = $(this).attr('data-eg_tree');
-      var filterStatus = parseInt($(this).attr('data-filter_status'));
 
-  var matchesSearchTags = !searchTags || (searchTags.toLowerCase().indexOf(searchTerm) !== -1);
-  var matchesNumericFilter = !isNaN(filterStatus) && (isNumericSearch && isNumericMatch(filterStatus, numericFilter));
+    var searchTags = $(this).attr('data-search_tags');
+    var egTree = $(this).attr('data-eg_tree');
+    var filterStatus = parseInt($(this).attr('data-filter_status'));
+
+    var matchesSearchTags = !searchTags || (searchTags.toLowerCase().indexOf(searchTerm) !== -1);
+    var matchesNumericFilter = !isNaN(filterStatus) && (isNumericSearch && isNumericMatch(filterStatus, numericFilter));
 
     if (!$(this).hasClass('groupDisabled')) {
         if ((matchesSearchTags || matchesNumericFilter) && (searchTerm || !searchTree || isEgTreeMatch(egTree, searchTree) || isEgTreeMatchFlex(egTree, searchTree))) {
@@ -586,6 +586,8 @@ $(document).on('input', '#galleryContentSearchInput', function(){
   }
 
 });
+
+
 
 $(document).on('click', '[type="reset"]', function () {
   var $this = $(this);

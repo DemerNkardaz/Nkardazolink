@@ -77,11 +77,11 @@
   --great_emboss_down: #5a2525;
 
 
-  --normal_banner: #587b9e;
-  --normal_banner_lighted: #587b9e;
+  --normal_banner: #25619d;
+  --normal_banner_lighted: #2a69a8;
   --normal_bg: #2f557a;
-  --normal_br: #587b9e;
-  --normal_emboss_up: #7da4ca;
+  --normal_br: #25619d;
+  --normal_emboss_up: #2f78c1;
   --normal_emboss_down: #2f3e4d;
 
   --gold_banner: #CB7E1F;
@@ -89,8 +89,18 @@
   --gold_bg: #a35e14;
   --gold_br: #CB7E1F;
   --gold_emboss_up: #FFA631;
-  --gold_emboss_down: #7F5D3B;
-
+  --gold_emboss_down: #8f5821;
+  
+  --rarity_color_black: linear-gradient(-25deg, #282828, #626262);
+  --rarity_color_god: linear-gradient(-25deg, #ebebeb, #bebebe);
+  --rarity_color_legendary: linear-gradient(-25deg, #4bc6d1, #51859a);
+  --rarity_color_red: linear-gradient(-25deg, #d14b4b, #9a5151);
+  --rarity_color_gold: linear-gradient(-25deg, #d1934b, #9a7251);
+  --rarity_color_highnoble: linear-gradient(-25deg, #d0cd69, #8d9566);
+  --rarity_color_venerable: linear-gradient(-25deg, #d069a7, #95667d);
+  --rarity_color_normal: linear-gradient(-25deg, #69a0d0, #668495);
+  --rarity_color_uncommon: linear-gradient(-25deg, #96d069, #769566);
+  --rarity_color_common: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
 }
 
 h1,
