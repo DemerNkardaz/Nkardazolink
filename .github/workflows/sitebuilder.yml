@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@latest
         with:
           ACCESS_TOKEN: ${{ secrets.SUPER_SECRET }}
           BRANCH: main
