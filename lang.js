@@ -8,9 +8,9 @@ $(document).on('click', '[data-language_selector]', function () {
   localStorage.setItem('selected_language', lang_val);
 
   defs_loc_values = (languageJSON && languageJSON[global_selected_language] && {
-    "titleLost": languageJSON[global_selected_language]['default']['titleLost'],
-    "descriptionLost": languageJSON[global_selected_language]['default']['descriptionLost'],
-    "subtitleLost": languageJSON[global_selected_language]['default']['subtitleLost']
+    "titleLost": languageJSON[global_selected_language]['titleLost'],
+    "descriptionLost": languageJSON[global_selected_language]['descriptionLost'],
+    "subtitleLost": languageJSON[global_selected_language]['subtitleLost']
   });
   updateGalleryItem($('.galleryItemCommon.selected'));
   updateItemsLocales();

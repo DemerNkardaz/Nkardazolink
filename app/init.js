@@ -1,5 +1,12 @@
 var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? 'app/style/skins/' + window.selectedSiteSkin + '.css' : '';
-
+var loadingText = {
+  en: 'Loading content',
+  ru: 'Контент загружается',
+  jp: 'コンテンツを読み込んでいます',
+  zh: '正在加载内容',
+  ko: '컴퓨터를 로ード',
+  vi: 'Đang tải nội dung'
+}
 
 function showLoadPercentage() {
     var img = document.images,
@@ -43,13 +50,16 @@ document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
 
 waitFor('div', () => {
   var preloader = document.querySelector('#preloader');
+  var poreloaderLabel = document.querySelector('#progress-label');
   if (preloader) {
     var siblings = preloader.parentNode.querySelectorAll(':scope > :not(#preloader)');
     siblings.forEach(function(element) {
         element.classList.add('hidden-for-preloader');
     });
   }
-  console.log('preloader ready');
+  if (poreloaderLabel) {
+    poreloaderLabel.textContent = loadingText[selectedLanguage];
+  }
 });
 
 
