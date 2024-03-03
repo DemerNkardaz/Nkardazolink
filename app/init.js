@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
 
 
 
-waitFor('progress', () => {
+waitFor('div', () => {
   var preloader = document.querySelector('#preloader');
   if (preloader) {
     var siblings = preloader.parentNode.querySelectorAll(':scope > :not(#preloader)');

@@ -118,7 +118,7 @@
   border-radius: 15px;
   border: none;
   background-color: white;
-  box-shadow: inset 0 1px 3px 1px var(--shadow_secondary);
+  box-shadow: inset 0 1px 3px 1px var(--shadow_secondary), 0 3px 2px var(--shadow_inset_info);
   overflow: hidden;
 }
 
