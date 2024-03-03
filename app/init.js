@@ -14,13 +14,12 @@ function showLoadPercentage() {
         c += 1;
         var perc = ((100 / tot * c) << 0);
 
-        // Запуск изменения процента пошагово
-        var increment = 1; // Шаг увеличения процента
+        var increment = 1;
         var interval = setInterval(function() {
             if (currentPercentage < perc) {
                 currentPercentage += increment;
                 percentElement.textContent = currentPercentage;
-                percentBar.value = currentPercentage;
+                percentBar.style.setProperty('--progress', currentPercentage + '%');
             } else {
                 clearInterval(interval);
             }
@@ -38,6 +37,7 @@ function showLoadPercentage() {
 }
 
 document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
+
 
 
 
