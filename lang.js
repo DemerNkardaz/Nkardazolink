@@ -7,7 +7,6 @@ $(document).on('click', '[data-language_selector]', function () {
   $this.addClass('selected');
   localStorage.setItem('selected_language', lang_val);
 
-  window.global_selected_language = lang_val;
   defs_loc_values = (languageJSON && languageJSON[global_selected_language] && {
     "titleLost": languageJSON[global_selected_language]['default']['titleLost'],
     "descriptionLost": languageJSON[global_selected_language]['default']['descriptionLost'],

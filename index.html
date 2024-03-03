@@ -204,6 +204,9 @@
 		<script type="module" id="modes_script">
     </script>
 		<script type="module" src="core/requests.js"></script>
+    
+		<link rel="stylesheet" href="app/style/compiled.css">
+
 		<link rel="stylesheet" href="css/fonts.css">
 		<link rel="stylesheet" href="css/default.css">
 		<link rel="stylesheet" href="css/adaptive.css">
@@ -242,30 +245,21 @@
     <section container="root">
       <header container="siteHeader">
         <section id="site-header" container="headWrapper">
-        ffsf
+          <p>{{ Title_Nkardazolink }}</p>
+          <p>{{ language }}</p>
+          <p>{{ titleLost }}</p>
+          <p>{{ subtitleLost }}</p>
+          <p>{{ descriptionLost }}</p>
+          <p>{{ DemerNkardaz }}</p>
+          <p>{{ SaitamaOnmyoji }}</p>
+          <p>{{ maru_ni_mittsuaoi }}</p>
         </section>
 
       </header>
       <main container="siteMain">A</main>
-      <footer container="siteFooter">B</footer>
-      <script>
-        window.$root_container = $('[container="root"]');
-        window.$site_header = $('[container="siteHeader"]');
-        window.$site_hwr = $('[container="siteHeader"] > [container="headWrapper"]');
-        window.$site_main = $('[container="siteMain"]');
-        window.$site_footer = $('[container="siteFooter"]');
-        if (!modeUrlPar) {
-          window.$root_container.attr('actived', 'default');
-        } else if (modeUrlPar) {
-          if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'banners') {
-            window.$root_container.attr('actived', 'gallery');
-          } else if (modeUrlPar === 'cv') {
-            window.$root_container.attr('actived', 'cv');
-          }
-        }
-      </script>
+      <footer container="siteFooter">B</footer> 
     </section>
--->
+--> 
 
 
 		<div id="siteBackdrop"></div>
@@ -926,5 +920,10 @@
 	</body>
 	<script src="util.js"></script>
 	<script src="lang.js"></script>
-  <script>setRandJSUrl('modes_script', 'modes');</script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="app/jq/hides.js" type="module"></script>
+  <script src="app/jq/misc.js" type="module"></script>
+  <script src="app/jq/modes_init.js" type="module"></script>
+  <script src="modes.js" type="module"></script>
+  <script src="app/core.js" type="module"></script>
 </html>

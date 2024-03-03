@@ -1829,6 +1829,13 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   grid-template-rows: 95% 5%;
 }
 
+[container="root"][actived="linktree"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
 [container="root"][actived="license"]::before {
   content: '';
   position: absolute;

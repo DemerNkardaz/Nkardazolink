@@ -1,0 +1,106 @@
+:root {
+  --white: #fff;
+
+  --shadow_primary: #22222210;
+  --shadow_secondary: #22222286;
+  --shadow_tretiary: #00000095;
+  --shadow_half: #22222264;
+  --shadow_inset_info: #22222229;
+
+  --text_primary: #333;
+  --text_lightgrey: #d5d5d5;
+  --text_light: #eee;
+  --text_very_light: #fefefefe;
+  --text_mid_grey: #A4A4A4;
+
+  --text_options: #ededed;
+
+  --background_dark: #000000B3;
+  --background_light_main: #FFFFFFB3;
+  --background_dark_main: #000000B3;
+  --background_light_person_block: #FFFFFF80;
+  --background_light_mode_gallery: #FFFFFFF0;
+  --background_circle_button: white;
+  --background_grad_light: linear-gradient(0deg, #efefef, #ffffff);
+  --background_grad_light_b3: linear-gradient(0deg, #efefefb3, #ffffffb3);
+  --background_grad_light_80: linear-gradient(0deg, #efefef80, #ffffff80);
+  --button_light: #ffffff48;
+  --white_border: #ffffff20;
+  --light_border: #ebedf0;
+  --grey_border: #b3b3b3;
+  --border_grey_entity: 1px solid var(--grey_border);
+
+  --banner_gradient: linear-gradient(45deg, #c29819, #f0b607);
+  --avatar_background_gradient: linear-gradient(193deg, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 24%, rgba(255, 255, 255, 1) 69%, rgba(238, 238, 238, 1) 90%, rgba(254, 254, 254, 1) 100%);
+
+  --color_dark_gold: #E1AA4B;
+  --color_orange_gold: #E08A1E;
+  --color_gold_hover: #FEDB1D;
+  --color_gold_hover_pre_light: #FFE727;
+  --color_gold_hover_light: #FFF527;
+  --color_pale_gold_semi_light: #ffd228;
+  --color_pale_gold: #E2B13C;
+  --color_dirty_gold: #C29819;
+  --color_gold_selected: #EBC824;
+  --color_gold_light: #ffed9a;
+
+  --kamon_red: #dc4032;
+  --kamon_red_shadow_dark: #70231c9a;
+  --kamon_red_shadow_light: #ffada5;
+
+  --water_element_gradient: linear-gradient(to top, #4575b5, #7db9e8, #b6e2ff);
+  --metal_element_gradient: linear-gradient(to top, #9b9b9b, #e4e4e4, #e8e8e8);
+
+  --gallery_banner: #CA6924;
+  --gallery_banner_border: #FFA400;
+  --gallery_emboss_up: #eb7a2a;
+  --gallery_emboss_down: #794017;
+
+  --gallery_selected_bg: #9F5233;
+  --gallery_selected_border: #914b2e;
+
+
+  --mythical_banner: #363636;
+  --mythical_banner_lighted: #535353;
+  --mythical_bg: #303030;
+  --mythical_br: #494949;
+  --mythical_emboss_up: #5e5e5e;
+  --mythical_emboss_down: #212121;
+  --start_banner: #CA6924;
+  --start_emboss_up: #eb7a2a;
+  --start_emboss_down: #794017;
+
+
+  --great_banner: #9D2933;
+  --great_banner_lighted: #9D2933;
+  --great_bg: #913232;
+  --great_br: #913232;
+  --great_emboss_up: #C91F37;
+  --great_emboss_down: #5a2525;
+
+
+  --normal_banner: #25619d;
+  --normal_banner_lighted: #2a69a8;
+  --normal_bg: #2f557a;
+  --normal_br: #25619d;
+  --normal_emboss_up: #2f78c1;
+  --normal_emboss_down: #2f3e4d;
+
+  --gold_banner: #CB7E1F;
+  --gold_banner_lighted: #CB7E1F;
+  --gold_bg: #a35e14;
+  --gold_br: #CB7E1F;
+  --gold_emboss_up: #FFA631;
+  --gold_emboss_down: #8f5821;
+
+  --rarity_color_black: linear-gradient(-25deg, #282828, #626262);
+  --rarity_color_god: linear-gradient(-25deg, #ebebeb, #bebebe);
+  --rarity_color_legendary: linear-gradient(-25deg, #4bc6d1, #51859a);
+  --rarity_color_red: linear-gradient(-25deg, #d14b4b, #9a5151);
+  --rarity_color_gold: linear-gradient(-25deg, #d1934b, #9a7251);
+  --rarity_color_highnoble: linear-gradient(-25deg, #d0cd69, #8d9566);
+  --rarity_color_venerable: linear-gradient(-25deg, #d069a7, #95667d);
+  --rarity_color_normal: linear-gradient(-25deg, #69a0d0, #668495);
+  --rarity_color_uncommon: linear-gradient(-25deg, #96d069, #769566);
+  --rarity_color_common: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
+}

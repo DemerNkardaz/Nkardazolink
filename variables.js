@@ -1,3 +1,20 @@
+window.$root_container = $('[container="root"]');
+window.$site_header = $('[container="siteHeader"]');
+window.$site_hwr = $('[container="siteHeader"] > [container="headWrapper"]');
+window.$site_main = $('[container="siteMain"]');
+window.$site_footer = $('[container="siteFooter"]');
+
+
+window.scrollTopEntity = $('#scrollTopEntity');
+window.copyrightPlace = $('.copyrightYears');
+
+
+
+
+
+
+
+
 let personFlex;
 let personFlexButton;
 let personPlate;

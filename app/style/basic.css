@@ -1,0 +1,104 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
+}
+
+h1 {
+  font-size: calc(1.75em);
+}
+
+h2 {
+  font-size: calc(1.60em);
+}
+
+h3 {
+  font-size: calc(1.45em);
+}
+
+h4 {
+  font-size: calc(1.30em);
+}
+
+h5 {
+  font-size: calc(1.15em);
+}
+
+h6 {
+  font-size: calc(1.00em);
+}
+
+
+a {
+  text-decoration: none;
+  color: var(--color_orange_gold);
+}
+
+a.listButton:hover,
+a:hover {
+  color: var(--color_gold_hover);
+}
+
+a:focus,
+a:active {
+  color: var(--color_pale_gold);
+}
+
+a.listButton {
+  color: var(--text_primary);
+}
+
+ruby rt {
+  font-family: sans-serif;
+}
+
+.ruby_bottom {
+  ruby-position: under;
+}
+
+.ruby_bottom>ruby {
+  ruby-position: over;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
+  }
+}
+
+*::selection {
+  background-color: var(--color_dark_gold);
+  color: var(--text_very_light);
+  text-shadow: 1px 1px 3px #000000;
+}
+
+
+img {
+  color: transparent;
+  font-size: 0;
+  text-indent: -9999px;
+}
+
+body {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  position: relative;
+  height: 100vh;
+  font-family: var(--font_common_set);
+  color: var(--text_primary);
+}

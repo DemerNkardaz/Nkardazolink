@@ -12,10 +12,14 @@ window.loadJSON = function(url, callback) {
 window.defs_loc_values = {};
 loadJSON('lang', function(data) {
   languageJSON = data;
+  VueApp();
+
+
+
   defs_loc_values = (languageJSON && languageJSON[global_selected_language] && {
-    "titleLost": languageJSON[global_selected_language]['default']['titleLost'],
-    "descriptionLost": languageJSON[global_selected_language]['default']['descriptionLost'],
-    "subtitleLost": languageJSON[global_selected_language]['default']['subtitleLost']
+    "titleLost": languageJSON[global_selected_language]['titleLost'],
+    "descriptionLost": languageJSON[global_selected_language]['descriptionLost'],
+    "subtitleLost": languageJSON[global_selected_language]['subtitleLost']
   });
 })
 

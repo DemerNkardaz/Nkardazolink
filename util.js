@@ -1,17 +1,22 @@
-function updateCopyrightYears() {
+function updateCopyrightYears(elements) {
     const currentYear = new Date().getFullYear();
-    const startYear = 2024;
-    const copyrightYears = document.querySelectorAll('.copyrightYears');
+    const startYear = 2020;
 
-    copyrightYears.forEach(element => {
+    elements.each(function() {
         if (currentYear > startYear) {
-            element.textContent = `${startYear}—${currentYear}`;
+            $(this).text(`${startYear}—${currentYear}`);
         } else {
-            element.textContent = startYear;
+            $(this).text(startYear);
         }
     });
 }
-document.addEventListener('DOMContentLoaded', updateCopyrightYears);
+
+
+$(document).ready(function() {
+    if (copyrightPlace.length > 0) {
+        updateCopyrightYears(copyrightPlace);
+    }
+});
 
 window.setRLTBPositions = function() {
   var elements = document.querySelectorAll("[class*='top'], [class*='bottom'], [class*='left'], [class*='right']");

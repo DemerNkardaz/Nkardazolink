@@ -99,8 +99,7 @@ if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'mods' 
     $('[data-filter_selected]').attr('data-filter_selected', $('[data-filter_value="default"]').attr('value'));
     window.setRLTBPositions();
     window.setWidthFromChildren();
-    OverlayScrollbars($('.galleryContentGridWrapper'), {
-    });
+    OverlayScrollbars($('.galleryContentGridWrapper'), {});
     OverlayScrollbars($('#gallerySelectedDescription'), {
     });
   });
