@@ -33,9 +33,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--bgdark);/*
-  box-shadow: inset 0 0 400px 150px var(--bgdark);*/
+  background: var(--bgdark);
+  box-shadow: inset 0 0 400px 150px var(--bgdark);
   z-index: -1;
+  transition: all 0.3s ease;
 }
 
 .preloader-logo {
@@ -202,17 +203,26 @@ progress::-webkit-progress-value {
   #preloader {
     background-size: 150%;
   }
-}
-
-@media screen and (max-width: 600px) {
-  #preloader {
-    background-size: 250%;
+  #preloader::before {
+    box-shadow: inset 0 0 200px 100px var(--bgdark);
   }
 }
 
 @media screen and (max-width: 600px) {
   #preloader {
     background-size: 250%;
+  }
+  #preloader::before {
+    box-shadow: inset 0 0 150px 75px var(--bgdark);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #preloader {
+    background-size: 250%;
+  }
+  #preloader::before {
+    box-shadow: inset 0 0 75px 40px var(--bgdark);
   }
 }
 
@@ -225,5 +235,8 @@ progress::-webkit-progress-value {
 @media screen and (max-width: 270px) {
   #preloader {
     background-size: 500%;
+  }
+  #preloader::before {
+    box-shadow: inset 0 0 50px 10px var(--bgdark);
   }
 }
