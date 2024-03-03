@@ -34,6 +34,7 @@
   --avatar_background_gradient: linear-gradient(193deg, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 24%, rgba(255, 255, 255, 1) 69%, rgba(238, 238, 238, 1) 90%, rgba(254, 254, 254, 1) 100%);
 
   --color_dark_gold: #E1AA4B;
+  --color_dark_gold_emboss: #fbc76e;
   --color_orange_gold: #E08A1E;
   --color_gold_hover: #FEDB1D;
   --color_gold_hover_pre_light: #FFE727;

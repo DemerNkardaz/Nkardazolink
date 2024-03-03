@@ -1,0 +1,229 @@
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  background: url(../../../resources/svg/pattern_asanoha_90deg.svg) no-repeat, var(--banner_gradient);
+  background-position: center 50%;
+  background-size: 110%;
+  color: wheat;
+  font-weight: 800;
+  transition: all 0.3s ease;
+}
+
+#preloader ~ * {transition: all 0.3s ease;}
+#preloader ~ .hidden-for-preloader {
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#preloader::before {
+  --bgdark: rgba(0, 0, 0, 0.7);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bgdark);/*
+  box-shadow: inset 0 0 400px 150px var(--bgdark);*/
+  z-index: -1;
+}
+
+.preloader-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 128px;
+  width: 128px;
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 10px solid #ffca43;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: pulsedLoadingProgress 2s linear infinite;
+  filter: brightness(100%) drop-shadow(0px 0px 1px var(--kamon_red)) drop-shadow(0px 3px 1px var(--color_gold_light));
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+#preloader .preloader-logo {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+    margin-top: 110px;
+    margin-bottom: 35px;
+}
+
+.preloader-logo :has(img) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  transition: all 0.3s ease;
+}
+
+.preloader-logo img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: brightness(100%) drop-shadow(0px 0px 1px var(--kamon_red)) drop-shadow(0px 3px 1px var(--color_gold_light));
+  animation: pulsedLoadingProgress 2s linear infinite;
+  width: 95%;
+  height: 95%;
+  object-fit: cover;
+  object-position: center;
+  transition: all 0.3s ease;
+}
+
+#preloader :has(progress) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.preloader-progress {
+  position: relative;
+}
+
+
+progress {
+  height: 16px;
+  border-radius: 15px;
+  border: none;
+  box-shadow: inset 0 1px 3px 1px var(--shadow_secondary);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar,
+progress::-moz-progress-bar,
+progress::-webkit-progress-value {
+  background-color: var(--color_dark_gold);
+  box-shadow: inset 3px 3px 3px 1px var(--color_dark_gold_emboss), 0 1px 3px 1px var(--shadow_secondary);
+}
+
+.loadmarker-dots::after {
+  content: '';
+  animation: loadingTextDots 2s linear infinite;
+}
+
+.loadmarker-slashes::after {
+  content: '\002F';
+  font-family: 'Source Code Pro', sans-serif;
+  animation: loadingTextSlashes 0.5s linear infinite;
+}
+
+.loadmarker-percent::after {
+  content: '%';
+}
+
+@keyframes loadingTextDots {
+  20% {
+    content: '.';
+  }
+
+  40% {
+    content: '..';
+  }
+
+  60% {
+    content: '...';
+  }
+
+  80% {
+    content: '....';
+  }
+
+  100% {
+    content: '';
+  }
+}
+
+@keyframes loadingTextSlashes {
+  0% {
+    content: '\002F';
+  }
+
+  30% {
+    content: '\007C';
+  }
+
+  60% {
+    content: '\005C';
+  }
+
+  80% {
+    content: '\2015';
+  }
+}
+
+@keyframes pulsedLoadingProgress {
+  0% {
+    filter: brightness(100%) drop-shadow(0px 3px 1px var(--color_gold_light));
+  }
+
+  10% {
+    filter: brightness(200%) drop-shadow(0px 3px 1px var(--color_gold_light));
+  }
+
+  25% {
+    filter: brightness(200%) drop-shadow(0px 3px 10px var(--color_gold_selected));
+  }
+}
+
+
+
+
+/* LOCAL ADAPTIVES */
+
+@media screen and (max-width: 900px) {
+  #preloader {
+    background-size: 150%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #preloader {
+    background-size: 250%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #preloader {
+    background-size: 250%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  #preloader {
+    background-size: 350%;
+  }
+}
+
+@media screen and (max-width: 270px) {
+  #preloader {
+    background-size: 500%;
+  }
+}

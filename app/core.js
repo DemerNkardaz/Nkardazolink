@@ -89,6 +89,12 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
 }
 
 window.waitFor = function(element, callback) {
+  const targetElement = document.querySelector(element);
+  if (targetElement) {
+    callback();
+    return;
+  }
+
   const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
