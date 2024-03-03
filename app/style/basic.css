@@ -101,4 +101,7 @@ body {
   height: 100vh;
   font-family: var(--font_common_set);
   color: var(--text_primary);
+  background: url(https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg) no-repeat fixed center center;
+  background-size: cover;
 }
+
