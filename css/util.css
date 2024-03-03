@@ -1,0 +1,48 @@
+
+.rotate--90 {
+  transform: rotate(-90deg);
+}
+
+.rotate--180 {
+  transform: rotate(-180deg);
+}
+
+.rotate--270 {
+  transform: rotate(-270deg);
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.rotate-270 {
+  transform: rotate(270deg);
+}
+
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.rotate--45 {
+  transform: rotate(-45deg);
+}
+
+
+.vertical_kanji {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
+
+.chinese_corner_mask {
+  mask: radial-gradient(var(--s) at var(--s) var(--s), #0000 98%, #000) calc(-1*var(--s)) calc(-1*var(--s));
+}
+
+.text_small {
+  font-size: 0.9em;
+}

@@ -1,0 +1,15 @@
+/* Avatar link: https://i.imgur.com/dmZYXsA.jpeg */
+#personBannerImg.black_clover {
+    background: url('https://i.imgur.com/gKTwCKZ.jpeg');
+    background-size: 100%;
+    background-position: center 50%;
+    transition: inherit;
+}
+
+#personBannerImg.black_clover:hover {
+    background-size: 115%;
+}
+
+#personBannerImg.black_clover.clicked {
+    background-size: 125%;
+}

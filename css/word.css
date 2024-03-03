@@ -1,0 +1,9 @@
+.diacritic.macron {
+    position: relative;
+    letter-spacing: 0.25em;
+    margin-left: -0.25em;
+}
+
+.diacritic.macron.mleft3 {
+  margin-left: -0.3em;
+}

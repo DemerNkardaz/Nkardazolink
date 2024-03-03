@@ -1,0 +1,107 @@
+
+.personPlate.cv_mode:has(#personName) {
+  width: 345px;
+  border-radius: 8px;
+}
+
+#personInformationBlock.cv_mode {
+  justify-content: start;
+}
+
+.cv_iconLinks img {
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.1s ease;
+  width: 36px;
+  height: 36px;
+  background: var(--background_light_person_block);
+  box-shadow: 0 3px 2px var(--shadow_inset_info);
+  padding: 2px;
+}
+.cv_iconLinks img:hover {
+  filter: brightness(150%);
+  transform: scale(1.1);
+}
+
+.personDescription.cv_mode {
+  box-shadow: none;
+  background: none;
+  margin: 0;
+}
+.personDescription.cv_mode img {
+  width: 32px;
+  height: 32px;
+}
+
+.cv_main_description {
+  width: 250px;
+  hyphens: auto;
+}
+.cv_main_description ul {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style-type: "\2014\2002" !important;
+}
+
+.cv_main_description .cv_skills {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: start;
+  text-align: left;
+}
+
+.cv_main_description .cv_skills .starred li {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  text-align: left;
+  width: 100%;
+}
+
+.cv_title {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.cv_page {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--background_light_person_block);
+  box-shadow: 0 3px 5px var(--shadow_primary);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+#CVListWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#open_graph_banner {
+  position: absolute;
+  width: 128px;
+  border-radius: 0 0 0 8px;
+  overflow: hidden;
+  border-bottom: 3px solid var(--color_pale_gold);
+  border-left: 3px solid var(--color_pale_gold);
+  box-shadow: 0 3px 3px var(--shadow_inset_info);
+  right: 0;
+  top: 0;
+}
+#open_graph_banner img {
+  width: 100%;
+}
