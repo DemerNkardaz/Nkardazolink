@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
 
 
 
-
 waitFor('div', () => {
   var preloader = document.querySelector('#preloader');
   var poreloaderLabel = document.querySelector('#progress-label');
