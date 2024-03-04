@@ -1,3 +1,22 @@
+window.fromStorage = function (key) {
+  return localStorage.getItem(key);
+}
+
+window.toStorage = function (key, value, variable) {
+  localStorage.setItem(key, value);
+  if (variable) {
+    window[variable] = value;
+  }
+}
+
+window.removeStorage = function (key) {
+  localStorage.removeItem(key);
+}
+
+window.clearStorage = function () {
+  localStorage.clear();
+}
+
 let lastLoaded = null;
 
 window.DataExtend = async function (dataArray, callback, index = 0) {
@@ -11,7 +30,6 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
   const data = dataArray[index];
   const { type, source, anchor, pos, id, as } = data;
 
-  // Обработка типа 'data'
   if (type === 'data') {
     try {
       const response = await fetch(source);
@@ -20,14 +38,14 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
       }
       const jsonData = await response.json();
       if (typeof as !== 'undefined') {
-        window[as] = jsonData; // Сохранение данных JSON в переменной
-        await DataExtend(dataArray, callback, index + 1); // После сохранения данных JSON вызываем следующий элемент
+        window[as] = jsonData;
+        await DataExtend(dataArray, callback, index + 1);
         return;
       }
     } catch (error) {
       console.error(`Ошибка загрузки ${source}:`, error);
     }
-    await DataExtend(dataArray, callback, index + 1); // В случае ошибки также переходим к следующему элементу
+    await DataExtend(dataArray, callback, index + 1);
     return;
   }
 
@@ -88,8 +106,8 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
   await DataExtend(dataArray, callback, index + 1);
 }
 
-window.waitFor = function(element, callback) {
-  const targetElement = document.querySelector(element);
+window.waitFor = function(selector, callback) {
+  const targetElement = document.querySelector(selector);
   if (targetElement) {
     callback();
     return;
@@ -99,7 +117,7 @@ window.waitFor = function(element, callback) {
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
         for (const node of mutation.addedNodes) {
-          if (node.nodeName.toLowerCase() === element.toLowerCase()) {
+          if (node.nodeType === 1 && node.matches(selector)) {
             observer.disconnect();
             callback();
             return;
