@@ -17,6 +17,30 @@ window.clearStorage = function () {
   localStorage.clear();
 }
 
+window.observeOn = function (type, element, callback, timeout, context) {
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.attributeName === 'style') {
+        var parts = type.split(':');
+        var style = parts[1];
+        var value = parts[2];
+        if (getComputedStyle(mutation.target).getPropertyValue(style) === value) {
+          if (timeout > 0) {
+            setTimeout(function () {
+              callback.call(context || null);
+              observer.disconnect();
+            }, timeout);
+          } else {
+            callback.call(context || null);
+            observer.disconnect();
+          }
+        }
+      }
+    });
+  });
+  observer.observe(element, { attributes: true });
+}
+
 let lastLoaded = null;
 
 window.DataExtend = async function (dataArray, callback, index = 0) {

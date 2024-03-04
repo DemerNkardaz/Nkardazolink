@@ -140,24 +140,13 @@ waitFor('body', () => {
   ], () => {
     console.log('Конечные инициализированы');
     $(document).ready(function () {
-      var preloaderProgress = $('#preloader-progress')[0];
-      var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.attributeName === 'style' && getComputedStyle(mutation.target).getPropertyValue('--progress') === '100%') {
-            setTimeout(function() {
-              var preloader = $('#preloader');
-              if (preloader.length > 0) {
-                preloader.siblings().removeClass('hidden-for-preloader');
-                preloader.fadeOut('slow', function () {
-                  preloader.remove();
-                });
-                observer.disconnect();
-              }
-            }, 500);
-          }
+      observeOn('style:--progress:100%', $('#preloader-progress')[0], function() {
+        var preloader = $('#preloader');
+        preloader.siblings().removeClass('hidden-for-preloader');
+        preloader.fadeOut('slow', function () {
+          preloader.remove();
         });
-      });
-      observer.observe(preloaderProgress, { attributes: true });
+      }, 500);
     });
   });
 });
