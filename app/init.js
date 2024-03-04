@@ -2,7 +2,7 @@ var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? 'app/st
 var loadingText = {
   en: 'Loading content',
   ru: 'Контент загружается',
-  jp: 'コンテンツを読み込んでいます',
+  ja: 'コンテンツを読み込んでいます',
   zh: '正在加载内容',
   ko: '컴퓨터를 로ード',
   vi: 'Đang tải nội dung'

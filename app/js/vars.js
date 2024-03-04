@@ -1,7 +1,7 @@
 window.items = {};
 window.selectedSiteSkin = (localStorage.getItem('selectedSiteSkin') ? localStorage.getItem('selectedSiteSkin') : '');
-window.supportedLanguages = ['ru', "en", "jp", "zh", "ko", "vi"];
-window.navigatorLanguage = window.supportedLanguages.includes(window.navigator.language.toLowerCase()) ? window.navigator.language.toLowerCase() : 'en';
+window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi"];
+window.navigatorLanguage = window.supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'ja';
 window.selectedLanguage = (localStorage.getItem('selectedLanguage') ? localStorage.getItem('selectedLanguage') : navigatorLanguage);
 
 window.parseUrlParameter = function (name) {

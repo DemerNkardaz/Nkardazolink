@@ -7,7 +7,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   z-index: 10000;
   background: url(../../../resources/svg/pattern_asanoha_90deg.svg) no-repeat, var(--banner_gradient);
@@ -17,7 +17,9 @@
   font-weight: 800;
   transition: all 0.3s ease;
 }
-
+#preloader > .preloader-logo {
+  margin-top: calc(50vh - 128px);
+}
 #preloader ~ * {transition: all 0.3s ease;}
 #preloader ~ .hidden-for-preloader {
   opacity: 0;
@@ -62,7 +64,6 @@
     top: unset;
     left: unset;
     transform: unset;
-    margin-top: 110px;
     margin-bottom: 35px;
 }
 
