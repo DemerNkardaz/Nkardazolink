@@ -6,33 +6,12 @@
 
   <!-- --------------- METRICS ---------------- -->
   
-  <!-- --------------- INIT ---------------- -->
-  <script src="app/core.js"></script>
-  <script src="app/js/vars.js"></script>
-  <script src="app/init.js" id="initScript"></script>
-  <!-- --------------- INIT ---------------- -->
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Демер Нкардаз・2D・3D・Писательство・Вёрстка</title>
-
-
-  <!-- --------------- LIBS ---------------- -->
-  <!--<script src="https://unpkg.com/htmx.org@latest/dist/htmx.min.js"></script>-->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery-ui@latest/dist/jquery-ui.min.js"></script>
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css">
-  <!-- --------------- LIBS ---------------- -->
-
-
-  <!-- --------------- AFTERINIT ---------------- -->
-  <script src="app/jq/jquery_core.js"></script>
-
-  <!-- --------------- AFTERINIT ---------------- -->
-
+    
+  <script src="app/index.js" id="initScript" type="module"></script>
+  <script src="app/libs/standalone/Vue/Vue.js"></script>
   <link rel="stylesheet" href="app/style/compiled.css">
 </head>
 
@@ -70,14 +49,13 @@
   </section>
 
 
-  <!-- --------------- LIBS ---------------- -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/browser/overlayscrollbars.browser.es6.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/howler@latest/dist/howler.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-i18n@latest/dist/vue-i18n.global.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuex@latest/dist/vuex.min.js"></script>
-  <!-- --------------- LIBS ---------------- -->
+  <!-- --------------- ENDPOINT INIT ---------------- -->
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      await ENDPOINT_INIT();
+    });
+  </script>
+  <!-- --------------- ENDPOINT INIT ---------------- -->
 </body>
 
 </html>
