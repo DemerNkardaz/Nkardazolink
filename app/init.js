@@ -83,7 +83,32 @@ function showLoadPercentage() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
+
+
+window.initPreloader = function () {
+  waitFor('#preloader', () => {
+    var preloader = document.querySelector('#preloader');
+    var poreloaderLabel = document.querySelector('#progress-label');
+    if (preloader) {
+      var siblings = preloader.parentNode.querySelectorAll(':scope > :not(#preloader)');
+      siblings.forEach(function(element) {
+          element.classList.add('hidden-for-preloader');
+      });
+    }
+    if (poreloaderLabel) {
+      poreloaderLabel.textContent = loadingText[selectedLanguage];
+    }
+    observeOn('style:--progress:100%', $('#preloader-progress')[0], function() {
+      var preloader = $('#preloader');
+      preloader.siblings().removeClass('hidden-for-preloader');
+      preloader.fadeOut('slow', function () {
+        preloader.remove();
+      });
+    }, 500);
+  });
+  document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
+}
+initPreloader();
 
 waitFor('title', () => {
   var title = document.querySelector('title');
@@ -92,24 +117,9 @@ waitFor('title', () => {
   }
 });
 
-
-waitFor('#preloader', () => {
-  var preloader = document.querySelector('#preloader');
-  var poreloaderLabel = document.querySelector('#progress-label');
-  if (preloader) {
-    var siblings = preloader.parentNode.querySelectorAll(':scope > :not(#preloader)');
-    siblings.forEach(function(element) {
-        element.classList.add('hidden-for-preloader');
-    });
-  }
-  if (poreloaderLabel) {
-    poreloaderLabel.textContent = loadingText[selectedLanguage];
-  }
-});
-
-
 DataExtend([
-  { type: 'data', source: 'app/data/lang.json', as: 'languageJSON' }
+  { type: 'data',  source: 'app/data/lang.json', as: 'languageJSON' },
+  { type: 'style', source: skin, anchor: 'head', pos: 'inner-end', id: 'skinloader' }
 ]);
 
 
@@ -122,35 +132,46 @@ if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
   }
 }
 
+/*
 waitFor('body', () => {
+  var url = {
+  JQuery:                  "https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js",
+    JQueryUI:                "https://cdn.jsdelivr.net/npm/jquery-ui@latest/dist/jquery-ui.min.js",
+    JQueryUICSS:             "https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css",
+    OverlayscrollbarsCSS:    "https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css",
+    BootstrapCSS:            "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css",
+    JQueryOverlayscrollbars: "https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/browser/overlayscrollbars.browser.es6.min.js",
+    Bootstrap:               "https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js",
+    Howler:                  "https://cdn.jsdelivr.net/npm/howler@latest/dist/howler.min.js",
+    Vue:                     "https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js",
+    Vue18:                   "https://cdn.jsdelivr.net/npm/vue-i18n@latest/dist/vue-i18n.global.min.js",
+    Vuex:                    "https://cdn.jsdelivr.net/npm/vuex@latest/dist/vuex.min.js"
+  };
   DataExtend([
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',        anchor: 'head',              pos: 'inner-start' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/jquery-ui@latest/dist/jquery-ui.min.js',            anchor: 'previous',          pos: 'after' },
-    { type: 'style',  source: 'https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css', anchor: 'previous',          pos: 'after' },
-    { type: 'style',  source: 'https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css',   anchor: 'previous',          pos: 'after' },
-    { type: 'style',  source: 'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css', anchor: 'previous',          pos: 'after' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/browser/overlayscrollbars.browser.es6.min.js', anchor: 'body', pos: 'inner-end' },
-    { type: 'script', source: 'app/jq/utils.js',                             anchor: 'script#initScript', pos: 'after' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js',  anchor: 'body',              pos: 'inner-end' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/howler@latest/dist/howler.min.js',               anchor: 'previous',          pos: 'after' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.global.min.js',              anchor: 'previous',          pos: 'after' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/vue-i18n@latest/dist/vue-i18n.global.min.js',         anchor: 'previous',          pos: 'after' },
-    { type: 'script', source: 'https://cdn.jsdelivr.net/npm/vuex@latest/dist/vuex.global.min.js',             anchor: 'previous',          pos: 'after' },
-    { type: 'style',  source:  skin,                                         anchor: 'head',              pos: 'inner-end', id: 'skinloader' }
+    { type: 'script', source:  url.JQuery,                  anchor: 'head',              pos: 'inner-start' },
+    { type: 'script', source:  url.JQueryUI,                anchor: 'previous',          pos: 'after' },
+    { type: 'style',  source:  url.JQueryUICSS,             anchor: 'previous',          pos: 'after' },
+    { type: 'style',  source:  url.OverlayscrollbarsCSS,    anchor: 'previous',          pos: 'after' },
+    { type: 'style',  source:  url.BootstrapCSS,            anchor: 'previous',          pos: 'after' },
+    { type: 'script', source:  url.JQueryOverlayscrollbars, anchor: 'body',              pos: 'inner-end' },
+    { type: 'script', source: 'app/jq/utils.js',            anchor: 'script#initScript', pos: 'after' },
+    { type: 'script', source:  url.Bootstrap,               anchor: 'body',              pos: 'inner-end' },
+    { type: 'script', source:  url.Howler,                  anchor: 'previous',          pos: 'after' },
+    { type: 'script', source:  url.Vue,                     anchor: 'previous',          pos: 'after' },
+    { type: 'script', source:  url.Vue18,                   anchor: 'previous',          pos: 'after' },
+    { type: 'script', source:  url.Vuex,                    anchor: 'previous',          pos: 'after' },
+    { type: 'style',  source:  skin,                        anchor: 'head',              pos: 'inner-end', id: 'skinloader' }
   ], () => {
-    console.log('Конечные инициализированы');
-    $(document).ready(function () {
-      observeOn('style:--progress:100%', $('#preloader-progress')[0], function() {
-        var preloader = $('#preloader');
-        preloader.siblings().removeClass('hidden-for-preloader');
-        preloader.fadeOut('slow', function () {
-          preloader.remove();
-        });
-      }, 500);
-    });
+    observeOn('style:--progress:100%', $('#preloader-progress')[0], function() {
+      var preloader = $('#preloader');
+      preloader.siblings().removeClass('hidden-for-preloader');
+      preloader.fadeOut('slow', function () {
+        preloader.remove();
+      });
+    }, 500);
   });
 });
-
+*/
 
 
 

@@ -41,7 +41,7 @@ window.observeOn = function (type, element, callback, timeout, context) {
   observer.observe(element, { attributes: true });
 }
 
-let lastLoaded = null;
+var lastLoaded = null;
 
 window.DataExtend = async function (dataArray, callback, index = 0) {
   if (index >= dataArray.length) {
