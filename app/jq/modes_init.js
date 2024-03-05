@@ -1,11 +1,20 @@
-if (!modeUrlPar) {
-  $root_container.attr('actived', 'default');
-  } else if (modeUrlPar) {
-  if (modeUrlPar === 'kamon' || modeUrlPar === 'pattern' || modeUrlPar === 'banners') {
-    $root_container.attr('actived', 'gallery');
-  } else if (modeUrlPar === 'cv') {
-    $root_container.attr('actived', 'cv');
-  } else if (modeUrlPar === 'tree') {
-    $root_container.attr('actived', 'linktree');
-  }
-} 
+var actived_type =
+  (['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode) ? 'gallery' :
+    (anUrlParameter.mode === 'cv' ? 'cv' :
+      (anUrlParameter.mode === 'tree' ? 'linktree' :
+        (anUrlParameter.mode === 'license' ? 'license' :
+          (anUrlParameter.mode === 'landing' ? 'landing' :
+            (anUrlParameter.mode === 'reader' ? 'reader' :
+              null
+            )
+          )
+        )
+      )
+    )
+  );
+
+if (anUrlParameter.mode && actived_type !== null) {
+  nk.rootContainer.attr('actived', actived_type);
+} else {
+  nk.rootContainer.attr('actived', 'default');
+}

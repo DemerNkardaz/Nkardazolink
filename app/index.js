@@ -8,8 +8,10 @@ import './libs/standalone/JQuery/ui.js';
 /*-- --------------- LIBS ---------------- --*/
 /*-- --------------- AFTERINIT ---------------- --*/
 import './init.js';
+import './jq/selectors.js';
 import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
+import './jq/modes_init.js';
 import './jq/utils.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 

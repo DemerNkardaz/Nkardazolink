@@ -160,17 +160,6 @@ if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
   }
 }
 
-if (anUrlParameter.mode === 'kamon' || anUrlParameter.mode === 'banners' || anUrlParameter.mode === 'clans' || anUrlParameter.mode === 'pattern') {
-  $('[container="root"]').attr('actived', 'gallery');
-} else if (anUrlParameter.mode === 'cv') {
-  $('[container="root"]').attr('actived', 'cv');
-} else if (anUrlParameter.mode === 'license') {
-  $('[container="root"]').attr('actived', 'license');
-} else if (anUrlParameter.mode === 'tree') {
-  $('[container="root"]').attr('actived', 'linktree');
-}
-
-
 
 /*
 waitFor('body', () => {
