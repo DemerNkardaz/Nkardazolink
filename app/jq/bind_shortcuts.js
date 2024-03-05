@@ -29,3 +29,23 @@ $(document).on('click', '[nk-item]', function () {
     }
   }
 });
+
+$(document).on('click', '[nk-skin]', function () { 
+  var skin = $(this).attr('nk-skin');
+  var link = $('#skinLoader');
+  link.attr('href', 'app/style/skins/' + skin + '.css');
+  toStorage('selectedSiteSkin', skin);
+  $('[nk-skin]').removeClass('active');
+  $(this).addClass('active');
+});
+
+$(document).on('click', '[nk-banner]', function () {
+  var banner = $(this).attr('nk-banner');
+  var target = $('[nk-banner="target"]');
+  if (banner && banner !== 'target') {
+    target.addClass(banner);
+    toStorage('selectedBanner', banner);
+    $('[nk-banner]').removeClass('active');
+    $(this).addClass('active');
+  }
+});

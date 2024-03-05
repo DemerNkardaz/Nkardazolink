@@ -1,5 +1,6 @@
 window.items = {};
 window.selectedSiteSkin = (fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : '');
+window.selectedBanner = (fromStorage('selectedBanner') ? fromStorage('selectedBanner') : '');
 window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi"];
 window.navigatorLanguage = window.supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
 window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('selectedLanguage') : navigatorLanguage);
