@@ -1,4 +1,13 @@
-Не забыть сделать галарею гербов с закосом под меню артефактов геншина (плашки, правое меню описаний)
+# Personal App Page
 
+This is project of my personal web page that shows me and my content.
 
-*[Main](https://demernkardaz.github.io/Nkardazolink/) | [CV 2D](https://demernkardaz.github.io/Nkardazolink/?mode=CV&sel=2D) | [CV 3D](https://demernkardaz.github.io/Nkardazolink/?mode=CV&sel=3D)*
+Fastlinks:
+|----------------------------------------------------------------
+[Main Page](https://demernkardaz.github.io/Nkardazolink/)
+[Link Tree](https://demernkardaz.github.io/Nkardazolink/?mode=tree)
+[Crests Gallery](https://demernkardaz.github.io/Nkardazolink/?mode=kamon)
+[Banners Gallery](https://demernkardaz.github.io/Nkardazolink/?mode=banners)
+[Clans Gallery](https://demernkardaz.github.io/Nkardazolink/?mode=clans)
+[Pattern Gallery](https://demernkardaz.github.io/Nkardazolink/?mode=pattern)
+[DN—License](https://demernkardaz.github.io/Nkardazolink/?mode=license)
