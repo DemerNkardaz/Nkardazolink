@@ -23,5 +23,6 @@ window.ENDPOINT_INIT = function() {
   import('./libs/standalone/Howler.js');
   import('./libs/standalone/Vue/Vue-i18n.js');
   import('./libs/standalone/Vue/Vuex.js');
+  import('./js/init_settings.js');
 }
 /*-- --------------- ENDPOINT_INIT ---------------- --*/

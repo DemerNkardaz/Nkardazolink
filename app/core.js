@@ -143,11 +143,17 @@ window.waitFor = function(selector, callback) {
     return;
   }
 
+  let timeoutId = setTimeout(() => {
+    observer.disconnect();
+    console.log('Obeserver has been disconnected due to inactivity. →' + selector.toUpperCase() + '← is not responding');
+  }, 2000);
+
   const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1 && node.matches(selector)) {
+            clearTimeout(timeoutId); // Очищаем таймаут, так как селектор появился
             observer.disconnect();
             callback();
             return;
@@ -159,7 +165,6 @@ window.waitFor = function(selector, callback) {
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
 }
-
 
 window.redirOrigin = function() {
   if (window.localHostIP) {
