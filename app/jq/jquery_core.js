@@ -2,7 +2,7 @@ window.cloneTo = function (from, element, to) {
   var deferred = $.Deferred();
 
   $.ajax({
-    url: from + '.html',
+    url: `${from}.html`,
     dataType: 'html',
     success: function(response) {
       var clonedElement = $(response).find(element).clone();
@@ -39,7 +39,7 @@ window.replaceWithClone = function(from, element, target) {
   var deferred = $.Deferred();
 
   $.ajax({
-    url: from + '.html',
+    url: `${from}.html`,
     dataType: 'html',
     success: function(response) {
       var clonedContent = $(response).find(element).clone();
@@ -92,9 +92,9 @@ window.reInitScripts = function () {
     var src = $(this).attr('src');
     if (src && reload.indexOf(src) !== -1) {
       $.getScript(src, function(data, textStatus, jqxhr) {
-        console.log('Скрипт ' + src + ' успешно загружен.');
+        console.log(`Скрипт ${src} успешно загружен.`);
       }).fail(function(jqxhr, settings, exception) {
-        console.error('Ошибка загрузки скрипта ' + src + ': ' + exception);
+        console.error(`Ошибка загрузки скрипта ${src}: ${exception}`);
       });
     }
   });
@@ -102,12 +102,12 @@ window.reInitScripts = function () {
 
 window.changeMode = function (mode) {
   if (!mode.includes("&")) {
-    history.replaceState({}, null, "?mode=" + mode);
+    history.replaceState({}, null, `?mode=${mode}`);
   } else if (mode.includes("&")) {
     var matches = mode.split("&");
     var mode = matches[0];
     var select = matches[1];
-    history.replaceState({}, null, "?mode=" + mode + "&select=" + select);
+    history.replaceState({}, null, `?mode=${mode}&select=${select}`);
   }
   reInitScripts();
 }

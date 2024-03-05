@@ -12,7 +12,7 @@ window.toStorage = function (key, value, variable) {
 }
 
 window.saveSettings = function (key, value) {
-  window.toStorage('savedSettings.' + key, value, 'savedSettings.' + key);
+  window.toStorage(`savedSettings.${key}`, value, `savedSettings.${key}`);
 }
 
 window.removeStorage = function (key) {
@@ -145,7 +145,7 @@ window.waitFor = function(selector, callback) {
 
   let timeoutId = setTimeout(() => {
     observer.disconnect();
-    console.log('Obeserver has been disconnected due to inactivity. →' + selector.toUpperCase() + '← is not responding');
+    console.log(`Obeserver has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`);
   }, 2000);
 
   const observer = new MutationObserver((mutationsList, observer) => {
@@ -153,7 +153,7 @@ window.waitFor = function(selector, callback) {
       if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
         for (const node of mutation.addedNodes) {
           if (node.nodeType === 1 && node.matches(selector)) {
-            clearTimeout(timeoutId); // Очищаем таймаут, так как селектор появился
+            clearTimeout(timeoutId);
             observer.disconnect();
             callback();
             return;
@@ -186,9 +186,9 @@ window.redirTo = function({ index, url, new_tab }) {
   if (new_tab) {
     if (index) {
       if (window.localHostIP) {
-        window.open('index.html' + url, '_blank');
+        window.open(`index.html${url}`, '_blank');
       } else {
-        window.open('./' + url, '_blank');
+        window.open(`./${url}`, '_blank');
       }
     } else {
       window.open(url, '_blank');
@@ -196,9 +196,9 @@ window.redirTo = function({ index, url, new_tab }) {
   } else {
     if (index) {
       if (window.localHostIP) {
-        window.location.replace('index.html' + url);
+        window.location.replace(`index.html${url}`);
       } else {
-        window.location.replace('./' + url);
+        window.location.replace(`./${url}`);
       }
     } else {
       window.location.replace(url);

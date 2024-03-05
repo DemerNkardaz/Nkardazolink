@@ -10,6 +10,7 @@ import './libs/standalone/JQuery/ui.js';
 import './init.js';
 import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
+import './jq/utils.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 
 export async function HTMX_INIT() {
@@ -23,6 +24,7 @@ window.ENDPOINT_INIT = function() {
   import('./libs/standalone/Howler.js');
   import('./libs/standalone/Vue/Vue-i18n.js');
   import('./libs/standalone/Vue/Vuex.js');
-  import('./js/init_settings.js');
+  import('./jq/init_settings.js');
+  import('./jq/inputs.js');
 }
 /*-- --------------- ENDPOINT_INIT ---------------- --*/

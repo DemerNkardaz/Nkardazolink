@@ -5,7 +5,7 @@ if (
   redirOrigin();
 }
 
-var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? 'app/style/skins/' + window.selectedSiteSkin + '.css' : '';
+var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? `app/style/skins/${window.selectedSiteSkin}.css` : '';
 
 var loadingText = {
   en: 'Loading content',
@@ -83,7 +83,7 @@ function showLoadPercentage() {
             if (currentPercentage < perc) {
                 currentPercentage += increment;
                 percentElement.textContent = currentPercentage;
-                percentBar.style.setProperty('--progress', currentPercentage + '%');
+                percentBar.style.setProperty('--progress', `${ currentPercentage}%`);
             } else {
                 clearInterval(interval);
             }
@@ -120,7 +120,7 @@ window.initPreloader = function (sibtype) {
 
       observeOn('style:--progress:100%', $('#preloader-progress')[0], function () {
         preloader.find('br').nextAll().remove();
-        preloader.find('#progress-label').html(executingText[selectedLanguage] + '<span class="' + loadmarker_style + '"></span>');
+        preloader.find('#progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
         setTimeout(() => {
           siblings.removeClass('hidden-for-preloader');
           preloader.fadeOut('slow', function () {
@@ -155,7 +155,7 @@ if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
   var mode = anUrlParameter.mode;
   if (mode === 'kamon' || mode === 'banners' || mode === 'clans') {
     DataExtend([
-      { type: 'data', source: 'app/data/' + mode + '.json', as: 'items.' + mode }
+      { type: 'data', source: `app/data/${mode}.json`, as: `items.${mode}`}
     ])
   }
 }
