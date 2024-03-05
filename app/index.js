@@ -9,6 +9,7 @@ import './libs/standalone/JQuery/ui.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 import './init.js';
 import './jq/jquery_core.js';
+import './jq/bind_shortcuts.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 
 export async function HTMX_INIT() {

@@ -1,3 +1,5 @@
+window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
+
 window.fromStorage = function (key) {
   return localStorage.getItem(key);
 }
@@ -7,6 +9,10 @@ window.toStorage = function (key, value, variable) {
   if (variable) {
     window[variable] = value;
   }
+}
+
+window.saveSettings = function (key, value) {
+  window.toStorage('savedSettings.' + key, value, 'savedSettings.' + key);
 }
 
 window.removeStorage = function (key) {
@@ -152,4 +158,67 @@ window.waitFor = function(selector, callback) {
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
+}
+
+
+window.redirOrigin = function() {
+  if (window.localHostIP) {
+    window.location.replace(window.location.href.split('?')[0]);
+  } else {
+    window.location.replace(window.location.href.split('.html')[0]);
+  }
+}
+
+window.redirToIndex = function() {
+  if (window.localHostIP) {
+    window.location.replace('index.html');
+  } else {
+    window.location.replace('./');
+  }
+}
+
+window.redirTo = function({ index, url, new_tab }) {
+  if (new_tab) {
+    if (index) {
+      if (window.localHostIP) {
+        window.open('index.html' + url, '_blank');
+      } else {
+        window.open('./' + url, '_blank');
+      }
+    } else {
+      window.open(url, '_blank');
+    }
+  } else {
+    if (index) {
+      if (window.localHostIP) {
+        window.location.replace('index.html' + url);
+      } else {
+        window.location.replace('./' + url);
+      }
+    } else {
+      window.location.replace(url);
+    }
+  }
+}
+
+window.copyCurrentURL = function() {
+    var currentURL = window.location.href;
+    var tempInput = document.createElement('input');
+    tempInput.value = currentURL;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+
+    try {
+        navigator.clipboard.writeText(currentURL)
+            .then(() => {
+                console.log('URL скопирован в буфер обмена');
+            })
+            .catch(err => {
+                console.error('Не удалось скопировать URL в буфер обмена: ', err);
+            });
+    } catch (err) {
+        console.error('Ошибка при копировании URL в буфер обмена: ', err);
+    } finally {
+        document.body.removeChild(tempInput);
+    }
 }

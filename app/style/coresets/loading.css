@@ -26,6 +26,10 @@
   pointer-events: none;
   overflow: hidden;
 }
+#preloader ~ .noscroll-for-preloader {
+  pointer-events: none;
+  overflow: hidden;
+}
 
 #preloader::before {
   --bgdark: rgba(0, 0, 0, 0.7);
@@ -137,6 +141,10 @@
   animation: loadingTextDots 2s linear infinite;
 }
 
+.loadmarker-dots.ja::after {
+  animation: loadingTextDots-ja 2s linear infinite;
+}
+
 .loadmarker-slashes::after {
   content: '\002F';
   font-family: 'Source Code Pro', sans-serif;
@@ -164,6 +172,28 @@
 
   80% {
     content: '....';
+  }
+
+  100% {
+    content: '';
+  }
+}
+
+@keyframes loadingTextDots-ja {
+  20% {
+    content: '。';
+  }
+
+  40% {
+    content: '。。';
+  }
+
+  60% {
+    content: '。。。';
+  }
+
+  80% {
+    content: '。。。。';
   }
 
   100% {

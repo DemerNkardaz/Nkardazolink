@@ -111,8 +111,3 @@ window.changeMode = function (mode) {
   }
   reInitScripts();
 }
-
-$(document).on('click', '[nk-page]', function () {
-  var mode = $(this).attr('nk-page');
-  changeMode(mode);
-})

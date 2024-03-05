@@ -1,4 +1,12 @@
+if (
+    (anUrlParameter.mode && !availableModes.includes(anUrlParameter.mode)) ||
+    ((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select)))
+) {
+  redirOrigin();
+}
+
 var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? 'app/style/skins/' + window.selectedSiteSkin + '.css' : '';
+
 var loadingText = {
   en: 'Loading content',
   ru: 'Контент загружается',
@@ -6,6 +14,15 @@ var loadingText = {
   zh: '内容正在加载',
   ko: '콘텐츠가 로드 중입니다',
   vi: 'Nội dung đang tải'
+}
+
+var executingText = {
+  en: 'Running',
+  ru: 'Запуск',
+  ja: '実行',
+  zh: '运行',
+  ko: '업데이트',
+  vi: 'Tuyến'
 }
 
 var metaData = {
@@ -83,30 +100,41 @@ function showLoadPercentage() {
     }
 }
 
+window.initPreloader = function (sibtype) {
+  var preloader = $('#preloader');
+  var poreloaderLabel = $('#progress-label');
+  var loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
 
+  if (savedSettings.turn_off_preloader !== 'true') {
+    waitFor('#preloader', () => {
+      var siblings = preloader.siblings(':not(#preloader)');
+      if (sibtype === 'noscroll') {
+        siblings.addClass('noscroll-for-preloader');
+      } else {
+        siblings.addClass('hidden-for-preloader');
+      }
 
-window.initPreloader = function () {
-  waitFor('#preloader', () => {
-    var preloader = document.querySelector('#preloader');
-    var poreloaderLabel = document.querySelector('#progress-label');
-    if (preloader) {
-      var siblings = preloader.parentNode.querySelectorAll(':scope > :not(#preloader)');
-      siblings.forEach(function(element) {
-          element.classList.add('hidden-for-preloader');
+      if (poreloaderLabel) {
+        poreloaderLabel.text(loadingText[selectedLanguage]);
+      }
+
+      observeOn('style:--progress:100%', $('#preloader-progress')[0], function () {
+        preloader.find('br').nextAll().remove();
+        preloader.find('#progress-label').html(executingText[selectedLanguage] + '<span class="' + loadmarker_style + '"></span>');
+        setTimeout(() => {
+          siblings.removeClass('hidden-for-preloader');
+          preloader.fadeOut('slow', function () {
+            preloader.remove();
+          });
+        }, 1000);
       });
-    }
-    if (poreloaderLabel) {
-      poreloaderLabel.textContent = loadingText[selectedLanguage];
-    }
-    observeOn('style:--progress:100%', $('#preloader-progress')[0], function() {
-      var preloader = $('#preloader');
-      preloader.siblings().removeClass('hidden-for-preloader');
-      preloader.fadeOut('slow', function () {
-        preloader.remove();
-      });
-    }, 500);
-  });
-  document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
+    });
+    document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
+  } else {
+    preloader.remove();
+    return;
+  }
+
 }
 initPreloader();
 
@@ -131,6 +159,18 @@ if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
     ])
   }
 }
+
+if (anUrlParameter.mode === 'kamon' || anUrlParameter.mode === 'banners' || anUrlParameter.mode === 'clans' || anUrlParameter.mode === 'pattern') {
+  $('[container="root"]').attr('actived', 'gallery');
+} else if (anUrlParameter.mode === 'cv') {
+  $('[container="root"]').attr('actived', 'cv');
+} else if (anUrlParameter.mode === 'license') {
+  $('[container="root"]').attr('actived', 'license');
+} else if (anUrlParameter.mode === 'tree') {
+  $('[container="root"]').attr('actived', 'linktree');
+}
+
+
 
 /*
 waitFor('body', () => {
