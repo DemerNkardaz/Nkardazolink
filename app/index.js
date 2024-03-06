@@ -3,8 +3,7 @@ import './core.js';
 import './js/vars.js';
 /*-- --------------- INIT ---------------- --*/
 /*-- --------------- LIBS ---------------- --*/
-import './libs/standalone/JQuery/jquery.js';
-import './libs/standalone/JQuery/ui.js';
+
 /*-- --------------- LIBS ---------------- --*/
 /*-- --------------- AFTERINIT ---------------- --*/
 import './jq/selectors.js';

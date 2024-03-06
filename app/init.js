@@ -100,6 +100,10 @@ window.showLoadPercentage = function() {
     }
 }
 
+
+
+
+
 if (savedSettings.turn_off_preloader !== 'true') {
   ui_components.preloader();
 }

@@ -1,12 +1,16 @@
 $(document).on('click', '[nk-page]', function (e) {
   e.preventDefault();
   var page = $(this).attr('nk-page');
-  ui_components.preloader('noscroll', () => {
-    $('#preloader').hide().fadeIn('fast');
-    setTimeout(function () {
-      redirTo({ url: page });
-    }, 1000);
-  }, true);
+  if (savedSettings.turn_off_preloader !== 'true') {
+    ui_components.preloader('noscroll', () => {
+      $('#preloader').css('opacity', 0).transition({ opacity: 1}, 300);
+      setTimeout(function () {
+        redirTo({ url: page });
+      }, 1000);
+    }, true);
+  } else {
+    redirTo({ url: page });
+  }
 })
 
 $(document).on('click', '[nk-item]', function () {
