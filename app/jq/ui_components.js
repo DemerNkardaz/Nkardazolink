@@ -1,10 +1,20 @@
 class item_prop extends HTMLElement {
-  constructor({ PROP_ENTITY, PROP_Class, PROP_Image, PROP_Title, PROP_Text, PROP_Rarity, PROP_Group, PROP_Multi }) {
+  constructor({ PROP_ENTITY, PROP_Class, PROP_Image, PROP_Title, PROP_Text, PROP_Rarity, PROP_Group, PROP_Multi, PROP_Image_Types, PROP_Icon, PROP_Image_Label, PROP_Title_Additional }) {
     super();
-    const component =
-      (PROP_Image ? `<div part="item_image_wrapper"><img part="item_image" src=${PROP_Image} loading="lazy"></div>` : '') +
-      (PROP_Title ? `<div part="item_title">${PROP_Title}</div>` : '') +
-      (PROP_Text && PROP_Class === 'clans' ? `<div part="item_text">${PROP_Text}</div>` : '');
+    const component = `
+      ${PROP_Image ? `
+        <div part="item_image_wrapper">
+          <picture part="item_image_picture">
+            ${PROP_Image_Label ? `<div part="item_image_label">${PROP_Image_Label}</div>` : ''}
+            ${PROP_Image_Types ? PROP_Image_Types.split(', ').map(type => `<source srcset="${type === 'svg' ? PROP_Image.replace('_thumb.png', '.svg') : PROP_Image.replace(/\.\w+$/, `.${type}`)}" type="image/${type}">`).join('') : ''}
+
+            <img part="item_image" src="${PROP_Image}" loading="lazy">
+          </picture>
+        </div>
+      ` : ''}
+      ${PROP_Title ? `<div part="item_title">${PROP_Icon ? `<img part="item_icon" src="${PROP_Icon}">` : ''}<span part="item_title_text">${PROP_Title}</span>${PROP_Title_Additional ? `<div part="item_title_additional">${PROP_Title_Additional}</div>` : ''}</div>` : ''}
+      ${PROP_Text && PROP_Class === 'clans' ? `<div part="item_text">${PROP_Text}</div>` : ''}
+    `;
 
     const styles = `
       <link rel="stylesheet" href="app/style/compiled.css">
@@ -121,20 +131,29 @@ class item_prop extends HTMLElement {
         }
 
         ::part(item_title) {
+          width: 100%;
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             position: absolute;
-            width: 100%;
+            display: flex;
             bottom: 2.95px;
             justify-content: center;
           ` : `
+            display: inline-grid;
+            grid-auto-columns: 32px 65% 25%;
+            grid-auto-flow: column;
+            column-gap: 10px;
             font-size: 1.35rem;
             grid-column: 2;
             grid-row: 1;
             justify-content: start;
           `}
-          display: flex;
           align-items: center;
           font-weight: 800;
+        }
+        ::part(item_title_additional) {
+          display: flex;
+          align-items: center;
+          justify-content: end;
         }
 
         ::part(item_text) {
@@ -173,6 +192,12 @@ class item_prop extends HTMLElement {
           }
         }
 
+        ::part(item_icon) {
+          width: 32px;
+          height: 32px;
+          object-fit: contain;
+        }
+
       </style>`;
       
     $(this).attr({
@@ -199,8 +224,38 @@ class item_prop extends HTMLElement {
 
 customElements.define('item-prop', item_prop);
 
+class item_viewer extends HTMLElement {
+  constructor() {
+    super();
+    var component = `ffff`
+    var styles = ``
 
-window.item_create = function() {
+    $(this).attr({
+      'container': 'gallery_viewer'
+    })
+
+    var concatenated = component + styles;
+    this.innerHTML = concatenated;
+  }
+}
+
+customElements.define('item-viewer', item_viewer);
+
+
+window.viewer_create = function () {
+  var viewer = new item_viewer();
+  if (['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode)) {
+    nk.siteMainContainer.after(viewer);
+  }
+}; viewer_create();
+
+
+
+
+
+
+
+window.item_create = function () {
   var single = true
   var image = 'resources/svg/NkardazKamon.svg'
   var image2 = 'external/Ghost_of_Tsushima.jpg'
@@ -218,11 +273,13 @@ window.item_create = function() {
   var item2 = new item_prop({
     PROP_Class: 'clans',
     PROP_Image: image2,
-    PROP_Title: `Сакаи <div class="ms-auto" style="font-weight: 500">酒井氏</div>`,
+    PROP_Icon: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@48px.png',
+    PROP_Title: `Сакаи`,
+    PROP_Title_Additional: `<div class="ms-auto" style="font-weight: 500">酒井氏</div>`,
     PROP_Text: "Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.",
   });
   nk.siteMainContainer.prepend(item2);
-}
+}; item_create();
 
 
 

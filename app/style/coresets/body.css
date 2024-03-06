@@ -95,10 +95,22 @@
   grid-column: 1 / span 2;
 }
 
-[container="root"][actived="gallery"]>[container="siteMain"],
-[container="root"][actived="gallery"]>[container="siteFooter"] {
+[container="root"][actived="gallery"]>[container="siteMain"] {
   grid-column: auto;
+  grid-row: 2;
 }
+
+[container="root"][actived="gallery"]>[container="gallery_viewer"] {
+  grid-column: auto;
+  grid-row: 2 / span 2;
+}
+
+[container="root"][actived="gallery"]>[container="siteFooter"] {
+  grid-column: 1;
+  grid-row: 3;
+  height: 90px;
+}
+
 
 [container="root"][actived="gallery"]>[container="siteMain"] {
   align-items: start;
