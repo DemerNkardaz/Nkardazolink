@@ -1,5 +1,5 @@
 class item_prop extends HTMLElement {
-  constructor({ PROP_ENTITY, PROP_Class, PROP_Image, PROP_Title, PROP_Text, PROP_Rarity, PROP_Group, PROP_Multi, PROP_Image_Types, PROP_Icon, PROP_Image_Label, PROP_Title_Additional }) {
+  constructor({ PROP_ENTITY, PROP_Class, PROP_Image, PROP_Title, PROP_Text, PROP_Rarity, PROP_Group, PROP_Multi, PROP_Image_Types, PROP_Icon, PROP_Image_Label, PROP_Title_Additional } = {}) {
     super();
     const component = `
       ${PROP_Image ? `
@@ -154,6 +154,7 @@ class item_prop extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: end;
+          font-weight: 500;
         }
 
         ::part(item_text) {
@@ -227,8 +228,8 @@ customElements.define('item-prop', item_prop);
 class item_viewer extends HTMLElement {
   constructor() {
     super();
-    var component = `ffff`
-    var styles = ``
+    const component = `ffff`
+    const styles = ``
 
     $(this).attr({
       'container': 'gallery_viewer'
@@ -251,7 +252,64 @@ window.viewer_create = function () {
 
 
 
+class setiings_check extends HTMLElement {
+  constructor({ label, setting } = {}) {
+    super();
+    const component = `
+      <label>
+        <input type="checkbox">
+        ${label ? `<span>${label}</span>` : ''}
+      </label>
+    `
+    const styles = `
+    <style>
+    *:hover {
+      cursor: pointer;
+    }
+    label {user-select: none;}
+    </style>
+    `
 
+    $(this).attr({
+      'nk-setting': (setting ? setting : null)
+    });
+
+    var concatenated = component + styles;
+    this.attachShadow({ mode: 'open' }).innerHTML = concatenated;
+  }
+  connectedCallback() {
+    const setting = $(this).attr('nk-setting');
+    const stored = savedSettings[setting];
+    const checked = stored === 'true' ? true : false;
+    this.shadowRoot.querySelector('input').checked = checked;
+  }
+}
+
+customElements.define('settings-check', setiings_check);
+
+
+$(document).on('click', 'settings-check input', function () {
+  var setting = $(this).parent().attr('nk-setting');
+  var value = $(this).is(':checked') ? 'true' : 'false';
+
+  toStorage(savedSettings[setting], 'false', savedSettings[setting]);
+});
+
+
+nk.siteMainContainer.prepend(
+  new setiings_check({
+    label: 'Сохранять результаты поиска',
+    setting: 'save_search_result'
+  }),
+  new setiings_check({
+    label: 'Сохранять выбранный элемент',
+    setting: 'save_selected_item'
+  }),
+  new setiings_check({
+    label: 'Выключить прелоадер',
+    setting: 'turn_off_preloader'
+  })
+);
 
 
 
@@ -275,7 +333,7 @@ window.item_create = function () {
     PROP_Image: image2,
     PROP_Icon: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@48px.png',
     PROP_Title: `Сакаи`,
-    PROP_Title_Additional: `<div class="ms-auto" style="font-weight: 500">酒井氏</div>`,
+    PROP_Title_Additional: `酒井氏`,
     PROP_Text: "Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.",
   });
   nk.siteMainContainer.prepend(item2);
