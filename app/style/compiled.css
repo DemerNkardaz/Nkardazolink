@@ -3,6 +3,7 @@
 @import url('https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css');
 
 
+@import "util.css";
 @import "root.css";
 @import "fonts.css";
 @import "root_fonts.css";

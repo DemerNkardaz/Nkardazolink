@@ -7,12 +7,14 @@ class item_prop extends HTMLElement {
       (PROP_Text && PROP_Class === 'clans' ? `<div part="item_text">${PROP_Text}</div>` : '');
 
     const styles = `
+      <link rel="stylesheet" href="app/style/compiled.css">
       <style>
         :host {
           --default_background: #FFFFFFB3;
           --default_rarity: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
           --default_rarity_clan: linear-gradient(90deg, #8f8f8f50, #d1d1d150, transparent);
           --selection_anim: selected_pulse_shadow;
+          --default_image: url('../resources/svg/japan/Torii_small.svg');
 
           position: relative;
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
@@ -26,9 +28,9 @@ class item_prop extends HTMLElement {
             user-select: none;
           ` : `
             display: grid;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 360px 625px;
             grid-template-rows: 27% 1fr;
-            gap: 0px 10px;
+            gap: 0px 20px;
             width: 1024px;
             height: 190px;
           `}
@@ -40,6 +42,7 @@ class item_prop extends HTMLElement {
           outline: 2px solid transparent;
           z-index: 1;
         }
+
         :host::before {
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             width: 100%;
@@ -57,6 +60,30 @@ class item_prop extends HTMLElement {
           left: 0;
           z-index: -1;
         }
+
+        :host::after {
+          background: var(--default_image) no-repeat;
+          background-size: cover;
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            width: 100%;
+            height: 140px;
+            border-radius: 0 0 35px 0;
+            top: 0;
+            filter: invert(1);
+            background-position: 50% 2px;
+            mix-blend-mode: overlay;
+            opacity: 0.2;
+          ` : `
+            width: 400px;
+            height: 300px;
+            right: -95px;
+            opacity: 0.03;
+          `}
+          content: "";
+          position: absolute;
+          z-index: -1;
+        }
+
         :host(:hover) {
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             transform: scale(1.12);
@@ -65,6 +92,7 @@ class item_prop extends HTMLElement {
           `}
           outline-color: white;
         }
+
         :host(:active) {
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             transform: scale(1.05);
@@ -72,6 +100,7 @@ class item_prop extends HTMLElement {
             transform: scale(1.01);
           `}
         }
+
         :host(.selected) {
           outline-color: white;
           animation: var(--selection_anim) 5s ease infinite;
@@ -95,7 +124,7 @@ class item_prop extends HTMLElement {
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             position: absolute;
             width: 100%;
-            bottom: 3.5px;
+            bottom: 2.95px;
             justify-content: center;
           ` : `
             font-size: 1.35rem;
@@ -120,8 +149,10 @@ class item_prop extends HTMLElement {
           ` : `
             align-self: center;
             height: 170px;
+            width: 350px;
             object-fit: cover;
             margin: 0 0 0 10px;
+            border-radius: 10px;
           `)}
           display: flex;
           filter: drop-shadow(0px 1px 1px var(--shadow_tretiary));
@@ -172,6 +203,7 @@ customElements.define('item-prop', item_prop);
 window.item_create = function() {
   var single = true
   var image = 'resources/svg/NkardazKamon.svg'
+  var image2 = 'external/Ghost_of_Tsushima.jpg'
   var PROP_ENTITY = 'entity_test'
   var item_rarity = 'gold'
   var item_status = '5'
@@ -185,9 +217,9 @@ window.item_create = function() {
   nk.siteMainContainer.prepend(item);
   var item2 = new item_prop({
     PROP_Class: 'clans',
-    PROP_Image: image,
-    PROP_Title: "Камон",
-    PROP_Text: "Герб рода Хэйгацу",
+    PROP_Image: image2,
+    PROP_Title: `Сакаи <div class="ms-auto" style="font-weight: 500">酒井氏</div>`,
+    PROP_Text: "Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.",
   });
   nk.siteMainContainer.prepend(item2);
 }
@@ -206,7 +238,7 @@ window.ui_components = {
         <div class="preloader-progress">
           <div id="preloader-progress" class="progress_bar" value="0"></div>
           <p style="width: 160px"><span id="progress-label">${loadingText[selectedLanguage]}</span><br>
-            <span class="loadmarker-slashes"></span>&ensp;:&ensp;<span class="loadmarker-percent">0</span>
+            <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
           </p>
         </div>
       </div>`
