@@ -9,6 +9,7 @@ import './libs/standalone/JQuery/ui.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 import './init.js';
 import './jq/selectors.js';
+import './jq/ui_components.js';
 import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
 import './jq/modes_init.js';
@@ -28,5 +29,6 @@ window.ENDPOINT_INIT = function() {
   import('./libs/standalone/Vue/Vuex.js');
   import('./jq/init_settings.js');
   import('./jq/inputs.js');
+  import('./vue/vue_init.js');
 }
 /*-- --------------- ENDPOINT_INIT ---------------- --*/
