@@ -1,15 +1,12 @@
 $(document).on('click', '[nk-page]', function (e) {
   e.preventDefault();
   var page = $(this).attr('nk-page');
-
-  $('body').insertFrom('preloader', '#preloader').then(function ($clonedElement) {
-    $clonedElement.hide().fadeIn('fast');
-    $('body').prepend($clonedElement);
-    initPreloader('noscroll');
+  ui_components.preloader('noscroll', () => {
+    $('#preloader').hide().fadeIn('fast');
     setTimeout(function () {
       redirTo({ url: page });
     }, 1000);
-  });
+  }, true);
 })
 
 $(document).on('click', '[nk-item]', function () {

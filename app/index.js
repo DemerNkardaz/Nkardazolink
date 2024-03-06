@@ -7,9 +7,9 @@ import './libs/standalone/JQuery/jquery.js';
 import './libs/standalone/JQuery/ui.js';
 /*-- --------------- LIBS ---------------- --*/
 /*-- --------------- AFTERINIT ---------------- --*/
-import './init.js';
 import './jq/selectors.js';
 import './jq/ui_components.js';
+import './init.js';
 import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
 import './jq/modes_init.js';
@@ -25,10 +25,7 @@ window.ENDPOINT_INIT = function() {
   import('./libs/standalone/Bootstrap/bootstrap.js');
   import('./libs/standalone/OverlayScrollbars.js');
   import('./libs/standalone/Howler.js');
-  import('./libs/standalone/Vue/Vue-i18n.js');
-  import('./libs/standalone/Vue/Vuex.js');
-  import('./jq/init_settings.js');
   import('./jq/inputs.js');
-  import('./vue/vue_init.js');
+  import('./jq/init_settings.js');
 }
 /*-- --------------- ENDPOINT_INIT ---------------- --*/

@@ -1,15 +1,24 @@
-import App from './app.vue';
 
+const MyComponent = Vue.extend({
+  template: '<div>Это мой компонент!</div>'
+});
 
 let nkardazolink = new Vue({
     el: nk.rootContainer[0],
     data: {
-        // Ваши данные
+
     },
     methods: {
-        // Ваши методы
+
     },
     mounted() {
         console.log('Приложение успешно смонтировано');
     }
 });
+
+
+new Vue({
+  render: function (createElement) {
+    return createElement(MyComponent);
+  }
+}).$mount(nk.rootContainer[0]);

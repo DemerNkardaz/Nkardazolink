@@ -7,7 +7,7 @@ if (
 
 var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? `app/style/skins/${window.selectedSiteSkin}.css` : '';
 
-var loadingText = {
+window.loadingText = {
   en: 'Loading content',
   ru: 'Контент загружается',
   ja: 'コンテンツが読み込まれています',
@@ -16,7 +16,7 @@ var loadingText = {
   vi: 'Nội dung đang tải'
 }
 
-var executingText = {
+window.executingText = {
   en: 'Running',
   ru: 'Запуск',
   ja: '実行',
@@ -65,7 +65,7 @@ var metaData = {
 }
 
 
-function showLoadPercentage() {
+window.showLoadPercentage = function() {
     var img = document.images,
         c = 0,
         tot = img.length;
@@ -100,43 +100,9 @@ function showLoadPercentage() {
     }
 }
 
-window.initPreloader = function (sibtype) {
-  var preloader = $('#preloader');
-  var poreloaderLabel = $('#progress-label');
-  var loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
-
-  if (savedSettings.turn_off_preloader !== 'true') {
-    waitFor('#preloader', () => {
-      var siblings = preloader.siblings(':not(#preloader)');
-      if (sibtype === 'noscroll') {
-        siblings.addClass('noscroll-for-preloader');
-      } else {
-        siblings.addClass('hidden-for-preloader');
-      }
-
-      if (poreloaderLabel) {
-        poreloaderLabel.text(loadingText[selectedLanguage]);
-      }
-
-      observeOn('style:--progress:100%', $('#preloader-progress')[0], function () {
-        preloader.find('br').nextAll().remove();
-        preloader.find('#progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
-        setTimeout(() => {
-          siblings.removeClass('hidden-for-preloader');
-          preloader.fadeOut('slow', function () {
-            preloader.remove();
-          });
-        }, 1000);
-      });
-    });
-    document.addEventListener('DOMContentLoaded', showLoadPercentage, false);
-  } else {
-    preloader.remove();
-    return;
-  }
-
+if (savedSettings.turn_off_preloader !== 'true') {
+  ui_components.preloader();
 }
-initPreloader();
 
 waitFor('title', () => {
   var title = document.querySelector('title');
