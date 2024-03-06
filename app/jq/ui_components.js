@@ -1,19 +1,58 @@
+class item_prop extends HTMLElement {
+  constructor(ent_prop, image, item_rarity, item_status, item_group, single) {
+    super();
+    const single_img = (single ? `${single}` : null);
+    const component = `
+      <div class="gallery_item_image">
+        <img src=${image} loading="lazy">
+      </div>`
+    $(this).attr({
+        'data-entity_prop': ent_prop,
+        'rarity': item_rarity,
+        'data-filter_status': item_status,
+        'data-filter_groups': item_group,
+        'data-single_image': single_img
+        
+    });
+    this.innerHTML = component
+  }
+  connectedCallback() {
+    
+  }
+  render() {
+    
+  }
+}
+customElements.define('item-prop', item_prop);
+
+window.item_create = function() {
+  var single = true
+  var image = 'resources/svg/NkardazKamon.svg'
+  var ent_prop = 'entity_test'
+  var item_rarity = 'gold'
+  var item_status = '5'
+  var item_group = 'JP'
+
+  var item = new item_prop(ent_prop, image, item_rarity, item_status, item_group, single);
+  $('#site-header').prepend(item);
+}
+
 window.ui_components = {
   preloader: (siblingType, callback, stopTimer) => {
-    var component = (
-      `<div id="preloader">` +
-      `  <div class="preloader-logo">` +
-      `    <div class="preloader-logo-wrapper">` +
-      `      <img src="resources/svg/NkardazKamon.svg" width="100">` +
-      `    </div>` +
-      `  </div>` +
-      `  <div class="preloader-progress">` +
-      `    <div id="preloader-progress" class="progress_bar" value="0"></div>` +
-      `    <p style="width: 160px"><span id="progress-label">${loadingText[selectedLanguage]}</span><br>` +
-      `      <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>` +
-      `    </p>` +
-      `  </div>` +
-      `</div>`
+    var component = (`
+      <div id="preloader">
+        <div class="preloader-logo">
+          <div class="preloader-logo-wrapper">
+            <img src="resources/svg/NkardazKamon.svg" width="100">
+          </div>
+        </div>
+        <div class="preloader-progress">
+          <div id="preloader-progress" class="progress_bar" value="0"></div>
+          <p style="width: 160px"><span id="progress-label">${loadingText[selectedLanguage]}</span><br>
+            <span class="loadmarker-slashes"></span>&ensp;:&ensp;<span class="loadmarker-percent">0</span>
+          </p>
+        </div>
+      </div>`
     );
     $('body').prepend(component).promise().done(() => {
       var preloader = $('#preloader');
