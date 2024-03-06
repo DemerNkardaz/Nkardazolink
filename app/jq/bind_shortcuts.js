@@ -13,9 +13,14 @@ $(document).on('click', '[nk-page]', function (e) {
   }
 })
 
-$(document).on('click', '[nk-item]', function () {
-  var item = $(this).attr('nk-item');
-  var entity = $(this).attr('entity');
+$(document).on('click', 'item-prop', function () {
+  var item = $(this).attr('item-prop');
+  var entity = $(this).attr('PROP_ENTITY');
+
+  $('item-prop').removeClass('selected');
+  $(this).addClass('selected');
+
+
   if (savedSettings.save_selected_item === 'true') {
     if (entity) {
       if (item === 'kamon') {

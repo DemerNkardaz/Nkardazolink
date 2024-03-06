@@ -1,5 +1,6 @@
 window.nk = {
   rootContainer: $('[container="root"]'),
   siteHeaderContainer: $('[container="siteHeader"]'),
-  siteHeader: $('#site-header[container="headWrapper"]')
+  siteHeader: $('#site-header[container="headWrapper"]'),
+  siteMainContainer: $('[container="siteMain"]')
 };

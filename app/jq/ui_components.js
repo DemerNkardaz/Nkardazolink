@@ -1,41 +1,198 @@
 class item_prop extends HTMLElement {
-  constructor(ent_prop, image, item_rarity, item_status, item_group, single) {
+  constructor({ PROP_ENTITY, PROP_Class, PROP_Image, PROP_Title, PROP_Text, PROP_Rarity, PROP_Group, PROP_Multi }) {
     super();
-    const single_img = (single ? `${single}` : null);
-    const component = `
-      <div class="gallery_item_image">
-        <img src=${image} loading="lazy">
-      </div>`
-    $(this).attr({
-        'data-entity_prop': ent_prop,
-        'rarity': item_rarity,
-        'data-filter_status': item_status,
-        'data-filter_groups': item_group,
-        'data-single_image': single_img
+    const component =
+      (PROP_Image ? `<div part="item_image_wrapper"><img part="item_image" src=${PROP_Image} loading="lazy"></div>` : '') +
+      (PROP_Title ? `<div part="item_title">${PROP_Title}</div>` : '') +
+      (PROP_Text && PROP_Class === 'clans' ? `<div part="item_text">${PROP_Text}</div>` : '');
+
+    const styles = `
+      <style>
+        :host {
+          --default_background: #FFFFFFB3;
+          --default_rarity: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
+          --default_rarity_clan: linear-gradient(90deg, #8f8f8f50, #d1d1d150, transparent);
+          --selection_anim: selected_pulse_shadow;
+
+          position: relative;
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            width: 128px;
+            height: 170px;
+            cursor: pointer;
+            user-select: none;
+          ` : `
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            grid-template-rows: 27% 1fr;
+            gap: 0px 10px;
+            width: 1024px;
+            height: 190px;
+          `}
+          background: var(--default_background);
+          border-radius: 8px;
+          box-shadow: 0 2px 5px var(--shadow_inset_info);
+          overflow: hidden;
+          transition: transform 0.1s ease-in-out;
+          outline: 2px solid transparent;
+          z-index: 1;
+        }
+        :host::before {
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            width: 100%;
+            height: 140px;
+            border-radius: 0 0 35px 0;
+            background: var(--default_rarity);
+          ` : `
+            width: 640px;
+            bottom: 0;
+            background: var(--default_rarity_clan);
+          `}
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+        :host(:hover) {
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            transform: scale(1.12);
+          ` : `
+            transform: scale(1.03);
+          `}
+          outline-color: white;
+        }
+        :host(:active) {
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            transform: scale(1.05);
+          ` : `
+            transform: scale(1.01);
+          `}
+        }
+        :host(.selected) {
+          outline-color: white;
+          animation: var(--selection_anim) 5s ease infinite;
+        }
+
+        ::part(item_image_wrapper) {
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            width: 100%;
+            height: 140px;
+          ` : `
+            height: inherit;
+            grid-column: 1;
+            grid-row: 1 / span 2;
+          `}
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        ::part(item_title) {
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            position: absolute;
+            width: 100%;
+            bottom: 3.5px;
+            justify-content: center;
+          ` : `
+            font-size: 1.35rem;
+            grid-column: 2;
+            grid-row: 1;
+            justify-content: start;
+          `}
+          display: flex;
+          align-items: center;
+          font-weight: 800;
+        }
+
+        ::part(item_text) {
+          grid-column: 2;
+          grid-row: 2;
+        }
+
+        ::part(item_image) {
+          ${(PROP_Class === 'kamon' ? `
+            width: 105px;
+            object-fit: contain;
+          ` : `
+            align-self: center;
+            height: 170px;
+            object-fit: cover;
+            margin: 0 0 0 10px;
+          `)}
+          display: flex;
+          filter: drop-shadow(0px 1px 1px var(--shadow_tretiary));
+        }
+
+        @keyframes selected_pulse_shadow {
+          0% {
+            box-shadow: 5px 0 15px #8c8c8c, -5px -0 15px #8c8c8c;
+          }
         
+          50%,
+          85% {
+            box-shadow: 5px 0 15px #8c8c8c90, -5px -0 15px #8c8c8c90;
+          }
+        
+          100% {
+            box-shadow: 5px 0 15px #8c8c8c, -5px -0 15px #8c8c8c;
+          }
+        }
+
+      </style>`;
+      
+    $(this).attr({
+      'PROP_ENTITY': (PROP_ENTITY ? PROP_ENTITY : null),
+      'PROP_Class': (PROP_Class ? PROP_Class : null),
+      'PROP_Rarity': (PROP_Rarity ? PROP_Rarity : null),
+      'PROP_Group': (PROP_Group ? PROP_Group : null),
+      'PROP_Multi': (PROP_Multi ? PROP_Multi : null)
     });
-    this.innerHTML = component
+    
+    var concatenated = component + styles;
+    this.attachShadow({ mode: 'open' }).innerHTML = concatenated;
   }
+  
   connectedCallback() {
-    
+    const PROP_Class = $(this).attr('PROP_Class');
+    $(this).addClass(['kamon', 'banners', 'clans', 'pattern'].includes(PROP_Class) ? PROP_Class : 'default');
   }
+  
   render() {
-    
+    // Здесь можно добавить логику рендеринга
   }
 }
+
 customElements.define('item-prop', item_prop);
+
 
 window.item_create = function() {
   var single = true
   var image = 'resources/svg/NkardazKamon.svg'
-  var ent_prop = 'entity_test'
+  var PROP_ENTITY = 'entity_test'
   var item_rarity = 'gold'
   var item_status = '5'
   var item_group = 'JP'
 
-  var item = new item_prop(ent_prop, image, item_rarity, item_status, item_group, single);
-  $('#site-header').prepend(item);
+  var item = new item_prop({
+    PROP_Class: 'kamon',
+    PROP_Image: image,
+    PROP_Title: "Камон",
+  });
+  nk.siteMainContainer.prepend(item);
+  var item2 = new item_prop({
+    PROP_Class: 'clans',
+    PROP_Image: image,
+    PROP_Title: "Камон",
+    PROP_Text: "Герб рода Хэйгацу",
+  });
+  nk.siteMainContainer.prepend(item2);
 }
+
+
 
 window.ui_components = {
   preloader: (siblingType, callback, stopTimer) => {

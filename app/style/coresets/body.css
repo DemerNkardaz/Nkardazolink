@@ -157,3 +157,9 @@
   background: none;
   box-shadow: none;
 }
+
+
+
+item-prop::part(item_image) {
+
+}
