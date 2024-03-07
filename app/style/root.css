@@ -27,6 +27,7 @@
   --button_light: #ffffff48;
   --white_border: #ffffff20;
   --light_border: #ebedf0;
+  --mid_border: #d3d3d3;
   --grey_border: #b3b3b3;
   --border_grey_entity: 1px solid var(--grey_border);
 

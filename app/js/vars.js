@@ -14,9 +14,9 @@ TREE IS A LINKTREE
 */
 
 window.savedSettings = {
-  "save_search_result": (fromStorage('savedSettings.save_search_result') ? fromStorage('savedSettings.save_search_result') : 'true'),
-  "save_selected_item": (fromStorage('savedSettings.save_selected_item') ? fromStorage('savedSettings.save_selected_item') : 'true'), 
-  "turn_off_preloader": (fromStorage('savedSettings.turn_off_preloader') ? fromStorage('savedSettings.turn_off_preloader') : 'false'),
+  "save_search_result": (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true'),
+  "save_selected_item": (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false'), 
+  "turn_off_preloader": (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'true'),
 }
 
 if (savedSettings.save_search_result === 'true') {

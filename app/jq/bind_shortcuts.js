@@ -55,3 +55,24 @@ $(document).on('click', '[nk-banner]', function () {
     $(this).addClass('active');
   }
 });
+
+
+$(document).on('click', '[option_type="checkbox"]:not([disabled="true"])', function () {
+  var value = $(this).attr('aria-checked');
+  !$(this).parent().parent('settings-check') ? ($(this).attr('aria-checked', typeof value === 'undefined' ? 'true' : value === 'false' ? 'true' : 'false')) : null;
+});
+
+$(document).on('click', 'settings-check', function () {
+  var setting = $(this).attr('nk-setting');
+  var value = $(this).find('[option_type="checkbox"]:not([disabled="true"])').attr('aria-checked');
+  var set_check = (typeof value === 'undefined' ? 'true' : value === 'false' ? 'true' : 'false');
+  $(this).find('[option_type="checkbox"]').attr('aria-checked', set_check);
+  saveSettings(setting, set_check);
+});
+
+$(document).on('keydown', '[tabindex]', function(event) {
+    if (event.which === 13) {
+        $(this).click();
+    }
+});
+

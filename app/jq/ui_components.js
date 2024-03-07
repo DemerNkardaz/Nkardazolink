@@ -3,21 +3,20 @@ class item_prop extends HTMLElement {
     super();
     const component = `
       ${PROP_Image ? `
-        <div part="item_image_wrapper">
-          <picture part="item_image_picture">
-            ${PROP_Image_Label ? `<div part="item_image_label">${PROP_Image_Label}</div>` : ''}
+        <div part="item_image_wrapper" class="item_image_wrapper">
+          <picture part="item_image_picture" class="item_image_picture">
+            ${PROP_Image_Label ? `<div part="item_image_label" class="item_image_label">${PROP_Image_Label}</div>` : ''}
             ${PROP_Image_Types ? PROP_Image_Types.split(', ').map(type => `<source srcset="${type === 'svg' ? PROP_Image.replace('_thumb.png', '.svg') : PROP_Image.replace(/\.\w+$/, `.${type}`)}" type="image/${type}">`).join('') : ''}
 
-            <img part="item_image" src="${PROP_Image}" loading="lazy">
+            <img part="item_image" class="item_image" src="${PROP_Image}" loading="lazy">
           </picture>
         </div>
       ` : ''}
-      ${PROP_Title ? `<div part="item_title">${PROP_Icon ? `<img part="item_icon" src="${PROP_Icon}">` : ''}<span part="item_title_text">${PROP_Title}</span>${PROP_Title_Additional ? `<div part="item_title_additional">${PROP_Title_Additional}</div>` : ''}</div>` : ''}
-      ${PROP_Text && PROP_Class === 'clans' ? `<div part="item_text">${PROP_Text}</div>` : ''}
+      ${PROP_Title ? `<div part="item_title" class="item_title">${PROP_Icon ? `<img part="item_icon" class="item_icon" src="${PROP_Icon}">` : ''}<span part="item_title_text" class="item_title_text">${PROP_Title}</span>${PROP_Title_Additional ? `<div part="item_title_additional" class="item_title_additional">${PROP_Title_Additional}</div>` : ''}</div>` : ''}
+      ${PROP_Text && PROP_Class === 'clans' ? `<div part="item_text" class="item_text">${PROP_Text}</div>` : ''}
     `;
 
     const styles = `
-      <link rel="stylesheet" href="app/style/compiled.css">
       <style>
         :host {
           --default_background: #FFFFFFB3;
@@ -34,7 +33,6 @@ class item_prop extends HTMLElement {
             justify-content: start;
             width: 128px;
             height: 170px;
-            cursor: pointer;
             user-select: none;
           ` : `
             display: grid;
@@ -50,6 +48,7 @@ class item_prop extends HTMLElement {
           overflow: hidden;
           transition: transform 0.1s ease-in-out;
           outline: 2px solid transparent;
+          cursor: pointer;
           z-index: 1;
         }
 
@@ -103,6 +102,15 @@ class item_prop extends HTMLElement {
           outline-color: white;
         }
 
+        :host(:focus) {
+          ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
+            transform: scale(1.12);
+          ` : `
+            transform: scale(1.03);
+          `}
+          outline-color: white;
+        }
+
         :host(:active) {
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             transform: scale(1.05);
@@ -116,7 +124,7 @@ class item_prop extends HTMLElement {
           animation: var(--selection_anim) 5s ease infinite;
         }
 
-        ::part(item_image_wrapper) {
+        ::part(item_image_wrapper), .item_image_wrapper {
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             width: 100%;
             height: 140px;
@@ -130,7 +138,7 @@ class item_prop extends HTMLElement {
           justify-content: center;
         }
 
-        ::part(item_title) {
+        ::part(item_title), .item_title {
           width: 100%;
           ${(['kamon', 'banners', 'pattern'].includes(PROP_Class)) ? `
             position: absolute;
@@ -150,19 +158,19 @@ class item_prop extends HTMLElement {
           align-items: center;
           font-weight: 800;
         }
-        ::part(item_title_additional) {
+        ::part(item_title_additional), .item_title_additional {
           display: flex;
           align-items: center;
           justify-content: end;
           font-weight: 500;
         }
 
-        ::part(item_text) {
+        ::part(item_text), .item_text {
           grid-column: 2;
           grid-row: 2;
         }
 
-        ::part(item_image) {
+        ::part(item_image), .item_image {
           ${(PROP_Class === 'kamon' ? `
             width: 105px;
             object-fit: contain;
@@ -193,7 +201,7 @@ class item_prop extends HTMLElement {
           }
         }
 
-        ::part(item_icon) {
+        ::part(item_icon), .item_icon {
           width: 32px;
           height: 32px;
           object-fit: contain;
@@ -216,16 +224,17 @@ class item_prop extends HTMLElement {
   connectedCallback() {
     const PROP_Class = $(this).attr('PROP_Class');
     $(this).addClass(['kamon', 'banners', 'clans', 'pattern'].includes(PROP_Class) ? PROP_Class : 'default');
+    $(this).attr('tabindex', 0);
   }
   
   render() {
-    // Здесь можно добавить логику рендеринга
+
   }
 }
 
 customElements.define('item-prop', item_prop);
 
-class item_viewer extends HTMLElement {
+class item_viewer_body extends HTMLElement {
   constructor() {
     super();
     const component = `ffff`
@@ -238,79 +247,69 @@ class item_viewer extends HTMLElement {
     var concatenated = component + styles;
     this.innerHTML = concatenated;
   }
+  connectedCallback() {
+    $(this).attr('role', 'complementary');
+  }
+  
 }
 
-customElements.define('item-viewer', item_viewer);
+customElements.define('item-viewer_body', item_viewer_body);
 
 
-window.viewer_create = function () {
-  var viewer = new item_viewer();
+window.gallery_viewer_container = function () {
+  var viewer = new item_viewer_body();
   if (['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode)) {
     nk.siteMainContainer.after(viewer);
   }
-}; viewer_create();
+}; gallery_viewer_container();
 
 
 
-class setiings_check extends HTMLElement {
+class settings_check extends HTMLElement {
   constructor({ label, setting } = {}) {
     super();
     const component = `
       <label>
-        <input type="checkbox">
-        ${label ? `<span>${label}</span>` : ''}
+        <div option_type="checkbox"></div>
+        ${label ? `<span data-key="${label}">${label}</span>` : ''}
       </label>
-    `
-    const styles = `
-    <style>
-    *:hover {
-      cursor: pointer;
-    }
-    label {user-select: none;}
-    </style>
     `
 
     $(this).attr({
       'nk-setting': (setting ? setting : null)
     });
 
-    var concatenated = component + styles;
-    this.attachShadow({ mode: 'open' }).innerHTML = concatenated;
+    this.innerHTML = component;
   }
   connectedCallback() {
+    $(this).attr('tabindex', 0);
+    $(this).find('[option_type="checkbox"]').attr('role', 'checkbox');
     const setting = $(this).attr('nk-setting');
+    const checkbox = $(this).find('[option_type="checkbox"]');
     const stored = savedSettings[setting];
-    const checked = stored === 'true' ? true : false;
-    this.shadowRoot.querySelector('input').checked = checked;
+
+    stored === 'true' ? checkbox.attr('aria-checked', 'true') : checkbox.attr('aria-checked', 'false');
   }
 }
 
-customElements.define('settings-check', setiings_check);
+customElements.define('settings-check', settings_check);
 
-
-$(document).on('click', 'settings-check input', function () {
-  var setting = $(this).parent().attr('nk-setting');
-  var value = $(this).is(':checked') ? 'true' : 'false';
-
-  toStorage(savedSettings[setting], 'false', savedSettings[setting]);
+$(document).on('languageJSON_loaded', function () {
+  nk.siteMainContainer.prepend(
+    new settings_check({
+      label: languageJSON[selectedLanguage]['save_search_result'],
+      setting: 'save_search_result'
+    }),
+    new settings_check({
+      label: languageJSON[selectedLanguage]['save_selected_item'],
+      setting: 'save_selected_item'
+    }),
+    new settings_check({
+      label: languageJSON[selectedLanguage]['turn_off_preloader'],
+      setting: 'turn_off_preloader'
+    })
+  );
 });
-
-
-nk.siteMainContainer.prepend(
-  new setiings_check({
-    label: 'Сохранять результаты поиска',
-    setting: 'save_search_result'
-  }),
-  new setiings_check({
-    label: 'Сохранять выбранный элемент',
-    setting: 'save_selected_item'
-  }),
-  new setiings_check({
-    label: 'Выключить прелоадер',
-    setting: 'turn_off_preloader'
-  })
-);
-
 
 
 window.item_create = function () {

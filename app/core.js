@@ -4,15 +4,16 @@ window.fromStorage = function (key) {
   return localStorage.getItem(key);
 }
 
-window.toStorage = function (key, value, variable) {
+window.toStorage = function (key, value) {
   localStorage.setItem(key, value);
-  if (variable) {
-    window[variable] = value;
-  }
 }
 
 window.saveSettings = function (key, value) {
-  window.toStorage(`savedSettings.${key}`, value, `savedSettings.${key}`);
+  window.toStorage(`savedSettings.${key}`, value);
+}
+
+window.loadSettings = function (key) {
+  return fromStorage(`savedSettings.${key}`);
 }
 
 window.removeStorage = function (key) {
@@ -69,6 +70,7 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
       const jsonData = await response.json();
       if (typeof as !== 'undefined') {
         window[as] = jsonData;
+        $(document).trigger(`${as}_loaded`);
         await DataExtend(dataArray, callback, index + 1);
         return;
       }
@@ -227,3 +229,41 @@ window.copyCurrentURL = function() {
         document.body.removeChild(tempInput);
     }
 }
+
+
+window.setTabIndex = function() {
+    // Получаем все элементы на странице с атрибутом tabindex
+    var elementsWithTabIndex = document.querySelectorAll('[tabindex]');
+    var usedTabIndexes = [];
+
+    // Получаем уже использованные табиндексы
+    elementsWithTabIndex.forEach(function(element) {
+        var index = parseInt(element.getAttribute('tabindex'));
+        usedTabIndexes.push(index);
+    });
+
+    // Функция для проверки уникальности индекса
+    function isUnique(index) {
+        return !usedTabIndexes.includes(index);
+    }
+
+    // Генерируем уникальный табиндекс
+    var uniqueIndex = 1;
+    while (!isUnique(uniqueIndex)) {
+        uniqueIndex++;
+    }
+
+    // Возвращаем уникальный табиндекс
+    return uniqueIndex;
+}
+/*
+document.addEventListener('DOMContentLoaded', function() {
+    var elementsWithTabindex = document.querySelectorAll('[tabindex]');
+    elementsWithTabindex.forEach(function(element) {
+        element.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.click();
+            }
+        });
+    });
+});*/

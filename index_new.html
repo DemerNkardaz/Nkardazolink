@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <!-- --------------- METRICS ---------------- -->
@@ -7,7 +7,10 @@
   <!-- --------------- METRICS ---------------- -->
   
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta property="og:type" content="website">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Демер Нкардаз・2D・3D・Писательство・Вёрстка</title>
   
   <script src="app/libs/standalone/JQuery/jquery.js"></script>
@@ -19,7 +22,7 @@
 </head>
 
 <body>
-  <section container="root">
+  <section container="root" role="banner">
     <header container="siteHeader">
       <section id="site-header" container="headWrapper">
         <p>{ Title_Nkardazolink }</p>
@@ -30,17 +33,17 @@
         <p>{ DemerNkardaz }</p>
         <p>{ SaitamaOnmyoji }</p>
         <p>{ maru_ni_mittsuaoi }</p>
-        <button nk-page="?mode=kamon">ффыафыа</button>
+        <button nk-page="?mode=kamon" role="link">ффыафыа</button>
         <button nk-item="kamon" entity="entity_test">ENT TEST</button>
 
 
       </section>
     </header>
-    <main container="siteMain">
+    <main container="siteMain" role="main">
         A
 
     </main>
-    <footer container="siteFooter">B</footer>
+    <footer container="siteFooter" role="contentinfo">B</footer>
   </section>
 
 

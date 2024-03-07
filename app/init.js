@@ -116,17 +116,22 @@ waitFor('title', () => {
 });
 
 DataExtend([
-  { type: 'data',  source: 'app/data/lang.json', as: 'languageJSON' },
+  { type: 'data',  source: 'app/data/locale.json', as: 'languageJSON' },
   { type: 'style', source: skin, anchor: 'head', pos: 'inner-end', id: 'skinloader' }
 ]);
+window.languageJSON = metaData['languageJSON'];
+
+
+
 
 
 if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
   var mode = anUrlParameter.mode;
   if (mode === 'kamon' || mode === 'banners' || mode === 'clans') {
     DataExtend([
-      { type: 'data', source: `app/data/${mode}.json`, as: `items.${mode}`}
-    ])
+      { type: 'data', source: `app/data/${mode}.json`, as: `items.${mode}` }
+    ]);
+    window.items[mode] = metaData[`items.${mode}`];
   }
 }
 
