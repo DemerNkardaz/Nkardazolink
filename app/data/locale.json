@@ -1,30 +1,36 @@
 {
   "ru": {
+    "Site_Title_Nkardaz": "Демер Нкардаз・2D・3D・Писательство・Вёрстка",
     "save_search_result": "Сохранять ввод строки поиска",
     "save_selected_item": "Сохранять последний выбранный знак",
     "turn_off_preloader": "Отключить анимацию предзагрузки"
   },
   "en": {
+    "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
     "save_search_result": "Save search input",
     "save_selected_item": "Save last selected item",
     "turn_off_preloader": "Turn off preloader animation"
   },
   "ja": {
+    "Site_Title_Nkardaz": "デメル・ナカルダズ・２Ｄ・３Ｄ・ピサツレスト・ヴォーストカ",
     "save_search_result": "検索入力を保存",
     "save_selected_item": "最後に選択したアイテムを保存",
     "turn_off_preloader": "プレロードアニメーションをオフ"
   },
   "zh": {
+    "Site_Title_Nkardaz": "德梅尔·纳卡尔达兹·2D·3D·写作·排版",
     "save_search_result": "保存搜索输入",
     "save_selected_item": "保存最后选择的项目",
     "turn_off_preloader": "关闭预载入动画"
   },
   "ko": {
+    "Site_Title_Nkardaz": "데메르 나카르다즈・2D・3D・작가・레이아웃",
     "save_search_result": "검색 입력 저장",
     "save_selected_item": "최종 선택된 아이템 저장",
     "turn_off_preloader": "플로드 애니메이션 OFF"
   },
   "vi": {
+    "Site_Title_Nkardaz": "Đêmer Nkarđaz・2D・3D・Viết văn・Tạo bố cục",
     "save_search_result": "Lưu kết quả tìm kiếm",
     "save_selected_item": "Lưu mục đã chọn cuối cùng",
     "turn_off_preloader": "Tắt hiệu ứng tải trước"
