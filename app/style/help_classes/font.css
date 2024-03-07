@@ -183,20 +183,40 @@
   text-decoration: underline !important;
 }
 
+.text-decoration-wave-underline {
+  text-decoration: underline wavy !important;
+}
+
 .text-decoration-line-through {
   text-decoration: line-through !important;
+}
+
+.text-decoration-wave-line-through {
+  text-decoration: line-through wavy !important;
 }
 
 .text-decoration-overline {
   text-decoration: overline !important;
 }
 
-.text-decoration-underoverline {
+.text-decoration-wave-overline {
+  text-decoration: overline wavy !important;
+}
+
+.text-decoration-under-overline {
   text-decoration: overline underline !important;
+}
+
+.text-decoration-wave-under-overline {
+  text-decoration: overline underline wavy !important;
 }
 
 .text-decoration-alllines {
   text-decoration: overline underline line-through !important;
+}
+
+.text-decoration-wave-alllines {
+  text-decoration: overline underline line-through wavy !important;
 }
 
 .text-lowercase {
@@ -211,10 +231,59 @@
   text-transform: capitalize !important;
 }
 
+.text-caps {
+  font-variant: small-caps !important;
+}
+
 .text-wrap {
   white-space: normal !important;
 }
 
-.text-caps {
-  font-variant: small-caps !important;
+.text-nowrap {
+  white-space: nowrap !important;
+}
+
+.text-break {
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+.underline-offset-1 {
+  text-underline-offset: 0.125em !important;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 0.25em !important;
+}
+
+.underline-offset-3 {
+  text-underline-offset: 0.375em !important;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 0.5em !important;
+}
+
+.underline-offset-5 {
+  text-underline-offset: 0.625em !important;
+}
+
+.underline-offset-6 {
+  text-underline-offset: 0.75em !important;
+}
+
+.underline-offset-7 {
+  text-underline-offset: 0.875em !important;
+}
+
+.underline-offset-8 {
+  text-underline-offset: 1em !important;
+}
+
+.underline-offset-9 {
+  text-underline-offset: 1.25em !important;
+}
+
+.underline-offset-10 {
+  text-underline-offset: 1.5em !important;
 }

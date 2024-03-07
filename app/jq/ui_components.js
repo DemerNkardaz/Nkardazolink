@@ -340,6 +340,27 @@ window.item_create = function () {
 }; item_create();
 
 
+class tooltip_element extends HTMLElement {
+  constructor({ arrow_pos } = {}) {
+    super();
+    const component = `
+    <div class="tl-arrow" ${arrow_pos ? `data-pos="${arrow_pos};"` : ''}></div>
+    <div class="tl-content"></div>
+    `
+    const styles = `
+
+    `
+    const concatenated = component + styles;
+    this.innerHTML = concatenated;
+  }
+
+  connectedCallback() {
+    
+  }
+}
+
+customElements.define('tooltip-element', tooltip_element);
+
 
 window.ui_components = {
   preloader: (siblingType, callback, stopTimer) => {
