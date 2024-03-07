@@ -25,28 +25,24 @@
   <section container="root" role="banner">
     <header container="siteHeader">
       <section id="site-header" container="headWrapper">
-        <p>{ Title_Nkardazolink }</p>
-        <p>{ language }</p>
-        <p>{ titleLost }</p>
-        <p>{ subtitleLost }</p>
-        <p>{ descriptionLost }</p>
-        <p>{ DemerNkardaz }</p>
-        <p>{ SaitamaOnmyoji }</p>
-        <p>{ maru_ni_mittsuaoi }</p>
-        <button nk-page="?mode=kamon" role="link">ффыафыа</button>
-        <button nk-item="kamon" entity="entity_test">ENT TEST</button>
-
-
+        <button language_selector="ru">Рус</button>
+        <button language_selector="en">Eng</button>
+        <button language_selector="ja">Jap</button>
+        <button language_selector="zh">Chn</button>
+        <button language_selector="ko">Kor</button>
+        <button language_selector="vi">Vie</button>
       </section>
     </header>
     <main container="siteMain" role="main">
-        A
-
+        
+      <div id="testwrapper" style="height: 1000px"></div>
     </main>
-    <footer container="siteFooter" role="contentinfo">B</footer>
+    <footer container="siteFooter" role="contentinfo"></footer>
   </section>
-
-
+  <!--
+        <button nk-page="?mode=kamon" role="link">ффыафыа</button>
+        <button nk-item="kamon" entity="entity_test">ENT TEST</button>
+A--->
   <!-- --------------- ENDPOINT INIT ---------------- -->
   <script>
     window.addEventListener('DOMContentLoaded', async () => {

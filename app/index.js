@@ -14,6 +14,7 @@ import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
 import './jq/modes_init.js';
 import './jq/utils.js';
+import './jq/localisation.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 
 export async function HTMX_INIT() {

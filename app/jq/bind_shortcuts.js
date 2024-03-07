@@ -57,6 +57,9 @@ $(document).on('click', '[nk-banner]', function () {
 });
 
 
+/* ------------------- INPUT SETTINGS ------------------- */
+
+
 $(document).on('click', '[option_type="checkbox"]:not([disabled="true"])', function () {
   var value = $(this).attr('aria-checked');
   !$(this).parent().parent('settings-check') ? ($(this).attr('aria-checked', typeof value === 'undefined' ? 'true' : value === 'false' ? 'true' : 'false')) : null;
@@ -70,9 +73,44 @@ $(document).on('click', 'settings-check', function () {
   saveSettings(setting, set_check);
 });
 
-$(document).on('keydown', '[tabindex]', function(event) {
-    if (event.which === 13) {
-        $(this).click();
-    }
+
+/* ------------------- INPUT SETTINGS ------------------- */
+
+
+/* ------------------- KEYBOARD SHORTCUTS ------------------- */
+
+$(document).on('keydown', '[tabindex]', function(e) {
+  if (e.which === 13) {
+      $(this).click();
+      return false;
+  }
+  var currentIndex = $('[tabindex]').index(this);
+  var nextIndex;
+  if (e.keyCode == 37 || e.keyCode == 38) {
+    nextIndex = currentIndex - 1;
+  } else if (e.keyCode == 39 || e.keyCode == 40) { 
+    nextIndex = currentIndex + 1;
+  }
+
+  var $nextElement = $('[tabindex]').eq(nextIndex);
+  if ($nextElement.length) {
+    $nextElement.focus();
+  }
 });
 
+$(document).on('mouseleave', 'item-prop', function () {
+  $(this).blur();
+});
+
+/* ------------------- KEYBOARD SHORTCUTS ------------------- */
+
+/* ------------------- LANGUAGE ------------------- */
+
+
+$(document).on('click', '[language_selector]', function () {
+  var lang = $(this).attr('language_selector');
+  switchLang(lang);
+});
+
+
+/* ------------------- LANGUAGE ------------------- */

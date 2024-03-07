@@ -214,7 +214,9 @@ class item_prop extends HTMLElement {
       'PROP_Class': (PROP_Class ? PROP_Class : null),
       'PROP_Rarity': (PROP_Rarity ? PROP_Rarity : null),
       'PROP_Group': (PROP_Group ? PROP_Group : null),
-      'PROP_Multi': (PROP_Multi ? PROP_Multi : null)
+      'PROP_Multi': (PROP_Multi ? PROP_Multi : null),
+      'tabindex': -1,
+      'draggable': 'true',
     });
     
     var concatenated = component + styles;
@@ -224,7 +226,6 @@ class item_prop extends HTMLElement {
   connectedCallback() {
     const PROP_Class = $(this).attr('PROP_Class');
     $(this).addClass(['kamon', 'banners', 'clans', 'pattern'].includes(PROP_Class) ? PROP_Class : 'default');
-    $(this).attr('tabindex', 0);
   }
   
   render() {
@@ -266,12 +267,12 @@ window.gallery_viewer_container = function () {
 
 
 class settings_check extends HTMLElement {
-  constructor({ label, setting } = {}) {
+  constructor({ label, label_key, setting } = {}) {
     super();
     const component = `
       <label>
         <div option_type="checkbox"></div>
-        ${label ? `<span data-key="${label}">${label}</span>` : ''}
+        ${label ? `<span ${label_key ? `data-key="${label_key}"` : (setting ? `data-key="${setting}"` : '')}>${label}</span>` : ''}
       </label>
     `
 
@@ -326,7 +327,7 @@ window.item_create = function () {
     PROP_Image: image,
     PROP_Title: "Камон",
   });
-  nk.siteMainContainer.prepend(item);
+  $('#testwrapper').prepend(item);
   var item2 = new item_prop({
     PROP_Class: 'clans',
     PROP_Image: image2,
@@ -335,7 +336,7 @@ window.item_create = function () {
     PROP_Title_Additional: `酒井氏`,
     PROP_Text: "Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.",
   });
-  nk.siteMainContainer.prepend(item2);
+  $('#testwrapper').prepend(item2);
 }; item_create();
 
 

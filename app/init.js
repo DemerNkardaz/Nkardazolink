@@ -1,9 +1,7 @@
-if (
-    (anUrlParameter.mode && !availableModes.includes(anUrlParameter.mode)) ||
-    ((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select)))
-) {
-  redirOrigin();
-}
+(anUrlParameter.mode && !availableModes.includes(anUrlParameter.mode)) ||
+((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select))) ? redirOrigin() : null;
+
+selectedLanguage ? $('html').attr('lang', selectedLanguage) : $('html').attr('lang', 'ru');
 
 var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? `app/style/skins/${window.selectedSiteSkin}.css` : '';
 

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="0" width="0">
+  <filter height="1" width="1" y="0" x="0" id="border-blur">
+    <!-- fill black -->
+    <feFlood />
+    <!-- inset the black area by amount radius -->
+    <feMorphology radius="15" />
+    <!-- flip transparency: now only the border is black,
+         the inner area transparent -->
+    <feComponentTransfer result="border">
+      <feFuncA tableValues="1 0" type="table" />
+    </feComponentTransfer>
+    <!-- show the image in that area -->
+    <feComposite operator="in" in="SourceGraphic" in2="border" />
+    <!-- blur it by amount stdDeviation -->
+    <feGaussianBlur stdDeviation="1" result="blur" />
+    <!-- stack the blurred on top of the un-blurred -->
+    <feMerge>
+      <feMergeNode in="SourceGraphic" />
+      <feMergeNode in="blur" />
+      <!-- double better emulates CSS blur -->
+      <feMergeNode in="blur" />
+    </feMerge>
+  </filter>
+</svg>

@@ -105,3 +105,15 @@ body {
   background-size: cover;
 }
 
+
+/* SAMPLE OF BLUR BORDER
+main {
+  position: relative;
+  mask: var(--border_transparency);
+  height: 200px;
+  overflow: auto;
+  margin-top: 20px;
+  z-index: 1;
+}
+*/
+
