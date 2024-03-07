@@ -1,3 +1,8 @@
+html {
+  font-size: 12pt;
+}
+
+
 h1,
 h2,
 h3,
@@ -8,27 +13,27 @@ h6 {
 }
 
 h1 {
-  font-size: calc(1.75em);
+  font-size: calc(1.75rem);
 }
 
 h2 {
-  font-size: calc(1.60em);
+  font-size: calc(1.60rem);
 }
 
 h3 {
-  font-size: calc(1.45em);
+  font-size: calc(1.45rem);
 }
 
 h4 {
-  font-size: calc(1.30em);
+  font-size: calc(1.30rem);
 }
 
 h5 {
-  font-size: calc(1.15em);
+  font-size: calc(1.15rem);
 }
 
 h6 {
-  font-size: calc(1.00em);
+  font-size: calc(1.00rem);
 }
 
 
