@@ -16,7 +16,6 @@ $.fn.countAuthorLists = function() {
 
 window.transcriptReplacement = function (text) {
   return text
-    .replace(/\n/g, '<br>')
     .replace(/\″(.*?)\←(.*?)\″/g, function(match, p1, p2) {
       return "<ruby>" + p1 + "<rt>" + p2 + "</rt></ruby>";
     })
@@ -36,8 +35,8 @@ window.transcriptReplacement = function (text) {
 
 window.defaultReplacement = function (text) {
   return text
-    .replace(/\n/g, '<br>')
-    .replace(/\t/g, '&Tab;')
+    .replace(/\/n/g, '<br>')
+    .replace(/\/t/g, '&Tab;')
 }
 
 window.textUnPacker = function (htmlString) {

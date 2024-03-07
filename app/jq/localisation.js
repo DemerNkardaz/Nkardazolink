@@ -1,13 +1,25 @@
+window.updateItemsLanguage = function () {
+  var item_props = $('item-prop');
+
+  item_props.each(function () {
+    if ($(this).attr('prop_class') === 'kamon') {
+      var shadowRoot = this.shadowRoot;
+      $(shadowRoot).find('.item_title_text').html("тест");
+    }
+  });
+}
+
 window.updateLanguageKeys = function () {
   var key_elements = $('[data-key]');
   key_elements.each(function () {
-    var getLocale = languageJSON[selectedLanguage][$(this).attr('data-key')];
-    getLocale =
-      (getLocale ?
-        textUnPacker(getLocale)
-        :
-        null
-      );
+    var key = $(this).attr('data-key');
+    var getLocale = languageJSON[selectedLanguage][key];
+    
+    if (Array.isArray(getLocale)) {
+      getLocale = getLocale.join('\n');
+    }
+    var getLocale = (getLocale ? textUnPacker(getLocale) : null);
+    
     $(this).html(getLocale);
   });
   $('html').attr('lang', selectedLanguage);
