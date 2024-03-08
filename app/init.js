@@ -63,39 +63,40 @@ var metaData = {
 }
 
 
-window.showLoadPercentage = function() {
-    var img = document.images,
-        c = 0,
-        tot = img.length;
-    var percentElement = document.querySelector('.loadmarker-percent');
-    var percentBar = document.querySelector('#preloader-progress');
-    var currentPercentage = 0;
-    var intervalDuration = 10;
+window.showLoadPercentage = function () {
+  $(document).trigger('loading_precentage_initialized');
+  var img = document.images,
+      c = 0,
+      tot = img.length;
+  var percentElement = document.querySelector('.loadmarker-percent');
+  var percentBar = document.querySelector('.progress-value');
+  var currentPercentage = 0;
+  var intervalDuration = 10;
 
-    function imgLoaded() {
-        c += 1;
-        var perc = ((100 / tot * c) << 0);
+  function imgLoaded() {
+      c += 1;
+      var perc = ((100 / tot * c) << 0);
 
-        var increment = 1;
-        var interval = setInterval(function() {
-            if (currentPercentage < perc) {
-                currentPercentage += increment;
-                percentElement.textContent = currentPercentage;
-                percentBar.style.setProperty('--progress', `${ currentPercentage}%`);
-            } else {
-                clearInterval(interval);
-            }
-        }, intervalDuration);
+      var increment = 1;
+      var interval = setInterval(function() {
+          if (currentPercentage < perc) {
+              currentPercentage += increment;
+              percentElement.textContent = currentPercentage;
+              percentBar.style.setProperty('--progress', `${ currentPercentage}%`);
+          } else {
+              clearInterval(interval);
+          }
+      }, intervalDuration);
 
-        if (c === tot) return;
-    }
+      if (c === tot) return;
+  }
 
-    for (var i = 0; i < tot; i++) {
-        var tImg = new Image();
-        tImg.onload = imgLoaded;
-        tImg.onerror = imgLoaded;
-        tImg.src = img[i].src;
-    }
+  for (var i = 0; i < tot; i++) {
+      var tImg = new Image();
+      tImg.onload = imgLoaded;
+      tImg.onerror = imgLoaded;
+      tImg.src = img[i].src;
+  }
 }
 
 

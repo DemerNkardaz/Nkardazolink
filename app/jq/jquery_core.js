@@ -1,3 +1,19 @@
+$.fn.setSelected = function() {
+  $(this).addClass('selected');
+}
+
+$.fn.setUnselected = function() {
+  $(this).removeClass('selected');
+}
+
+$.fn.setActive = function() {
+  $(this).addClass('active');
+}
+
+$.fn.setInactive = function() {
+  $(this).removeClass('active');
+}
+
 window.cloneTo = function (from, element, to) {
   var deferred = $.Deferred();
 

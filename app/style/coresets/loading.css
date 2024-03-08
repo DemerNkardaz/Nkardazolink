@@ -1,4 +1,4 @@
-#preloader {
+page-preloader, #preloader {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,21 +17,21 @@
   font-weight: 800;
   transition: all 0.3s ease;
 }
-#preloader > .preloader-logo {
+page-preloader > .preloader-logo, #preloader > .preloader-logo {
   margin-top: calc(50vh - 128px);
 }
-#preloader ~ * {transition: all 0.3s ease;}
-#preloader ~ .hidden-for-preloader {
+page-preloader ~ *, #preloader ~ * {transition: all 0.3s ease;}
+page-preloader ~ .hidden-for-preloader, #preloader ~ .hidden-for-preloader {
   opacity: 0;
   pointer-events: none;
   overflow: hidden;
 }
-#preloader ~ .noscroll-for-preloader {
+page-preloader ~ .noscroll-for-preloader, #preloader ~ .noscroll-for-preloader {
   pointer-events: none;
   overflow: hidden;
 }
 
-#preloader::before {
+page-preloader::before, #preloader::before {
   --bgdark: rgba(0, 0, 0, 0.7);
   content: '';
   position: absolute;
@@ -63,7 +63,7 @@
   transition: all 0.3s ease;
   z-index: 1000;
 }
-#preloader .preloader-logo {
+page-preloader .preloader-logo, #preloader .preloader-logo {
     position: relative;
     top: unset;
     left: unset;
@@ -99,7 +99,7 @@
   transition: all 0.3s ease;
 }
 
-#preloader :has(progress) {
+page-preloader :has(progress), #preloader :has(progress) {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -112,11 +112,11 @@
   position: relative;
 }
 
-#preloader .progress_bar {
+page-preloader .progress-value, #preloader .progress-value {
   margin-top: 10px;
   margin-bottom: 25px;
 }
-.progress_bar {
+.progress-value {
   position: relative;
   display: flex;
   height: 16px;
@@ -127,7 +127,7 @@
   overflow: hidden;
 }
 
-.progress_bar::after {
+.progress-value::after {
   content: '';
   display: flex;
   width: var(--progress);

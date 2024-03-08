@@ -1,0 +1,43 @@
+.rotate--90 {
+  transform: rotate(-90deg);
+}
+
+.rotate--180 {
+  transform: rotate(-180deg);
+}
+
+.rotate--270 {
+  transform: rotate(-270deg);
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.rotate-270 {
+  transform: rotate(270deg);
+}
+
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.rotate--45 {
+  transform: rotate(-45deg);
+}
+
+
+.vertical_kanji {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
+
+.text_small {
+  font-size: 0.9em;
+}

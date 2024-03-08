@@ -8,11 +8,11 @@ class item_prop extends HTMLElement {
             ${PROP_Image_Label ? `<div part="item_image_label" class="item_image_label">${PROP_Image_Label}</div>` : ''}
             ${PROP_Image_Types ? PROP_Image_Types.split(', ').map(type => `<source srcset="${type === 'svg' ? PROP_Image.replace('_thumb.png', '.svg') : PROP_Image.replace(/\.\w+$/, `.${type}`)}" type="image/${type}">`).join('') : ''}
 
-            <img part="item_image" class="item_image" src="${PROP_Image}" loading="lazy">
+            <img part="item_image" class="item_image" src="${PROP_Image}" loading="lazy" alt="${PROP_Title}">
           </picture>
         </div>
       ` : ''}
-      ${PROP_Title ? `<div part="item_title" class="item_title">${PROP_Icon ? `<img part="item_icon" class="item_icon" src="${PROP_Icon}">` : ''}<span part="item_title_text" class="item_title_text">${PROP_Title}</span>${PROP_Title_Additional ? `<div part="item_title_additional" class="item_title_additional">${PROP_Title_Additional}</div>` : ''}</div>` : ''}
+      ${PROP_Title ? `<div part="item_title" class="item_title">${PROP_Icon ? `<img part="item_icon" class="item_icon" src="${PROP_Icon}" alt="Title icon">` : ''}<span part="item_title_text" class="item_title_text">${PROP_Title}</span>${PROP_Title_Additional ? `<div part="item_title_additional" class="item_title_additional">${PROP_Title_Additional}</div>` : ''}</div>` : ''}
       ${PROP_Text && PROP_Class === 'clans' ? `<div part="item_text" class="item_text">${PROP_Text}</div>` : ''}
     `;
 
@@ -207,6 +207,10 @@ class item_prop extends HTMLElement {
           object-fit: contain;
         }
 
+        img::before {
+          display: none;
+        }
+
       </style>`;
       
     $(this).attr({
@@ -362,18 +366,279 @@ class tooltip_element extends HTMLElement {
 customElements.define('tooltip-element', tooltip_element);
 
 
+class load_kamon extends HTMLElement {
+  constructor() {
+    super();
+    const component = `<div><img src="resources/svg/NkardazKamon.svg" width="100" alt="content preloader"></div>`
+
+    this.innerHTML = component;
+  }
+}
+
+customElements.define('load-kamon', load_kamon);
+
+
+class page_preloader extends HTMLElement {
+  constructor(hiderole, enable_percent) {
+    super();
+    const component = `
+    <div class="preloader-logo" part="preloader-logo"> 
+      <div class="preloader-logo-wrapper" part="preloader-logo-wrapper">
+        <img src="resources/svg/NkardazKamon.svg" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
+      </div>
+    </div>
+    <div class="preloader-progress" part="preloader-progress">
+      <div class="progress-value" part="progress-value"></div>
+      <p style="width: 160px"><span class="progress-label">${loadingText[selectedLanguage]}</span><br>
+        <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
+      </p>
+    </div>
+    `
+    $(this).attr('hiderole', hiderole ? hiderole : null, 'enable_percent', enable_percent ? enable_percent : null);
+    this.innerHTML = component;
+  }
+
+  connectedCallback(siblingType) {
+    var loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+    var siblings = $(this).siblings(':not(page-preloader)');
+    var siblingClass = ($(this).attr('hiderole') === 'noscroll') ? 'noscroll-for-preloader' : 'hidden-for-preloader';
+    siblings.addClass(siblingClass);
+    $(this).attr('enable_percent') !== 'false' ? setTimeout(showLoadPercentage, 100) : null;
+  }
+
+}
+
+customElements.define('page-preloader', page_preloader);
+
+class link_block extends HTMLElement {
+  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Icon_Pos, LINK_Source, Class } = {}) {
+    super();
+    const component = `
+    <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link">
+      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
+      ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
+      ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
+      <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
+      ${LINK_Subscript && LINK_Class !== 'long-thin' ? LINK_Subscript : (LINK_Types ? LINK_Types : '')}</span>${LINK_Class === 'long-thin' ? `</div></div>` : ''}
+    </a>
+    `
+    const styles = `
+    <link rel="stylesheet" href="app/style/util.css">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      a {
+        position: relative;
+        
+        gap: 0 5px;
+        ${LINK_Class == 'long-thin' ? `
+        width: 1024px;
+        height: 42px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        transition: all 0.15s ease;
+        `:`
+        display: grid;
+        width: 384px;
+        height: 128px;
+        border-radius: 5px;
+        grid-template-columns: 23.5% 76.5%;
+        grid-template-rows: 43% 23% 34%;
+        transition: all 0.3s ease;
+        place-items: start;
+        `}
+        background: var(--white);
+        box-shadow: 0 3px 5px var(--shadow_primary);
+        text-decoration: none;
+        color: var(--text_primary);
+        overflow: hidden;
+        outline: 2px solid transparent;
+        z-index: 0;
+      }
+      a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: ${LINK_Background && LINK_Background.image ? `url("${LINK_Background.image}") no-repeat` : 'transparent'};
+        background-size: ${LINK_Background && LINK_Background.size ? LINK_Background.size : 'cover'};
+        background-position: ${LINK_Background && LINK_Background.position ? LINK_Background.position : 'center center'};
+        ${LINK_Class == 'long-thin' ? `
+        width: 50%;
+        height: 100%;
+        `:`
+        width: 100%;
+        height: 50px;
+        `}
+        z-index: -1;
+        transition: all 0.3s ease;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+      }
+      a:focus,
+      a:hover {
+        ${LINK_Class == 'long-thin' ? `
+        transform: scale(1.1);
+        `:`
+        transform: translateY(-15px);
+        `}
+        outline: 2px solid white;
+      }
+
+      a:active {
+        ${LINK_Class == 'long-thin' ? `
+        transform: scale(1.01);
+        `:`
+        transform: translateY(-15px) scale(0.95);
+        `}
+      }
+
+      ::part(link-image), .link-image {
+        position: relative;
+        grid-column: 1;
+        grid-row: 1 / span 3;
+        align-self: center;
+        justify-self: center;
+        width: 72px;
+        height: 72px;
+        margin-top: 10px;
+        border-radius: 50%;
+        padding: 4px;
+        overflow: hidden;
+        background: var(--white);
+        transition: all 0.3s ease;
+        z-index: 1;
+        object-fit: cover;
+      }
+
+      ::part(link-title-wrapper), .link-title-wrapper {
+        width: 700px;
+        filter: drop-shadow(-5px 0 3px var(--shadow_half));
+      }
+
+      ::part(link-title-wrapper-inner), .link-title-wrapper-inner {
+        display: grid;
+        grid-template-columns: 250px 121px 1fr 1fr;
+        padding: 0 30px;
+        height: 42px;
+        background: var(--white);
+        --s: 7px;
+        mask: radial-gradient(var(--s) at var(--s) var(--s), #0000 98%, #000) calc(-1*var(--s)) calc(-1*var(--s));
+      }
+
+
+      ::part(link-title), .link-title {
+        position: relative;
+        display: flex;
+        height: 42px;
+        width: 100%;
+        justify-self: start;
+        ${LINK_Class == 'long-thin' ? `
+        justify-self: end;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: 1.5rem;
+        padding-bottom: 2px;
+        padding-right: 5px;
+        grid-column: 1;
+        grid-row: 1;
+        gap: 8px;
+        `:`
+        align-self: start;
+        grid-column: 2;
+        grid-row: 2;
+        `}
+      }
+
+      ::part(title-decorator), .title-decorator {
+        height: 42px;
+        filter: invert(0.8);
+      }
+
+      ::part(link-subscript), .link-subscript {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        ${LINK_Class == 'long-thin' ? `
+        align-items: center;
+        justify-content: flex-end;
+        grid-column: 4;
+        `:`
+        grid-row: 3;
+        grid-column: 2;
+        `}
+
+      }
+      img::before {
+        display: none;
+      }
+    </style>`
+    $(this).attr({
+      'LINK_Class': LINK_Class,
+      'LINK_Background': LINK_Background
+    }).addClass(`${Class ? Class : 'm-3'}`);
+
+    const concatenated = component + styles;
+    this.attachShadow({ mode: 'open' }).innerHTML = concatenated;
+  }
+  
+  connectedCallback() {
+
+    
+  }
+}
+
+customElements.define('link-block', link_block);
+
+var linkblic = new link_block({
+  LINK_Class: 'long-thin',
+  LINK_Title: 'Книга Фанфиков',
+  LINK_Source: 'https://nkardazolink.com/',
+  LINK_Types: 'Subscript',
+  LINK_Background: {
+    image: 'external/Ghost_of_Tsushima.jpg',
+    size: 'cover',
+    position: 'center',
+  },
+  LINK_Image: 'https://leonardo.osnova.io/3c89e2c2-a2e8-5256-9f0c-096a75d34923/-/scale_crop/200x200/-/format/webp/',
+  LINK_Icon: 'resources/svg/NkardazKamon.svg',
+  LINK_Icon_Pos: '10, 5',
+});
+$('#testwrapper').prepend(linkblic);
+var linkblic2 = new link_block({
+  LINK_Class: 'default',
+  LINK_Title: 'Наэда Китэцуги',
+  LINK_Source: 'https://nkardazolink.com/',
+  LINK_Subscript: 'Subscript',
+  LINK_Background: {
+    image: 'external/Ghost_of_Tsushima.jpg',
+    size: 'cover',
+    position: '50% 50%',
+  },
+  LINK_Image: 'https://leonardo.osnova.io/3c89e2c2-a2e8-5256-9f0c-096a75d34923/-/scale_crop/200x200/-/format/webp/',
+  LINK_Icon: 'resources/svg/NkardazKamon.svg',
+  LINK_Icon_Pos: '10, 5',
+});
+$('#testwrapper').prepend(linkblic2);
+
+
 window.ui_components = {
   preloader: (siblingType, callback, stopTimer) => {
     var component = (`
       <div id="preloader">
         <div class="preloader-logo">
           <div class="preloader-logo-wrapper">
-            <img src="resources/svg/NkardazKamon.svg" width="100">
+            <img src="resources/svg/NkardazKamon.svg" width="100" alt="webpage preloader">
           </div>
         </div>
         <div class="preloader-progress">
-          <div id="preloader-progress" class="progress_bar" value="0"></div>
-          <p style="width: 160px"><span id="progress-label">${loadingText[selectedLanguage]}</span><br>
+          <div id="preloader-progress" class="progress_bar progress-value" value="0"></div>
+          <p style="width: 160px"><span class="progress-label">${loadingText[selectedLanguage]}</span><br>
             <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
           </p>
         </div>
@@ -386,10 +651,10 @@ window.ui_components = {
       var siblingClass = (siblingType === 'noscroll') ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       siblings.addClass(siblingClass);
 
-      observeOn('style:--progress:100%', $('#preloader-progress')[0], function () {
+      observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();
-        preloader.find('#progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
+        preloader.find('.progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {
           setTimeout(() => {
             siblings.removeClass(siblingClass);
