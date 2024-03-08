@@ -414,7 +414,7 @@ class link_block extends HTMLElement {
   constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Icon_Pos, LINK_Source, Class } = {}) {
     super();
     const component = `
-    <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link">
+    <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
       ${LINK_Image && LINK_Class !== 'long-thin' ? `<img src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
@@ -423,6 +423,7 @@ class link_block extends HTMLElement {
     </a>
     `
     const styles = `
+    <link rel="stylesheet" href="app/style/anims.css">
     <link rel="stylesheet" href="app/style/util.css">
     <style>
       * {
@@ -463,7 +464,7 @@ class link_block extends HTMLElement {
         position: absolute;
         left: 0;
         top: 0;
-        background: ${LINK_Background && LINK_Background.image ? `url("${LINK_Background.image}") no-repeat` : 'transparent'};
+        background: ${LINK_Background && LINK_Background.image ? `url("${LINK_Background.image}") no-repeat, ${LINK_Background.color}` : 'transparent'};
         background-size: ${LINK_Background && LINK_Background.size ? LINK_Background.size : 'cover'};
         background-position: ${LINK_Background && LINK_Background.position ? LINK_Background.position : 'center center'};
         ${LINK_Class == 'long-thin' ? `
@@ -475,6 +476,7 @@ class link_block extends HTMLElement {
         `}
         z-index: -1;
         transition: all 0.3s ease;
+        box-shadow: inset 0 0 15px 10px transparent;
       }
       h1, h2, h3, h4, h5, h6 {
         margin: 0;
@@ -487,6 +489,22 @@ class link_block extends HTMLElement {
         transform: translateY(-15px);
         `}
         outline: 2px solid white;
+      }
+
+      a.long-thin:hover::before, a.long-thin:focus::before {
+        animation: inner-shadow 1s ease;
+      }
+
+      @keyframes inner-shadow {
+        0% {
+          box-shadow: inset 0 0 15px 10px transparent;
+        }
+        25% {
+          box-shadow: inset 0 0 12px 7px white;
+        }
+        60%, 100% {
+          box-shadow: inset 0 0 5px 2px transparent;
+        }
       }
 
       a:active {
@@ -517,18 +535,25 @@ class link_block extends HTMLElement {
 
       ::part(link-title-wrapper), .link-title-wrapper {
         width: 700px;
+        height: 42px;
         filter: drop-shadow(-5px 0 3px var(--shadow_half));
+        transition: all 0.3s ease;
       }
 
       ::part(link-title-wrapper-inner), .link-title-wrapper-inner {
         display: grid;
-        grid-template-columns: 250px 121px 1fr 1fr;
+        grid-template-columns: 220px 121px 1fr 1fr;
         padding: 0 30px;
-        height: 42px;
+        height: inherit;
         background: var(--white);
         --s: 7px;
         mask: radial-gradient(var(--s) at var(--s) var(--s), #0000 98%, #000) calc(-1*var(--s)) calc(-1*var(--s));
+        transition: all 0.3s ease;
       }
+      .link:hover .link-title-wrapper {
+        animation: golden_shadow 5s infinite ease;
+      }
+
 
 
       ::part(link-title), .link-title {
@@ -566,7 +591,8 @@ class link_block extends HTMLElement {
         height: 100%;
         ${LINK_Class == 'long-thin' ? `
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-start;
+        padding-left: 5px;
         grid-column: 4;
         `:`
         grid-row: 3;
@@ -577,10 +603,10 @@ class link_block extends HTMLElement {
       img::before {
         display: none;
       }
+
     </style>`
     $(this).attr({
-      'LINK_Class': LINK_Class,
-      'LINK_Background': LINK_Background
+      'LINK_Class': LINK_Class
     }).addClass(`${Class ? Class : 'm-3'}`);
 
     const concatenated = component + styles;
@@ -602,8 +628,9 @@ var linkblic = new link_block({
   LINK_Types: 'Subscript',
   LINK_Background: {
     image: 'external/Ghost_of_Tsushima.jpg',
-    size: 'cover',
-    position: 'center',
+    color: `#A14643`,
+    size: '74.5%',
+    position: '-50px 50%',
   },
   LINK_Image: 'https://leonardo.osnova.io/3c89e2c2-a2e8-5256-9f0c-096a75d34923/-/scale_crop/200x200/-/format/webp/',
   LINK_Icon: 'resources/svg/NkardazKamon.svg',
@@ -617,6 +644,7 @@ var linkblic2 = new link_block({
   LINK_Subscript: 'Subscript',
   LINK_Background: {
     image: 'external/Ghost_of_Tsushima.jpg',
+    color: `#A14643`,
     size: 'cover',
     position: '50% 50%',
   },
