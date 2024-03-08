@@ -3,9 +3,10 @@
 @import url('https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css');
 
 
-@import "util.css";
-@import "root.css";
-@import "fonts.css";
-@import "root_fonts.css";
-@import "basic.css";
-@import 'coresets/compiled_coresets.css'
+@import "./util.css";
+@import "./root.css";
+@import "./fonts.css";
+@import "./root_fonts.css";
+@import "./basic.css";
+@import './coresets/compiled_coresets.css';
+@import './help_classes/help_compiled.css';
