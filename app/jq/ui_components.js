@@ -233,7 +233,6 @@ class item_prop extends HTMLElement {
   }
   
   render() {
-
   }
 }
 
@@ -341,8 +340,13 @@ window.item_create = function () {
     PROP_Text: "Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.",
   });
   $('#testwrapper').prepend(item2);
+
+
 }; item_create();
 
+$(document).on('languageJSON_loaded', function () {
+  $('item-prop').eq(0).click();
+})
 
 class tooltip_element extends HTMLElement {
   constructor({ arrow_pos } = {}) {
@@ -411,7 +415,7 @@ class page_preloader extends HTMLElement {
 customElements.define('page-preloader', page_preloader);
 
 class link_block extends HTMLElement {
-  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Icon_Pos, LINK_Source, Class } = {}) {
+  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Class } = {}) {
     super();
     const component = `
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
@@ -420,6 +424,7 @@ class link_block extends HTMLElement {
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
       ${LINK_Subscript && LINK_Class !== 'long-thin' ? LINK_Subscript : (LINK_Types ? LINK_Types : '')}</span>${LINK_Class === 'long-thin' ? `</div></div>` : ''}
+      ${LINK_Icon ? `<div part="link-icon" class="link-icon"><img alt="Icon" src="${LINK_Icon.image}"></div>` : ''}
     </a>
     `
     const styles = `
@@ -441,7 +446,7 @@ class link_block extends HTMLElement {
         align-items: center;
         justify-content: flex-end;
         transition: all 0.15s ease;
-        `:`
+        `: `
         display: grid;
         width: 384px;
         height: 128px;
@@ -470,7 +475,7 @@ class link_block extends HTMLElement {
         ${LINK_Class == 'long-thin' ? `
         width: 50%;
         height: 100%;
-        `:`
+        `: `
         width: 100%;
         height: 50px;
         `}
@@ -485,7 +490,7 @@ class link_block extends HTMLElement {
       a:hover {
         ${LINK_Class == 'long-thin' ? `
         transform: scale(1.1);
-        `:`
+        `: `
         transform: translateY(-15px);
         `}
         outline: 2px solid white;
@@ -499,10 +504,10 @@ class link_block extends HTMLElement {
         0% {
           box-shadow: inset 0 0 15px 10px transparent;
         }
-        25% {
+        5% {
           box-shadow: inset 0 0 12px 7px white;
         }
-        60%, 100% {
+        90%, 100% {
           box-shadow: inset 0 0 5px 2px transparent;
         }
       }
@@ -510,7 +515,7 @@ class link_block extends HTMLElement {
       a:active {
         ${LINK_Class == 'long-thin' ? `
         transform: scale(1.01);
-        `:`
+        `: `
         transform: translateY(-15px) scale(0.95);
         `}
       }
@@ -561,18 +566,18 @@ class link_block extends HTMLElement {
         display: flex;
         height: 42px;
         width: 100%;
-        justify-self: start;
         ${LINK_Class == 'long-thin' ? `
         justify-self: end;
         align-items: center;
         justify-content: flex-end;
         font-size: 1.5rem;
         padding-bottom: 2px;
-        padding-right: 5px;
+        padding-right: 8px;
         grid-column: 1;
         grid-row: 1;
         gap: 8px;
-        `:`
+        `: `
+        justify-self: start;
         align-self: start;
         grid-column: 2;
         grid-row: 2;
@@ -594,12 +599,49 @@ class link_block extends HTMLElement {
         justify-content: flex-start;
         padding-left: 5px;
         grid-column: 4;
-        `:`
+        `: `
         grid-row: 3;
         grid-column: 2;
         `}
-
       }
+
+      ::part(link-icon), .link-icon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        ${LINK_Class == 'long-thin' ? `
+        width: 42px;
+        height: 42px;
+        right: 0;
+        background: ${LINK_Icon.background ? LINK_Icon.background : 'var(--light_border)'};
+        filter: drop-shadow(-2px 0 2px var(--shadow_secondary));
+        padding: 10px;
+        border-radius: 50%;
+        border: 2px solid var(--light_border);
+        `: `
+        ${LINK_Icon.pos ? `${LINK_Icon.pos.bottom ? `bottom: ${LINK_Icon.pos.bottom}px;` : ''}${LINK_Icon.pos.right ? `right: ${LINK_Icon.pos.right}px;` : ''}` : ''}
+        ${LINK_Icon.w ? `width: ${LINK_Icon.w}px;` : 'width: 70px;'}
+        `}
+      }
+      ::part(link-icon img), .link-icon img {
+        width: 100%;
+        height: 100%;
+        ${LINK_Class == 'long-thin' ? `
+        filter: brightness(10) ${LINK_Icon.label.filter ? LINK_Icon.label.filter : ''} drop-shadow(0 0 1px var(--shadow_secondary)) drop-shadow(0 0 2px var(--shadow_half));
+        ${LINK_Icon.label.transform ? `transform: ${LINK_Icon.label.transform};` : ''}
+        ${LINK_Icon.label.state === 'absolute' ? `position: absolute;` : ''}
+        ${LINK_Icon.label.left ? `left: ${LINK_Icon.label.left};` : ''}
+        ${LINK_Icon.label.top ? `right: ${LINK_Icon.label.top};` : ''}
+        ${LINK_Icon.label.size ? `width: ${LINK_Icon.label.size}; height: ${LINK_Icon.label.size};` : ''}
+        `:`
+        opacity: 0.05;
+        `}
+      }
+
+
+
       img::before {
         display: none;
       }
@@ -633,8 +675,16 @@ var linkblic = new link_block({
     position: '-50px 50%',
   },
   LINK_Image: 'https://leonardo.osnova.io/3c89e2c2-a2e8-5256-9f0c-096a75d34923/-/scale_crop/200x200/-/format/webp/',
-  LINK_Icon: 'resources/svg/NkardazKamon.svg',
-  LINK_Icon_Pos: '10, 5',
+  LINK_Icon: {
+    image: 'external/fickbook_logo.svg',
+    background: '#4d1600',
+    label: {
+      state: 'absolute',
+      left: '5px',
+      filter: 'invert(0.45) sepia(1) saturate(180%)',
+      size: '35px',
+    }
+  }
 });
 $('#testwrapper').prepend(linkblic);
 var linkblic2 = new link_block({
@@ -649,8 +699,13 @@ var linkblic2 = new link_block({
     position: '50% 50%',
   },
   LINK_Image: 'https://leonardo.osnova.io/3c89e2c2-a2e8-5256-9f0c-096a75d34923/-/scale_crop/200x200/-/format/webp/',
-  LINK_Icon: 'resources/svg/NkardazKamon.svg',
-  LINK_Icon_Pos: '10, 5',
+  LINK_Icon: {
+    image: 'external/vk_logo.svg',
+    pos: {
+      right: -15,
+      bottom: -20
+    }
+  }
 });
 $('#testwrapper').prepend(linkblic2);
 
