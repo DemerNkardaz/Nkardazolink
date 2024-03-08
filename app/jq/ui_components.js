@@ -612,11 +612,11 @@ class link_block extends HTMLElement {
         justify-content: center;
         overflow: hidden;
         ${LINK_Class == 'long-thin' ? `
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
         right: 0;
-        background: ${LINK_Icon.background ? LINK_Icon.background : 'var(--light_border)'};
-        filter: drop-shadow(-2px 0 2px var(--shadow_secondary));
+        background: var(--light_border);
+        filter: drop-shadow(-1px 0 3px var(--shadow_half));
         padding: 10px;
         border-radius: 50%;
         border: 2px solid var(--light_border);
@@ -629,7 +629,7 @@ class link_block extends HTMLElement {
         width: 100%;
         height: 100%;
         ${LINK_Class == 'long-thin' ? `
-        filter: brightness(10) ${LINK_Icon.label.filter ? LINK_Icon.label.filter : ''} drop-shadow(0 0 1px var(--shadow_secondary)) drop-shadow(0 0 2px var(--shadow_half));
+        filter: brightness(10) drop-shadow(0 0 1px var(--shadow_secondary)) drop-shadow(0 0 2px var(--shadow_half));
         ${LINK_Icon.label.transform ? `transform: ${LINK_Icon.label.transform};` : ''}
         ${LINK_Icon.label.state === 'absolute' ? `position: absolute;` : ''}
         ${LINK_Icon.label.left ? `left: ${LINK_Icon.label.left};` : ''}
@@ -680,7 +680,7 @@ var linkblic = new link_block({
     background: '#4d1600',
     label: {
       state: 'absolute',
-      left: '5px',
+      left: '4px',
       filter: 'invert(0.45) sepia(1) saturate(180%)',
       size: '35px',
     }
