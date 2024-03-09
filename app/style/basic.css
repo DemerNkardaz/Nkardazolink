@@ -1,9 +1,19 @@
 html {
   font-size: 12pt;
+  line-height: 1.45em;
+}
+
+@media (max-width: 1200px) {
+
 }
 
 *, ::after, ::before {
   box-sizing: border-box;
+  line-height: 1.45em;
+}
+
+p, hr {
+  margin: 0;
 }
 
 h1,
@@ -13,6 +23,7 @@ h4,
 h5,
 h6 {
   font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
+  margin: 0;
 }
 
 h1 {

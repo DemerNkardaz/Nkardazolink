@@ -352,6 +352,7 @@ class tooltip_element extends HTMLElement {
     <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''}>${textUnPacker(tooltip)}</div>
     `;
     (id ? $(this).attr('id', id) : '');
+    $(this).attr('role', 'tooltip');
     this.innerHTML = component;
   }
 
@@ -566,6 +567,8 @@ class link_block extends HTMLElement {
       ::part(link-title), .link-title {
         position: relative;
         display: flex;
+        align-items: center;
+        justify-content: flex-start;
         height: 42px;
         width: 100%;
         ${LINK_Class == 'long-thin' ? `
@@ -580,7 +583,7 @@ class link_block extends HTMLElement {
         gap: 8px;
         `: `
         justify-self: start;
-        align-self: start;
+        align-self: center;
         grid-column: 2;
         grid-row: 2;
         `}
@@ -597,11 +600,12 @@ class link_block extends HTMLElement {
         width: 100%;
         height: 100%;
         ${LINK_Class == 'long-thin' ? `
-        align-items: center;
         justify-content: flex-start;
         padding-left: 5px;
         grid-column: 4;
+        align-items: center;
         `: `
+        padding-top: 5px;
         grid-row: 3;
         grid-column: 2;
         `}

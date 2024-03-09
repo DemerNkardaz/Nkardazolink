@@ -175,48 +175,45 @@
   text-align: center !important;
 }
 
-.text-decoration-none {
+.text-noline {
   text-decoration: none !important;
 }
 
-.text-decoration-underline {
+.text-underline {
   text-decoration: underline !important;
 }
 
-.text-decoration-wave-underline {
-  text-decoration: underline wavy !important;
-}
 
-.text-decoration-line-through {
+.text-through {
   text-decoration: line-through !important;
 }
 
-.text-decoration-wave-line-through {
-  text-decoration: line-through wavy !important;
-}
-
-.text-decoration-overline {
+.text-overline {
   text-decoration: overline !important;
 }
 
-.text-decoration-wave-overline {
-  text-decoration: overline wavy !important;
-}
-
-.text-decoration-under-overline {
+.text-under-overline {
   text-decoration: overline underline !important;
 }
 
-.text-decoration-wave-under-overline {
-  text-decoration: overline underline wavy !important;
-}
-
-.text-decoration-alllines {
+.text-alllines {
   text-decoration: overline underline line-through !important;
 }
 
-.text-decoration-wave-alllines {
-  text-decoration: overline underline line-through wavy !important;
+.line_double {
+  text-decoration-style: double !important;
+}
+
+.line_dottes {
+  text-decoration-style: dotted !important;
+}
+
+.line_dashes {
+  text-decoration-style: dashed !important;
+}
+
+.line_wavy {
+  text-decoration-style: wavy !important;
 }
 
 .text-lowercase {
@@ -286,4 +283,8 @@
 
 .underline-offset-10 {
   text-underline-offset: 1.5em !important;
+}
+
+.line_grey {
+  text-decoration-color: #aaa !important;
 }

@@ -21,6 +21,7 @@ tooltip-element.show {
 
 tooltip-element .tl-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
@@ -150,3 +151,6 @@ tooltip-element .tl-arrow[tooltip-pos='left'] {
   transform: translateY(-50%) rotate(-90deg);
 }
 
+tooltip-element ruby {
+  font-size: 1.25rem;
+}

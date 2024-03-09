@@ -41,3 +41,28 @@
 .text_small {
   font-size: 0.9em;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.question {
+  cursor: help;
+}
+
+.show_note {
+  position: relative;
+  z-index: 1;
+}
+
+.show_note::before {
+  content: "";
+  position: absolute;
+  top: -2.5px;
+  left: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 5px);
+  background: var(--color_dark_gold_emboss);
+  border-radius: 5px;
+  z-index: -1;
+}

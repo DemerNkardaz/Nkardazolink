@@ -1,14 +1,51 @@
-.буквица::first-letter {
+.initLetter::first-letter {
   line-height: 1rem;
   font-size: 2em;
   font-weight: 800;
   margin-right: 0.1rem;
   color: var(--book_letter);
 }
+.initWord {
+  font-size: 1.1em;
+  font-weight: 800;
+  color: var(--book_letter);
+}
+.initWord::after {
+  content: '\2002\2006';
+  user-select: none;
+}
 
+.intends p:not(.initLetter) {
+  text-indent: 1em;
+}
+
+.intends p.initLetter {
+  text-indent: 40%;
+}
 
 .v-writing {
   writing-mode: vertical-rl;
   text-orientation: upright;
   letter-spacing: 0.2em;
+}
+
+.typo_text {
+  text-align: justify;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  hyphenate-character: '\2010';
+  line-break: auto;
+  word-break: normal;
+  white-space: normal;
+  word-spacing: normal;
+  word-wrap: break-word;
+  hyphenate-limit-chars: 7 3 4;
+  -webkit-hyphenate-limit-chars: 7 3 4;
+  -ms-hyphenate-limit-chars: 7 3 4;
+}
+
+.rtl {
+  direction: rtl;
 }

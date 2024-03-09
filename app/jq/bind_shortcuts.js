@@ -141,7 +141,7 @@ $(document).on('mouseenter', '[tooltip_key]', function () {
 
   var uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
 
-  const tooltip = new tooltip_element({ tooltip: languageJSON[selectedLanguage][key], tooltip_key: key, tooltip_pos: pos, id: uniqId });
+  const tooltip = new tooltip_element({ tooltip: languageJSON[selectedLanguage][key] ? languageJSON[selectedLanguage][key] : key, tooltip_key: languageJSON[selectedLanguage][key] ? key : null, tooltip_pos: pos, id: uniqId });
   function calcTooltipPos(id) {
     var tooltip = $(`#${id}`);
     var parent = $(`[data-tooltip_id="${id}"]`);
@@ -150,13 +150,13 @@ $(document).on('mouseenter', '[tooltip_key]', function () {
     var parentPosition = parent.position();
     var calc_pos;
     if (pos === 'bottom') {
-      calc_pos = { top: parentPosition.top + parent.outerHeight(true) + 25, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
+      calc_pos = { top: parentPosition.top + parent.outerHeight(true) + 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
     } else if (pos === 'top') {
-      calc_pos = { top: parentPosition.top - tooltip.outerHeight(true) - 25, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
+      calc_pos = { top: parentPosition.top - tooltip.outerHeight(true) - 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
     } else if (pos === 'left') {
-      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left - tooltip.outerWidth(true) - 25 }
+      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left - tooltip.outerWidth(true) - 15 }
     } else if (pos === 'right') {
-      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left + parent.outerWidth(true) + 25 }
+      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left + parent.outerWidth(true) + 15 }
     }
     tooltip.css({
       top: calc_pos.top,
@@ -201,6 +201,19 @@ $(document).on('mouseleave', '[tooltip_key]', function () {
   }, 300);
 
   timers_array[uniqId] = timer;
+});
+
+
+$(document).on('mouseenter', '.foot-note', function () {
+  var key = $(this).attr('key');
+  var target = $(`[tooltip_key="${key}"]`);
+
+  target ? (target.addClass('show_note'), $(this).addClass('show_note')) : '';
+});
+
+$(document).on('mouseleave', '.foot-note', function () {
+  $(`[tooltip_key]`).removeClass('show_note');
+  $(this).removeClass('show_note');
 });
 
 /* ------------------- TOOLTIPS ------------------- */
