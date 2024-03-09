@@ -6,21 +6,25 @@ tooltip-element {
   justify-content: center;
   background: var(--background_light_mode_gallery);
   border-radius: 10px;
-  z-index: 1080;
   filter: drop-shadow(0 5px 10px var(--shadow_inset_info)) drop-shadow(0 2px 1px var(--shadow_inset_info));
-  transition: all 0.175s ease;
-  padding: 5px;
+  font-family: var(--font_common_set);
+  padding: 8px 15px;
   line-break: auto;
   hyphens: auto;
   word-break: normal;
   white-space: normal;
   word-spacing: normal;
   word-wrap: break-word;
-  opacity: 1;
+  transition: all 0.1s ease;
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1080;
 }
 
 tooltip-element.show {
-  opacity: 1;
+  pointer-events: all;
+  user-select: text;
 }
 
 tooltip-element .tl-arrow {
@@ -33,26 +37,26 @@ tooltip-element .tl-arrow {
   mask-size: 100% 100%;
 }
 
-tooltip-element .tl-arrow[tooltip-pos='top'] {
+tooltip-element .tl-arrow[tooltip-pos='bottom'] {
   top: -15px;
   left: 50%;
   bottom: auto;
   transform: translateX(-50%) rotate(180deg);
 }
 
-tooltip-element .tl-arrow[tooltip-pos='bottom'] {
+tooltip-element .tl-arrow[tooltip-pos='top'] {
   left: 50%;
   bottom: -15px;
   transform: translateX(-50%);
 }
 
-tooltip-element .tl-arrow[tooltip-pos='left'] {
+tooltip-element .tl-arrow[tooltip-pos='right'] {
   top: 50%;
   left: -15px;
   transform: translateY(-50%) rotate(90deg);
 }
 
-tooltip-element .tl-arrow[tooltip-pos='right'] {
+tooltip-element .tl-arrow[tooltip-pos='left'] {
   top: 50%;
   right: -15px;
   transform: translateY(-50%) rotate(-90deg);

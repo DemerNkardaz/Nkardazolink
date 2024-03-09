@@ -345,22 +345,22 @@ window.item_create = function () {
 }; item_create();
 
 class tooltip_element extends HTMLElement {
-  constructor({ tooltip, tooltip_key, tooltip_pos } = {}) {
+  constructor({ tooltip, tooltip_key, tooltip_pos, id } = {}) {
     super();
-    const component = `<div>
-    <div class="tl-arrow" ${tooltip_pos ? `tooltip-pos="${tooltip_pos};"` : 'tooltip-pos="bottom"'}></div>
+    const component = `
+    <div class="tl-arrow" ${tooltip_pos ? `tooltip-pos="${tooltip_pos}"` : 'tooltip-pos="bottom"'}></div>
     <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''}>${textUnPacker(tooltip)}</div>
-    </div>`
+    `;
+    (id ? $(this).attr('id', id) : '');
     this.innerHTML = component;
   }
 
   connectedCallback() {
-
-    
   }
 }
 
 customElements.define('tooltip-element', tooltip_element);
+window.tooltip_element = tooltip_element;
 
 
 $(document).on('languageJSON_loaded', function () {

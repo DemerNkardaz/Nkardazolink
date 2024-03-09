@@ -130,3 +130,58 @@ if (savedSettings.save_selected_item !== 'true') {
 
 
 /* ------------------- SELECTS ------------------- */
+
+
+
+/* ------------------- TOOLTIPS ------------------- */
+
+$(document).on('mouseenter', '[tooltip_key]', function () {
+  var key = $(this).attr('tooltip_key');
+  var pos = $(this).attr('tooltip_pos');
+
+  var uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
+
+  const tooltip = new tooltip_element({ tooltip: languageJSON[selectedLanguage][key], tooltip_key: key, tooltip_pos: pos, id: uniqId });
+  function calcTooltipPos(id) {
+    var tooltip = $(`#${id}`);
+    var parent = $(`[data-tooltip_id="${id}"]`);
+
+    var parentOffset = parent.offset();
+    var calc_pos;
+    if (pos === 'bottom') {
+      calc_pos = { top: parentOffset.top + tooltip.outerHeight(), left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
+    } else if (pos === 'top') {
+      calc_pos = { top: parentOffset.top - tooltip.outerHeight() - 25, left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
+    } else if (pos === 'left') {
+      calc_pos = { top: parentOffset.top + parent.outerHeight() / 2 - tooltip.outerHeight() / 2, left: parentOffset.left - tooltip.outerWidth() - 25 }
+    } else if (pos === 'right') {
+      calc_pos = { top: parentOffset.top + parent.outerHeight() / 2 - tooltip.outerHeight() / 2, left: parentOffset.left + parent.outerWidth() + 25 }
+    }
+    tooltip.css({
+      top: calc_pos.top,
+      left: calc_pos.left
+    })
+    
+  }
+  if ($(this).attr('data-tooltip_id') === $('tooltip-element').attr('id')) {
+    $(this).attr('data-tooltip_id', uniqId)
+    $('body').append(tooltip);
+    calcTooltipPos(uniqId);
+    $(`#${uniqId}`).addClass('show').transition({ opacity: 1}, 300);
+  }
+});
+
+$(document).on('mouseenter', 'tooltip-element', function () {
+  $(this).css('opacity', 1);
+});
+
+$(document).on('mouseleave', '[tooltip_key], tooltip-element', function () {
+  var uniqId = $(this).attr('data-tooltip_id');
+  $(`#${uniqId}`).transition({ opacity: 0 }, 300);
+  setTimeout(function () {
+    $(`#${uniqId}`).remove();
+  }, 400);
+  $(this).removeAttr('data-tooltip_id');
+});
+
+/* ------------------- TOOLTIPS ------------------- */
