@@ -22,3 +22,13 @@ class overnote extends HTMLSpanElement {
 }
 
 customElements.define('over-note', overnote, { extends: 'span' })
+
+
+class charname extends HTMLSpanElement {
+  constructor() {
+    super();
+  }
+
+}
+
+customElements.define('char-name', charname, { extends: 'span' })

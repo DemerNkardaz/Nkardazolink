@@ -134,7 +134,13 @@ no-br {
   white-space: nowrap;
 }
 
-
+char-name {
+  display: inherit;
+}
+char-name::first-letter {
+  color: var(--book_letter);
+  font-weight: 800;
+}
 /* SAMPLE OF BLUR BORDER
 main {
   position: relative;

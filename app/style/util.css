@@ -50,6 +50,32 @@
   cursor: help;
 }
 
+
+ol:has(.foot-note) {
+  counter-reset: li;
+  padding: 0 5px;
+  list-style-position: inside;
+  list-style: none;
+}
+
+.foot-note {
+  position: relative;
+  cursor: pointer;
+  text-indent: 0;
+  padding: 0 5px 0 12px;
+  z-index: 1;
+}
+
+.foot-note::after {
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  vertical-align: super;
+  font-size: 0.6rem;
+  left: 0.5em;
+  top: 3px;
+  z-index: 2;
+}
 .show_note {
   position: relative;
   z-index: 1;
@@ -63,6 +89,6 @@
   width: calc(100% + 10px);
   height: calc(100% + 5px);
   background: var(--color_dark_gold_emboss);
-  border-radius: 5px;
+  border-radius: 7px;
   z-index: -1;
 }

@@ -212,18 +212,22 @@ $(document).on('mouseenter', '.foot-note', function () {
 });
 
 
+
+
 $(document).on('click', '.foot-note', function () {
   var key = $(this).attr('key');
   var target = $(`[tooltip_key="${key}"]`);
-
-  target.addClass('note_active show_note');
-  $(this).addClass('note_active show_note');
-  setTimeout(() => {
-    target.removeClass('note_active show_note');
-    $(this).removeClass('note_active show_note');
-  }, 1000);
-  /*target[0].scrollIntoView({ behavior: 'smooth' });*/
-  $('#book').animate({ scrollTop: $(target).offset().top - $('#book').offset().top }, 700);
+  var scroll_body = $(this).attr('scroll_body');
+  (target && target.length ?
+    (target.addClass('note_active show_note'),
+    $(this).addClass('note_active show_note'),
+    setTimeout(() => {
+      target.removeClass('note_active show_note');
+      $(this).removeClass('note_active show_note');
+    }, 1000))
+    : alert(`Таргет с ключом ${key} не найден`)
+  );
+  (scroll_body ? $(scroll_body).animate({ scrollTop: $(target).offset().top - $(scroll_body).offset().top / 2 }, 'slow', 'swing') : `alert('Скроллбади с ключом ${key} не найден')`);
   return false;
 });
 
