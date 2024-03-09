@@ -149,7 +149,7 @@ $(document).on('mouseenter', '[tooltip_key]', function () {
     var parentOffset = parent.offset();
     var calc_pos;
     if (pos === 'bottom') {
-      calc_pos = { top: parentOffset.top + tooltip.outerHeight(), left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
+      calc_pos = { top: parentOffset.top + tooltip.outerHeight() - 5, left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
     } else if (pos === 'top') {
       calc_pos = { top: parentOffset.top - tooltip.outerHeight() - 25, left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
     } else if (pos === 'left') {
@@ -163,13 +163,15 @@ $(document).on('mouseenter', '[tooltip_key]', function () {
     })
     
   }
-  if ($(this).attr('data-tooltip_id') === $('tooltip-element').attr('id')) {
+  if ($(this).attr('data-tooltip_id') === $('tooltip-element').attr('id') ) {
     $(this).attr('data-tooltip_id', uniqId)
     $('body').append(tooltip);
     calcTooltipPos(uniqId);
     $(`#${uniqId}`).addClass('show').transition({ opacity: 1}, 300);
   }
 });
+
+var tooltipTimer;
 
 $(document).on('mouseenter', 'tooltip-element', function () {
   $(this).css('opacity', 1);
@@ -180,8 +182,8 @@ $(document).on('mouseleave', '[tooltip_key], tooltip-element', function () {
   $(`#${uniqId}`).transition({ opacity: 0 }, 300);
   setTimeout(function () {
     $(`#${uniqId}`).remove();
+    $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
   }, 400);
-  $(this).removeAttr('data-tooltip_id');
 });
 
 /* ------------------- TOOLTIPS ------------------- */
