@@ -110,6 +110,16 @@ body {
   background-size: cover;
 }
 
+rt {
+  font-size: 0.5em;
+}
+
+
+no-br {
+  display: inline;
+  white-space: nowrap;
+}
+
 
 /* SAMPLE OF BLUR BORDER
 main {

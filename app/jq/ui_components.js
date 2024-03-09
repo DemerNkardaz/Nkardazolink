@@ -690,6 +690,7 @@ $('#testwrapper').prepend(linkblic);
 var linkblic2 = new link_block({
   LINK_Class: 'default',
   LINK_Title: 'Наэда Китэцуги',
+  LINK_Title_Key: 'Naeda_Kitetsugi',
   LINK_Source: 'https://nkardazolink.com/',
   LINK_Subscript: 'Subscript',
   LINK_Background: {

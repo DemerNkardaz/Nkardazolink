@@ -14,6 +14,14 @@ $.fn.countAuthorLists = function() {
 };
 
 
+window.unpackArrayToStrings = function (text) {
+  if (Array.isArray(text)) {
+    return text.join('\n');
+  } else {
+    return text;
+  }
+}
+
 window.transcriptReplacement = function (text) {
   return text
     .replace(/\″(.*?)\←(.*?)\″/g, function(match, p1, p2) {
@@ -40,7 +48,8 @@ window.defaultReplacement = function (text) {
 }
 
 window.textUnPacker = function (htmlString) {
-  var stage_1 = defaultReplacement(htmlString);
-  var stage_2 = transcriptReplacement(stage_1);
-  return stage_2;
+  var stage_1 = unpackArrayToStrings(htmlString);
+  var stage_2 = defaultReplacement(stage_1);
+  var stage_3 = transcriptReplacement(stage_2);
+  return stage_3;
 }

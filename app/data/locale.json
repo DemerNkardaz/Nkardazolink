@@ -1,17 +1,21 @@
 {
   "ru": {
+    "test": ["Тест", "—{{(日本:にほん)(皇室:こうしつ)(の:)(紋章:もんしょう)}[Герб императорской семьи Японии]}—"],
+    "Naeda_Kitetsugi": "Наэда Китэцуги",
     "Site_Title_Nkardaz": "Демер Нкардаз・2D・3D・Писательство・Вёрстка",
-    "save_search_result": ["Сохранять ввод строки поиска"],
+    "save_search_result": ["Сохранять ввод строки поиска", "Test string"],
     "save_selected_item": "Сохранять последний выбранный знак",
     "turn_off_preloader": "Отключить анимацию предзагрузки"
   },
   "en": {
+    "Naeda_Kitetsugi": "Naeda Kitetsugi",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
     "save_search_result": "Save search input",
     "save_selected_item": "Save last selected item",
     "turn_off_preloader": "Turn off preloader animation"
   },
   "ja": {
+    "Naeda_Kitetsugi": "菜枝　鬼鉄義",
     "Site_Title_Nkardaz": "デメル・ナカルダズ・２Ｄ・３Ｄ・ピサツレスト・ヴォーストカ",
     "save_search_result": "検索入力を保存",
     "save_selected_item": "最後に選択したアイテムを保存",

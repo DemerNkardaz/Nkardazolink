@@ -11,16 +11,30 @@ window.updateItemsLanguage = function () {
 
 window.updateLanguageKeys = function () {
   var key_elements = $('[data-key]');
-  key_elements.each(function () {
-    var key = $(this).attr('data-key');
-    var getLocale = languageJSON[selectedLanguage][key];
-    
-    if (Array.isArray(getLocale)) {
-      getLocale = getLocale.join('\n');
-    }
-    var getLocale = (getLocale ? textUnPacker(getLocale) : null);
-    
-    $(this).html(getLocale);
+  function update () {
+    key_elements.each(function () {
+      var key = $(this).attr('data-key');
+      var getLocale = languageJSON[selectedLanguage][key];
+      if (!getLocale) {
+        for (var lang in languageJSON) {
+          if (languageJSON[lang][key]) {
+            getLocale = languageJSON[lang][key];
+            break;
+          }
+        }
+      }
+
+      getLocale = (getLocale ? textUnPacker(getLocale) : null);
+
+      $(this).html(getLocale);
+    });
+  } update();
+
+  $('*').filter(function () {
+    return this.shadowRoot !== null;
+  }).each(function () {
+    key_elements = $(this.shadowRoot).find('[data-key]');
+    update();
   });
   $('html').attr('lang', selectedLanguage);
 };
@@ -33,12 +47,11 @@ window.switchLang = function (lang) {
 }
 
 window.cyclic_language = function () {
-  var languages = ['ru', 'en', 'ja', 'zh', 'ko', 'vi'];
   var index = 0;
 
   setInterval(function () {
-    switchLang(languages[index]);
-    index = (index + 1) % languages.length;
+    switchLang(supportedLanguages[index]);
+    index = (index + 1) % supportedLanguages.length;
   }, 1000);
 }
 
