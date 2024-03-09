@@ -211,9 +211,28 @@ $(document).on('mouseenter', '.foot-note', function () {
   target ? (target.addClass('show_note'), $(this).addClass('show_note')) : '';
 });
 
+
+$(document).on('click', '.foot-note', function () {
+  var key = $(this).attr('key');
+  var target = $(`[tooltip_key="${key}"]`);
+
+  target.addClass('note_active show_note');
+  $(this).addClass('note_active show_note');
+  setTimeout(() => {
+    target.removeClass('note_active show_note');
+    $(this).removeClass('note_active show_note');
+  }, 1000);
+  /*target[0].scrollIntoView({ behavior: 'smooth' });*/
+  $('#book').animate({ scrollTop: $(target).offset().top - $('#book').offset().top }, 700);
+  return false;
+});
+
+
 $(document).on('mouseleave', '.foot-note', function () {
-  $(`[tooltip_key]`).removeClass('show_note');
-  $(this).removeClass('show_note');
+  if (!$(this).hasClass('note_active')) {
+    $(`[tooltip_key]`).removeClass('show_note');
+    $(this).removeClass('show_note');
+  }
 });
 
 /* ------------------- TOOLTIPS ------------------- */
