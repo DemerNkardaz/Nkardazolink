@@ -16,27 +16,27 @@ h6 {
 }
 
 h1 {
-  font-size: calc(1.75rem);
+  font-size: 1.75rem;
 }
 
 h2 {
-  font-size: calc(1.60rem);
+  font-size: 1.60rem;
 }
 
 h3 {
-  font-size: calc(1.45rem);
+  font-size: 1.45rem;
 }
 
 h4 {
-  font-size: calc(1.30rem);
+  font-size: 1.30rem;
 }
 
 h5 {
-  font-size: calc(1.15rem);
+  font-size: 1.15rem;
 }
 
 h6 {
-  font-size: calc(1.00rem);
+  font-size: 1.00rem;
 }
 
 

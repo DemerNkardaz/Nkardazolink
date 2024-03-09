@@ -171,19 +171,36 @@ $(document).on('mouseenter', '[tooltip_key]', function () {
   }
 });
 
-var tooltipTimer;
+var timers_array = {};
 
 $(document).on('mouseenter', 'tooltip-element', function () {
   $(this).css('opacity', 1);
+  !$(this).find('.tl-close').length ? $(this).append(`
+    <div class="tl-close">close</div>
+    `
+  ) : '';
+
+  clearTimeout(timers_array[$(this).attr('id')]);
 });
 
-$(document).on('mouseleave', '[tooltip_key], tooltip-element', function () {
-  var uniqId = $(this).attr('data-tooltip_id');
+$(document).on('click', '.tl-close', function () {
+  var uniqId = $(this).parent().attr('id');
   $(`#${uniqId}`).transition({ opacity: 0 }, 300);
   setTimeout(function () {
     $(`#${uniqId}`).remove();
     $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
-  }, 400);
+  }, 300);
+});
+
+$(document).on('mouseleave', '[tooltip_key]', function () {
+  var uniqId = $(this).attr('data-tooltip_id');
+  $(`#${uniqId}`).transition({ opacity: 0 }, 300);
+  const timer = setTimeout(function () {
+    $(`#${uniqId}`).remove();
+    $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
+  }, 300);
+
+  timers_array[uniqId] = timer;
 });
 
 /* ------------------- TOOLTIPS ------------------- */

@@ -34,6 +34,11 @@
   --banner_gradient: linear-gradient(45deg, #c29819, #f0b607);
   --avatar_background_gradient: linear-gradient(193deg, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 24%, rgba(255, 255, 255, 1) 69%, rgba(238, 238, 238, 1) 90%, rgba(254, 254, 254, 1) 100%);
 
+
+  --tooltip_body: linear-gradient(0deg, #efefef, #ffffff);
+  --tooltip_bottom: #efefef;
+  --tooltip_top: #ffffff;
+
   --color_dark_gold: #E1AA4B;
   --color_dark_gold_emboss: #fbc76e;
   --color_orange_gold: #E08A1E;
