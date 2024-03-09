@@ -22,6 +22,11 @@ window.unpackArrayToStrings = function (text) {
   }
 }
 
+function ideographicsSpaceToCJKV(text) {
+    const regex = /([\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])\s+([\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu;
+    return text.replace(regex, '$1\u3000$2');
+}
+
 window.transcriptReplacement = function (text) {
   return text
     .replace(/\″(.*?)\←(.*?)\″/g, function(match, p1, p2) {
@@ -47,9 +52,12 @@ window.defaultReplacement = function (text) {
     .replace(/\/t/g, '&Tab;')
 }
 
-window.textUnPacker = function (htmlString) {
-  var stage_1 = unpackArrayToStrings(htmlString);
-  var stage_2 = defaultReplacement(stage_1);
-  var stage_3 = transcriptReplacement(stage_2);
-  return stage_3;
+window.textUnPacker = function (text) {
+  return transcriptReplacement(
+    defaultReplacement(
+      ideographicsSpaceToCJKV(
+        unpackArrayToStrings(text)
+      )
+    )
+  );
 }

@@ -24,7 +24,6 @@ export async function HTMX_INIT() {
 
 /*-- --------------- ENDPOINT_INIT ---------------- --*/
 window.ENDPOINT_INIT = function() {
-  import('./libs/standalone/Bootstrap/bootstrap.js');
   import('./libs/standalone/OverlayScrollbars.js');
   import('./libs/standalone/Howler.js');
   import('./jq/inputs.js');

@@ -281,7 +281,7 @@ class settings_check extends HTMLElement {
 
     $(this).attr({
       'nk-setting': (setting ? setting : null)
-    });
+    }).addClass('my-1');
 
     this.innerHTML = component;
   }
@@ -344,30 +344,35 @@ window.item_create = function () {
 
 }; item_create();
 
-$(document).on('languageJSON_loaded', function () {
-  $('item-prop').eq(0).click();
-})
-
 class tooltip_element extends HTMLElement {
-  constructor({ arrow_pos } = {}) {
+  constructor({ tooltip, tooltip_key, tooltip_pos } = {}) {
     super();
-    const component = `
-    <div class="tl-arrow" ${arrow_pos ? `data-pos="${arrow_pos};"` : ''}></div>
-    <div class="tl-content"></div>
-    `
-    const styles = `
-
-    `
-    const concatenated = component + styles;
-    this.innerHTML = concatenated;
+    const component = `<div>
+    <div class="tl-arrow" ${tooltip_pos ? `tooltip-pos="${tooltip_pos};"` : 'tooltip-pos="bottom"'}></div>
+    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''}>${textUnPacker(tooltip)}</div>
+    </div>`
+    this.innerHTML = component;
   }
 
   connectedCallback() {
+
     
   }
 }
 
 customElements.define('tooltip-element', tooltip_element);
+
+
+$(document).on('languageJSON_loaded', function () {
+  setTimeout(function () {
+    const tooltip = new tooltip_element({
+      tooltip: languageJSON['ru']['test'],
+      tooltip_key: 'test'
+  });
+    $('#site-header').prepend(tooltip);
+  }, 1000)
+})
+
 
 
 class load_kamon extends HTMLElement {
@@ -428,7 +433,6 @@ class link_block extends HTMLElement {
     </a>
     `
     const styles = `
-    <link rel="stylesheet" href="app/style/anims.css">
     <link rel="stylesheet" href="app/style/util.css">
     <style>
       * {

@@ -46,7 +46,7 @@ settings-check:focus {
   filter: brightness(130%);
   outline: none
 }
-settings-check:focus {
+settings-check.on_focus {
   font-size: 1.1em;
 }
 

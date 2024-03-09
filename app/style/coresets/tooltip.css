@@ -7,7 +7,7 @@ tooltip-element {
   background: var(--background_light_mode_gallery);
   border-radius: 10px;
   z-index: 1080;
-  filter: drop-shadow(0 0 10px var(--shadow_inset_info));
+  filter: drop-shadow(0 5px 10px var(--shadow_inset_info)) drop-shadow(0 2px 1px var(--shadow_inset_info));
   transition: all 0.175s ease;
   padding: 5px;
   line-break: auto;
@@ -16,7 +16,7 @@ tooltip-element {
   white-space: normal;
   word-spacing: normal;
   word-wrap: break-word;
-  opacity: 0;
+  opacity: 1;
 }
 
 tooltip-element.show {
@@ -24,7 +24,37 @@ tooltip-element.show {
 }
 
 tooltip-element .tl-arrow {
+  position: absolute;
   display: block;
-  width: 14px;
-  height: 14px;
+  width: 24px;
+  height: 24px;
+  background: var(--background_light_mode_gallery);
+  mask: url('../../../resources/filters/triangle.svg') no-repeat;
+  mask-size: 100% 100%;
 }
+
+tooltip-element .tl-arrow[tooltip-pos='top'] {
+  top: -15px;
+  left: 50%;
+  bottom: auto;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+tooltip-element .tl-arrow[tooltip-pos='bottom'] {
+  left: 50%;
+  bottom: -15px;
+  transform: translateX(-50%);
+}
+
+tooltip-element .tl-arrow[tooltip-pos='left'] {
+  top: 50%;
+  left: -15px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+tooltip-element .tl-arrow[tooltip-pos='right'] {
+  top: 50%;
+  right: -15px;
+  transform: translateY(-50%) rotate(-90deg);
+}
+

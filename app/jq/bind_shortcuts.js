@@ -78,11 +78,14 @@ $(document).on('click', 'settings-check', function () {
 
 
 /* ------------------- KEYBOARD SHORTCUTS ------------------- */
+$(document).on('click', 'body', function () {
+  $('[tabindex]').removeClass('on_focus');
+});
 
 $(document).on('keydown', '[tabindex]', function(e) {
   if (e.which === 13) {
-      $(this).click();
-      return false;
+    $(this).click();
+    return false;
   }
   var currentIndex = $('[tabindex]').index(this);
   var nextIndex;
@@ -94,7 +97,8 @@ $(document).on('keydown', '[tabindex]', function(e) {
 
   var $nextElement = $('[tabindex]').eq(nextIndex);
   if ($nextElement.length) {
-    $nextElement.focus();
+    $('[tabindex]').removeClass('on_focus');
+    $nextElement.focus().addClass('on_focus');
   }
 });
 
@@ -114,3 +118,15 @@ $(document).on('click', '[language_selector]', function () {
 
 
 /* ------------------- LANGUAGE ------------------- */
+
+/* ------------------- SELECTS ------------------- */
+
+if (savedSettings.save_selected_item !== 'true') {
+  $(document).on('languageJSON_loaded', function () {
+    $('item-prop').eq(0).click();
+  });
+}
+
+
+
+/* ------------------- SELECTS ------------------- */
