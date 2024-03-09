@@ -331,3 +331,322 @@
 .pe-10 {
   padding-right: 18rem !important;
 }
+
+.logp-1 {
+  padding-inline: 0.25rem !important;
+  padding-block: 0.25rem !important;
+}
+
+.logp-2 {
+  padding-inline: 0.5rem !important;
+  padding-block: 0.5rem !important;
+}
+
+.logp-3 {
+  padding-inline: 1rem !important;
+  padding-block: 1rem !important;
+}
+
+.logp-4 {
+  padding-inline: 1.5rem !important;
+  padding-block: 1.5rem !important;
+}
+
+.logp-5 {
+  padding-inline: 3rem !important;
+  padding-block: 3rem !important;
+}
+
+.logp-6 {
+  padding-inline: 4.5rem !important;
+  padding-block: 4.5rem !important;
+}
+
+.logp-7 {
+  padding-inline: 6rem !important;
+  padding-block: 6rem !important;
+}
+
+.logp-8 {
+  padding-inline: 9rem !important;
+  padding-block: 9rem !important;
+}
+
+.logp-9 {
+  padding-inline: 12rem !important;
+  padding-block: 12rem !important;
+}
+
+.logp-10 {
+  padding-inline: 18rem !important;
+  padding-block: 18rem !important;
+}
+
+.logp-auto {
+  padding-inline: auto !important;
+  padding-block: auto !important;
+}
+
+.logpx-1 {
+  padding-inline: 0.25rem !important;
+}
+
+.logpx-2 {
+  padding-inline: 0.5rem !important;
+}
+
+.logpx-3 {
+  padding-inline: 1rem !important;
+}
+
+.logpx-4 {
+  padding-inline: 1.5rem !important;
+}
+
+.logpx-5 {
+  padding-inline: 3rem !important;
+}
+
+.logpx-6 {
+  padding-inline: 4.5rem !important;
+}
+
+.logpx-7 {
+  padding-inline: 6rem !important;
+}
+
+.logpx-8 {
+  padding-inline: 9rem !important;
+}
+
+.logpx-9 {
+  padding-inline: 12rem !important;
+}
+
+.logpx-10 {
+  padding-inline: 18rem !important;
+}
+
+.logpx-auto {
+  padding-inline: auto !important;
+}
+
+.logpy-1 {
+  padding-block: 0.25rem !important;
+}
+
+.logpy-2 {
+  padding-block: 0.5rem !important;
+}
+
+.logpy-3 {
+  padding-block: 1rem !important;
+}
+
+.logpy-4 {
+  padding-block: 1.5rem !important;
+}
+
+.logpy-5 {
+  padding-block: 3rem !important;
+}
+
+.logpy-6 {
+  padding-block: 4.5rem !important;
+}
+
+.logpy-7 {
+  padding-block: 6rem !important;
+}
+
+.logpy-8 {
+  padding-block: 9rem !important;
+}
+
+.logpy-9 {
+  padding-block: 12rem !important;
+}
+
+.logpy-10 {
+  padding-block: 18rem !important;
+}
+
+.logpy-auto {
+  padding-block: auto !important;
+}
+
+.logps-1 {
+  padding-inline-start: 0.25rem !important;
+}
+
+.logps-2 {
+  padding-inline-start: 0.5rem !important;
+}
+
+.logps-3 {
+  padding-inline-start: 1rem !important;
+}
+
+.logps-4 {
+  padding-inline-start: 1.5rem !important;
+}
+
+.logps-5 {
+  padding-inline-start: 3rem !important;
+}
+
+.logps-6 {
+  padding-inline-start: 4.5rem !important;
+}
+
+.logps-7 {
+  padding-inline-start: 6rem !important;
+}
+
+.logps-8 {
+  padding-inline-start: 9rem !important;
+}
+
+.logps-9 {
+  padding-inline-start: 12rem !important;
+}
+
+.logps-10 {
+  padding-inline-start: 18rem !important;
+}
+
+.logps-auto {
+  padding-inline-start: auto !important;
+}
+
+.logpe-1 {
+  padding-inline-end: 0.25rem !important;
+}
+
+.logpe-2 {
+  padding-inline-end: 0.5rem !important;
+}
+
+.logpe-3 {
+  padding-inline-end: 1rem !important;
+}
+
+.logpe-4 {
+  padding-inline-end: 1.5rem !important;
+}
+
+.logpe-5 {
+  padding-inline-end: 3rem !important;
+}
+
+.logpe-6 {
+  padding-inline-end: 4.5rem !important;
+}
+
+.logpe-7 {
+  padding-inline-end: 6rem !important;
+}
+
+.logpe-8 {
+  padding-inline-end: 9rem !important;
+}
+
+.logpe-9 {
+  padding-inline-end: 12rem !important;
+}
+
+.logpe-10 {
+  padding-inline-end: 18rem !important;
+}
+
+.logpe-auto {
+  padding-inline-end: auto !important;
+}
+
+.logpt-1 {
+  padding-block-start: 0.25rem !important;
+}
+
+.logpt-2 {
+  padding-block-start: 0.5rem !important;
+}
+
+.logpt-3 {
+  padding-block-start: 1rem !important;
+}
+
+.logpt-4 {
+  padding-block-start: 1.5rem !important;
+}
+
+.logpt-5 {
+  padding-block-start: 3rem !important;
+}
+
+.logpt-6 {
+  padding-block-start: 4.5rem !important;
+}
+
+.logpt-7 {
+  padding-block-start: 6rem !important;
+}
+
+.logpt-8 {
+  padding-block-start: 9rem !important;
+}
+
+.logpt-9 {
+  padding-block-start: 12rem !important;
+}
+
+.logpt-10 {
+  padding-block-start: 18rem !important;
+}
+
+.logpt-auto {
+  padding-block-start: auto !important;
+}
+
+.logpb-1 {
+  padding-block-end: 0.25rem !important;
+}
+
+.logpb-2 {
+  padding-block-end: 0.5rem !important;
+}
+
+.logpb-3 {
+  padding-block-end: 1rem !important;
+}
+
+.logpb-4 {
+  padding-block-end: 1.5rem !important;
+}
+
+.logpb-5 {
+  padding-block-end: 3rem !important;
+}
+
+.logpb-6 {
+  padding-block-end: 4.5rem !important;
+}
+
+.logpb-7 {
+  padding-block-end: 6rem !important;
+}
+
+.logpb-8 {
+  padding-block-end: 9rem !important;
+}
+
+.logpb-9 {
+  padding-block-end: 12rem !important;
+}
+
+.logpb-10 {
+  padding-block-end: 18rem !important;
+}
+
+.logpb-auto {
+  padding-block-end: auto !important;
+}

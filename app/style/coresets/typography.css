@@ -1,0 +1,14 @@
+.буквица::first-letter {
+  line-height: 1rem;
+  font-size: 2em;
+  font-weight: 800;
+  margin-right: 0.1rem;
+  color: var(--book_letter);
+}
+
+
+.v-writing {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.2em;
+}

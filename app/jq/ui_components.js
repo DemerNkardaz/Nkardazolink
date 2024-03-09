@@ -420,11 +420,11 @@ class page_preloader extends HTMLElement {
 customElements.define('page-preloader', page_preloader);
 
 class link_block extends HTMLElement {
-  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Class } = {}) {
+  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Class, Tooltip } = {}) {
     super();
     const component = `
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
-      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
+      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `tooltip_key="${Tooltip.key}" tooltip_pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
@@ -563,8 +563,6 @@ class link_block extends HTMLElement {
         animation: golden_shadow 5s infinite ease;
       }
 
-
-
       ::part(link-title), .link-title {
         position: relative;
         display: flex;
@@ -645,7 +643,6 @@ class link_block extends HTMLElement {
       }
 
 
-
       img::before {
         display: none;
       }
@@ -710,7 +707,8 @@ var linkblic2 = new link_block({
       right: -15,
       bottom: -20
     }
-  }
+  },
+  Tooltip: { key: 'Naeda_Kitetsugi', pos: 'right' }
 });
 $('#testwrapper').prepend(linkblic2);
 

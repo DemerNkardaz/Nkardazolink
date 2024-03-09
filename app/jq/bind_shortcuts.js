@@ -147,21 +147,21 @@ $(document).on('mouseenter', '[tooltip_key]', function () {
     var parent = $(`[data-tooltip_id="${id}"]`);
 
     var parentOffset = parent.offset();
+    var parentPosition = parent.position();
     var calc_pos;
     if (pos === 'bottom') {
-      calc_pos = { top: parentOffset.top + tooltip.outerHeight() - 5, left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
+      calc_pos = { top: parentPosition.top + parent.outerHeight(true) + 25, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
     } else if (pos === 'top') {
-      calc_pos = { top: parentOffset.top - tooltip.outerHeight() - 25, left: parentOffset.left + parent.outerWidth() / 2 - tooltip.outerWidth() / 2 }
+      calc_pos = { top: parentPosition.top - tooltip.outerHeight(true) - 25, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
     } else if (pos === 'left') {
-      calc_pos = { top: parentOffset.top + parent.outerHeight() / 2 - tooltip.outerHeight() / 2, left: parentOffset.left - tooltip.outerWidth() - 25 }
+      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left - tooltip.outerWidth(true) - 25 }
     } else if (pos === 'right') {
-      calc_pos = { top: parentOffset.top + parent.outerHeight() / 2 - tooltip.outerHeight() / 2, left: parentOffset.left + parent.outerWidth() + 25 }
+      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left + parent.outerWidth(true) + 25 }
     }
     tooltip.css({
       top: calc_pos.top,
       left: calc_pos.left
     })
-    
   }
   if ($(this).attr('data-tooltip_id') === $('tooltip-element').attr('id') ) {
     $(this).attr('data-tooltip_id', uniqId)
