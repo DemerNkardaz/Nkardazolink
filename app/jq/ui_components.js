@@ -789,11 +789,12 @@ class console_run extends HTMLElement {
     $(function () {
       $('run-cmd').isdrag({ container: 'body'});
     });
-    $(this).attr({
-      'id': `cmd${Math.floor(Math.random() * 1000000)}`,
-      'role': 'dialog'
-    });
-    $(this).find('header').prepend(`<span class="cmd_number">${$(this).attr('id')}</span>`);
+    !$(this).attr('id') ?
+      ($(this).attr('id', `cmd${Math.floor(Math.random() * 1000000)}`),
+      $(this).find('header').prepend(`<span class="cmd_number">${$(this).attr('id')}</span>`))
+      :
+    '';
+    $(this).attr('role', 'dialog');
     $(this).find('textarea').focus();
   }
 }

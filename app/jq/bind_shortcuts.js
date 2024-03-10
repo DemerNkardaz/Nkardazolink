@@ -257,12 +257,20 @@ $(document).on('click', 'run-cmd .close', function () {
   return false;
 })
 
+
+$(document).on('mousedown', 'run-cmd', function () {
+  var cmds = $('run-cmd');
+  if (cmds.length > 0 && $(this).length > 0) {
+    $(this).insertAfter(cmds.last());
+  }
+});
+
 $(document).on('click', 'run-cmd .cmd_input', function (e) {
   if (!$(e.target).is('run-cmd .cmd_input span')) {
     $(this).closest('run-cmd').find('textarea').focus();
   }
   return false;
-})
+});
 
 function clearOldCommand () {
   var storedCommands = JSON.parse(fromStorage('latestCommands'));
@@ -274,24 +282,26 @@ function clearOldCommand () {
 }
 
 window.clrcm = function () {
-  clearStorage('latestCommands');
+  removeStorage('latestCommands');
   return 'Latest commands cleared'
 };
 window.shwcm = function () {
   return fromStorage('latestCommands').replace('[', '').replace(']', '').replace(/"/g, '');
 };
 window.helpcmd = function () {
-  return `
+  return (`
   The console commands is:<br>
   shwcm() — show latest commands;<br>
   clrcm() — clear latest commands;<br>
-  `
+  `).replace(/\n/g, '');
 }
 
 
 $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
   var getParentCMDID = $(this).parents('run-cmd').attr('id');
+  var InputCMDField = $(this).parents('.cmd_input');
   if (!(e.shiftKey && e.which === 13) && e.which === 13) {
+    e.preventDefault();
     const inputValue = $(this).val();
     $(`<span class="console_send"><span>${inputValue}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 
@@ -302,7 +312,7 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     try {
       eval(inputValue);
       function getConsoleResponse() {
-        return eval(inputValue);
+        return JSON.stringify(eval(inputValue));
       }
       $(`<span class="console_response"><span>${getConsoleResponse()}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 
@@ -310,9 +320,9 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
       console.error('Error executing command:', error);
       $(`<span class="console_response"><span>${error}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
     }
-    /*$(`<span>${Error.prototype.toString()}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));*/
+    
     $(this).val('').trigger('input');
-    return false;
+    $(InputCMDField).animate({ scrollTop: $(InputCMDField).height() }, 0);
   }
   var storedCommands = JSON.parse(fromStorage('latestCommands'));
   if ((e.ctrlKey && e.which === 38)) {
@@ -337,7 +347,7 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
 $(document).on('input', 'run-cmd textarea', function () {
   const index = $(this).val().split('\n').length;
   if (index > 1) {
-  $(this).attr('rows', index);
+    $(this).attr('rows', index);
   } else {
     $(this).attr('rows', 1);
   }
