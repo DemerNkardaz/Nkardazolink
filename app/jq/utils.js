@@ -70,7 +70,7 @@ window.checkKeyDowned = function () {
 
 $.fn.isdrag = function(options) {
 	var isMouseDown = false,
-		isResizing = false, // Add a flag to track if resizing is happening
+		isResizing = false,
 		currentElement = null,
 		offset = { x: 0, y: 0 },
 		prevPosition = { x: 0, y: 0 },

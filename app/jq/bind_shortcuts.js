@@ -312,7 +312,7 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     try {
       eval(inputValue);
       function getConsoleResponse() {
-        return JSON.stringify(eval(inputValue));
+        return (inputValue.length > 0 ? JSON.stringify(eval(inputValue)).replace(/\,/g, ', ').replace(/\:/g, ': ').replace(/"/g, '') : JSON.stringify(eval(inputValue)));
       }
       $(`<span class="console_response"><span>${getConsoleResponse()}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 

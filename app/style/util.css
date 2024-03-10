@@ -116,6 +116,10 @@ run-cmd {
   z-index: 99999999;
   box-sizing: border-box;
   resize: both;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 run-cmd .cmd_header {
