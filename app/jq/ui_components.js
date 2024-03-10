@@ -784,11 +784,11 @@ class console_run extends HTMLElement {
     <section class="cmd_input"><span class="cmd_line"><label>PROMPT : ></label><textarea spellcheck="false" type="text" rows="1"></textarea></span></section>
     <footer class="cmd_footer"></footer>
     `;
+    $(this).isdrag({ container: 'body'});
     this.innerHTML = component;
   }
   connectedCallback() {
     $(function () {
-      $('run-cmd').isdrag({ container: 'body'});
     });
     !$(this).attr('id') ?
       ($(this).attr('id', `cmd${Math.floor(Math.random() * 1000000)}`),

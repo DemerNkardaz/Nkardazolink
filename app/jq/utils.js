@@ -77,14 +77,14 @@ $.fn.isdrag = function(options) {
 		container = (options && options.container ? $(options.container) : null);
 
 	this.on('mousedown', function(e) {
-		if ($(e.target).css('resize') === 'both') {
+		if (['both', 'horizontal', 'vertical', 'block'].includes($(e.target).css('resize'))) {
 		isResizing = true; 
 		return;
 	}
 	var target = document.elementFromPoint(e.clientX, e.clientY);
 		if (
 			$(e.target).is('input, textarea') ||
-			((target.tagName === "SPAN" || target.tagName === "LABEL") &&
+			((["SPAN", "LABEL", "BUTTON", "P", "UL", "OL", "LI", "H1", "H2", "H3", "H4", "H5", "H6", "PRE", "BLOCKQUOTE"].includes(target.tagName)) &&
 				target.innerText.trim() !== "" &&
 				!target.closest('.forceDrag'))
 		) {
