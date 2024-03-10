@@ -62,3 +62,8 @@ window.textUnPacker = function (text) {
   );
 }
 
+window.checkKeyDowned = function () {
+  document.addEventListener("keydown", function(event) {
+    console.log(event.which);
+  })
+}

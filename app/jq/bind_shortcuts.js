@@ -240,3 +240,90 @@ $(document).on('mouseleave', '.foot-note', function () {
 });
 
 /* ------------------- TOOLTIPS ------------------- */
+
+
+/* ------------------- CONSOLE ------------------- */
+
+$(document).on('keydown', function (e) {
+  if (e.ctrlKey && e.which === 192) {
+    var cmd = new consoleElement();
+    $('body').append(cmd);
+    return false;
+  }
+});
+
+$(document).on('click', 'run-cmd .close', function () {
+  $(this).parents('run-cmd').remove();
+  return false;
+})
+
+$(document).on('click', 'run-cmd .cmd_input', function () {
+  $(this).closest('run-cmd').find('textarea').focus();
+  return false;
+})
+
+
+function clearOldCommand () {
+  var storedCommands = JSON.parse(fromStorage('latestCommands'));
+  var limit_commands = 40;
+  if (storedCommands.length > limit_commands) {
+    storedCommands = storedCommands.slice(storedCommands.length - limit_commands);
+    toStorage('latestCommands', JSON.stringify(storedCommands));
+  }
+}
+
+
+$(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
+  var getParentCMDID = $(this).parents('run-cmd').attr('id');
+  if (!(e.shiftKey && e.which === 13) && e.which === 13) {
+    const inputValue = $(this).val();
+    $(`<span>${inputValue}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
+
+    let existingCommands = JSON.parse(fromStorage('latestCommands')) || [];
+    inputValue.length > 0 ? existingCommands = [...existingCommands, inputValue] : '';
+    toStorage('latestCommands', JSON.stringify(existingCommands));
+    clearOldCommand();
+    try {
+      eval(inputValue);
+      function getConsoleResponse () {
+        return eval(inputValue);
+      }
+      $(`<span class="console_response">${getConsoleResponse()}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
+
+    } catch (error) {
+      console.error('Error executing command:', error);
+    }
+    /*$(`<span>${Error.prototype.toString()}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));*/
+    $(this).val('').trigger('input');
+    return false;
+  }
+  var storedCommands = JSON.parse(fromStorage('latestCommands'));
+  if ((e.ctrlKey && e.which === 38)) {
+    if (storedCommands.length > 1) {
+      const currentIndex = storedCommands.indexOf($(this).val());
+      const prevIndex = (currentIndex - 1 + storedCommands.length) % storedCommands.length;
+      $(this).val(storedCommands[prevIndex]).trigger('input');
+    } else {
+      $(this).val(storedCommands[0]);
+    }
+  } else if (e.ctrlKey && e.which === 40) {
+    if (storedCommands.length > 1) {
+      const currentIndex = storedCommands.indexOf($(this).val());
+      const nextIndex = (currentIndex + 1) % storedCommands.length;
+      $(this).val(storedCommands[nextIndex]).trigger('input');
+    } else {
+      $(this).val(storedCommands[0]);
+    }
+  }
+});
+
+$(document).on('input', 'run-cmd textarea', function () {
+  const index = $(this).val().split('\n').length;
+  if (index > 1) {
+  $(this).attr('rows', index);
+  } else {
+    $(this).attr('rows', 1);
+  }
+});
+
+/* ------------------- CONSOLE ------------------- */

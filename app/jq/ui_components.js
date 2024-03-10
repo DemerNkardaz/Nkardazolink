@@ -772,3 +772,31 @@ window.ui_components = {
 
 
 /* Object.values(window.ui_components).forEach(component => component()); */
+
+
+
+
+class console_run extends HTMLElement {
+  constructor() {
+    super();
+    const component = `
+    <header class="cmd_header"><span data-key="console">${languageJSON[selectedLanguage]['console']}</span><span class="close">close</span></header>
+    <section class="cmd_input"><span class="cmd_line"><label>PROMPT : ></label><textarea spellcheck="false" type="text" rows="1"></textarea></span></section>
+    `;
+    this.innerHTML = component;
+  }
+  connectedCallback() {
+    $(function () {
+      $('run-cmd').draggable({ containment: 'body' });
+    });
+    $(this).attr({
+      'id': `cmd${Math.floor(Math.random() * 1000000)}`,
+      'role': 'dialog'
+    });
+    $(this).find('header').prepend(`<span class="cmd_number">${$(this).attr('id')}</span>`);
+    $(this).find('textarea').focus();
+  }
+}
+
+customElements.define('run-cmd', console_run);
+window.consoleElement = console_run;

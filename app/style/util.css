@@ -92,3 +92,138 @@ ol:has(.foot-note) {
   border-radius: 7px;
   z-index: -1;
 }
+
+
+run-cmd {
+  font-family: monospace;
+  color: white;
+  position: fixed;
+  display: flex;
+  left: 50px;
+  top: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 800px;
+  height: 600px;
+  backdrop-filter: blur(30px);
+  border: 1px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 99999999;
+  box-sizing: border-box;
+}
+
+run-cmd .cmd_header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  color: black;
+  background: white;
+  width: 100%;
+  height: 40px;
+  user-select: none;
+}
+
+run-cmd .cmd_number {
+  background: black;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  margin-right: 20px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+run-cmd .cmd_input {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding-top: 10px;
+  text-indent: 20px;
+  width: 100%;
+  height: 100%;
+  color: black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+run-cmd .cmd_line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: auto;
+  min-height: 30px;
+  z-index: 1;
+}
+
+run-cmd .cmd_line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  filter: blur(5px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+run-cmd .cmd_line label {
+  width: 15%;
+  color: white;
+}
+
+run-cmd .cmd_line textarea {
+  resize:none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+  width: 85%;
+  color: aquamarine;
+  height: 100%;
+  padding-top: 5px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 1rem;
+}
+
+run-cmd .cmd_line textarea:focus {
+  outline: none;
+}
+
+run-cmd .console_response {
+  color: fuchsia
+}
+
+run-cmd .console_response::before {
+  content: "> ";
+}
+
+run-cmd section > * {
+  margin-bottom: 10px;
+}
+run-cmd .close {
+  font-family: 'Material Icons';
+  margin-left: auto;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 5px;
+}
+run-cmd .close:hover {
+  color: #aaa;
+}
+
