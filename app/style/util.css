@@ -105,7 +105,9 @@ run-cmd {
   align-items: center;
   justify-content: flex-start;
   filter: drop-shadow(5px 5px 15px #000000a0);
+  min-width:590px;
   width: 800px;
+  min-height: 180px;
   height: 600px;
   backdrop-filter: blur(30px);
   border: 1px solid white;
@@ -113,6 +115,7 @@ run-cmd {
   overflow: hidden;
   z-index: 99999999;
   box-sizing: border-box;
+  resize: both;
 }
 
 run-cmd .cmd_header {
@@ -197,18 +200,18 @@ run-cmd .cmd_line::before {
 }
 
 run-cmd .cmd_line label {
-  width: 15%;
+  min-width: 120px;
   color: white;
   user-select: none;
 }
 
 run-cmd .cmd_line textarea {
   font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
-  resize:none;
+  resize: none;
   overflow-x: hidden;
   overflow-y: scroll;
   height: 100%;
-  width: 85%;
+  width: 100%;
   color: aquamarine;
   height: 100%;
   padding-top: 5px;
@@ -272,3 +275,14 @@ run-cmd .console_response::selection,
 run-cmd .console_response *::selection {
   background-color: fuchsia;
 }
+
+run-cmd .cmd_footer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 26px;
+}
+

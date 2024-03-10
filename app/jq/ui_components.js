@@ -782,6 +782,7 @@ class console_run extends HTMLElement {
     const component = `
     <header class="cmd_header forceDrag"><span data-key="console">${languageJSON[selectedLanguage]['console']}</span><span class="close">close</span></header>
     <section class="cmd_input"><span class="cmd_line"><label>PROMPT : ></label><textarea spellcheck="false" type="text" rows="1"></textarea></span></section>
+    <footer class="cmd_footer"></footer>
     `;
     this.innerHTML = component;
   }
@@ -801,3 +802,19 @@ class console_run extends HTMLElement {
 
 customElements.define('run-cmd', console_run);
 window.consoleElement = console_run;
+
+
+class modal_window extends HTMLDialogElement {
+  constructor() {
+    super();
+    const component = ``;
+    $(this).attr({
+      'class': 'modal_window',
+      'open' : '',
+    });
+    this.innerHTML = component;
+  }
+}
+
+customElements.define('modal-window', modal_window, { extends: 'dialog' });
+$('body').append(new modal_window());
