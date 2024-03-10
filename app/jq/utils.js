@@ -67,3 +67,67 @@ window.checkKeyDowned = function () {
     console.log(event.which);
   })
 }
+
+$.fn.isdrag = function(options) {
+  var isMouseDown = false,
+    currentElement = null,
+    offset = { x: 0, y: 0 },
+    prevPosition = { x: 0, y: 0 },
+    container = (options && options.container ? $(options.container) : null);
+
+  this.on('mousedown', function(e) {
+    var target = document.elementFromPoint(e.clientX, e.clientY);
+    if (
+      $(e.target).is('input, textarea') ||
+      ((target.tagName === "SPAN" || target.tagName === "LABEL") &&
+        target.innerText.trim() !== "" &&
+        !target.closest('.forceDrag'))
+    ) {
+      return;
+    }
+    isMouseDown = true;
+    currentElement = $(this);
+    var position = currentElement.position();
+    offset = {
+      x: e.pageX - position.left,
+      y: e.pageY - position.top
+    };
+    prevPosition = { x: e.pageX, y: e.pageY };
+  });
+
+  $(document).on('mouseup', function() {
+    isMouseDown = false;
+    currentElement = null;
+  });
+
+  $(document).on('mousemove', function(e) {
+    if (isMouseDown) {
+      var dx = e.pageX - prevPosition.x;
+      var dy = e.pageY - prevPosition.y;
+      prevPosition = { x: e.pageX, y: e.pageY };
+      if (container) {
+        var containerWidth = container.width();
+        var containerHeight = container.height();
+        var elementWidth = currentElement.width();
+        var elementHeight = currentElement.height();
+        var left = Math.min(
+          Math.max(e.pageX - offset.x, 0),
+          containerWidth - elementWidth
+        );
+        var top = Math.min(
+          Math.max(e.pageY - offset.y, 0),
+          containerHeight - elementHeight
+        );
+        currentElement.css({
+          left: left,
+          top: top
+        });
+      } else {
+        currentElement.css({
+          left: e.pageX - offset.x,
+          top: e.pageY - offset.y
+        });
+      }
+    }
+  });
+};

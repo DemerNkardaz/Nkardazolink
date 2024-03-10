@@ -257,11 +257,12 @@ $(document).on('click', 'run-cmd .close', function () {
   return false;
 })
 
-$(document).on('click', 'run-cmd .cmd_input', function () {
-  $(this).closest('run-cmd').find('textarea').focus();
+$(document).on('click', 'run-cmd .cmd_input', function (e) {
+  if (!$(e.target).is('run-cmd .cmd_input span')) {
+    $(this).closest('run-cmd').find('textarea').focus();
+  }
   return false;
 })
-
 
 function clearOldCommand () {
   var storedCommands = JSON.parse(fromStorage('latestCommands'));
@@ -272,12 +273,27 @@ function clearOldCommand () {
   }
 }
 
+window.clrcm = function () {
+  clearStorage('latestCommands');
+  return 'Latest commands cleared'
+};
+window.shwcm = function () {
+  return fromStorage('latestCommands').replace('[', '').replace(']', '').replace(/"/g, '');
+};
+window.helpcmd = function () {
+  return `
+  The console commands is:<br>
+  shwcm() — show latest commands;<br>
+  clrcm() — clear latest commands;<br>
+  `
+}
+
 
 $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
   var getParentCMDID = $(this).parents('run-cmd').attr('id');
   if (!(e.shiftKey && e.which === 13) && e.which === 13) {
     const inputValue = $(this).val();
-    $(`<span>${inputValue}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
+    $(`<span class="console_send"><span>${inputValue}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 
     let existingCommands = JSON.parse(fromStorage('latestCommands')) || [];
     inputValue.length > 0 ? existingCommands = [...existingCommands, inputValue] : '';
@@ -285,13 +301,14 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     clearOldCommand();
     try {
       eval(inputValue);
-      function getConsoleResponse () {
+      function getConsoleResponse() {
         return eval(inputValue);
       }
-      $(`<span class="console_response">${getConsoleResponse()}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
+      $(`<span class="console_response"><span>${getConsoleResponse()}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 
     } catch (error) {
       console.error('Error executing command:', error);
+      $(`<span class="console_response"><span>${error}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
     }
     /*$(`<span>${Error.prototype.toString()}</span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));*/
     $(this).val('').trigger('input');
