@@ -1,0 +1,229 @@
+.plate_chinese {
+  --corner_radius: 50px;
+
+  --tl: radial-gradient(var(--corner_radius) at 0 0, #0000 98%, #000);
+  --tr: radial-gradient(var(--corner_radius) at 100% 0, #0000 98%, #000);
+  --bl: radial-gradient(var(--corner_radius) at 0 100%, #0000 98%, #000);
+  --br: radial-gradient(var(--corner_radius) at 100% 100%, #0000 98%, #000);
+  --full: radial-gradient(var(--corner_radius) at var(--corner_radius) var(--corner_radius), #0000 98%, #000) calc(-1*var(--corner_radius)) calc(-1*var(--corner_radius));
+  --mask: radial-gradient(var(--corner_radius) at var(--corner_radius) var(--corner_radius), #0000 98%, #000) calc(-1*var(--corner_radius)) calc(-1*var(--corner_radius));
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_top {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at var(--corner_radius) 0, #0000 98%, #000) calc(-1*var(--corner_radius));
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_topleft {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at 0 0, #0000 98%, #000);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_topright {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at 100% 0, #0000 98%, #000);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_bottom {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at var(--corner_radius) 100%, #0000 98%, #000) calc(-1*var(--corner_radius));
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_bottomleft {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at 0 100%, #0000 98%, #000);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_bottomright {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at 100% 100%, #0000 98%, #000);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_left {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at 0 var(--corner_radius), #0000 98%, #000) 0 calc(-1*var(--corner_radius));
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_right {
+  --corner_radius: 50px;
+  --mask: radial-gradient(var(--corner_radius) at 100% var(--corner_radius), #0000 98%, #000) 0 calc(-1*var(--corner_radius));
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_topleft_to_bottomright {
+  --corner_radius: 50px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 0 0, #0000 98%, #000) 0/51% 100% no-repeat,
+      radial-gradient(var(--corner_radius) at 100% 100%, #0000 98%, #000) 100%/51% 100% no-repeat;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_topright_to_bottomleft {
+  --corner_radius: 50px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 100% 0, #0000 98%, #000) 100%/51% 100% no-repeat,
+      radial-gradient(var(--corner_radius) at 0 100%, #0000 98%, #000) 0 /51% 100% no-repeat;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.plate_chinese_border {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at var(--corner_radius) var(--corner_radius), #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) calc(-1*var(--corner_radius)) calc(-1*var(--corner_radius)),
+      linear-gradient(90deg, #000 calc(2*var(--border_width)), #0000 0) calc(-1*var(--border_width)) 50% /100% calc(100% - calc(2*var(--corner_radius)) + var(--border_width)) repeat-x,
+      linear-gradient(#000 calc(2*var(--border_width)), #0000 0) 50% calc(-1*var(--border_width))/calc(100% - calc(2*var(--corner_radius)) + var(--border_width)) 100% repeat-y;
+  }
+
+.plate_chinese_border_topleft {
+  --corner_background: grey;
+    position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 0 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from -90deg at top var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 0/calc(100% - var(--corner_radius) + var(--border_width)) 100% repeat-y,
+      conic-gradient(at bottom var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 100%/100% calc(100% - var(--corner_radius) + var(--border_width)) repeat-x;
+}
+.plate_chinese_border_topright {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 100% 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at top var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 0/calc(100% - var(--corner_radius) + var(--border_width)) 100% repeat-y,
+      conic-gradient(at bottom var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 100%/100% calc(100% - var(--corner_radius) + var(--border_width)) repeat-x;
+}
+
+.plate_chinese_border_top {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at var(--corner_radius) 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) calc(-1*var(--corner_radius)),
+      conic-gradient(at left var(--border_width) bottom var(--border_width), #0000 25%, #000 0) 0 100%/calc(100% - var(--border_width)) calc(100% - var(--corner_radius) + var(--border_width)) repeat-x,
+      linear-gradient(#000 0 0) top /calc(100% - calc(2*var(--corner_radius)) + var(--border_width)) var(--border_width) no-repeat;
+  }
+
+
+.plate_chinese_border_bottomleft {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 0 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 100% 0/100% calc(100% - var(--corner_radius) + var(--border_width)) repeat-x,
+      conic-gradient(at bottom var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 100%/calc(100% - var(--corner_radius) + var(--border_width)) 100% repeat-y;
+}
+
+.plate_chinese_border_bottomright{
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 100% 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at calc(2*var(--border_width)) var(--border_width), #0000 25%, #000 0) calc(-1*var(--border_width)) 0/100% calc(100% - var(--corner_radius) + var(--border_width)) repeat-x,
+      conic-gradient(at bottom var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 100%/calc(100% - var(--corner_radius) + var(--border_width)) 100% repeat-y;
+  }
+
+.plate_chinese_border_bottom {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+    radial-gradient(var(--corner_radius) at var(--corner_radius) 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) calc(-1*var(--corner_radius)),
+    conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 0 0/ calc(100% - var(--border_width)) calc(100% - var(--corner_radius) + var(--border_width)) repeat-x,
+    linear-gradient(#000 0 0) bottom/calc(100% - calc(2*var(--corner_radius)) + var(--border_width)) var(--border_width) no-repeat;
+}
+
+.plate_chinese_border_left {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 0 var(--corner_radius), #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) 0 calc(-1*var(--corner_radius)),
+      conic-gradient(from -90deg at top var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 0/calc(100% - var(--corner_radius) + var(--border_width)) calc(100% - var(--border_width)) repeat-y,
+      linear-gradient(#000 0 0) left/var(--border_width) calc(100% - calc(2*var(--corner_radius)) + var(--border_width)) no-repeat;
+}
+
+.plate_chinese_border_right {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 100% var(--corner_radius), #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) 0 calc(-1*var(--corner_radius)),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 0 0/calc(100% - var(--corner_radius) + var(--border_width)) calc(100% - var(--border_width)) repeat-y,
+      linear-gradient(#000 0 0) right/var(--border_width) calc(100% - calc(2*var(--corner_radius)) + var(--border_width)) no-repeat;
+}
+
+.plate_chinese_border_topleft_to_bottomright {
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 0 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      radial-gradient(var(--corner_radius) at 100% 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from -90deg at top var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 0/calc(100% - var(--corner_radius) + var(--border_width)) calc(100% - var(--corner_radius) + var(--border_width)) no-repeat,
+      conic-gradient(at bottom var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 100%/calc(100% - var(--corner_radius) + var(--border_width)) calc(100% - var(--corner_radius) + var(--border_width)) no-repeat;
+}
+
+.plate_chinese_border_topright_to_bottomleft{
+  --corner_background: grey;
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --mask:
+      radial-gradient(var(--corner_radius) at 100% 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      radial-gradient(var(--corner_radius) at 0 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 0 0/calc(100% - var(--corner_radius) + var(--border_width)) calc(100% - var(--corner_radius) + var(--border_width)) no-repeat,
+      conic-gradient(at bottom var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 100%/calc(100% - var(--corner_radius) + var(--border_width)) calc(100% - var(--corner_radius) + var(--border_width)) no-repeat;
+}
+
+
+.plate_chinese_border::before,
+.plate_chinese_border_topleft::before,
+.plate_chinese_border_topright::before,
+.plate_chinese_border_top::before,
+.plate_chinese_border_bottomright::before,
+.plate_chinese_border_bottomleft::before,
+.plate_chinese_border_bottom::before, 
+.plate_chinese_border_left::before,
+.plate_chinese_border_right::before,
+.plate_chinese_border_topleft_to_bottomright::before,
+.plate_chinese_border_topright_to_bottomleft::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--corner_background);
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}

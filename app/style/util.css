@@ -171,7 +171,8 @@ run-cmd .cmd_input::before {
   width: 100%;
   background: url('../../resources/svg/NkardazKamon.svg') no-repeat;
   background-size: contain;
-  background-position: 50% 50%;
+  background-position: center;
+  background-attachment: scroll;
   filter: brightness(1000%);
   opacity: 0.025;
   z-index: -1;

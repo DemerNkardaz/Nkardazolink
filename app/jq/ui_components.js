@@ -426,7 +426,7 @@ class link_block extends HTMLElement {
     const component = `
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
       ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `tooltip_key="${Tooltip.key}" tooltip_pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
-      ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
+      ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner plate_chinese">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
       ${LINK_Subscript && LINK_Class !== 'long-thin' ? LINK_Subscript : (LINK_Types ? LINK_Types : '')}</span>${LINK_Class === 'long-thin' ? `</div></div>` : ''}
@@ -434,6 +434,7 @@ class link_block extends HTMLElement {
     </a>
     `
     const styles = `
+    <link rel="stylesheet" href="app/style/shapes.css">
     <link rel="stylesheet" href="app/style/util.css">
     <style>
       * {
@@ -551,13 +552,12 @@ class link_block extends HTMLElement {
       }
 
       ::part(link-title-wrapper-inner), .link-title-wrapper-inner {
+        --corner_radius: 7px;
         display: grid;
         grid-template-columns: 220px 121px 1fr 1fr;
         padding: 0 30px;
         height: inherit;
         background: var(--white);
-        --s: 7px;
-        mask: radial-gradient(var(--s) at var(--s) var(--s), #0000 98%, #000) calc(-1*var(--s)) calc(-1*var(--s));
         transition: all 0.3s ease;
       }
       .link:hover .link-title-wrapper {

@@ -1,0 +1,70 @@
+.plate_chinese {
+  position: relative;
+  --corner_radius: 50px;
+  --border_width: 10px;
+  --border_color: transparent;
+  --shape_l: radial-gradient(var(--corner_radius) at 0 var(--corner_radius), #0000 98%, #000) 0 calc(-1*var(--corner_radius));
+  --shape_r: radial-gradient(var(--corner_radius) at 100% var(--corner_radius), #0000 98%, #000) 0 calc(-1*var(--corner_radius));
+  --shape_t: radial-gradient(var(--corner_radius) at var(--corner_radius) 0, #0000 98%, #000) calc(-1*var(--corner_radius));
+  --shape_tl: radial-gradient(var(--corner_radius) at 0 0, #0000 98%, #000);
+  --shape_tr: radial-gradient(var(--corner_radius) at 100% 0, #0000 98%, #000);
+  --shape_b: radial-gradient(var(--corner_radius) at var(--corner_radius) 100%, #0000 98%, #000) calc(-1*var(--corner_radius));
+  --shape_bl: radial-gradient(var(--corner_radius) at 0 100%, #0000 98%, #000);
+  --shape_br: radial-gradient(var(--corner_radius) at 100% 100%, #0000 98%, #000);
+  --shape_tlbr: radial-gradient(var(--corner_radius) at 0 0, #0000 98%, #000) 0/51% 100% no-repeat,
+    radial-gradient(var(--corner_radius) at 100% 100%, #0000 98%, #000) 100%/51% 100% no-repeat;
+  --shape_trbl: radial-gradient(var(--corner_radius) at 100% 0, #0000 98%, #000) 100%/51% 100% no-repeat,
+    radial-gradient(var(--corner_radius) at 0 100%, #0000 98%, #000) 0 /51% 100% no-repeat;
+  --shape_all: radial-gradient(var(--corner_radius) at var(--corner_radius) var(--corner_radius), #0000 98%, #000) calc(-1*var(--corner_radius)) calc(-1*var(--corner_radius));
+
+  --border_l: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 0 calc(var(--corner_radius) + var(--border_width)), #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) 0 calc(-1*calc(var(--corner_radius) + var(--border_width))),
+      conic-gradient(from -90deg at top var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 0/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) calc(100% - var(--border_width)) repeat-y,
+      linear-gradient(#000 0 0) left/var(--border_width) calc(100% - calc(2*calc(var(--corner_radius) + var(--border_width))) + var(--border_width)) no-repeat;
+    --border_r: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 100% calc(var(--corner_radius) + var(--border_width)), #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) 0 calc(-1*calc(var(--corner_radius) + var(--border_width))),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 0 0/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) calc(100% - var(--border_width)) repeat-y,
+      linear-gradient(#000 0 0) right/var(--border_width) calc(100% - calc(2*calc(var(--corner_radius) + var(--border_width))) + var(--border_width)) no-repeat;
+    --border_t: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at calc(var(--corner_radius) + var(--border_width)) 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) calc(-1*calc(var(--corner_radius) + var(--border_width))),
+      conic-gradient(at left var(--border_width) bottom var(--border_width), #0000 25%, #000 0) 0 100%/calc(100% - var(--border_width)) calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) repeat-x,
+      linear-gradient(#000 0 0) top /calc(100% - calc(2*calc(var(--corner_radius) + var(--border_width))) + var(--border_width)) var(--border_width) no-repeat;
+    --border_tl: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 0 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from -90deg at top var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 0/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) 100% repeat-y,
+      conic-gradient(at bottom var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 100%/100% calc(100% - var(--corner_radius) + var(--border_width)) repeat-x;
+    --border_tr: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 100% 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at top var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 0/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) 100% repeat-y,
+      conic-gradient(at bottom var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 100%/100% calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) repeat-x;
+    --border_b: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at calc(var(--corner_radius) + var(--border_width)) 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) calc(-1*calc(var(--corner_radius) + var(--border_width))),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 0 0/ calc(100% - var(--border_width)) calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) repeat-x,
+      linear-gradient(#000 0 0) bottom/calc(100% - calc(2*calc(var(--corner_radius) + var(--border_width))) + var(--border_width)) var(--border_width) no-repeat;
+    --border_bl: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 0 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 100% 0/100% calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) repeat-x,
+      conic-gradient(at bottom var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 100%/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) 100% repeat-y;
+    --border_br: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 100% 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at calc(2*var(--border_width)) var(--border_width), #0000 25%, #000 0) calc(-1*var(--border_width)) 0/100% calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) repeat-x,
+      conic-gradient(at bottom var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 100%/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) 100% repeat-y;
+    --border_tlbr: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 0 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 100% 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from -90deg at top var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 0/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) no-repeat,
+      conic-gradient(at bottom var(--border_width) left var(--border_width), #0000 25%, #000 0) 0 100%/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) no-repeat;
+    --border_trbl: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 100% 0, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      radial-gradient(calc(var(--corner_radius) + var(--border_width)) at 0 100%, #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000),
+      conic-gradient(from 90deg at var(--border_width) var(--border_width), #0000 25%, #000 0) 0 0/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) no-repeat,
+      conic-gradient(at bottom var(--border_width) right var(--border_width), #000 75%, #0000 0) 100% 100%/calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) calc(100% - calc(var(--corner_radius) + var(--border_width)) + var(--border_width)) no-repeat;
+  --border_all: radial-gradient(calc(var(--corner_radius) + var(--border_width)) at calc(var(--corner_radius) + var(--border_width)) calc(var(--corner_radius) + var(--border_width)), #0000 calc(98% - var(--border_width)), #000 calc(100% - var(--border_width)) 98%, #0000) calc(-1*calc(var(--corner_radius) + var(--border_width))) calc(-1*calc(var(--corner_radius) + var(--border_width))),
+    linear-gradient(90deg, #000 calc(2*var(--border_width)), #0000 0) calc(-1*var(--border_width)) 50% /100% calc(100% - calc(2*calc(var(--corner_radius) + var(--border_width))) + var(--border_width)) repeat-x,
+    linear-gradient(#000 calc(2*var(--border_width)), #0000 0) 50% calc(-1*var(--border_width))/calc(100% - calc(2*calc(var(--corner_radius) + var(--border_width))) + var(--border_width)) 100% repeat-y;
+
+  --shape: var(--shape_all);
+  --border: var(--border_all);
+  
+  -webkit-mask: var(--shape);
+  mask: var(--shape);
+}
+
+.plate_chinese::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--border_color);
+  -webkit-mask: var(--border);
+  mask: var(--border);
+}
