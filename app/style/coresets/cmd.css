@@ -25,7 +25,7 @@ run-cmd {
   overflow-wrap: break-word;
   hyphens: auto;
 
-  .cmd_header {
+  & .cmd_header {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -36,7 +36,7 @@ run-cmd {
     user-select: none;
   }
 
-  .cmd_number {
+  & .cmd_number {
     background: black;
     height: 100%;
     color: white;
@@ -49,7 +49,7 @@ run-cmd {
     user-select: none;
   }
 
-  .cmd_input {
+  & .cmd_input {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -72,7 +72,7 @@ run-cmd {
       content: "";
       position: absolute;
       inset: 0;
-      background: url('../../resources/svg/NkardazKamon.svg') no-repeat;
+      background: url('../../../resources/svg/NkardazKamon.svg') no-repeat;
       background-size: contain;
       background-position: center;
       background-attachment: scroll;
@@ -81,12 +81,12 @@ run-cmd {
       z-index: -1;
     }
 
-    span {
+    & span {
       scroll-snap-align: center;
     }
   }
 
-  .cmd_line {
+  & .cmd_line {
     position: relative;
     display: flex;
     align-items: center;
@@ -114,13 +114,13 @@ run-cmd {
     }
 
 
-    label {
+    & label {
       min-width: 120px;
       color: white;
       user-select: none;
     }
 
-    textarea {
+    & textarea {
       font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
       resize: none;
       overflow-x: hidden;
@@ -143,16 +143,16 @@ run-cmd {
     }
   }
 
-  :where(&, *)::selection {
+  :where(&, & *)::selection {
     background-color: aquamarine;
     color: black;
     text-shadow: none;
   }
 
-  .console_response {
+  & .console_response {
 
     &::selection,
-    *::selection {
+    & *::selection {
       background-color: fuchsia;
     }
 
@@ -162,26 +162,26 @@ run-cmd {
       color: fuchsia;
     }
 
-    span {
+    & span {
       text-decoration: underline dotted fuchsia;
       text-underline-offset: 0.25em;
     }
   }
 
-  .console_send {
+  & .console_send {
     &::before {
       font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
       content: "\25C7\003E\2003\2003";
       color: aquamarine;
     }
 
-    span {
+    & span {
       text-decoration: underline dotted aquamarine;
       text-underline-offset: 0.25em;
     }
   }
 
-  .close {
+  & .close {
     font-family: 'Material Icons';
     margin-left: auto;
     margin-right: 10px;
@@ -195,11 +195,11 @@ run-cmd {
     }
   }
 
-  section>* {
+  & section > * {
     margin-bottom: 10px;
   }
 
-  .cmd_footer {
+  & .cmd_footer {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -210,7 +210,7 @@ run-cmd {
   }
 
 
-  * {
+  & * {
     scrollbar-color: white transparent;
 
     ::-webkit-scrollbar-thumb {

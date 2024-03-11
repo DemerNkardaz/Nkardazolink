@@ -76,18 +76,17 @@
 }
 
 
-:has(.wrap_border) {
-  position: relative;
+/*:has(.wrap_border) {
+  position: relative;*/
   
-  .wrap_border {
-    --wrap_border_inset: 8px;
-    --wrap_border_width: 5px;
-    --wrap_border_color: transparent;
-    position: absolute;
-    inset: var(--wrap_border_inset);
-    background: transparent;
-    border: var(--wrap_border_width) solid var(--wrap_border_color);
-    user-select: none;
-    pointer-events: none;
-  }
+.wrap_border {
+  --wrap_border_inset: 8px;
+  --wrap_border_width: 5px;
+  --wrap_border_color: transparent;
+  position: absolute;
+  inset: var(--wrap_border_inset);
+  background: transparent;
+  border: var(--wrap_border_width) solid var(--wrap_border_color);
+  user-select: none;
+  pointer-events: none;
 }

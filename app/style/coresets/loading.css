@@ -13,7 +13,7 @@ page-preloader, #preloader {
   font-weight: 800;
   transition: all 0.3s ease;
   
-  .preloader-logo {
+  & .preloader-logo {
     margin-top: calc(50vh - 128px);
   }
 }

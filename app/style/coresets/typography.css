@@ -17,10 +17,10 @@
 }
 
 .intends {
-  p:not(.initLetter) {
+  & p:not(.initLetter) {
     text-indent: 1em;
   }
-  p.initLetter {
+  & p.initLetter {
     text-indent: 40%;
   }
 }

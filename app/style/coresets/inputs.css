@@ -18,11 +18,11 @@ settings-check {
     font-size: 1.1em;
   }
 
-  *:hover {
+  & *:hover {
     cursor: pointer;
   }
   
-  label {
+  & label {
     user-select: none;
   }
 }
