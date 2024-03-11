@@ -434,12 +434,10 @@ class link_block extends HTMLElement {
     </a>
     `
     const styles = `
+    <link rel="stylesheet" href="app/style/basic.css">
     <link rel="stylesheet" href="app/style/shapes.css">
     <link rel="stylesheet" href="app/style/util.css">
     <style>
-      * {
-        box-sizing: border-box;
-      }
       a {
         position: relative;
         

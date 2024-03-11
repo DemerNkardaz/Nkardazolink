@@ -10,7 +10,6 @@ html {
 *, ::after, ::before {
   scroll-behavior: smooth;
   box-sizing: border-box;
-  line-height: 1.45em;
 }
 
 p, hr {

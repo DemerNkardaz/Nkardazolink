@@ -11,146 +11,146 @@ tooltip-element {
   user-select: none;
   pointer-events: none;
   z-index: 1080;
+
+  &.show {
+    pointer-events: all;
+    user-select: text;
+  }
+
+  .tl-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--tooltip_body);
+    padding: 10px 15px;
+    line-break: auto;
+    hyphens: auto;
+    word-break: normal;
+    white-space: normal;
+    word-spacing: normal;
+    word-wrap: break-word;
+    z-index: 1;
+  }
+
+  .tl-arrow {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: var(--tooltip_body);
+    mask: url('../../../resources/filters/triangle.svg') no-repeat;
+    mask-size: 100% 100%;
+    z-index: -1;
+
+    &[tooltip-pos='bottom'] {
+      top: -15px;
+      left: 50%;
+      bottom: auto;
+      mask: url('../../../resources/filters/triangle_up.svg') no-repeat;
+      mask-size: 100% 100%;
+      background: var(--tooltip_top);
+      transform: translateX(-50%);
+    }
+    &[tooltip-pos='top'] {
+      left: 50%;
+      bottom: -15px;
+      background: var(--tooltip_bottom);
+      transform: translateX(-50%);
+    }
+    &[tooltip-pos='right'] {
+      top: 50%;
+      left: -15px;
+      
+      transform: translateY(-50%) rotate(90deg);
+    }
+    &[tooltip-pos='left'] {
+      top: 50%;
+      right: -15px;
+      transform: translateY(-50%) rotate(-90deg);
+    }
+
+    &[tooltip-pos='bottom'] ~ .tl-close {
+      border-radius: 0 0 10px 10px;
+      width: 100%;
+      height: 18px;
+      bottom: -15px;
+    }
+    &[tooltip-pos='top'] ~ .tl-close {
+      border-radius: 10px 10px 0 0;
+      width: 100%;
+      height: 18px;
+      top: -15px;
+      filter: drop-shadow(0 5px 5px var(--shadow_primary));
+    }
+    &[tooltip-pos='right'] ~ .tl-close {
+      border-radius: 0 10px 10px 0;
+      width: 18px;
+      height: 100%;
+      top: 0;
+      right: -15px;
+      filter: drop-shadow(-5px 0 5px var(--shadow_primary));
+    }
+    &[tooltip-pos='left'] ~ .tl-close {
+      border-radius: 10px 0 0 10px;
+      width: 18px;
+      height: 100%;
+      top: 0;
+      left: -15px;
+      filter: drop-shadow(5px 0 5px var(--shadow_primary));
+    }
+  }
+
+  .tl-close {
+    font-family: 'Material Icons';
+    color: #aaa;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: var(--tooltip_body);
+    font-size: 0.8em;
+    user-select: none;
+    cursor: pointer;
+    z-index: 1;
+
+    &:active {
+      font-size: 0.65em;
+    }
+    &:hover {
+      background: white;
+      color: #555;
+    }
+  }
+
+  &:has(.tl-arrow[tooltip-pos='bottom']):has(.tl-close) {
+    .tl-content {
+      border-radius: 10px 10px 0 0;
+    }
+  }
+  &:has(.tl-arrow[tooltip-pos='top']):has(.tl-close) {
+    .tl-content {
+      border-radius: 0 0 10px 10px;
+    }
+  }
+  &:has(.tl-arrow[tooltip-pos='right']):has(.tl-close) {
+    .tl-content {
+      border-radius: 10px 0 0 10px;
+    }
+  }
+  &:has(.tl-arrow[tooltip-pos='left']):has(.tl-close) {
+    .tl-content {
+      border-radius: 0 10px 10px 0;
+    }
+  }
+  ruby {
+    font-size: 1.25rem;
+  }
 }
 
-tooltip-element.show {
-  pointer-events: all;
-  user-select: text;
-}
 
 
-tooltip-element .tl-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  background: var(--tooltip_body);
-  padding: 10px 15px;
-  line-break: auto;
-  hyphens: auto;
-  word-break: normal;
-  white-space: normal;
-  word-spacing: normal;
-  word-wrap: break-word;
-  z-index: 1;
-}
 
-tooltip-element .tl-arrow {
-  position: absolute;
-  display: block;
-  width: 24px;
-  height: 24px;
-  background: var(--tooltip_body);
-  mask: url('../../../resources/filters/triangle.svg') no-repeat;
-  mask-size: 100% 100%;
-  z-index: -1;
-}
 
-tooltip-element .tl-close {
-  font-family: 'Material Icons';
-  color: #aaa;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background: var(--tooltip_body);
-  font-size: 0.8em;
-  user-select: none;
-  cursor: pointer;
-  z-index: 1;
-}
-
-tooltip-element .tl-close:active {
-  font-size: 0.65em;
-}
-
-tooltip-element:has(.tl-arrow[tooltip-pos='bottom']):has(.tl-close) .tl-content {
-  border-radius: 10px 10px 0 0;
-}
-
-tooltip-element:has(.tl-arrow[tooltip-pos='top']):has(.tl-close) .tl-content {
-  border-radius: 0 0 10px 10px;
-}
-
-tooltip-element:has(.tl-arrow[tooltip-pos='right']):has(.tl-close) .tl-content {
-  border-radius: 10px 0 0 10px;
-}
-
-tooltip-element:has(.tl-arrow[tooltip-pos='left']):has(.tl-close) .tl-content {
-  border-radius: 0 10px 10px 0;
-}
-
-.tl-arrow[tooltip-pos='bottom'] ~ .tl-close {
-  border-radius: 0 0 10px 10px;
-  width: 100%;
-  height: 18px;
-  bottom: -15px;
-  /*filter: drop-shadow(0 -5px 5px var(--shadow_primary));*/
-}
-
-.tl-arrow[tooltip-pos='top'] ~ .tl-close {
-  border-radius: 10px 10px 0 0;
-  width: 100%;
-  height: 18px;
-  top: -15px;
-  filter: drop-shadow(0 5px 5px var(--shadow_primary));
-}
-
-.tl-arrow[tooltip-pos='right'] ~ .tl-close {
-  border-radius: 0 10px 10px 0;
-  width: 18px;
-  height: 100%;
-  top: 0;
-  right: -15px;
-  filter: drop-shadow(-5px 0 5px var(--shadow_primary));
-}
-
-.tl-arrow[tooltip-pos='left'] ~ .tl-close {
-  border-radius: 10px 0 0 10px;
-  width: 18px;
-  height: 100%;
-  top: 0;
-  left: -15px;
-  filter: drop-shadow(5px 0 5px var(--shadow_primary));
-}
-
-tooltip-element .tl-close:hover {
-  background: white;
-  color: #555;
-}
-
-tooltip-element .tl-arrow[tooltip-pos='bottom'] {
-  top: -15px;
-  left: 50%;
-  bottom: auto;
-  mask: url('../../../resources/filters/triangle_up.svg') no-repeat;
-  mask-size: 100% 100%;
-  background: var(--tooltip_top);
-  transform: translateX(-50%);
-}
-
-tooltip-element .tl-arrow[tooltip-pos='top'] {
-  left: 50%;
-  bottom: -15px;
-  background: var(--tooltip_bottom);
-  transform: translateX(-50%);
-}
-
-tooltip-element .tl-arrow[tooltip-pos='right'] {
-  top: 50%;
-  left: -15px;
-  
-  transform: translateY(-50%) rotate(90deg);
-}
-
-tooltip-element .tl-arrow[tooltip-pos='left'] {
-  top: 50%;
-  right: -15px;
-  transform: translateY(-50%) rotate(-90deg);
-}
-
-tooltip-element ruby {
-  font-size: 1.25rem;
-}

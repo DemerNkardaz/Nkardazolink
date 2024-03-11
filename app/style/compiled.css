@@ -8,5 +8,13 @@
 @import "./root.css";
 @import "./fonts.css";
 @import "./root_fonts.css";
-@import './coresets/compiled_coresets.css';
+@import './coresets/masks.css';
+@import './coresets/typography.css';
+@import './coresets/buttons.css';
+@import './coresets/dropdown.css';
+@import './coresets/tooltip.css';
+@import './coresets/loading.css';
+@import './coresets/body.css';
+@import './coresets/inputs.css';
+@import './coresets/items.css';
 @import './help_classes/help_compiled.css';

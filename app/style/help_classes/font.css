@@ -232,11 +232,11 @@
   font-variant: small-caps !important;
 }
 
-.text-wrap {
+.space-wrap {
   white-space: normal !important;
 }
 
-.text-nowrap {
+.space-nowrap {
   white-space: nowrap !important;
 }
 

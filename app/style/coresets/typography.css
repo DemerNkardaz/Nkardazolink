@@ -41,6 +41,7 @@
   white-space: normal;
   word-spacing: normal;
   word-wrap: break-word;
+  line-height: 1.4em;
   hyphenate-limit-chars: 7 3 4;
   -webkit-hyphenate-limit-chars: 7 3 4;
   -ms-hyphenate-limit-chars: 7 3 4;
