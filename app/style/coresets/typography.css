@@ -24,10 +24,18 @@
 }
 
 .v-writing {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  letter-spacing: 0.2em;
+}
+
+.v-writing-rl {
   writing-mode: vertical-rl;
   text-orientation: upright;
   letter-spacing: 0.2em;
 }
+
+
 
 .typo_text {
   text-align: justify;

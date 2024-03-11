@@ -1,15 +1,16 @@
 
-@import url('https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css');
+@import url('https://cdn.jsdelivr.net/npm/overlayscrollbars@latest/styles/overlayscrollbars.min.css') layer(root);
 
 
-@import "./basic.css";
-@import "./shapes.css";
+@import "./layers.css";
+@import "./root.css" layer(root);
+@import "./basic.css" layer(root);
+@import "./shapes.css" layer(root);
 @import "./util.css";
-@import "./root.css";
-@import "./fonts.css";
-@import "./root_fonts.css";
-@import './coresets/masks.css';
-@import './coresets/typography.css';
+@import "./fonts.css" layer(root);
+@import "./root_fonts.css" layer(root);
+@import './coresets/masks.css' layer(root);
+@import './coresets/typography.css' layer(object);
 @import './coresets/buttons.css';
 @import './coresets/dropdown.css';
 @import './coresets/tooltip.css';

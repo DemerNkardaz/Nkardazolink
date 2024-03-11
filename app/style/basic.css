@@ -54,32 +54,33 @@ h6 {
 a {
   text-decoration: none;
   color: var(--color_orange_gold);
+
+  &.listButton {
+    color: var(--text_primary);
+  }
+
+  &.listButton:hover, &:hover {
+    color: var(--color_gold_hover);
+  }
+
+  &:focus, &:active {
+    color: var(--color_pale_gold);
+  }
 }
 
-a.listButton:hover,
-a:hover {
-  color: var(--color_gold_hover);
-}
+ruby {
+  rt {
+    font-family: sans-serif;
+    font-size: 0.5em;
+  }
 
-a:focus,
-a:active {
-  color: var(--color_pale_gold);
-}
+  &.ruby_bottom {
+    ruby-position: under;
 
-a.listButton {
-  color: var(--text_primary);
-}
-
-ruby rt {
-  font-family: sans-serif;
-}
-
-.ruby_bottom {
-  ruby-position: under;
-}
-
-.ruby_bottom>ruby {
-  ruby-position: over;
+    ruby {
+      ruby-position: over;
+    }
+  }
 }
 
 * {
@@ -93,13 +94,13 @@ ruby rt {
   ::-webkit-scrollbar-thumb {
     background-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
   }
-}
 
-*::selection {
-  background-color: var(--color_dark_gold);
-  color: var(--text_very_light);
-  text-shadow: 1px 1px 3px #000000;
-}
+  ::selection {
+    background-color: var(--color_dark_gold);
+    color: var(--text_very_light);
+    text-shadow: 1px 1px 3px #000000;
+  }
+}  
 
 
 img {
@@ -124,10 +125,6 @@ body {
   background-size: cover;
 }
 
-rt {
-  font-size: 0.5em;
-}
-
 
 no-br {
   display: inline;
@@ -136,10 +133,11 @@ no-br {
 
 char-name {
   display: inherit;
-}
-char-name::first-letter {
-  color: var(--book_letter);
-  font-weight: 800;
+
+  &::first-letter {
+    color: var(--book_letter);
+    font-weight: 800;
+  }
 }
 /* SAMPLE OF BLUR BORDER
 main {
@@ -151,4 +149,3 @@ main {
   z-index: 1;
 }
 */
-

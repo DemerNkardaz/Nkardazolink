@@ -46,10 +46,6 @@ page-preloader::before, #preloader::before {
 }
 
 .preloader-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   height: 128px;
   width: 128px;
   background-size: 90%;
@@ -64,10 +60,6 @@ page-preloader::before, #preloader::before {
   z-index: 1000;
 }
 page-preloader .preloader-logo, #preloader .preloader-logo {
-    position: relative;
-    top: unset;
-    left: unset;
-    transform: unset;
     margin-bottom: 35px;
 }
 
@@ -89,7 +81,7 @@ page-preloader .preloader-logo, #preloader .preloader-logo {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50px;
   filter: brightness(100%) drop-shadow(0px 0px 1px var(--kamon_red)) drop-shadow(0px 3px 1px var(--color_gold_light));
   animation: pulsedLoadingProgress 2s linear infinite;
   width: 95%;
@@ -350,6 +342,7 @@ page-preloader .progress-value, #preloader .progress-value {
     radial-gradient(farthest-side, #ffa516 94%, #0000) top/8px 8px no-repeat,
     conic-gradient(#0000 30%, #ffa516);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: snigle_circle_spinner_round_anim 1s infinite linear;
 }
 
@@ -392,6 +385,7 @@ page-preloader .progress-value, #preloader .progress-value {
   color: #854f1d;
   background: radial-gradient(farthest-side, currentColor calc(100% - 6px), #0000 calc(100% - 5px) 0);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 13px), #000 calc(100% - 12px));
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 13px), #000 calc(100% - 12px));
   border-radius: 50%;
   animation: gear_spinner_anim 2s infinite linear;
 }
