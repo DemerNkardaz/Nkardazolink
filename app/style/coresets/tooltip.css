@@ -8,14 +8,12 @@
     filter: drop-shadow(0 5px 10px var(--shadow_inset_info)) drop-shadow(0 2px 1px var(--shadow_inset_info));
     font-family: var(--font_common_set);
     transition: all 0.1s ease;
-    content-visibility: hidden;
     opacity: 0;
     user-select: none;
     pointer-events: none;
     z-index: 1080;
   
     &.show {
-      content-visibility: visible;
       pointer-events: all;
       user-select: text;
     }

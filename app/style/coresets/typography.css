@@ -9,33 +9,31 @@
   font-size: 1.1em;
   font-weight: 800;
   color: var(--book_letter);
-}
-.initWord::after {
-  content: '\2002\2006';
-  user-select: none;
+
+  &::after {
+    content: '\2002\2006';
+    user-select: none;
+  }
 }
 
-.intends p:not(.initLetter) {
-  text-indent: 1em;
-}
-
-.intends p.initLetter {
-  text-indent: 40%;
+.intends {
+  p:not(.initLetter) {
+    text-indent: 1em;
+  }
+  p.initLetter {
+    text-indent: 40%;
+  }
 }
 
 .v-writing {
   writing-mode: vertical-lr;
   text-orientation: upright;
   letter-spacing: 0.2em;
+
+  &.rl {
+    writing-mode: vertical-rl;
+  }
 }
-
-.v-writing-rl {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 0.2em;
-}
-
-
 
 .typo_text {
   text-align: justify;

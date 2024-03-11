@@ -595,8 +595,7 @@ class link_block extends HTMLElement {
       ::part(link-subscript), .link-subscript {
         position: relative;
         display: flex;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         ${LINK_Class == 'long-thin' ? `
         justify-content: flex-start;
         padding-left: 5px;

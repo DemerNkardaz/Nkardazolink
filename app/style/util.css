@@ -63,230 +63,32 @@ ol:has(.foot-note) {
   text-indent: 0;
   padding: 0 5px 0 12px;
   z-index: 1;
+
+  &::after {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    vertical-align: super;
+    font-size: 0.6rem;
+    left: 0.5em;
+    top: 3px;
+    z-index: 2;
+  }
 }
 
-.foot-note::after {
-  content: counter(li);
-  counter-increment: li;
-  position: absolute;
-  vertical-align: super;
-  font-size: 0.6rem;
-  left: 0.5em;
-  top: 3px;
-  z-index: 2;
-}
 .show_note {
   position: relative;
   z-index: 1;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2.5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 5px);
+    background: var(--color_dark_gold_emboss);
+    border-radius: 7px;
+    z-index: -1;
+  }
 }
-
-.show_note::before {
-  content: "";
-  position: absolute;
-  top: -2.5px;
-  left: -5px;
-  width: calc(100% + 10px);
-  height: calc(100% + 5px);
-  background: var(--color_dark_gold_emboss);
-  border-radius: 7px;
-  z-index: -1;
-}
-
-
-run-cmd {
-  font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
-  color: white;
-  position: fixed;
-  display: flex;
-  left: 50px;
-  top: 50px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  filter: drop-shadow(5px 5px 15px #000000a0);
-  min-width:590px;
-  width: 800px;
-  min-height: 180px;
-  height: 600px;
-  backdrop-filter: blur(30px);
-  border: 1px solid white;
-  border-radius: 10px;
-  overflow: hidden;
-  z-index: 99999999;
-  box-sizing: border-box;
-  resize: both;
-  word-wrap: break-word;
-  word-break: break-all;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
-
-run-cmd .cmd_header {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  color: black;
-  background: white;
-  width: 100%;
-  height: 40px;
-  user-select: none;
-}
-
-run-cmd .cmd_number {
-  background: black;
-  height: 100%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 128px;
-  margin-right: 20px;
-  text-transform: uppercase;
-  user-select: none;
-}
-
-run-cmd .cmd_input {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  padding-top: 10px;
-  text-indent: 20px;
-  width: 100%;
-  height: 100%;
-  color: white;
-  background: #000000DD;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  z-index: 1;
-}
-run-cmd .cmd_input::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: url('../../resources/svg/NkardazKamon.svg') no-repeat;
-  background-size: contain;
-  background-position: center;
-  background-attachment: scroll;
-  filter: brightness(1000%);
-  opacity: 0.025;
-  z-index: -1;
-}
-
-run-cmd .cmd_line {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  width: 100%;
-  height: auto;
-  min-height: 30px;
-  margin-top: 10px;;
-  z-index: 1;
-}
-
-run-cmd .cmd_line::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  translate: 0 -50%;
-  height: calc(100% + 20px);
-  width: 100%;
-  opacity: 0.25;
-  border-top: 3px dotted white;
-  border-bottom: 3px dotted white;
-  z-index: -1;
-}
-
-run-cmd .cmd_line label {
-  min-width: 120px;
-  color: white;
-  user-select: none;
-}
-
-run-cmd .cmd_line textarea {
-  font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
-  resize: none;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: 100%;
-  width: 100%;
-  color: aquamarine;
-  height: 100%;
-  padding-top: 5px;
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  font-size: 1rem;
-}
-
-run-cmd .cmd_line textarea:focus {
-  outline: none;
-}
-
-run-cmd .console_response span {
-  text-decoration: underline dotted fuchsia;
-  text-underline-offset: 0.25em;
-}
-
-run-cmd .console_response::before {
-  font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
-  content: "\25C8\003E\2003\2003";
-  color: fuchsia;
-}
-
-run-cmd .console_send span {
-  text-decoration: underline dotted aquamarine;
-  text-underline-offset: 0.25em;
-}
-
-run-cmd .console_send::before {
-  font-family: 'Source Code Pro', 'Cambria Math', 'Noto Sans', 'Noto Sans JP', 'Noto Sans TC', 'Noto Sans KR', monospace;
-  content: "\25C7\003E\2003\2003";
-  color: aquamarine;
-}
-
-run-cmd section > * {
-  margin-bottom: 10px;
-}
-run-cmd .close {
-  font-family: 'Material Icons';
-  margin-left: auto;
-  margin-right: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 5px;
-}
-run-cmd .close:hover {
-  color: #aaa;
-}
-
-run-cmd::selection, run-cmd *::selection {
-  background-color: aquamarine;
-  color: black;
-  text-shadow: none;
-}
-
-run-cmd .console_response::selection,
-run-cmd .console_response *::selection {
-  background-color: fuchsia;
-}
-
-run-cmd .cmd_footer {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  width: 100%;
-  height: 26px;
-}
-

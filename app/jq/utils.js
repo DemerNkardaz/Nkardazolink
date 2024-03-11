@@ -137,3 +137,6 @@ $.fn.isdrag = function(options) {
 		}
 	});
 };
+
+
+

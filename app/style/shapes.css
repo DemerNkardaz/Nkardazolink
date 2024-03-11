@@ -80,17 +80,13 @@
   position: relative;
   
   .wrap_border {
-    --wrap_border_margin: 8px;
+    --wrap_border_inset: 8px;
     --wrap_border_width: 5px;
     --wrap_border_color: transparent;
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: var(--wrap_border_inset);
     background: transparent;
     border: var(--wrap_border_width) solid var(--wrap_border_color);
-    margin: var(--wrap_border_margin);
     user-select: none;
     pointer-events: none;
   }
