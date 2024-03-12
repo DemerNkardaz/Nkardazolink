@@ -16,6 +16,7 @@ p, hr {
   margin: 0;
 }
 
+
 h1,
 h2,
 h3,
@@ -109,6 +110,10 @@ img {
   text-indent: -9999px;
 }
 
+:has(img:not([alt])) {
+  background: red;
+}
+
 body {
   position: relative;
   display: flex;
@@ -139,6 +144,94 @@ char-name {
     font-weight: 800;
   }
 }
+
+.diacritic_upper {
+  position: relative;
+  display: inline;
+
+  &::before {
+    position: absolute;
+    right: 50%;
+    translate: 0 0.05em;
+  }
+  &.upcase {
+    &::before {
+      translate: 0 -0.1em;
+    }
+  }
+}
+
+.diacritic_lower {
+  position: relative;
+  display: inline;
+
+  &::before {
+    position: absolute;
+    right: 50%;
+    translate: 0 0;
+  }
+}
+
+d-mac {
+  &::before {
+    content: '\0304';
+  }
+}
+
+d-cir {
+  &::before {
+    content: '\0302';
+  }
+}
+
+d-car {
+  &::before {
+    content: '\030C';
+  }
+}
+
+d-til {
+  &::before {
+    content: '\0303';
+  }
+}
+
+d-bre {
+  &::before {
+    content: '\0306';
+  }
+}
+
+
+d-dia {
+  &::before {
+    content: '\0308';
+  }
+}
+
+d-dot {
+  &::before {
+    content: '\0307';
+  }
+}
+
+d-ced {
+  &::before {
+    content: '\0327';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* SAMPLE OF BLUR BORDER
 main {

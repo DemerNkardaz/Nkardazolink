@@ -8,6 +8,7 @@ import './js/vars.js';
 /*-- --------------- LIBS ---------------- --*/
 /*-- --------------- AFTERINIT ---------------- --*/
 import './jq/selectors.js';
+import './jq/ui_diacrit.js';
 import './jq/ui_tags.js';
 import './jq/ui_components.js';
 import './init.js';
