@@ -1,5 +1,22 @@
+@property --iltra {
+  syntax: "<color>";
+  initial-value: red;
+}
 :root {
   --white: #fff;
+
+  --shadow_22a10: #22222210;
+  --shadow_22a29: #22222229;
+  --shadow_22a64: #22222264;
+  --shadow_22a86: #22222286;
+  --shadow_00a95: #22222295;
+
+  --text_33: #333;
+  --text_d5: #d5d5d5;
+  --text_ee: #eee;
+  --text_fe: #fefefefe;
+  --text_a4: #A4A4A4;
+
 
   --shadow_primary: #22222210;
   --shadow_secondary: #22222286;

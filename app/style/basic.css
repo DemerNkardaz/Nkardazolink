@@ -1,9 +1,10 @@
 html {
   font-size: 12pt;
   line-height: 1.45em;
+  color: var(--text_33);
 }
 
-@media (max-width: 1200px) {
+@media (750px <= width <= 1200px) {
 
 }
 
@@ -151,6 +152,7 @@ char-name {
 
   &::before {
     position: absolute;
+    width: 1ch;
     right: 50%;
     translate: 0 0.05em;
   }
