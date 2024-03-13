@@ -6,7 +6,13 @@
   position: relative;
   --corner_radius: 50px;
   --border_width: 10px;
+  
   --border_color: transparent;
+  --wrap_border_inset: 8px;
+  --wrap_border_width: 5px;
+  --wrap_border_radius: 0;
+  --wrap_border_color: var(--border_color);
+
   --shape_l: radial-gradient(var(--corner_radius) at 0 var(--corner_radius), #0000 98%, #000) 0 calc(-1*var(--corner_radius));
   --shape_r: radial-gradient(var(--corner_radius) at 100% var(--corner_radius), #0000 98%, #000) 0 calc(-1*var(--corner_radius));
   --shape_t: radial-gradient(var(--corner_radius) at var(--corner_radius) 0, #0000 98%, #000) calc(-1*var(--corner_radius));
@@ -62,6 +68,7 @@
 
   -webkit-mask: var(--shape);
   mask: var(--shape);
+  z-index: 1;
 
   &::before {
     content: "";
@@ -73,20 +80,43 @@
     user-select: none;
     pointer-events: none;
   }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: var(--wrap_border_inset);
+    background: transparent;
+    border: var(--wrap_border_width) solid var(--wrap_border_color);
+    border-radius: var(--wrap_border_radius);
+    user-select: none;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  &.shadow_frame {
+    --shadow: drop-shadow(0 0 2px var(--shadow_half)) drop-shadow(0 5px 5px var(--shadow_inset_info));
+
+    &::after {
+      filter: var(--shadow);
+    }
+  }
 }
 
 
 /*:has(.wrap_border) {
-  position: relative;*/
+  position: relative;
+}*/
   
 .wrap_border {
   --wrap_border_inset: 8px;
   --wrap_border_width: 5px;
+  --wrap_border_radius: 0;
   --wrap_border_color: transparent;
   position: absolute;
   inset: var(--wrap_border_inset);
   background: transparent;
   border: var(--wrap_border_width) solid var(--wrap_border_color);
+  border-radius: var(--wrap_border_radius);
   user-select: none;
   pointer-events: none;
 }

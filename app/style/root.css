@@ -1,7 +1,3 @@
-@property --iltra {
-  syntax: "<color>";
-  initial-value: red;
-}
 :root {
   --white: #fff;
 
@@ -14,8 +10,20 @@
   --text_33: #333;
   --text_d5: #d5d5d5;
   --text_ee: #eee;
+  --text_ed: #ededed;
   --text_fe: #fefefefe;
   --text_a4: #A4A4A4;
+
+  --bg_ff: #FFFFFF;
+  --bg_00ab3: #000000B3;
+  --bg_ffab3: red;
+  --bg_ffab0: #FFFFFFB0;
+  --bg_ffaf0: #FFFFFFF0;
+  --bg_ef: #efefef;
+
+  --bg_gr_efToff: linear-gradient(0deg, var(--bg_ef), var(--bg_ff));
+
+  --btn_ff: #ffffff;
 
 
   --shadow_primary: #22222210;

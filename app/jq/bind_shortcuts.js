@@ -251,7 +251,6 @@ $(document).on('keydown', function (e) {
     return false;
   }
 });
-
 $(document).on('click', 'run-cmd .close', function () {
   $(this).parents('run-cmd').remove();
   return false;

@@ -1,7 +1,6 @@
 html {
   font-size: 12pt;
   line-height: 1.45em;
-  color: var(--text_33);
 }
 
 @media (750px <= width <= 1200px) {
@@ -125,8 +124,8 @@ body {
   left: 0;
   position: relative;
   height: 100vh;
+  color: var(--text_33);
   font-family: var(--font_common_set);
-  color: var(--text_primary);
   background: url(https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg) no-repeat fixed center center;
   background-size: cover;
 }
@@ -145,7 +144,7 @@ char-name {
     font-weight: 800;
   }
 }
-
+/*
 .diacritic_upper {
   position: relative;
   display: inline;
@@ -222,7 +221,7 @@ d-ced {
     content: '\0327';
   }
 }
-
+*/
 
 
 

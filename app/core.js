@@ -232,30 +232,29 @@ window.copyCurrentURL = function() {
 
 
 window.setTabIndex = function() {
-    // Получаем все элементы на странице с атрибутом tabindex
     var elementsWithTabIndex = document.querySelectorAll('[tabindex]');
     var usedTabIndexes = [];
 
-    // Получаем уже использованные табиндексы
     elementsWithTabIndex.forEach(function(element) {
         var index = parseInt(element.getAttribute('tabindex'));
         usedTabIndexes.push(index);
     });
 
-    // Функция для проверки уникальности индекса
     function isUnique(index) {
         return !usedTabIndexes.includes(index);
     }
 
-    // Генерируем уникальный табиндекс
     var uniqueIndex = 1;
     while (!isUnique(uniqueIndex)) {
         uniqueIndex++;
     }
 
-    // Возвращаем уникальный табиндекс
     return uniqueIndex;
 }
+
+
+
+
 /*
 document.addEventListener('DOMContentLoaded', function() {
     var elementsWithTabindex = document.querySelectorAll('[tabindex]');

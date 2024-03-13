@@ -1,4 +1,4 @@
-/* marcon */
+/* marcon 
 
 const diaciritc_classes = {
   'macron': 'd-mac',
@@ -35,3 +35,4 @@ const diaciritc_classes = {
     customElements.define(value, CustomElement);
   }
 })();
+*/
