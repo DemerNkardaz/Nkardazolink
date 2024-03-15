@@ -21,7 +21,15 @@ html {
   font-size: 12pt;
   line-height: 1.45;
   scroll-behavior: smooth;
+  hyphens: auto;
+  hyphenate-character: '\2010';
+  text-wrap: balance;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
 
 body {
   position: relative;
