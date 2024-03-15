@@ -22,9 +22,11 @@ h3.forEach(header => {
     header.addEventListener('click', () => {
       const id = header.id;
       const url = window.location.href;
-      const newUrl = `${url}#${id}`;
+      let newUrl = `${url}#${id}`;
       const name = header.querySelector('span').textContent;
     
+      url.includes('#') ? newUrl = `${url.split('#')[0]}#${id}` : newUrl = `${url}#${id}`;
+
       navigator.clipboard.writeText(newUrl)
         .then(() => {
           alert(`Ссылка на правильно «${name}» скопирована`);
