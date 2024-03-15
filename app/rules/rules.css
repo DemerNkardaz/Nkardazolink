@@ -185,6 +185,16 @@ p-r {
   background: #fa0f0f25;
 }
 
+.puns {
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.1s ease;
+  padding: 0 5px;
+  border-radius: 5px;
+  color: #fa0f0f;
+  background: #fa0f0f25;
+}
+
 co-mmand {
   font-style: italic;
   
