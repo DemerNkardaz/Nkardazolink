@@ -413,7 +413,7 @@ class page_preloader extends HTMLElement {
     var siblings = $(this).siblings(':not(page-preloader)');
     var siblingClass = ($(this).attr('hiderole') === 'noscroll') ? 'noscroll-for-preloader' : 'hidden-for-preloader';
     siblings.addClass(siblingClass);
-    $(this).attr('enable_percent') !== 'false' ? setTimeout(showLoadPercentage, 100) : null;
+    $(this).attr('enable_percent') !== 'false' ? setTimeout(showLoadPercentage, 175) : null;
   }
 
 }
