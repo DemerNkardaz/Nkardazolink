@@ -13,3 +13,25 @@ function updateCopyrightYears() {
 }
 
 updateCopyrightYears();
+
+const h3 = document.querySelectorAll('h3.rule');
+
+h3.forEach(header => {
+  if (header.id) {
+    header.innerHTML += '<span class="material-icons">link</span>';
+    header.addEventListener('click', () => {
+      const id = header.id;
+      const url = window.location.href;
+      const newUrl = `${url}#${id}`;
+      const name = header.querySelector('span').textContent;
+    
+      navigator.clipboard.writeText(newUrl)
+        .then(() => {
+          alert(`Ссылка на правильно «${name}» скопирована`);
+        })
+        .catch(error => {
+          console.error('Ошибка при копировании:', error);
+        });
+    });
+  }
+});

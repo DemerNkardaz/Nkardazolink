@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Icons&display=swap');
 
 :root {
   --11: #111;
@@ -233,19 +234,32 @@ a {
 
 
 .rule {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   transition: all 0.1s ease;
   padding: 0 5px;
   border-radius: 5px;
+  user-select: none;
 
   @media (prefers-color-scheme: light) {
-    color: #4d0ffa;
-    background: #4d0ffa25;
+    color: #faa00f;
+    background: #faa00f25;
   }
 
   @media (prefers-color-scheme: dark) {
     color: #807cef;
     background: #807cef20;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: white;
+    background: #faa00f;
+    cursor: pointer;
+  }
+
+  .material-icons {
+    margin-left: auto;
   }
 }
 
