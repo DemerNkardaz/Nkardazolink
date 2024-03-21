@@ -19,9 +19,6 @@
 
 
 $(document).ready(function () {
-  var trackTitle = $('.trackTitle');
-  var trackTime = $('.trackTime');
-  var trackProgress = $('.trackProgress');
   window.playlist = {
     'ValentineSeasons — Missing in wind': 'https://cdn.pixabay.com/download/audio/2023/09/17/audio_fee1f2b797.mp3?filename=missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932.mp3',
     'ValentineSeasons — Sakura dance': 'https://cdn.pixabay.com/download/audio/2023/09/06/audio_360729c9ac.mp3?filename=sakura-dance-background-music-traditional-japanese-165338.mp3'

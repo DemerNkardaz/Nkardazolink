@@ -27,9 +27,9 @@ $(document).on('languageJSON_loaded', function () {
     <span class="ambientControls ms-auto me-3">
       <button nk-music="pause/play"><span class="material-icons">pause</span></button>
       <button nk-music="random"><span class="material-icons">shuffle</span></button>
-      <div class="trackInfo ms-3">
-        <div class="trackTitle">${getCurrentTrack() ? getCurrentTrack() : ''}</div>
-        <div class="trackTime">00:00 / ${getCurrentTrackTime() ? getCurrentTrackTime() : '00:00'}</div>
+      <div class="trackInfo ms-2">
+        <div class="trackTitle">Track — none</div>
+        <div class="trackTime">00:00 / '00:00'</div>
         <div class="trackProgress"></div>
       </div>
     </span>

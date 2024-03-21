@@ -22,7 +22,7 @@
     width: 288px;
     height: 18px;
     font-size: 0.8rem;
-    color: var(--text_a4);
+    color: var(--text_8d);
 
     & :is(.trackTitle, .trackTime) {
       height: 15px;
@@ -54,7 +54,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: var(--text_a4);
+        background: var(--text_8d);
         opacity: 0.25;
       }
 
@@ -62,7 +62,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: var(--text_a4);
+        background: var(--text_8d);
         width: var(--progress);
       }
     }
@@ -77,9 +77,9 @@
     line-height: 1em;
     width: 18px;
     height: 18px;
-    color: var(--text_a4);
+    color: var(--text_8d);
     background: transparent;
-    border: 1px solid var(--text_a4);
+    border: 1px solid var(--text_8d);
     border-radius: 5px;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -95,7 +95,7 @@
     }
 
     &:hover {
-      background: var(--text_a4);
+      background: var(--text_8d);
       color: white;
     }
 
