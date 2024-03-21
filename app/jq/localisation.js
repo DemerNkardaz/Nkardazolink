@@ -10,10 +10,10 @@ window.updateItemsLanguage = function () {
 }
 
 window.updateLanguageKeys = function () {
-  var key_elements = $('[data-key]');
+  var key_elements = $('[data-key], [alt-key]');
   function update () {
     key_elements.each(function () {
-      var key = $(this).attr('data-key');
+      var key = $(this).attr('data-key') || $(this).attr('alt-key');
       var getLocale = languageJSON[selectedLanguage][key];
       if (!getLocale) {
         for (var lang in languageJSON) {
@@ -26,14 +26,14 @@ window.updateLanguageKeys = function () {
 
       getLocale = (getLocale ? textUnPacker(getLocale) : null);
 
-      $(this).html(getLocale);
+      $(this).attr('data-key') ? $(this).html(getLocale) : ($(this).attr('alt-key') ? $(this).attr('alt', getLocale) : '');
     });
   } update();
 
   $('*').filter(function () {
     return this.shadowRoot !== null;
   }).each(function () {
-    key_elements = $(this.shadowRoot).find('[data-key]');
+    key_elements = $(this.shadowRoot).find('[data-key], [alt-key]');
     update();
   });
   $('html').attr('lang', selectedLanguage);
@@ -58,23 +58,3 @@ window.cyclic_language = function () {
 $(document).on('languageJSON_loaded', function () {
   updateLanguageKeys();
 })
-
-
-function create_selector () {
-  return `<select>
-    <option value="ru">Русский</option>
-    <option value="en">English</option>
-  </select>`
-}
-
-const test_html = `
-  <div>
-    ${create_selector()}
-    ${create_selector()}
-    ${create_selector()}
-    ${create_selector()}
-  </div>
-`
-
-
-$(`body`).append(test_html)

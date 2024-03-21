@@ -5,7 +5,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    filter: drop-shadow(0 5px 10px var(--shadow_inset_info)) drop-shadow(0 2px 1px var(--shadow_inset_info));
+    filter: drop-shadow(0 5px 10px var(--shadow_22a29)) drop-shadow(0 2px 1px var(--shadow_22a29));
     font-family: var(--font_common_set);
     transition: all 0.1s ease;
     opacity: 0;
@@ -84,7 +84,7 @@
         width: 100%;
         height: 18px;
         top: -15px;
-        filter: drop-shadow(0 5px 5px var(--shadow_primary));
+        filter: drop-shadow(0 5px 5px var(--shadow_22a10));
       }
       &[tooltip-pos='right'] ~ .tl-close {
         border-radius: 0 10px 10px 0;
@@ -92,7 +92,7 @@
         height: 100%;
         top: 0;
         right: -15px;
-        filter: drop-shadow(-5px 0 5px var(--shadow_primary));
+        filter: drop-shadow(-5px 0 5px var(--shadow_22a10));
       }
       &[tooltip-pos='left'] ~ .tl-close {
         border-radius: 10px 0 0 10px;
@@ -100,7 +100,7 @@
         height: 100%;
         top: 0;
         left: -15px;
-        filter: drop-shadow(5px 0 5px var(--shadow_primary));
+        filter: drop-shadow(5px 0 5px var(--shadow_22a10));
       }
     }
   

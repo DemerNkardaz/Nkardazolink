@@ -5,7 +5,7 @@
   --shadow_22a29: #22222229;
   --shadow_22a64: #22222264;
   --shadow_22a86: #22222286;
-  --shadow_00a95: #22222295;
+  --shadow_00a95: #00000095;
 
   --text_33: #333;
   --text_d5: #d5d5d5;
@@ -18,19 +18,18 @@
   --bg_00ab3: #000000B3;
   --bg_ffab3: red;
   --bg_ffab0: #FFFFFFB0;
+  --bg_ffab3: #FFFFFFB3;
   --bg_ffaf0: #FFFFFFF0;
+  --bg_ffa80: #FFFFFF80;
   --bg_ef: #efefef;
+  --bg_efab3: #efefefb3;
+  --bg_efa80: #efefef80;
 
   --bg_gr_efToff: linear-gradient(0deg, var(--bg_ef), var(--bg_ff));
+  --bg_gr_efToff_b3: linear-gradient(0deg, var(--bg_efab3), var(--bg_ffab3));
+  --bg_gr_efToff_80: linear-gradient(0deg, var(--bg_efa80), var(--bg_ffa80));
 
   --btn_ff: #ffffff;
-
-
-  --shadow_primary: #22222210;
-  --shadow_secondary: #22222286;
-  --shadow_tretiary: #00000095;
-  --shadow_half: #22222264;
-  --shadow_inset_info: #22222229;
 
   --text_primary: #333;
   --text_lightgrey: #d5d5d5;
@@ -40,15 +39,7 @@
 
   --text_options: #ededed;
 
-  --background_dark: #000000B3;
-  --background_light_main: #FFFFFFB3;
-  --background_dark_main: #000000B3;
-  --background_light_person_block: #FFFFFF80;
-  --background_light_mode_gallery: #FFFFFFF0;
   --background_circle_button: white;
-  --background_grad_light: linear-gradient(0deg, #efefef, #ffffff);
-  --background_grad_light_b3: linear-gradient(0deg, #efefefb3, #ffffffb3);
-  --background_grad_light_80: linear-gradient(0deg, #efefef80, #ffffff80);
   --button_light: #ffffff48;
   --white_border: #ffffff20;
   --light_border: #ebedf0;

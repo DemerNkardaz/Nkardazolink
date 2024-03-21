@@ -134,111 +134,107 @@ if (savedSettings.save_selected_item !== 'true') {
 
 
 /* ------------------- TOOLTIPS ------------------- */
+$(document).on('languageJSON_loaded', function () {
+  $(document).on('mouseenter', '[tooltip_key]', function () {
+    var key = $(this).attr('tooltip_key');
+    var pos = $(this).attr('tooltip_pos');
 
-$(document).on('mouseenter', '[tooltip_key]', function () {
-  var key = $(this).attr('tooltip_key');
-  var pos = $(this).attr('tooltip_pos');
+    var uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
 
-  var uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
+    const tooltip = new tooltip_element({ tooltip: languageJSON[selectedLanguage][key] ? languageJSON[selectedLanguage][key] : key, tooltip_key: languageJSON[selectedLanguage][key] ? key : null, tooltip_pos: pos, id: uniqId });
+    function calcTooltipPos(id) {
+      var tooltip = $(`#${id}`);
+      var parent = $(`[data-tooltip_id="${id}"]`);
 
-  const tooltip = new tooltip_element({ tooltip: languageJSON[selectedLanguage][key] ? languageJSON[selectedLanguage][key] : key, tooltip_key: languageJSON[selectedLanguage][key] ? key : null, tooltip_pos: pos, id: uniqId });
-  function calcTooltipPos(id) {
-    var tooltip = $(`#${id}`);
-    var parent = $(`[data-tooltip_id="${id}"]`);
-
-    var parentOffset = parent.offset();
-    var parentPosition = parent.position();
-    var calc_pos;
-    if (pos === 'bottom') {
-      calc_pos = { top: parentPosition.top + parent.outerHeight(true) + 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
-    } else if (pos === 'top') {
-      calc_pos = { top: parentPosition.top - tooltip.outerHeight(true) - 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
-    } else if (pos === 'left') {
-      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left - tooltip.outerWidth(true) - 15 }
-    } else if (pos === 'right') {
-      calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left + parent.outerWidth(true) + 15 }
+      var parentOffset = parent.offset();
+      var parentPosition = parent.position();
+      var calc_pos;
+      if (pos === 'bottom') {
+        calc_pos = { top: parentPosition.top + parent.outerHeight(true) + 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
+      } else if (pos === 'top') {
+        calc_pos = { top: parentPosition.top - tooltip.outerHeight(true) - 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
+      } else if (pos === 'left') {
+        calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left - tooltip.outerWidth(true) - 15 }
+      } else if (pos === 'right') {
+        calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left + parent.outerWidth(true) + 15 }
+      }
+      tooltip.css({
+        top: calc_pos.top,
+        left: calc_pos.left
+      })
     }
-    tooltip.css({
-      top: calc_pos.top,
-      left: calc_pos.left
-    })
-  }
-  if ($(this).attr('data-tooltip_id') === $('tooltip-element').attr('id') ) {
-    $(this).attr('data-tooltip_id', uniqId)
-    $('body').append(tooltip);
-    calcTooltipPos(uniqId);
-    $(`#${uniqId}`).addClass('show').transition({ opacity: 1}, 300);
-  }
+    if ($(this).attr('data-tooltip_id') === $('tooltip-element').attr('id') ) {
+      $(this).attr('data-tooltip_id', uniqId)
+      $('body').append(tooltip);
+      calcTooltipPos(uniqId);
+      $(`#${uniqId}`).addClass('show').transition({ opacity: 1}, 300);
+    }
+  });
+
+  var timers_array = {};
+
+  $(document).on('mouseenter', 'tooltip-element', function () {
+    $(this).css('opacity', 1);
+    !$(this).find('.tl-close').length ? $(this).append(`
+      <div class="tl-close">close</div>
+      `
+    ) : '';
+
+    clearTimeout(timers_array[$(this).attr('id')]);
+  });
+
+  $(document).on('click', '.tl-close', function () {
+    var uniqId = $(this).parent().attr('id');
+    $(`#${uniqId}`).transition({ opacity: 0 }, 300);
+    setTimeout(function () {
+      $(`#${uniqId}`).remove();
+      $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
+    }, 300);
+  });
+
+  $(document).on('mouseleave', '[tooltip_key]', function () {
+    var uniqId = $(this).attr('data-tooltip_id');
+    $(`#${uniqId}`).transition({ opacity: 0 }, 300);
+    const timer = setTimeout(function () {
+      $(`#${uniqId}`).remove();
+      $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
+    }, 300);
+
+    timers_array[uniqId] = timer;
+  });
+
+  $(document).on('mouseenter', '.foot-note', function () {
+    var key = $(this).attr('key');
+    var target = $(`[tooltip_key="${key}"]`);
+
+    target ? (target.addClass('show_note'), $(this).addClass('show_note')) : '';
+  });
+
+  $(document).on('click', '.foot-note', function () {
+    var key = $(this).attr('key');
+    var target = $(`[tooltip_key="${key}"]`);
+    var scroll_body = $(this).attr('scroll_body');
+    (target && target.length ?
+      (target.addClass('note_active show_note'),
+      $(this).addClass('note_active show_note'),
+      setTimeout(() => {
+        target.removeClass('note_active show_note');
+        $(this).removeClass('note_active show_note');
+      }, 1000))
+      : alert(`Таргет с ключом ${key} не найден`)
+    );
+    (scroll_body ? $(scroll_body).animate({ scrollTop: $(target).offset().top - $(scroll_body).offset().top / 2 }, 'slow', 'swing') : `alert('Скроллбади с ключом ${key} не найден')`);
+    return false;
+  });
+
+
+  $(document).on('mouseleave', '.foot-note', function () {
+    if (!$(this).hasClass('note_active')) {
+      $(`[tooltip_key]`).removeClass('show_note');
+      $(this).removeClass('show_note');
+    }
+  });
 });
-
-var timers_array = {};
-
-$(document).on('mouseenter', 'tooltip-element', function () {
-  $(this).css('opacity', 1);
-  !$(this).find('.tl-close').length ? $(this).append(`
-    <div class="tl-close">close</div>
-    `
-  ) : '';
-
-  clearTimeout(timers_array[$(this).attr('id')]);
-});
-
-$(document).on('click', '.tl-close', function () {
-  var uniqId = $(this).parent().attr('id');
-  $(`#${uniqId}`).transition({ opacity: 0 }, 300);
-  setTimeout(function () {
-    $(`#${uniqId}`).remove();
-    $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
-  }, 300);
-});
-
-$(document).on('mouseleave', '[tooltip_key]', function () {
-  var uniqId = $(this).attr('data-tooltip_id');
-  $(`#${uniqId}`).transition({ opacity: 0 }, 300);
-  const timer = setTimeout(function () {
-    $(`#${uniqId}`).remove();
-    $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
-  }, 300);
-
-  timers_array[uniqId] = timer;
-});
-
-
-$(document).on('mouseenter', '.foot-note', function () {
-  var key = $(this).attr('key');
-  var target = $(`[tooltip_key="${key}"]`);
-
-  target ? (target.addClass('show_note'), $(this).addClass('show_note')) : '';
-});
-
-
-
-
-$(document).on('click', '.foot-note', function () {
-  var key = $(this).attr('key');
-  var target = $(`[tooltip_key="${key}"]`);
-  var scroll_body = $(this).attr('scroll_body');
-  (target && target.length ?
-    (target.addClass('note_active show_note'),
-    $(this).addClass('note_active show_note'),
-    setTimeout(() => {
-      target.removeClass('note_active show_note');
-      $(this).removeClass('note_active show_note');
-    }, 1000))
-    : alert(`Таргет с ключом ${key} не найден`)
-  );
-  (scroll_body ? $(scroll_body).animate({ scrollTop: $(target).offset().top - $(scroll_body).offset().top / 2 }, 'slow', 'swing') : `alert('Скроллбади с ключом ${key} не найден')`);
-  return false;
-});
-
-
-$(document).on('mouseleave', '.foot-note', function () {
-  if (!$(this).hasClass('note_active')) {
-    $(`[tooltip_key]`).removeClass('show_note');
-    $(this).removeClass('show_note');
-  }
-});
-
 /* ------------------- TOOLTIPS ------------------- */
 
 

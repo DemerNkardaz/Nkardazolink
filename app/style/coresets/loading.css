@@ -109,7 +109,7 @@ page-preloader .progress-value, #preloader .progress-value {
   border-radius: 15px;
   border: none;
   background-color: white;
-  box-shadow: inset 0 1px 3px 1px var(--shadow_secondary), 0 3px 2px var(--shadow_inset_info);
+  box-shadow: inset 0 1px 3px 1px var(--shadow_22a86), 0 3px 2px var(--shadow_22a29);
   overflow: hidden;
 }
 
@@ -119,7 +119,7 @@ page-preloader .progress-value, #preloader .progress-value {
   width: var(--progress);
   height: 100%;
   background-color: var(--color_dark_gold);
-  box-shadow: inset 3px 3px 3px 1px var(--color_dark_gold_emboss), 0 1px 3px 1px var(--shadow_secondary);
+  box-shadow: inset 3px 3px 3px 1px var(--color_dark_gold_emboss), 0 1px 3px 1px var(--shadow_22a86);
 }
 
 .loadmarker-dots::after {

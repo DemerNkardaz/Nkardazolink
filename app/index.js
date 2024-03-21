@@ -7,6 +7,7 @@ import './js/vars.js';
 
 /*-- --------------- LIBS ---------------- --*/
 /*-- --------------- AFTERINIT ---------------- --*/
+import './rules/rules.js';
 import './jq/selectors.js';
 import './jq/ui_diacrit.js';
 import './jq/ui_tags.js';
@@ -17,6 +18,7 @@ import './jq/bind_shortcuts.js';
 import './jq/modes_init.js';
 import './jq/utils.js';
 import './jq/localisation.js';
+import './jq/genpage.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 
 export async function HTMX_INIT() {

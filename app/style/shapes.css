@@ -1,5 +1,5 @@
 .shadowWrapper {
-  filter: drop-shadow(0 2px 2px var(--shadow_half)) drop-shadow(0 5px 5px var(--shadow_inset_info));
+  filter: drop-shadow(0 2px 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
 }
 
 .plate_chinese {
@@ -94,7 +94,7 @@
   }
 
   &.shadow_frame {
-    --shadow: drop-shadow(0 0 2px var(--shadow_half)) drop-shadow(0 5px 5px var(--shadow_inset_info));
+    --shadow: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
 
     &::after {
       filter: var(--shadow);

@@ -57,7 +57,7 @@ a {
   color: var(--color_orange_gold);
 
   &.listButton {
-    color: var(--text_primary);
+    color: var(--text_33);
   }
 
   &.listButton:hover, &:hover {
@@ -86,19 +86,19 @@ ruby {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
+  scrollbar-color: var(--color_pale_gold_semi_light) var(--shadow_22a29);
 
   ::-webkit-scrollbar {
     width: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: var(--color_pale_gold_semi_light) var(--shadow_inset_info);
+    background-color: var(--color_pale_gold_semi_light) var(--shadow_22a29);
   }
 
   ::selection {
     background-color: var(--color_dark_gold);
-    color: var(--text_very_light);
+    color: var(--text_fe);
     text-shadow: 1px 1px 3px #000000;
   }
 }  

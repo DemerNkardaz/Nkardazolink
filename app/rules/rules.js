@@ -1,4 +1,4 @@
-function updateCopyrightYears() {
+window.updateCopyrightYears = function() {
   const copyrightYears = document.querySelectorAll('.copyrightYears');
   const currentYear = new Date().getFullYear();
   const startYear = 2024;
@@ -13,6 +13,12 @@ function updateCopyrightYears() {
 }
 
 updateCopyrightYears();
+
+window.returnCopyright = function () {
+  const start = 2024;
+  const current = new Date().getFullYear();
+  return (current > start) ? `${start}-${current}` : `${current}`;
+}
 
 const h3 = document.querySelectorAll('h3.rule');
 

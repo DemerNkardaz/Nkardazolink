@@ -44,7 +44,7 @@ class item_prop extends HTMLElement {
           `}
           background: var(--default_background);
           border-radius: 8px;
-          box-shadow: 0 2px 5px var(--shadow_inset_info);
+          box-shadow: 0 2px 5px var(--shadow_22a29);
           overflow: hidden;
           transition: transform 0.1s ease-in-out;
           outline: 2px solid transparent;
@@ -183,7 +183,7 @@ class item_prop extends HTMLElement {
             border-radius: 10px;
           `)}
           display: flex;
-          filter: drop-shadow(0px 1px 1px var(--shadow_tretiary));
+          filter: drop-shadow(0px 1px 1px var(--shadow_00a95));
         }
 
         @keyframes selected_pulse_shadow {
@@ -297,7 +297,7 @@ class settings_check extends HTMLElement {
 }
 
 customElements.define('settings-check', settings_check);
-
+/*
 $(document).on('languageJSON_loaded', function () {
   nk.siteMainContainer.prepend(
     new settings_check({
@@ -313,7 +313,7 @@ $(document).on('languageJSON_loaded', function () {
       setting: 'turn_off_preloader'
     })
   );
-});
+});*/
 
 
 window.item_create = function () {
@@ -364,18 +364,6 @@ customElements.define('tooltip-element', tooltip_element);
 window.tooltip_element = tooltip_element;
 
 
-$(document).on('languageJSON_loaded', function () {
-  setTimeout(function () {
-    const tooltip = new tooltip_element({
-      tooltip: languageJSON['ru']['test'],
-      tooltip_key: 'test'
-  });
-    $('#site-header').prepend(tooltip);
-  }, 1000)
-})
-
-
-
 class load_kamon extends HTMLElement {
   constructor() {
     super();
@@ -423,16 +411,35 @@ customElements.define('page-preloader', page_preloader);
 class link_block extends HTMLElement {
   constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Class, Tooltip } = {}) {
     super();
+    const types = {
+			artwork: 'resources/svg/icos/art_alt.svg',
+			modeling: 'resources/svg/icos/3d.svg',
+			layout: 'resources/svg/icos/book_alt.svg',
+			github: 'resources/svg/icos/github.svg',
+			writing: 'resources/svg/icos/scorpio_pen.svg',
+			mods: 'resources/svg/icos/mods.svg'
+    }
+    function returnTypes() {
+      var constructor = `<span class="linkTypes" part="link-types">`
+      const matchingTypes = Object.keys(types).filter(type => LINK_Types.includes(type));
+      matchingTypes.forEach(type => {
+        constructor += `<span class="linkType" part="link-type"><img src="${types[type]}" alt="decorator" loading="eager"></span>`;
+      });
+      constructor += `</span>`;
+      return constructor;
+    }
     const component = `
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
       ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `tooltip_key="${Tooltip.key}" tooltip_pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner plate_chinese">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
-      ${LINK_Subscript && LINK_Class !== 'long-thin' ? LINK_Subscript : (LINK_Types ? LINK_Types : '')}</span>${LINK_Class === 'long-thin' ? `</div></div>` : ''}
+      ${LINK_Types ? returnTypes() : (LINK_Subscript ? LINK_Subscript : '')}</span>
+      ${LINK_Class === 'long-thin' ? `</div></div>` : ''}
       ${LINK_Icon ? `<div part="link-icon" class="link-icon"><img alt="Icon" src="${LINK_Icon.image}"></div>` : ''}
     </a>
     `
+
     const styles = `
     <link rel="stylesheet" href="app/style/basic.css">
     <link rel="stylesheet" href="app/style/shapes.css">
@@ -440,7 +447,6 @@ class link_block extends HTMLElement {
     <style>
       a {
         position: relative;
-        
         gap: 0 5px;
         ${LINK_Class == 'long-thin' ? `
         width: 1024px;
@@ -461,9 +467,9 @@ class link_block extends HTMLElement {
         place-items: start;
         `}
         background: var(--white);
-        box-shadow: 0 3px 5px var(--shadow_primary);
+        box-shadow: 0 3px 5px var(--shadow_22a10);
         text-decoration: none;
-        color: var(--text_primary);
+        color: var(--text_33);
         overflow: hidden;
         outline: 2px solid transparent;
         z-index: 0;
@@ -498,6 +504,14 @@ class link_block extends HTMLElement {
         transform: translateY(-15px);
         `}
         outline: 2px solid white;
+        & :is(::part(link-type), .linkType) {
+          box-shadow: inset 2px 2px 3px var(--color_gold_hover_light), inset -2px -2px 3px var(--shadow_22a29), 2px 1.5px 1px var(--shadow_22a29);
+          background: var(--color_dark_gold);
+
+          & img {
+            filter: brightness(450%) sepia(100%) saturate(300%) drop-shadow(0px 0.75px 1px var(--shadow_22a86));
+          }
+        }
       }
 
       a.long-thin:hover::before, a.long-thin:focus::before {
@@ -545,14 +559,14 @@ class link_block extends HTMLElement {
       ::part(link-title-wrapper), .link-title-wrapper {
         width: 700px;
         height: 42px;
-        filter: drop-shadow(-5px 0 3px var(--shadow_half));
+        filter: drop-shadow(-5px 0 3px var(--shadow_22a64));
         transition: all 0.3s ease;
       }
 
       ::part(link-title-wrapper-inner), .link-title-wrapper-inner {
         --corner_radius: 7px;
         display: grid;
-        grid-template-columns: 220px 121px 1fr 1fr;
+        grid-template-columns: 200px 121px 1fr 1fr;
         padding: 0 30px;
         height: inherit;
         background: var(--white);
@@ -565,8 +579,6 @@ class link_block extends HTMLElement {
       ::part(link-title), .link-title {
         position: relative;
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
         height: 42px;
         width: 100%;
         ${LINK_Class == 'long-thin' ? `
@@ -582,6 +594,8 @@ class link_block extends HTMLElement {
         `: `
         justify-self: start;
         align-self: center;
+        align-items: center;
+        justify-content: flex-start;
         grid-column: 2;
         grid-row: 2;
         `}
@@ -619,7 +633,7 @@ class link_block extends HTMLElement {
         height: 40px;
         right: 0;
         background: var(--light_border);
-        filter: drop-shadow(-1px 0 3px var(--shadow_half));
+        filter: drop-shadow(-1px 0 3px var(--shadow_22a64));
         padding: 10px;
         border-radius: 50%;
         border: 2px solid var(--light_border);
@@ -632,7 +646,7 @@ class link_block extends HTMLElement {
         width: 100%;
         height: 100%;
         ${LINK_Class == 'long-thin' ? `
-        filter: brightness(10) drop-shadow(0 0 1px var(--shadow_secondary)) drop-shadow(0 0 2px var(--shadow_half));
+        filter: brightness(10) drop-shadow(0 0 1px var(--shadow_22a86)) drop-shadow(0 0 2px var(--shadow_22a64));
         ${LINK_Icon.label.transform ? `transform: ${LINK_Icon.label.transform};` : ''}
         ${LINK_Icon.label.state === 'absolute' ? `position: absolute;` : ''}
         ${LINK_Icon.label.left ? `left: ${LINK_Icon.label.left};` : ''}
@@ -643,6 +657,36 @@ class link_block extends HTMLElement {
         `}
       }
 
+      ::part(link-types), .linkTypes {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        justify-content: flex-start;
+        transition: all 0.3s ease;
+        z-index: 1;
+      }
+
+      ::part(link-type), .linkType {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: var(--bg_ffab3);
+        box-shadow: inset 1px 2px 3px var(--shadow_22a29);
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        & img {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          transition: all 0.3s ease;
+          filter: brightness(400%);
+        }
+      }
 
       img::before {
         display: none;
@@ -659,7 +703,6 @@ class link_block extends HTMLElement {
   
   connectedCallback() {
 
-    
   }
 }
 
@@ -669,7 +712,7 @@ var linkblic = new link_block({
   LINK_Class: 'long-thin',
   LINK_Title: 'Книга Фанфиков',
   LINK_Source: 'https://nkardazolink.com/',
-  LINK_Types: 'Subscript',
+  LINK_Types: ['artwork', 'modeling', 'layout', 'writing'],
   LINK_Background: {
     image: 'external/Ghost_of_Tsushima.jpg',
     color: `#A14643`,
@@ -695,6 +738,7 @@ var linkblic2 = new link_block({
   LINK_Title_Key: 'Naeda_Kitetsugi',
   LINK_Source: 'https://nkardazolink.com/',
   LINK_Subscript: 'Subscript',
+  LINK_Types: ['artwork', 'modeling', 'layout', 'writing'],
   LINK_Background: {
     image: 'external/Ghost_of_Tsushima.jpg',
     color: `#A14643`,
@@ -814,4 +858,3 @@ class modal_window extends HTMLDialogElement {
 }
 
 customElements.define('modal-window', modal_window, { extends: 'dialog' });
-$('body').append(new modal_window());

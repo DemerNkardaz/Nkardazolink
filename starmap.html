@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+      }
+
+    canvas {
+        display: block;
+        margin: auto;
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const image = new Image();
+    image.src = './resources/png/astro/Getameda_Galaxy_Map_maxres.png';
+    
+    let scale = 1;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    image.onload = function() {
+        fitImageToCanvas();
+        window.addEventListener('wheel', zoomImage);
+    };
+
+    function fitImageToCanvas() {
+        const scaleFactor = Math.min(canvas.width / image.width, canvas.height / image.height);
+        const scaledWidth = image.width * scaleFactor;
+        const scaledHeight = image.height * scaleFactor;
+        const x = (canvas.width - scaledWidth) / 2;
+        const y = (canvas.height - scaledHeight) / 2;
+        ctx.drawImage(image, x, y, scaledWidth, scaledHeight);
+    }
+
+    function zoomImage(e) {
+        const delta = e.deltaY > 0 ? -0.1 : 0.1;
+        const prevScale = scale;
+        scale = Math.min(Math.max(scale + delta, 1), 2); // ограничиваем зум от 1 до 2
+        const scaleFactor = scale / prevScale;
+        const dx = mouseX - canvas.width / 2;
+        const dy = mouseY - canvas.height / 2;
+        ctx.translate(dx, dy);
+        ctx.scale(scaleFactor, scaleFactor);
+        ctx.translate(-dx, -dy);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        fitImageToCanvas();
+    }
+
+    canvas.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX - canvas.getBoundingClientRect().left;
+        mouseY = e.clientY - canvas.getBoundingClientRect().top;
+    });
+</script>
+</body>
+</html>
