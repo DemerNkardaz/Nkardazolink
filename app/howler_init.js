@@ -1,23 +1,3 @@
-/*$(document).ready(function () {
-  var music_author = 'ValentineSeasons';
-  var playlist = {
-    'Missing in wind': 'https://cdn.pixabay.com/download/audio/2023/09/17/audio_fee1f2b797.mp3?filename=missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932.mp3',
-    'Sakura dance': 'https://cdn.pixabay.com/download/audio/2023/09/06/audio_360729c9ac.mp3?filename=sakura-dance-background-music-traditional-japanese-165338.mp3'
-  };
-  
-
-  
-  var backmusic = new Howl({
-    src: ,
-    loop: true,
-    volume: 0.1
-  })
-
-  backmusic.play();
-});*/
-
-
-
 $(document).ready(function () {
   window.playlist = {
     'ValentineSeasons — Missing in wind': 'https://cdn.pixabay.com/download/audio/2023/09/17/audio_fee1f2b797.mp3?filename=missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932.mp3',
@@ -35,32 +15,26 @@ $(document).ready(function () {
       ambient.stop();
       ambient = new Howl({ src: [playlist[randomTrack]], volume: 0.1 });
       ambient.play();
-      $('.trackTitle').text(window.getCurrentTrack());
+      $('.trackTitle').text(window.ambientCurrentTrack());
     }
   });
   ambient.on('load', function() {
-    var currentTime = window.getCurrentTrackTime();
-    var progressTime = window.getCurrentTrackTimeProgress();
-    var progress = window.getCurrentProgress();
-    $('.trackTitle').text(window.getCurrentTrack());
-    $('.trackTime').text(`${progressTime} / ${currentTime}`);
-    $('.trackProgress').css('--progress', `${progress}%`);
+    $('.trackTitle').text(ambientCurrentTrack());
+    $('.trackTime').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
+    $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
     setInterval(function () {
-      currentTime = window.getCurrentTrackTime();
-      progressTime = window.getCurrentTrackTimeProgress();
-      progress = window.getCurrentProgress();
-      $('.trackTime').text(`${progressTime} / ${currentTime}`);
-      $('.trackProgress').css('--progress', `${progress}%`);
+      $('.trackTime').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
+      $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
     }, 1000);
   });
   ambient.play();
 
-  window.getCurrentTrack = function () {
+  window.ambientCurrentTrack = function () {
     return Object.keys(playlist).find(key => playlist[key] === ambient._src);
   }
-  window.getCurrentTrackTime = function () {
+  window.ambientTrackTime = function (mode) {
     if (ambient._state === 'loaded') {
-      var duration = ambient._duration;
+      var duration = mode === 'current' ? ambient.seek() : ambient._duration;
       var minutes = Math.floor(duration / 60);
       var seconds = Math.floor(duration % 60);
       return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
@@ -68,18 +42,8 @@ $(document).ready(function () {
       return '00:00';
     }
   }
-  window.getCurrentTrackTimeProgress = function () {
-    if (ambient._state === 'loaded') {
-      var currentTime = ambient.seek();
-      var minutes = Math.floor(currentTime / 60);
-      var seconds = Math.floor(currentTime % 60);
-      return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-    } else {
-      return '00:00';
-    }
-  }
 
-  window.getCurrentProgress = function () {
+  window.ambientTrackProgress = function () {
     if (ambient._state === 'loaded') {
       var currentTime = ambient.seek();
       var duration = ambient._duration;
@@ -102,7 +66,7 @@ $(document).ready(function () {
     ambient.stop();
     ambient = new Howl({ src: [playlist[randomTrack]], volume: 0.1 });
     ambient.play();
-    $('.trackTitle').text(window.getCurrentTrack());
+    $('.trackTitle').text(window.ambientCurrentTrack());
   }
 });
 

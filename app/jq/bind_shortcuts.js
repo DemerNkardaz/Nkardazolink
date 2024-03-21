@@ -371,10 +371,7 @@ $(document).on('click', '.trackProgress', function (e) {
   var currentTime = (percent / 100) * ambient.duration();
   ambient.seek(currentTime);
 
-  var currentTime = window.getCurrentTrackTime();
-  var progressTime = window.getCurrentTrackTimeProgress();
-  var progress = window.getCurrentProgress();
-  $('.trackTime').text(`${progressTime} / ${currentTime}`);
-  $('.trackProgress').css('--progress', `${progress}%`);
+  $('.trackTime').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
+  $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
 });
 /* ------------------- MUSIC CONTOLS ------------------- */
