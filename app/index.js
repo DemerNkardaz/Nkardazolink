@@ -8,6 +8,7 @@ import './js/vars.js';
 /*-- --------------- LIBS ---------------- --*/
 /*-- --------------- AFTERINIT ---------------- --*/
 import './rules/rules.js';
+import './howler_init.js';
 import './jq/selectors.js';
 import './jq/ui_diacrit.js';
 import './jq/ui_tags.js';
@@ -30,6 +31,5 @@ window.ENDPOINT_INIT = function() {
   import('./libs/standalone/OverlayScrollbars.js');
   import('./jq/inputs.js');
   import('./jq/init_settings.js');
-  import('./howler_init.js');
 }
 /*-- --------------- ENDPOINT_INIT ---------------- --*/

@@ -349,3 +349,32 @@ $(document).on('input', 'run-cmd textarea', function () {
 });
 
 /* ------------------- CONSOLE ------------------- */
+
+/* ------------------- MUSIC CONTOLS ------------------- */
+$(document).on('click', '[nk-music="pause/play"]', function () {
+  $(this).children().text(function (index, text) {
+    return text === 'pause' ? 'play_arrow' : 'pause';
+  }).each(function () {
+    $(this).text() === 'pause' ? resumeAmbient() : pauseAmbient();
+  });
+});
+
+$(document).on('click', '[nk-music="random"]', function () {
+  randomAmbient();
+})
+
+$(document).on('click', '.trackProgress', function (e) {
+  var offset = $(this).offset();
+  var clickX = e.pageX - offset.left;
+  var trackWidth = $(this).width();
+  var percent = (clickX / trackWidth) * 100;
+  var currentTime = (percent / 100) * ambient.duration();
+  ambient.seek(currentTime);
+
+  var currentTime = window.getCurrentTrackTime();
+  var progressTime = window.getCurrentTrackTimeProgress();
+  var progress = window.getCurrentProgress();
+  $('.trackTime').text(`${progressTime} / ${currentTime}`);
+  $('.trackProgress').css('--progress', `${progress}%`);
+});
+/* ------------------- MUSIC CONTOLS ------------------- */

@@ -252,9 +252,6 @@ window.setTabIndex = function() {
     return uniqueIndex;
 }
 
-
-
-
 /*
 document.addEventListener('DOMContentLoaded', function() {
     var elementsWithTabindex = document.querySelectorAll('[tabindex]');
