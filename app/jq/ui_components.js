@@ -363,6 +363,26 @@ class tooltip_element extends HTMLElement {
 customElements.define('tooltip-element', tooltip_element);
 window.tooltip_element = tooltip_element;
 
+class dropdown_element extends HTMLElement {
+  constructor({ content, id } = {}) {
+    super();
+    if (!$(this).length) {
+      const component = `
+      <div class="dropdown-content">
+        ${content ? content : ''}
+      </div>
+      `;
+      $(this).attr({
+        'data-dropid': id ? id : null,
+        'hidden': null
+      });
+      $(this).html(component)
+    }
+  }
+}
+
+customElements.define('drop-down', dropdown_element);
+window.dropdown_element = dropdown_element;
 
 class load_kamon extends HTMLElement {
   constructor() {
@@ -757,6 +777,9 @@ var linkblic2 = new link_block({
 });
 $('#testwrapper').prepend(linkblic2);
 
+setTimeout(() => {
+  nk.siteMainContainer.append(linkblic2);
+}, 2000);
 
 window.ui_components = {
   preloader: (siblingType, callback, stopTimer) => {

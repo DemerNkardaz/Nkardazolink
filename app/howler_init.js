@@ -15,7 +15,7 @@ $(document).ready(function () {
       ambient.stop();
       ambient = new Howl({ src: [playlist[randomTrack]], volume: 0.1 });
       ambient.play();
-      $('.trackTitle').text(window.ambientCurrentTrack());
+      $('.trackTitle').text(ambientCurrentTrack());
     }
   });
   ambient.on('load', function() {

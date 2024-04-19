@@ -22,13 +22,20 @@ window.updateLanguageKeys = function () {
             break;
           }
         }
-      }
+      };
 
-      getLocale = (getLocale ? textUnPacker(getLocale) : null);
+      var keyMSG = ``;
 
-      $(this).attr('data-key') ? $(this).html(getLocale) : ($(this).attr('alt-key') ? $(this).attr('alt', getLocale) : '');
+      $(this).attr('data-key') && (keyMSG += `DATA-KEY “${$(this).attr('data-key')}” ${NoAv}`);
+      $(this).attr('alt-key') && (keyMSG += `ALT-KEY “${$(this).attr('alt-key')}” ${NoAv}`);
+
+      getLocale = getLocale ? textUnPacker(getLocale) : (key ? keyMSG : null);
+
+      $(this).attr('data-key') && $(this).html(getLocale);
+      $(this).attr('alt-key') && $(this).attr('alt', getLocale);
+
     });
-  } update();
+  }; update();
 
   $('*').filter(function () {
     return this.shadowRoot !== null;

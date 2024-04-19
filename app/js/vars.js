@@ -8,6 +8,8 @@ window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('select
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
 
+window.NoAv = 'N/A';
+
 /*
 KAMON & BANNERS & CLANS & PATTERN IS A GALLERIES
 TREE IS A LINKTREE
