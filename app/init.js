@@ -3,7 +3,7 @@
 
 selectedLanguage ? $('html').attr('lang', selectedLanguage) : $('html').attr('lang', 'ru');
 
-var skin = (window.selectedSiteSkin && window.selectedSiteSkin !== '') ? `app/style/skins/${window.selectedSiteSkin}.css` : '';
+var skin = (nkPreferences.skin && nkPreferences.skin !== null) ? `app/style/skins/${nkPreferences.skin}.css` : '';
 
 window.loadingText = {
   en: 'Loading content',
@@ -65,20 +65,20 @@ var metaData = {
 
 window.showLoadPercentage = function () {
   $(document).trigger('loading_precentage_initialized');
-  var img = document.images,
+  let img = document.images,
       c = 0,
       tot = img.length;
-  var percentElement = document.querySelector('.loadmarker-percent');
-  var percentBar = document.querySelector('.progress-value');
-  var currentPercentage = 0;
-  var intervalDuration = 10;
+  let percentElement = document.querySelector('.loadmarker-percent');
+  let percentBar = document.querySelector('.progress-value');
+  let currentPercentage = 0;
+  let intervalDuration = 10;
 
   function imgLoaded() {
       c += 1;
-      var perc = ((100 / tot * c) << 0);
+      let perc = ((100 / tot * c) << 0);
 
-      var increment = 1;
-      var interval = setInterval(function() {
+      let increment = 1;
+      let interval = setInterval(function() {
           if (currentPercentage < perc) {
               currentPercentage += increment;
               percentElement.textContent = currentPercentage;
@@ -91,8 +91,8 @@ window.showLoadPercentage = function () {
       if (c === tot) return;
   }
 
-  for (var i = 0; i < tot; i++) {
-      var tImg = new Image();
+  for (let i = 0; i < tot; i++) {
+      let tImg = new Image();
       tImg.onload = imgLoaded;
       tImg.onerror = imgLoaded;
       tImg.src = img[i].src;
@@ -102,10 +102,15 @@ window.showLoadPercentage = function () {
 
 
 
-
+/*
 if (savedSettings.turn_off_preloader !== 'true') {
   ui_components.preloader();
 }
+
+nkUI.preLoader({
+  hiding_role: 'noscroll',
+})*/
+
 
 waitFor('title', () => {
   var title = document.querySelector('title');

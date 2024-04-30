@@ -1,6 +1,8 @@
 window.items = {};
-window.selectedSiteSkin = (fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : '');
-window.selectedBanner = (fromStorage('selectedBanner') ? fromStorage('selectedBanner') : '');
+window.nkPreferences = {
+  skin: fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : null,
+  banner: fromStorage('selectedBanner') ? fromStorage('selectedBanner') : '../resources/svg/pattern_asanoha_90deg.svg',
+}
 window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi"];
 window.navigatorLanguage = window.supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
 window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('selectedLanguage') : navigatorLanguage);
@@ -15,11 +17,12 @@ KAMON & BANNERS & CLANS & PATTERN IS A GALLERIES
 TREE IS A LINKTREE
 */
 
+
 window.savedSettings = {
   "save_search_result": (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true'),
-  "save_selected_item": (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false'), 
+  "save_selected_item": (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false'),
   "turn_off_preloader": (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'true'),
-}
+};
 
 if (savedSettings.save_search_result === 'true') {
   window.latestSearches = {
@@ -31,8 +34,8 @@ if (savedSettings.save_search_result === 'true') {
 } else {
   if (window.latestSearches !== null || fromStorage('latestSearches')) {
     removeStorage('latestSearches');
-  }
-}
+  };
+};
 
 if (savedSettings.save_selected_item === 'true') {
   window.selectedItems = {
@@ -40,18 +43,22 @@ if (savedSettings.save_selected_item === 'true') {
     "banners": (fromStorage('selectedItems.banners') ? fromStorage('selectedItems.banners') : null),
     "clans": (fromStorage('selectedItems.clans') ? fromStorage('selectedItems.clans') : null),
     "pattern": (fromStorage('selectedItems.pattern') ? fromStorage('selectedItems.pattern') : null),
-  }
+  };
 } else {
   if (window.selectedItems !== null || fromStorage('selectedItems')) {
     removeStorage('selectedItems');
-  }
-}
+  };
+};
 
 window.parseUrlParameter = function (name) {
   return new URLSearchParams(window.location.search).get(name)?.toLowerCase();
-}
+};
 
 window.anUrlParameter = {
   mode: (parseUrlParameter('mode') ? parseUrlParameter('mode') : null),
   select: (parseUrlParameter('select') ? parseUrlParameter('select') : null)
-}
+};
+
+$(document).on('languageJSON_loaded', function () {
+  window.cLang = languageJSON[selectedLanguage];
+});

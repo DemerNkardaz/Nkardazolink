@@ -384,52 +384,71 @@ class dropdown_element extends HTMLElement {
 customElements.define('drop-down', dropdown_element);
 window.dropdown_element = dropdown_element;
 
-class load_kamon extends HTMLElement {
-  constructor() {
-    super();
-    const component = `<div><img src="resources/svg/NkardazKamon.svg" width="100" alt="content preloader"></div>`
 
-    this.innerHTML = component;
-  }
+window.nkUI = {
+  loadKamon: function () {
+    return `<div><img src="resources/svg/NkardazKamon.svg" width="100" alt="content preloader"></div>`;
+  },
+
+  preLoader: function ({ target, hiding_role, enable_percent, stopTimer } = {}) {
+    const component = `
+    <page-preloader id="preloader" hiding_role="${hiding_role && hiding_role === 'noscroll' ? 'noscroll' : 'hide'}">
+      <div class="preloader-logo" part="preloader-logo"> 
+        <div class="preloader-logo-wrapper" part="preloader-logo-wrapper">
+          <img src="resources/svg/NkardazKamon.svg" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
+        </div>
+      </div>
+      <div class="preloader-progress" part="preloader-progress">
+        <div class="progress-value" part="progress-value"></div>
+        <p style="width: 160px"><span class="progress-label">${loadingText[selectedLanguage]}</span><br>
+          <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
+        </p>
+      </div>
+    </page-preloader>`;
+
+    $(target ? target : 'body').prepend(component).promise().done(() => {
+      const preloader = $('#preloader');
+      let siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
+      let siblings = $(preloader).siblings(':not(#preloader)');
+
+      let loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      siblings.addClass(siblingClass);
+      observeOn('style:--progress:100%', $('.progress-value')[0], function () {
+        console.log('style:--progress:100%');
+        preloader.find('br').nextAll().remove();
+        preloader.find('.progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
+        if (!stopTimer) {
+          setTimeout(() => {
+            siblings.removeClass(siblingClass);
+            preloader.fadeOut('slow', function () {
+              preloader.remove();
+            });
+          }, 1000);
+        }
+      });
+      enable_percent !== 'false' && setTimeout(showLoadPercentage, 1000);
+    });
+  },
+
+  dropdown: function ({ content, id, hide } = {}) {
+    return `
+    <drop-down ${id ? `data-dropid="${id}"` : ''} ${typeof hide === 'undefined' || hide ? 'hidden' : ''}>
+      <div class="dropdown-content">
+        ${content ? content : ''}
+      </div>
+    </drop-down>`;
+  },
 }
 
+class load_kamon extends HTMLElement { };
 customElements.define('load-kamon', load_kamon);
 
-
-class page_preloader extends HTMLElement {
-  constructor(hiderole, enable_percent) {
-    super();
-    const component = `
-    <div class="preloader-logo" part="preloader-logo"> 
-      <div class="preloader-logo-wrapper" part="preloader-logo-wrapper">
-        <img src="resources/svg/NkardazKamon.svg" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
-      </div>
-    </div>
-    <div class="preloader-progress" part="preloader-progress">
-      <div class="progress-value" part="progress-value"></div>
-      <p style="width: 160px"><span class="progress-label">${loadingText[selectedLanguage]}</span><br>
-        <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
-      </p>
-    </div>
-    `
-    $(this).attr('hiderole', hiderole ? hiderole : null, 'enable_percent', enable_percent ? enable_percent : null);
-    this.innerHTML = component;
-  }
-
-  connectedCallback(siblingType) {
-    var loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
-    var siblings = $(this).siblings(':not(page-preloader)');
-    var siblingClass = ($(this).attr('hiderole') === 'noscroll') ? 'noscroll-for-preloader' : 'hidden-for-preloader';
-    siblings.addClass(siblingClass);
-    $(this).attr('enable_percent') !== 'false' ? setTimeout(showLoadPercentage, 175) : null;
-  }
-
-}
-
+class page_preloader extends HTMLElement { };
 customElements.define('page-preloader', page_preloader);
 
+
 class link_block extends HTMLElement {
-  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Class, Tooltip } = {}) {
+  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow_blend, Class, Tooltip } = {}) {
     super();
     const types = {
 			artwork: 'resources/svg/icos/art_alt.svg',
@@ -493,25 +512,39 @@ class link_block extends HTMLElement {
         overflow: hidden;
         outline: 2px solid transparent;
         z-index: 0;
-      }
-      a::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: ${LINK_Background && LINK_Background.image ? `url("${LINK_Background.image}") no-repeat, ${LINK_Background.color}` : 'transparent'};
-        background-size: ${LINK_Background && LINK_Background.size ? LINK_Background.size : 'cover'};
-        background-position: ${LINK_Background && LINK_Background.position ? LINK_Background.position : 'center center'};
-        ${LINK_Class == 'long-thin' ? `
-        width: 50%;
-        height: 100%;
-        `: `
-        width: 100%;
-        height: 50px;
-        `}
-        z-index: -1;
-        transition: all 0.3s ease;
-        box-shadow: inset 0 0 15px 10px transparent;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: ${LINK_Background && LINK_Background.image ? `url("${LINK_Background.image}") no-repeat, ${LINK_Background.color}` : 'transparent'};
+          background-size: ${LINK_Background && LINK_Background.size ? LINK_Background.size : 'cover'};
+          background-position: ${LINK_Background && LINK_Background.position ? LINK_Background.position : 'center center'};
+          ${LINK_Class == 'long-thin' ? `
+          width: 50%;
+          height: 100%;
+          `: `
+          width: 100%;
+          height: 50px;
+          `}
+          z-index: -1;
+          transition: all 0.3s ease;
+          box-shadow: inset 0 0 15px 10px transparent;
+        }
+
+        &::after {
+          position: absolute;
+          content: 'arrow_outward';
+          font-family: 'material icons';
+          line-height: 1em;
+          color: var(--text_33);
+          mix-blend-mode: ${Arrow_blend ? Arrow_blend : 'color-dodge'};
+          top: 0;
+          right: 0;
+          font-size: 1.5em;
+          z-index: -1;
+        }
       }
       h1, h2, h3, h4, h5, h6 {
         margin: 0;
@@ -722,11 +755,11 @@ class link_block extends HTMLElement {
   }
   
   connectedCallback() {
-
   }
 }
 
 customElements.define('link-block', link_block);
+window.link_block = link_block;
 
 var linkblic = new link_block({
   LINK_Class: 'long-thin',
@@ -775,11 +808,12 @@ var linkblic2 = new link_block({
   },
   Tooltip: { key: 'Naeda_Kitetsugi', pos: 'right' }
 });
+/*
 $('#testwrapper').prepend(linkblic2);
 
 setTimeout(() => {
   nk.siteMainContainer.append(linkblic2);
-}, 2000);
+}, 2000);*/
 
 window.ui_components = {
   preloader: (siblingType, callback, stopTimer) => {

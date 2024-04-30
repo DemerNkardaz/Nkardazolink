@@ -1,6 +1,9 @@
 {
   "ru": {
     "DemerNkardaz": "Демер Нкардаз",
+    "ContentLinks": "Контент",
+    "SocialLinks": "Социалус",
+    "Ficbook": "Книга Фанфиков",
     "console": "КОНСОЛЬ : Системный программный интерфейс",
     "test": ["Тест", "—{{(日本:にほん)(皇室:こうしつ)(の:)(紋章:もんしょう)}[Герб императорской семьи Японии]}—"],
     "testqu": "—{{(悟墳:Го Фун)(乱:Ран)}[Смута Гофун]}—",
@@ -13,6 +16,9 @@
   },
   "en": {
     "DemerNkardaz": "Demer Nkardaz",
+    "ContentLinks": "Content",
+    "SocialLinks": "Socialus",
+    "Ficbook": "Fickbook",
     "console": "CONSOLE : System user interface",
     "Naeda_Kitetsugi": "Naeda Kitetsugi",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
@@ -23,6 +29,7 @@
   },
   "ja": {
     "DemerNkardaz": "デメル・ナカルダズ",
+    "ContentLinks": "コンテンツ",
     "console": "コンソール: システムユーザーインターフェイス",
     "Naeda_Kitetsugi": "菜枝 鬼鉄義",
     "Site_Title_Nkardaz": "デメル・ナカルダズ・２Ｄ・３Ｄ・ピサツレスト・ヴォーストカ",
@@ -32,6 +39,7 @@
   },
   "zh": {
     "DemerNkardaz": "德梅尔·纳卡尔达兹",
+    "ContentLinks": "内容",
     "console": "控制台：系统用户界面",
     "Site_Title_Nkardaz": "德梅尔·纳卡尔达兹·2D·3D·写作·排版",
     "save_search_result": "保存搜索输入",
@@ -40,6 +48,7 @@
   },
   "ko": {
     "DemerNkardaz": "데메르 나카르다즈",
+    "ContentLinks": "커백",
     "console": "커백: 잠어진 문제 INTERFACE",
     "Site_Title_Nkardaz": "데메르 나카르다즈・2D・3D・작가・레이아웃",
     "save_search_result": "검색 입력 저장",
@@ -48,6 +57,7 @@
   },
   "vi": {
     "DemerNkardaz": "Đêmer Nkarđaz",
+    "ContentLinks": "Noi dung",
     "console": "Lệnh bộ: giao diện người dùng",
     "Site_Title_Nkardaz": "Đêmer Nkarđaz・2D・3D・Viết văn・Tạo bố cục",
     "save_search_result": "Lưu kết quả tìm kiếm",
