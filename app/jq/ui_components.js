@@ -448,7 +448,7 @@ customElements.define('page-preloader', page_preloader);
 
 
 class link_block extends HTMLElement {
-  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow_blend, Class, Tooltip } = {}) {
+  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow_blend, Class, Tooltip, Shadow } = {}) {
     super();
     const types = {
 			artwork: 'resources/svg/icos/art_alt.svg',
@@ -612,7 +612,7 @@ class link_block extends HTMLElement {
       ::part(link-title-wrapper), .link-title-wrapper {
         width: 700px;
         height: 42px;
-        filter: drop-shadow(-5px 0 3px var(--shadow_22a64));
+        filter: ${Shadow ? Shadow : `drop-shadow(-5px 0 3px var(--shadow_22a64))`};
         transition: all 0.3s ease;
       }
 
