@@ -150,7 +150,7 @@ $(document).on('languageJSON_loaded', function () {
 
   } else {
     header = `
-    <div class="personBannerWrapper"><div class="personBanner" style="--banner: url(${nkPreferences.banner});"></div></div>
+    <div class="personBannerWrapper ${nkPreferences && nkPreferences.skin === "sekiban" ? `plate_chinese` : ''}"><div class="personBanner" style="--banner: url(${nkPreferences.banner});"></div></div>
     <div class="personAvatar">
       <span class="avatarWrapper">
         <img src="resources/cherepkhed32_thumb.png" alt="${cLang['OCKhertahiron']}" alt-key="OCKhertahiron" width="74" loading="eager">

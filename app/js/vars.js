@@ -10,14 +10,9 @@ window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('select
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
 window.availableSkins = {
-  byakujou: {
-    name: 'Byakujou',
-    url: 'byakujou',
-  },
-  aogurogetsu: {
-    name: 'Aoguro-no Getsu',
-    url: 'aogurogetsu',
-  }
+  byakujou:     {name: 'Byakujou',        url: 'byakujou'},
+  aogurogetsu:  {name: 'Aoguro-no Getsu', url: 'aogurogetsu'},
+  sekiban:      {name: 'Sekiban',         url: 'sekiban'},
 }
 
 window.NoAv = 'N/A';

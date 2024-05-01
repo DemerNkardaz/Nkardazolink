@@ -1,0 +1,115 @@
+:root {
+  --oudoiro: #BE7F51;
+  --oudoiro60: #BE7F5160;
+  --kogecha: #351F19;
+  --kogecha70: #351F1970;
+  --kogechaLight: #65534e;
+
+  --text_efcba6: #efcba6;
+}
+
+
+[container="root"][actived="default"] {
+  background: var(--oudoiro60);
+  color: var(--text_efcba6);
+
+  & .copyright {
+    color: var(--kogecha);
+  }
+
+  & .ambientControls {
+    & .trackInfo {
+      color: var(--kogecha);
+      text-shadow: 0 1px 5px var(--oudoiro);
+
+      & .trackProgress {
+        &::before {
+          background: var(--kogecha);
+        }
+
+        &::after {
+          background: var(--oudoiro);
+        }
+      }
+    }
+
+    & button {
+      color: var(--kogecha);
+      border-color: var(--kogecha);
+    }
+  }
+
+
+  & #site-header {
+    background: var(--kogecha70);
+  }
+
+  & .personBannerWrapper {
+    width: 95%;
+    margin-block-start: 9px;
+    --corner_radius: 25px;
+    --border_width: 8px;
+    --wrap_border_color: transparent;
+    --border_color: var(--kogechaLight);
+    z-index: -1;
+    & .personBanner {
+      border-radius: 0;
+      z-index: -1;
+    }
+  }
+
+  & .personAvatar {
+    border-radius: 0;
+    padding: 5px;
+    background: var(--kogechaLight);
+  }
+
+  & .links_Wrapper {
+    & :is(h1, h2, h3, h4, h5, h6) {
+      color: var(--kogecha);
+    }
+    & hr {
+      border-top-color: var(--kogechaLight);
+    }
+  }
+
+}
+
+link-block[link_class="default"] {
+  &::part(link-title), &::part(link-subscript) {
+    color: var(--text_efcba6);
+  }
+  &:hover::part(link-title), &:hover::part(link-subscript) {
+    color: var(--color_gold_hover);
+  }
+
+  &::part(link), &::part(link-image) {
+    border-radius: 0;
+  }
+
+  &::part(link) {
+    background: var(--kogecha);
+  }
+  &::part(link-image) {
+    background: var(--kogechaLight);
+  }
+
+  &::part(link-type) {
+    background: var(--oudoiro);
+    box-shadow: inset 1px 2px 3px var(--shadow_22a86);
+  }
+  &:hover::part(link-type) {
+    background: var(--color_dark_gold);
+    box-shadow: inset 2px 2px 3px var(--color_gold_hover_light), inset -2px -2px 3px var(--shadow_22a29), 2px 1.5px 1px var(--shadow_22a29);
+  }
+  &::part(link-type-image) {
+    filter: brightness(100%) sepia(100%) saturate(1000%);
+  }
+  &:hover::part(link-type-image) {
+    filter: brightness(450%) sepia(100%) saturate(300%) drop-shadow(0px 0.75px 1px var(--shadow_22a86));
+  }
+  &::part(link-icon-image) {
+    opacity: 1;
+    filter: brightness(150%) sepia(100%) saturate(300%);
+  }
+}

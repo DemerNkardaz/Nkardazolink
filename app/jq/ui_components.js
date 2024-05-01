@@ -386,6 +386,25 @@ window.dropdown_element = dropdown_element;
 
 
 window.nkUI = {
+  constructor: function ({template, from} = {}) {
+    if (!template || !from) {
+      console.error('Необходимо указать шаблон и источник данных');
+      return;
+    }
+
+    let markup = '';
+    Object.keys(from).forEach(key => {
+      const data = from[key];
+      let tempMarkup = template;
+      Object.keys(data).forEach(variable => {
+        const regex = new RegExp('\\${' + variable + '}', 'g');
+        tempMarkup = tempMarkup.replace(regex, data[variable]);
+      });
+      markup += tempMarkup;
+    });
+    return markup;
+  },
+
   loadKamon: function () {
     return `<div><img src="resources/svg/NkardazKamon.svg" width="100" alt="content preloader"></div>`;
   },
@@ -440,6 +459,7 @@ window.nkUI = {
   },
 }
 
+
 class load_kamon extends HTMLElement { };
 customElements.define('load-kamon', load_kamon);
 
@@ -462,7 +482,7 @@ class link_block extends HTMLElement {
       var constructor = `<span class="linkTypes" part="link-types">`
       const matchingTypes = Object.keys(types).filter(type => LINK_Types.includes(type));
       matchingTypes.forEach(type => {
-        constructor += `<span class="linkType" part="link-type"><img src="${types[type]}" alt="decorator" loading="eager"></span>`;
+        constructor += `<span class="linkType" part="link-type"><img src="${types[type]}" alt="decorator" loading="eager" part="link-type-image"></span>`;
       });
       constructor += `</span>`;
       return constructor;
@@ -475,7 +495,7 @@ class link_block extends HTMLElement {
       <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
       ${LINK_Types ? returnTypes() : (LINK_Subscript ? LINK_Subscript : '')}</span>
       ${LINK_Class === 'long-thin' ? `</div></div>` : ''}
-      ${LINK_Icon ? `<div part="link-icon" class="link-icon"><img alt="Icon" src="${LINK_Icon.image}"></div>` : ''}
+      ${LINK_Icon ? `<div part="link-icon" class="link-icon"><img alt="Icon" src="${LINK_Icon.image}" part="link-icon-image"></div>` : ''}
     </a>
     `
 
