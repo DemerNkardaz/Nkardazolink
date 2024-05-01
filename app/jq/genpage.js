@@ -150,12 +150,14 @@ $(document).on('languageJSON_loaded', function () {
 
   } else {
     header = `
-    <div class="personBanner" data-banner="${nkPreferences.banner}"></div>
+    <div class="personBannerWrapper"><div class="personBanner" style="--banner: url(${nkPreferences.banner});"></div></div>
     <div class="personAvatar">
       <span class="avatarWrapper">
-        <img src="resources/cherepkhed32.png" alt="${cLang['OCKhertahiron']}" alt-key="OCKhertahiron" width="74" loading="eager">
+        <img src="resources/cherepkhed32_thumb.png" alt="${cLang['OCKhertahiron']}" alt-key="OCKhertahiron" width="74" loading="eager">
       </span>
+      ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
     </div>
+    <div>Теставые букавы</div>
     `;
     main = `
     <div class="links_Wrapper">
@@ -198,37 +200,7 @@ $(document).on('languageJSON_loaded', function () {
     if (anUrlParameter.mode === 'kamon') {
 
     } else {
-      const contentLinks = {
-        ficbook: ({
-          LINK_Title: cLang['Ficbook'],
-          LINK_Source: 'https://ficbook.net/authors/4241255',
-          LINK_Types: ['writing'],
-          LINK_Background: {
-            image: 'https://assets.ficbook.net/assets/design/profile_default_bg.png',
-            color: `#f6ecda`,
-            size: '150%',
-            position: '50% 45%',
-          },
-          LINK_Image: 'https://images.ficbook.net/avatars/hWUeiDGi2ZgPcI72heSScy8DLQ1wkNun.jpg',
-          LINK_Icon: {
-            image: 'external/fickbook_logo.svg',
-            pos: {
-              right: -2,
-              bottom: -2
-            },
-            w: 50
-          },
-          Arrow_blend: 'color-burn',
-          Tooltip: { key: 'Naeda_Kitetsugi', pos: 'right' }
-        }),
-      };
-      const contentLinks2 = {
-        test1: contentLinks.ficbook,
-        test2: contentLinks.ficbook,
-        test3: contentLinks.ficbook,
-        test4: contentLinks.ficbook,
-        test5: contentLinks.ficbook,
-      };
+
       
       nk.siteMainContainer.find('anchor-contentLinks').replaceWith(generateLinks({linkClass : 'default', source : dataBlocks.default.links.content}));
       nk.siteMainContainer.find('anchor-socialLinks').replaceWith(generateLinks({linkClass : 'default', source : dataBlocks.default.links.social}));

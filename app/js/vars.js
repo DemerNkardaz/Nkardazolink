@@ -1,7 +1,7 @@
 window.items = {};
 window.nkPreferences = {
   skin: fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : null,
-  banner: fromStorage('selectedBanner') ? fromStorage('selectedBanner') : '../resources/svg/pattern_asanoha_90deg.svg',
+  banner: fromStorage('selectedBanner') ? fromStorage('selectedBanner') : '../../../resources/svg/pattern_asanoha_90deg.svg',
 }
 window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi"];
 window.navigatorLanguage = window.supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
@@ -9,6 +9,16 @@ window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('select
 
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
+window.availableSkins = {
+  byakujou: {
+    name: 'Byakujou',
+    url: 'byakujou',
+  },
+  aogurogetsu: {
+    name: 'Aoguro-no Getsu',
+    url: 'aogurogetsu',
+  }
+}
 
 window.NoAv = 'N/A';
 

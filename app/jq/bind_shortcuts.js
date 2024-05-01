@@ -375,3 +375,17 @@ $(document).on('click', '.trackProgress', function (e) {
   $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
 });
 /* ------------------- MUSIC CONTOLS ------------------- */
+
+
+
+/* ------------------- OTHER BINDS ------------------- */
+
+$(document).on('click', '.personBannerWrapper, .personAvatar', function () {
+  $(this).addClass('clicked');
+  setTimeout(() => {
+    $(this).removeClass('clicked');
+  }, 200);
+});
+
+
+/* ------------------- OTHER BINDS ------------------- */
