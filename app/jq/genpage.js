@@ -19,6 +19,7 @@ $(document).on('languageJSON_loaded', function () {
         content: {
           ficbook: ({
             LINK_Title: cLang['Ficbook'],
+            LINK_Title_Key: 'Ficbook',
             LINK_Source: 'https://ficbook.net/authors/4241255',
             LINK_Types: ['writing'],
             LINK_Background: {image: 'https://assets.ficbook.net/assets/design/profile_default_bg.png', color: `#f6ecda`, size: '150%', position: '50% 45%'},
@@ -29,6 +30,7 @@ $(document).on('languageJSON_loaded', function () {
           }),
           authorToday: ({
             LINK_Title: cLang['AuthorToday'],
+            LINK_Title_Key: 'AuthorToday',
             LINK_Source: 'https://author.today/u/demer_nkardaz',
             LINK_Types: ['writing'],
             LINK_Background: {image: 'https://cm.author.today/content/2023/07/07/4bac28c43b3b4d6eaa6c6646bf977220.jpg', color: `#7b85a3`, size: 'cover', position: '50% 5%'},
@@ -38,6 +40,7 @@ $(document).on('languageJSON_loaded', function () {
           }),
           artStation: ({
             LINK_Title: cLang['ArtStation'],
+            LINK_Title_Key: 'ArtStation',
             LINK_Source: 'https://www.artstation.com/demernkardaz',
             LINK_Types: ['artwork', 'modeling', 'layout'],
             LINK_Background: {image: 'https://cdnb.artstation.com/p/users/covers/004/308/091/default/ed360d2bc08458597cbfa650a51c8f7e.jpg', color: `#b85d14`, size: '150%', position: '50% 0%'},
@@ -47,6 +50,7 @@ $(document).on('languageJSON_loaded', function () {
           }),
           shagorRealmsCommunity: ({
             LINK_Title: cLang['ShagorRealms'],
+            LINK_Title_Key: 'ShagorRealms',
             LINK_Source: 'https://vk.com/club203543966',
             LINK_Types: ['artwork', 'modeling', 'layout', 'writing'],
             LINK_Background: {image: 'resources/png/china/jiangu_full_bg_golden v2_thumb.png', color: `#fffd51`, size: 'cover', position: '50% 60%'},
@@ -56,6 +60,7 @@ $(document).on('languageJSON_loaded', function () {
           }),
           DTFBlog: ({
             LINK_Title: cLang['DTF_Blog'],
+            LINK_Title_Key: 'DTF_Blog',
             LINK_Source: 'https://vk.com/club203543966',
             LINK_Types: ['artwork', 'modeling', 'layout', 'writing'],
             LINK_Background: {image: 'https://leonardo.osnova.io/15784ecb-c2bd-54ca-91d3-fbaf396d3002/-/scale_crop/960/-/format/webp/', color: `#dbe1da`, size: 'cover', position: '50% 40%'},
@@ -66,6 +71,7 @@ $(document).on('languageJSON_loaded', function () {
           }),
           NaedaKitetsugi: ({
             LINK_Title: cLang['Naeda_Kitetsugi'],
+            LINK_Title_Key: 'Naeda_Kitetsugi',
             LINK_Source: 'https://vk.com/public219642160',
             LINK_Types: ['artwork'],
             LINK_Background: {image: 'external/Ghost_of_Tsushima.jpg', color: `#fffd51`, size: 'cover', position: '50% 50%'},
@@ -80,8 +86,9 @@ $(document).on('languageJSON_loaded', function () {
         social: {
           shikimori: ({
             LINK_Title: cLang['Shikimori'],
+            LINK_Title_Key: 'Shikimori',
             LINK_Source: 'https://shikimori.one/Демер+Нкардаз',
-            LINK_Subscript: 'Манганимешный список',
+            LINK_Subscript: cLang['Shikimori_description'],
             LINK_Subscript_Key: 'Shikimori_description',
             LINK_Background: {image: 'https://i.imgur.com/QqfSX2E.png', color: `#ffcad4`, size: '100%', position: '50% 57%'},
             LINK_Image: 'https://desu.shikimori.one/system/users/x160/1137748.png?1658010531',
@@ -91,8 +98,9 @@ $(document).on('languageJSON_loaded', function () {
           }),
           steam: ({
             LINK_Title: cLang['Steam'],
+            LINK_Title_Key: 'Steam',
             LINK_Source: 'https://steamcommunity.com/profiles/76561198177249942',
-            LINK_Subscript: 'Манганимешный список',
+            LINK_Subscript: cLang['Steam_description'],
             LINK_Subscript_Key: 'Steam_description',
             LINK_Background: {image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/570/51c2cf9ddfe8a170b458fc37ff55b083f6a5ec6c.jpg', color: `#2868ee`, size: '110%', position: '50% 25%'},
             LINK_Image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2022180/2b76687e49715a75da390cd0ff4f84f5c5382cb2.gif',
@@ -107,6 +115,7 @@ $(document).on('languageJSON_loaded', function () {
         content: {
           ficbook: ({
             LINK_Title: cLang['Ficbook'],
+            LINK_Title_Key: 'Ficbook',
             LINK_Source: 'https://ficbook.net/authors/4241255',
             LINK_Types: ['writing'],
             LINK_Background: {image: 'https://assets.ficbook.net/assets/design/profile_default_bg.png', color: `#f6ecda`, size: '100%', position: '-100px 50%'},
