@@ -18,3 +18,6 @@ if (savedSettings.save_selected_item === 'true') {
     });
   });
 }
+
+
+savedSettings.change_skin_by_time === 'true' && setSkinByTime();

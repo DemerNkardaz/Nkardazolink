@@ -10,6 +10,7 @@ import './js/vars.js';
 import './rules/rules.js';
 import './howler_init.js';
 import './jq/selectors.js';
+import './jq/skins.js';
 import './jq/ui_diacrit.js';
 import './jq/ui_tags.js';
 import './jq/ui_components.js';

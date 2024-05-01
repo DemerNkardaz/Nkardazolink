@@ -79,7 +79,7 @@ link-block[link_class="default"] {
   &::part(link-title), &::part(link-subscript) {
     color: var(--text_efcba6);
   }
-  &:hover::part(link-title), &:hover::part(link-subscript) {
+  &:hover::part(link-title), &:hover::part(link-subscript), &:focus::part(link-title), &:focus::part(link-subscript) {
     color: var(--color_gold_hover);
   }
 
@@ -98,14 +98,14 @@ link-block[link_class="default"] {
     background: var(--oudoiro);
     box-shadow: inset 1px 2px 3px var(--shadow_22a86);
   }
-  &:hover::part(link-type) {
+  &:hover::part(link-type), &:focus::part(link-type) {
     background: var(--color_dark_gold);
     box-shadow: inset 2px 2px 3px var(--color_gold_hover_light), inset -2px -2px 3px var(--shadow_22a29), 2px 1.5px 1px var(--shadow_22a29);
   }
   &::part(link-type-image) {
     filter: brightness(100%) sepia(100%) saturate(1000%);
   }
-  &:hover::part(link-type-image) {
+  &:hover::part(link-type-image), &:focus::part(link-type-image) {
     filter: brightness(450%) sepia(100%) saturate(300%) drop-shadow(0px 0.75px 1px var(--shadow_22a86));
   }
   &::part(link-icon-image) {

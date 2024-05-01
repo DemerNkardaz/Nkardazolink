@@ -414,7 +414,7 @@ window.nkUI = {
     <page-preloader id="preloader" hiding_role="${hiding_role && hiding_role === 'noscroll' ? 'noscroll' : 'hide'}">
       <div class="preloader-logo" part="preloader-logo"> 
         <div class="preloader-logo-wrapper" part="preloader-logo-wrapper">
-          <img src="resources/svg/NkardazKamon.svg" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
+          <img src="${fromStorage('selectedSiteSkin') === 'aogurogetsu' ? 'resources/svg/hangetsu.svg' : `resources/svg/NkardazKamon.svg`}" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
         </div>
       </div>
       <div class="preloader-progress" part="preloader-progress">
@@ -432,6 +432,10 @@ window.nkUI = {
 
       let loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
+      setTimeout(() => {
+        $('#skinloader').attr('href').includes('aogurogetsu') ? $('#preloader').find('.preloader-logo-image').attr('src', 'resources/svg/hangetsu.svg')
+          : $('#preloader').find('.preloader-logo-image').attr('src', 'resources/svg/NkardazKamon.svg');
+      }, 100);
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();

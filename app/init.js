@@ -3,7 +3,7 @@
 
 selectedLanguage ? $('html').attr('lang', selectedLanguage) : $('html').attr('lang', 'ru');
 
-var skin = (nkPreferences.skin && nkPreferences.skin !== null) ? `app/style/skins/${nkPreferences.skin}.css` : '';
+//var skin = (nkPreferences.skin && nkPreferences.skin !== null) ? `app/style/skins/${nkPreferences.skin}.css` : '';
 
 window.loadingText = {
   en: 'Loading content',
@@ -105,11 +105,12 @@ window.showLoadPercentage = function () {
 /*
 if (savedSettings.turn_off_preloader !== 'true') {
   ui_components.preloader();
-}
-
-nkUI.preLoader({
-  hiding_role: 'noscroll',
-})*/
+}*/
+if (savedSettings.turn_off_preloader !== 'true') {
+  nkUI.preLoader({
+    hiding_role: 'noscroll',
+  });
+};
 
 
 waitFor('title', () => {
@@ -121,10 +122,10 @@ waitFor('title', () => {
 
 DataExtend([
   { type: 'data',  source: 'app/data/locale.json', as: 'languageJSON' },
-  { type: 'style', source: skin, anchor: 'head', pos: 'inner-end', id: 'skinloader' }
+  //{ type: 'style', source: skin, anchor: 'head', pos: 'inner-end', id: 'skinloader' }
 ]);
 window.languageJSON = metaData['languageJSON'];
-
+savedSettings.change_skin_by_time === 'true' && setSkinByTime();
 
 
 
