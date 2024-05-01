@@ -122,6 +122,13 @@
 
     position: relative;
 
+    & * {
+      scrollbar-color: var(--shadow_22a10) transparent;
+      & ::-webkit-scrollbar-thumb {
+        background-color: var(--shadow_22a10) transparent;
+      }
+    }
+
     & > :first-child {
       margin-top: 65px;
     }
@@ -155,8 +162,7 @@
     & .links_Grid {
       position: relative;
       width: 1260px;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden;
 
       display: grid;
       place-items: center;
@@ -166,6 +172,8 @@
 
     & :has(.links_Grid):nth-child(2) {
       height: 420px;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
   }
 }

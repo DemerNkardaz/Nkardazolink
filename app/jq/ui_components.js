@@ -448,7 +448,7 @@ customElements.define('page-preloader', page_preloader);
 
 
 class link_block extends HTMLElement {
-  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow_blend, Class, Tooltip, Shadow } = {}) {
+  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow, Class, Tooltip, Shadow } = {}) {
     super();
     const types = {
 			artwork: 'resources/svg/icos/art_alt.svg',
@@ -484,6 +484,13 @@ class link_block extends HTMLElement {
     <link rel="stylesheet" href="app/style/shapes.css">
     <link rel="stylesheet" href="app/style/util.css">
     <style>
+      :host(.inactive) {
+        filter: grayscale(100%);
+        transition: all 0.3s ease;
+      }
+      :host(.inactive:hover) {
+        filter: grayscale(0%);
+      }
       a {
         position: relative;
         gap: 0 5px;
@@ -501,7 +508,7 @@ class link_block extends HTMLElement {
         height: 128px;
         border-radius: 5px;
         grid-template-columns: 23.5% 76.5%;
-        grid-template-rows: 43% 23% 34%;
+        grid-template-rows: 45% 23% 32%;
         transition: all 0.3s ease;
         place-items: start;
         `}
@@ -538,8 +545,8 @@ class link_block extends HTMLElement {
           content: 'arrow_outward';
           font-family: 'material icons';
           line-height: 1em;
-          color: var(--text_33);
-          mix-blend-mode: ${Arrow_blend ? Arrow_blend : 'color-dodge'};
+          color: ${Arrow && Arrow.color ? Arrow.color : 'var(--text_33)'};
+          mix-blend-mode: ${Arrow && Arrow.blend ? Arrow.blend : 'color-dodge'};
           top: 0;
           right: 0;
           font-size: 1.5em;
