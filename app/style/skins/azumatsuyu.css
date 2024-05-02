@@ -4,8 +4,12 @@
   --kihada60: #F3C13A60;
   --hivairo: #BDA928;
   --hivairo80: #BDA92880;
+  --aikobucha: #473F2D;
   --miruiro: #524B2A;
   --miruiro80: #524B2A80;
+  --kourozen: #592B1F;
+  --kinsusutake: #7D4E2D;
+  --miruiroToAikobucha: linear-gradient(180deg, var(--kinsusutake) 15%, var(--kourozen) 100%);
   --momoiro: #F47983;
   --momolight: #ffece1;
   --benifuji: #BB7796;
@@ -24,8 +28,38 @@
     }
   }
   & #site-header {
-    background: var(--miruiro80);
+    position: relative;
+    background: var(--miruiroToAikobucha);
     color: var(--suouLight);
+    box-shadow: 0 5px 5px var(--aikobucha);
+    border: 10px solid var(--aikobucha);
+    border-bottom: 0;
+    z-index: 1;
+    &::before {
+      position: absolute;
+      content: '';
+      height: 100%;
+      width: 100%;
+      inset: 0;
+      background: url(../../../resources/svg/pattern_yagasuri.svg) repeat;
+      background-size: 200%;
+      background-position: 48% 54.5%;
+      filter: brightness(50%);
+      z-index: -1;
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      height: 100%;
+      width: 100%;
+      inset: 0;
+      background: url(../../../resources/svg/pattern_yagasuri.svg) repeat;
+      background-size: 200%;
+      background-position: 56.5% 50%;
+      filter: brightness(60%);
+      scale: -1;
+      z-index: -2;
+    }
   }
   & .personBannerBorder {
     height: 136px;
@@ -63,7 +97,7 @@
     padding: 0px;
     background: transparent;
     box-shadow: 0 2px 10px var(--shadow_22a64);
-    backdrop-filter: blur(1px);
+    backdrop-filter: blur(2px);
   }
   & .avatarWrapper {
     width: 180px;
@@ -110,6 +144,12 @@
 
 link-block[link_class="default"] {  
   filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
+  &.inactive {
+    filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29)) grayscale(1);
+    &:hover {
+      filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
+    }
+  }
 
   &::part(link-title), &::part(link-subscript) {
     color: var(--suouDark);

@@ -73,9 +73,13 @@ window.setSkin = function (skin, saveToStorage) {
     });
 
   }
-  cLang ? $('#currentSkin').text(cLang[returnCurrentSkin()]) : ($(document).on('languageJSON_loaded', function () {
-    $('#currentSkin').text(cLang[returnCurrentSkin()]);
-  }));
+  if (typeof cLang !== 'undefined') {
+      $('#currentSkin').text(cLang[returnCurrentSkin()]);
+  } else {
+      $(document).on('languageJSON_loaded', function () {
+          $('#currentSkin').text(cLang[returnCurrentSkin()]);
+      });
+  }
 }
 
 
