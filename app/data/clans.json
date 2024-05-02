@@ -1,0 +1,17 @@
+{
+  "default_img_path": "resources/svg",
+  "root":
+  [
+    {
+      "category": "JP",
+      "img_folder": "/japan/kamon/",
+      "items": 
+      [
+        {
+          "entity_prop": "ent_clan_matsudaira",
+          "name": "Matsudaira"
+        }
+      ]
+    }
+  ]
+}

@@ -62,8 +62,10 @@ page-preloader, #preloader {
     & .personBanner {
       border-radius: 0;
       &.aogurogetsu {
-        background-image: var(--banner), var(--banner_gradient_old);
-        filter: invert(1);
+        &[data-banner="asanoha"] {
+          background-image: var(--banner), var(--banner_gradient_old);
+          filter: invert(1);
+        }
       }
     }
   }
@@ -83,10 +85,11 @@ link-block[link_class="default"] {
   }
   &::part(link) {
     background: var(--bg_22);
-    box-shadow: 2px 3px 5px var(--bg_00ad);
+    
   }
-  &::part(link) {
+  &::part(link-wrapper) {
     border-radius: 8px;
+    box-shadow: 2px 3px 5px var(--bg_00ad);
   }
   &::part(link-image) {
     background: var(--bg_22);

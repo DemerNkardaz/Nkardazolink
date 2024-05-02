@@ -1,11 +1,27 @@
 window.items = {};
 window.nkPreferences = {
   skin: fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : null,
-  banner: fromStorage('selectedBanner') ? fromStorage('selectedBanner') : '../../../resources/svg/pattern_asanoha_90deg.svg',
+  banner: {
+    asanoha: {
+      url: '../../../resources/svg/pattern_asanoha_90deg.svg',
+      name: 'Asa-no ha',
+    }
+  }
 }
-window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi"];
+window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi", "mo", "ro"];
 window.navigatorLanguage = window.supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
 window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('selectedLanguage') : navigatorLanguage);
+
+window.languagesList = {
+  ru: { emoji: '🇷🇺', name: 'Русский' },
+  en: { emoji: '🇬🇧', name: 'English' },
+  ja: { emoji: '🇯🇵', name: '日本語' },
+  zh: { emoji: '🇨🇳', name: '简体中文' },
+  ko: { emoji: '🇰🇷', name: '한국어' },
+  vi: { emoji: '🇻🇳', name: 'Tiếng Việt' },
+  mo: { emoji: '🇲🇩', name: 'Молдовеняскэ' },
+  ro: { emoji: '🇷🇴', name: 'Română' },
+}
 
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
@@ -29,6 +45,7 @@ window.savedSettings = {
   "save_selected_item": (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false'),
   "turn_off_preloader": (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false'),
   "change_skin_by_time": (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false'),
+  "current_banner": (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha'),
 };
 
 if (savedSettings.save_search_result === 'true') {

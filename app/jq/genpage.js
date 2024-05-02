@@ -151,7 +151,7 @@ $(document).on('languageJSON_loaded', function () {
   } else {
     header = `
     ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `<div class="personBannerBorder azumatsuyu wrap_border"></div>` : ''}
-    <div class="personBannerWrapper ${nkPreferences && (nkPreferences.skin === "sekiban" || nkPreferences.skin === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? 'aogurogetsu' : ''}" style="--banner: url(${nkPreferences.banner});"></div></div>
+    <div class="personBannerWrapper ${nkPreferences && (nkPreferences.skin === "sekiban" || nkPreferences.skin === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkPreferences.skin}" style="--banner: url(${nkPreferences.banner[savedSettings.current_banner].url});" data-banner="${savedSettings.current_banner}"></div></div>
     <div class="personAvatar">
       <span class="avatarWrapper ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `plate_chinese` : ''}">
         <img src="resources/cherepkhed32_thumb.png" alt="${cLang['OCKhertahiron']}" alt-key="OCKhertahiron" width="74" loading="eager">

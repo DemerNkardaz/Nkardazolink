@@ -489,7 +489,7 @@ class link_block extends HTMLElement {
       constructor += `</span>`;
       return constructor;
     }
-    const component = `
+    const component = `<div class="linkWrapper ${nkPreferences.skin === 'azumatsuyu' && LINK_Class !== 'long-thin' ? `plate_chinese` : ''}" part="link-wrapper">
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
       ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `tooltip_key="${Tooltip.key}" tooltip_pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner plate_chinese">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
@@ -498,7 +498,7 @@ class link_block extends HTMLElement {
       ${LINK_Types ? returnTypes() : (LINK_Subscript ? LINK_Subscript : '')}</span>
       ${LINK_Class === 'long-thin' ? `</div></div>` : ''}
       ${LINK_Icon ? `<div part="link-icon" class="link-icon"><img alt="Icon" src="${LINK_Icon.image}" part="link-icon-image"></div>` : ''}
-    </a>
+    </a></div>
     `
 
     const styles = `
@@ -513,13 +513,25 @@ class link_block extends HTMLElement {
       :host(.inactive:hover) {
         filter: grayscale(0%);
       }
+      ::part(link-wrapper), .linkWrapper {
+        ${LINK_Class == 'long-thin' ? `
+        border-radius: 50px;
+        transition: all 0.15s ease;
+        `: `
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        `}
+        box-shadow: 0 3px 5px var(--shadow_22a10);
+        outline: 2px solid transparent;
+        overflow: hidden;
+      }
       a {
         position: relative;
         gap: 0 5px;
         ${LINK_Class == 'long-thin' ? `
         width: 1024px;
         height: 42px;
-        border-radius: 50px;
+        border-radius: 0;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -528,18 +540,16 @@ class link_block extends HTMLElement {
         display: grid;
         width: 384px;
         height: 128px;
-        border-radius: 5px;
+        border-radius: 0;
         grid-template-columns: 23.5% 76.5%;
         grid-template-rows: 45% 23% 32%;
         transition: all 0.3s ease;
         place-items: start;
         `}
         background: var(--white);
-        box-shadow: 0 3px 5px var(--shadow_22a10);
         text-decoration: none;
         color: var(--text_33);
         overflow: hidden;
-        outline: 2px solid transparent;
         z-index: 0;
 
         &::before {
@@ -578,14 +588,17 @@ class link_block extends HTMLElement {
       h1, h2, h3, h4, h5, h6 {
         margin: 0;
       }
-      a:focus,
-      a:hover {
+      .linkWrapper:focus-within,
+      .linkWrapper:hover {
         ${LINK_Class == 'long-thin' ? `
         transform: scale(1.1);
         `: `
         transform: translateY(-15px);
         `}
         outline: 2px solid white;
+      }
+      a:focus,
+      a:hover {
         & :is(::part(link-type), .linkType) {
           box-shadow: inset 2px 2px 3px var(--color_gold_hover_light), inset -2px -2px 3px var(--shadow_22a29), 2px 1.5px 1px var(--shadow_22a29);
           background: var(--color_dark_gold);
@@ -612,7 +625,7 @@ class link_block extends HTMLElement {
         }
       }
 
-      a:active {
+      .linkWrapper:active {
         ${LINK_Class == 'long-thin' ? `
         transform: scale(1.01);
         `: `
@@ -778,6 +791,7 @@ class link_block extends HTMLElement {
     $(this).attr({
       'LINK_Class': LINK_Class
     }).addClass(`${Class ? Class : 'm-3'}`);
+    
 
     const concatenated = component + styles;
     this.attachShadow({ mode: 'open' }).innerHTML = concatenated;

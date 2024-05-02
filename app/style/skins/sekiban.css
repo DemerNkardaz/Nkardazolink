@@ -83,7 +83,7 @@ link-block[link_class="default"] {
     color: var(--color_gold_hover);
   }
 
-  &::part(link), &::part(link-image) {
+  &::part(link), &::part(link-image), &::part(link-wrapper) {
     border-radius: 0;
   }
 

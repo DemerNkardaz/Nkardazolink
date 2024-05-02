@@ -34,21 +34,48 @@ window.setSkin = function (skin, saveToStorage) {
       $('.personBanner').addClass('aogurogetsu');
     } else if (skin === 'azumatsuyu') {
       $('.personBannerWrapper, .avatarWrapper').addClass('plate_chinese');
+      $('link-block').each(function () {
+        $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').addClass('plate_chinese');
+      });
       !$('.personBannerBorder').length ? $('<div class="personBannerBorder azumatsuyu wrap_border"></div>').insertBefore('.personBannerWrapper') : '';
     }
 
-    
+    if (skin !== 'azumatsuyu') {
+      $('.avatarWrapper').removeClass('plate_chinese');
+      $('link-block').each(function () {
+        $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').removeClass('plate_chinese');
+      });
+    }
     if (skin !== 'azumatsuyu' && skin !== 'sekiban') {
-      $('.personBannerWrapper, .avatarWrapper').removeClass('plate_chinese');
-      $('.personBannerBorder.azumatsuyu').remove();
+      $('.personBannerWrapper').removeClass('plate_chinese');
     }
     if (skin !== 'aogurogetsu') { 
       $('.personAvatar').find('.avatarHalo').remove();
       $('.personBanner').removeClass('aogurogetsu');
     }
+    $('.personBanner').each(function() {
+        var $this = $(this);
+        var skinClass = window.availableSkins[skin].url;
+        var existingClasses = $this.attr('class').split(' ');
+
+        if (!existingClasses.includes(skinClass)) {
+            $this.addClass(skinClass);
+        }
       
+        for (var key in window.availableSkins) {
+            if (window.availableSkins.hasOwnProperty(key) && key !== skin) {
+                var classToRemove = window.availableSkins[key].url;
+                if (existingClasses.includes(classToRemove)) {
+                    $this.removeClass(classToRemove);
+                }
+            }
+        }
+    });
+
   }
-  $('#currentSkin').text(cLang[returnCurrentSkin()]);
+  cLang ? $('#currentSkin').text(cLang[returnCurrentSkin()]) : ($(document).on('languageJSON_loaded', function () {
+    $('#currentSkin').text(cLang[returnCurrentSkin()]);
+  }));
 }
 
 
