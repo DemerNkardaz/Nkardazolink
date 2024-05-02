@@ -427,15 +427,13 @@ window.nkUI = {
 
     $(target ? target : 'body').prepend(component).promise().done(() => {
       const preloader = $('#preloader');
+      const preloader_logo = preloader.find('.preloader-logo');
       let siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       let siblings = $(preloader).siblings(':not(#preloader)');
 
       let loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
-      setTimeout(() => {
-        $('#skinloader').attr('href').includes('aogurogetsu') ? $('#preloader').find('.preloader-logo-image').attr('src', 'resources/svg/hangetsu.svg')
-          : $('#preloader').find('.preloader-logo-image').attr('src', 'resources/svg/NkardazKamon.svg');
-      }, 100);
+      returnCurrentSkin('url') === 'aogurogetsu' ? preloader_logo.attr('src', 'resources/svg/hangetsu.svg'): preloader_logo.attr('src', 'resources/svg/NkardazKamon.svg');
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();

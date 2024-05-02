@@ -1,0 +1,75 @@
+:root {
+  --yamabukiiro: #FFA400;
+  --kihada: #F3C13A;
+  --kihada60: #F3C13A60;
+  --hivairo: #BDA928;
+  --hivairo80: #BDA92880;
+  --miruiro: #524B2A;
+  --miruiro80: #524B2A80;
+  --momoiro: #F47983;
+  --momolight: #ffece1;
+}
+
+[container="root"][actived="default"] {
+  background: var(--kihada60);
+
+  & #site-header {
+    background: var(--miruiro80);
+  }
+  & .personBannerBorder {
+    height: 136px;
+    --wrap_border_color: var(--momoiro);
+    --wrap_border_inset: 12px;
+    --wrap_border_radius: 10px;
+    filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
+  }
+  & .personBannerWrapper {
+    width: 100%;
+    --corner_radius: 35px;
+    --border_width: 5px;
+    --wrap_border_color: transparent;
+    --border_color: var(--momoiro);
+    --shape: var(--shape_tlbr);
+    --border: var(--border_tlbr);
+    z-index: -1;
+    & .personBanner {
+      border-radius: 0;
+      z-index: -1;
+    }
+  }
+  & .personAvatar {
+    width: 256px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    padding: 0px;
+    background: transparent;
+    box-shadow: 0 2px 10px var(--shadow_22a64);
+    backdrop-filter: blur(1px);
+  }
+  & .avatarWrapper {
+    width: 180px;
+    height: 128px;
+    border-radius: 0;
+    padding: 0px;
+    --corner_radius: 25px;
+    --border_width: 5px;
+    --border_color: var(--momoiro);
+    --wrap_border_color: transparent;
+    background: transparent;
+    z-index: 1;
+
+    & img {
+      z-index: -1;
+    }
+  }
+}
+
+
+link-block[link_class="default"] {
+  &::part(link) {
+    background: var(--momolight);
+  }
+}

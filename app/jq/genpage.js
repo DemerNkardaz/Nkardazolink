@@ -150,9 +150,10 @@ $(document).on('languageJSON_loaded', function () {
 
   } else {
     header = `
-    <div class="personBannerWrapper ${nkPreferences && nkPreferences.skin === "sekiban" ? `plate_chinese` : ''}"><div class="personBanner ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? 'aogurogetsu' : ''}" style="--banner: url(${nkPreferences.banner});"></div></div>
+    ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `<div class="personBannerBorder azumatsuyu wrap_border"></div>` : ''}
+    <div class="personBannerWrapper ${nkPreferences && (nkPreferences.skin === "sekiban" || nkPreferences.skin === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? 'aogurogetsu' : ''}" style="--banner: url(${nkPreferences.banner});"></div></div>
     <div class="personAvatar">
-      <span class="avatarWrapper">
+      <span class="avatarWrapper ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `plate_chinese` : ''}">
         <img src="resources/cherepkhed32_thumb.png" alt="${cLang['OCKhertahiron']}" alt-key="OCKhertahiron" width="74" loading="eager">
       </span>
       ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
@@ -177,7 +178,7 @@ $(document).on('languageJSON_loaded', function () {
     `;
 
     footer = `
-    <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${cLang['DemerNkardaz']}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;${cLang['CurrentSkin']} ${cLang[nkPreferences.skin === 'aogurogetsu' ? 'Aoguro-no Getsu' : (nkPreferences.skin === 'sekiban' ? 'Sekiban' : (nkPreferences.skin === 'byakujou' ? 'Byakujou' : (nkPreferences.skin === 'azumatsuyu' ? 'Azumatsuyu' : 'Byakujou')))]}</span>
+    <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${cLang['DemerNkardaz']}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;${cLang['CurrentSkin']} <span id='currentSkin'>${cLang[returnCurrentSkin()]}</span></span>
     <span class="ambientControls ms-auto me-3">
       <button nk-music="pause/play"><span class="material-icons">pause</span></button>
       <button nk-music="random"><span class="material-icons">shuffle</span></button>
