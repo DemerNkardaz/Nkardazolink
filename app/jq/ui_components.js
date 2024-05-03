@@ -410,12 +410,12 @@ window.nkUI = {
     return `<div><img src="resources/svg/NkardazKamon.svg" width="100" alt="content preloader"></div>`;
   },
 
-  preLoader: function ({ target, hiding_role, enable_percent, stopTimer } = {}) {
+  preLoader: async function ({ target, hiding_role, enable_percent, stopTimer } = {}) {
     const component = `
     <page-preloader id="preloader" hiding_role="${hiding_role && hiding_role === 'noscroll' ? 'noscroll' : 'hide'}">
       <div class="preloader-logo" part="preloader-logo"> 
         <div class="preloader-logo-wrapper" part="preloader-logo-wrapper">
-          <img src="${fromStorage('selectedSiteSkin') === 'aogurogetsu' ? 'resources/svg/hangetsu.svg' : `resources/svg/NkardazKamon.svg`}" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
+          <img src="" width="100" alt="webpage preloader" class="preloader-logo-image" part="preloader-logo-image">
         </div>
       </div>
       <div class="preloader-progress" part="preloader-progress">
@@ -428,13 +428,16 @@ window.nkUI = {
 
     $(target ? target : 'body').prepend(component).promise().done(() => {
       const preloader = $('#preloader');
-      const preloader_logo = preloader.find('.preloader-logo');
-      let siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
-      let siblings = $(preloader).siblings(':not(#preloader)');
+      const preloader_logo = preloader.find('.preloader-logo-image');
+      const siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
+      const siblings = $(preloader).siblings(':not(#preloader)');
 
-      let loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      const loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
-      returnCurrentSkin('url') === 'aogurogetsu' ? preloader_logo.attr('src', 'resources/svg/hangetsu.svg'): preloader_logo.attr('src', 'resources/svg/NkardazKamon.svg');
+      $(document).on('setSkin', function () { 
+        const skinName = returnCurrentSkin('url');
+        skinName === 'aogurogetsu' ? preloader_logo.attr('src', 'resources/svg/hangetsu.svg') : preloader_logo.attr('src', 'resources/svg/NkardazKamon.svg');
+      });
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();
@@ -448,7 +451,7 @@ window.nkUI = {
           }, 1000);
         }
       });
-      enable_percent !== 'false' && setTimeout(showLoadPercentage, 1000);
+      enable_percent !== false && setTimeout(showLoadPercentage, 1000);
     });
   },
 

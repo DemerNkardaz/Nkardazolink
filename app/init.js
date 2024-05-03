@@ -108,7 +108,7 @@ if (savedSettings.turn_off_preloader !== 'true') {
 }*/
 if (savedSettings.turn_off_preloader !== 'true') {
   nkUI.preLoader({
-    hiding_role: 'noscroll',
+    hiding_role: 'hide',
   });
 };
 
@@ -122,11 +122,8 @@ waitFor('title', () => {
 
 DataExtend([
   { type: 'data',  source: 'app/data/locale.json', as: 'languageJSON' },
-  //{ type: 'style', source: skin, anchor: 'head', pos: 'inner-end', id: 'skinloader' }
 ]);
 window.languageJSON = metaData['languageJSON'];
-savedSettings.change_skin_by_time === 'true' && setSkinByTime();
-
 
 
 

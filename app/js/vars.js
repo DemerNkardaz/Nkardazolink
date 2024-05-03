@@ -83,6 +83,4 @@ window.anUrlParameter = {
   select: (parseUrlParameter('select') ? parseUrlParameter('select') : null)
 };
 
-$(document).on('languageJSON_loaded', function () {
-  window.cLang = languageJSON[selectedLanguage];
-});
+languageLoaded(function () { window.cLang = languageJSON[selectedLanguage]; });

@@ -1,22 +1,22 @@
 window.updateItemsLanguage = function () {
-  var item_props = $('item-prop');
+  let item_props = $('item-prop');
 
   item_props.each(function () {
     if ($(this).attr('prop_class') === 'kamon') {
-      var shadowRoot = this.shadowRoot;
+      let shadowRoot = this.shadowRoot;
       $(shadowRoot).find('.item_title_text').html("тест");
     }
   });
 }
 
-window.updateLanguageKeys = function () {
-  var key_elements = $('[data-key], [alt-key]');
+window.updateLanguageKeys = function (target) {
+  let key_elements = target ? $(target) : $('[data-key], [alt-key]');
   function update () {
     key_elements.each(function () {
-      var key = $(this).attr('data-key') || $(this).attr('alt-key');
-      var getLocale = languageJSON[selectedLanguage][key];
+      let key = $(this).attr('data-key') || $(this).attr('alt-key');
+      let getLocale = languageJSON[selectedLanguage][key];
       if (!getLocale) {
-        for (var lang in languageJSON) {
+        for (let lang in languageJSON) {
           if (languageJSON[lang][key]) {
             getLocale = languageJSON[lang][key];
             break;
@@ -24,7 +24,7 @@ window.updateLanguageKeys = function () {
         }
       };
 
-      var keyMSG = ``;
+      let keyMSG = ``;
 
       $(this).attr('data-key') && (keyMSG += `DATA-KEY “${$(this).attr('data-key')}” ${NoAv}`);
       $(this).attr('alt-key') && (keyMSG += `ALT-KEY “${$(this).attr('alt-key')}” ${NoAv}`);
@@ -47,21 +47,17 @@ window.updateLanguageKeys = function () {
 };
 
 window.switchLang = function (lang) {
-  var language = lang.toLowerCase();
+  let language = lang.toLowerCase();
   toStorage('selectedLanguage', language);
   selectedLanguage = language;
   updateLanguageKeys();
 }
 
 window.cyclic_language = function () {
-  var index = 0;
+  let index = 0;
 
   setInterval(function () {
     switchLang(supportedLanguages[index]);
     index = (index + 1) % supportedLanguages.length;
   }, 1000);
 }
-
-$(document).on('languageJSON_loaded', function () {
-  updateLanguageKeys();
-})

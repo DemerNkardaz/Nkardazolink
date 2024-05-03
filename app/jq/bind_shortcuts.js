@@ -122,7 +122,7 @@ $(document).on('click', '[language_selector]', function () {
 /* ------------------- SELECTS ------------------- */
 
 if (savedSettings.save_selected_item !== 'true') {
-  $(document).on('languageJSON_loaded', function () {
+  languageLoaded(function () {
     $('item-prop').eq(0).click();
   });
 }
@@ -134,7 +134,195 @@ if (savedSettings.save_selected_item !== 'true') {
 
 
 /* ------------------- TOOLTIPS ------------------- */
-$(document).on('languageJSON_loaded', function () {
+languageLoaded(function () {/*
+  function tooltipOperations(target) {
+    const key = target.attr('tooltip_key');
+    const pos = target.attr('tooltip_pos');
+
+    if (target.attr('data-tooltip_id') && target.attr('data-tooltip_id') === $('tooltip-element').attr('id')) {
+      return;
+    }
+
+    const uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
+    const tooltip = new tooltip_element({ tooltip: cLang[key] ? cLang[key] : key, tooltip_key: cLang[key] ? key : null, tooltip_pos: pos, id: uniqId });
+
+    function calcTooltipPos(id) {
+      const tooltip = $(`#${id}`);
+      const parent = $(`[data-tooltip_id="${id}"]`);
+
+      const parentOffset = parent.offset();
+      const parentPosition = parent.position();
+      let calc_pos;
+
+      if (pos === 'bottom') {
+        calc_pos = { top: parentPosition.top + parent.outerHeight(true) + 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
+      } else if (pos === 'top') {
+        calc_pos = { top: parentPosition.top - tooltip.outerHeight(true) - 15, left: parentOffset.left + parent.outerWidth(true) / 2 - tooltip.outerWidth(true) / 2 }
+      } else if (pos === 'left') {
+        calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left - tooltip.outerWidth(true) - 15 }
+      } else if (pos === 'right') {
+        calc_pos = { top: parentPosition.top + parent.outerHeight(true) / 2 - tooltip.outerHeight(true) / 2, left: parentOffset.left + parent.outerWidth(true) + 15 }
+      };
+
+      tooltip.css({
+        top: calc_pos.top,
+        left: calc_pos.left
+      });
+    };
+
+    target.attr('data-tooltip_id', uniqId)
+    $('body').append(tooltip);
+    calcTooltipPos(uniqId);
+    $(`#${uniqId}`).addClass('show').transition({ opacity: 1}, 300);
+  };
+
+  pageTriggerCallback(function () {
+    let tooltipElement = $('[tooltip_key]');
+    $('*').filter(function () {
+      return this.shadowRoot !== null;
+    }).each(function () {
+      $(this.shadowRoot).find('[tooltip_key]').each(function () {
+        this.addEventListener('mouseenter', function () {
+          tooltipOperations($(this));
+        });
+      });
+    });
+    tooltipElement.each(function () {
+      this.addEventListener('mouseenter', function () {
+        tooltipOperations($(this));
+      })
+    })
+  });*/
+
+  function tooltipOperations(target) {
+    const key = target.getAttribute('tooltip_key');
+    const pos = target.getAttribute('tooltip_pos');
+
+    if (document.querySelector(`[id="${target.getAttribute('data-tooltip_id')}"]`)) {
+      return;
+    }
+
+    const uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
+    const tooltip = new tooltip_element({ tooltip: cLang[key] ? cLang[key] : key, tooltip_key: cLang[key] ? key : null, tooltip_pos: pos, id: uniqId });
+
+    function calcTooltipPos(id) {
+      const tooltip = document.getElementById(id);
+      const parent = document.querySelector(`[data-tooltip_id="${id}"]`) || target.closest('[data-tooltip_id]');
+
+      const parentOffset = parent.getBoundingClientRect();
+      const parentPosition = parentOffset;
+      let calc_pos;
+
+      if (pos === 'bottom') {
+        calc_pos = { top: parentPosition.top + parent.offsetHeight + 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
+      } else if (pos === 'top') {
+        calc_pos = { top: parentPosition.top - tooltip.offsetHeight - 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
+      } else if (pos === 'left') {
+        calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left - tooltip.offsetWidth - 15 }
+      } else if (pos === 'right') {
+        calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left + parent.offsetWidth + 15 }
+      };
+
+      tooltip.style.top = calc_pos.top + 'px';
+      tooltip.style.left = calc_pos.left + 'px';
+    };
+
+    target.setAttribute('data-tooltip_id', uniqId);
+    document.body.appendChild(tooltip);
+    calcTooltipPos(uniqId);
+    document.getElementById(uniqId).classList.add('show');
+    document.getElementById(uniqId).style.opacity = 1;
+
+  };
+
+  window.updateTooltipPos = function() {
+  const tooltips = document.querySelectorAll('[data-tooltip_id]');
+
+  tooltips.forEach(tooltip => {
+    const tooltipId = tooltip.getAttribute('data-tooltip_id');
+    const target = document.getElementById(tooltipId);
+    const pos = target.getAttribute('tooltip_pos');
+
+    if (target) {
+      calcTooltipPos(tooltipId, pos);
+    }
+  });
+  };
+  
+  let timers_array = {};
+  function tooltipLeave(target) {
+    const targetTooltipOwner = target.getAttribute('data-tooltip_id');
+    const targetTooltip = document.querySelector(`[id="${targetTooltipOwner}"]`);
+    if (targetTooltip && targetTooltip !== null) {
+      const timer = setTimeout(function () {
+        const onProgress = new Promise((resolve) => {
+          targetTooltip.style.opacity = 0;
+          resolve();
+        });
+
+        onProgress.then(() => {
+          setTimeout(() => targetTooltip.remove(), 320);
+        });
+
+      }, 300);
+      timers_array[targetTooltipOwner] = timer;
+    }
+  };
+
+  pageTriggerCallback(function () {
+    const tooltipParent = document.querySelectorAll('[tooltip_key]');
+    document.querySelectorAll('*').forEach(function (el) {
+      if (el.shadowRoot !== null) {
+        el.shadowRoot.querySelectorAll('[tooltip_key]').forEach(function (shadowEl) {
+          shadowEl.addEventListener('mouseenter', function () {
+            tooltipOperations(shadowEl);
+          });
+          shadowEl.addEventListener('mouseleave', function () {
+            tooltipLeave(shadowEl);
+          })
+        });
+      }
+    });
+
+    tooltipParent.forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        tooltipOperations(el);
+      });
+      el.addEventListener('mouseleave', function () {
+        tooltipLeave(el);
+      })
+    });
+    
+    document.addEventListener('mouseover', function (e) {
+      let target = e.target;
+      const tooltip = target.closest('tooltip-element');
+      if (target.closest('tooltip-element')) {
+        tooltip.style.opacity = 1;
+        if (!tooltip.querySelector('.tl-close')) {
+            tooltip.insertAdjacentHTML('beforeend', '<div class="tl-close">close</div>');
+        }
+        clearTimeout(timers_array[tooltip.getAttribute('id')]);
+      };
+    });
+
+    document.addEventListener('click', function (e) {
+      let target = e.target;
+      if (target.classList.contains('tl-close')) {
+        const tooltipElement = target.closest('tooltip-element');
+        const uniqId = tooltipElement.getAttribute('id');
+        const tooltipOwner = document.querySelector(`[data-tooltip_id="${uniqId}"]`);
+        
+        tooltipElement.style.opacity = 0;
+        setTimeout(function () {
+          tooltipElement.remove();
+          if (tooltipOwner) {
+            tooltipOwner.removeAttribute('data-tooltip_id');
+          }
+        }, 300);
+      }
+    });
+  });
+/*
   $(document).on('mouseenter', '[tooltip_key]', function () {
     var key = $(this).attr('tooltip_key');
     var pos = $(this).attr('tooltip_pos');
@@ -169,10 +357,10 @@ $(document).on('languageJSON_loaded', function () {
       calcTooltipPos(uniqId);
       $(`#${uniqId}`).addClass('show').transition({ opacity: 1}, 300);
     }
-  });
+  });*/
 
-  var timers_array = {};
-
+  //let timers_array = {};
+/*
   $(document).on('mouseenter', 'tooltip-element', function () {
     $(this).css('opacity', 1);
     !$(this).find('.tl-close').length ? $(this).append(`
@@ -181,9 +369,9 @@ $(document).on('languageJSON_loaded', function () {
     ) : '';
 
     clearTimeout(timers_array[$(this).attr('id')]);
-  });
+  });*/
 
-  $(document).on('click', '.tl-close', function () {
+  /*$(document).on('click', '.tl-close', function () {
     var uniqId = $(this).parent().attr('id');
     $(`#${uniqId}`).transition({ opacity: 0 }, 300);
     setTimeout(function () {
@@ -198,10 +386,10 @@ $(document).on('languageJSON_loaded', function () {
     const timer = setTimeout(function () {
       $(`#${uniqId}`).remove();
       $(`[data-tooltip_id="${uniqId}"]`).removeAttr('data-tooltip_id');
-    }, 300);
+    }, 13040);
 
     timers_array[uniqId] = timer;
-  });
+  });*/
 
   $(document).on('mouseenter', '.foot-note', function () {
     var key = $(this).attr('key');

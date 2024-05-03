@@ -56,6 +56,9 @@ window.createObject = {
         let itemEntity = new item_portfolio({
           PROP_Class: entClass ? entClass : 'default',
           PROP_ENTITY: item.entity_prop,
+          PROP_Thumb: item.image.thumb ? item.image.thumb : item.image.source,
+          PROP_Image: item.image.source,
+          PROP_Fullres: item.image.fullres ? item.image.fullres : null,
         });
         itemArray.push(itemEntity);
       });
@@ -64,8 +67,8 @@ window.createObject = {
   }
 };
 
-let pageBuild = new Promise(function (resolve, reject) {
-  $(document).on('languageJSON_loaded', function () {
+const pageBuild = new Promise(function (resolve, reject) {
+  languageLoaded(function () {
     const dataBlocks = {
       default: {
         links: {
@@ -181,7 +184,7 @@ let pageBuild = new Promise(function (resolve, reject) {
       }
     }
 
-    let actived_type = 
+    const actived_type = 
       anUrlParameter.mode === 'cv' ? 'cv' :
       anUrlParameter.mode === 'tree' ? 'linktree' :
       anUrlParameter.mode === 'license' ? 'license' :
@@ -214,13 +217,13 @@ let pageBuild = new Promise(function (resolve, reject) {
       `;
       main = `
       <div class="links_Wrapper">
-        <h2 class="links_Header"><hr>${cLang['ContentLinks']}<hr></h2>
+        <h2 class="links_Header"><hr><span data-key="ContentLinks">${cLang['ContentLinks']}</span><hr></h2>
         <div class="vert-border-alpha-0 links_Grid_Parent" >
-          <div class="links_Grid">
+          <div class="links_Grid" tooltip_key="DemerNkardaz" tooltip_pos="left">
             <anchor-contentLinks/>
           </div>
         </div>
-        <h2 class="links_Header"><hr>${cLang['SocialLinks']}<hr></h2>
+        <h2 class="links_Header"><hr><span data-key="SocialLinks">${cLang['SocialLinks']}</span><hr></h2>
         <div class="vert-border-alpha-0 links_Grid_Parent">
           <div class="links_Grid">
           <anchor-socialLinks/>
@@ -230,7 +233,7 @@ let pageBuild = new Promise(function (resolve, reject) {
       `;
 
       footer = `
-      <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${cLang['DemerNkardaz']}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;${cLang['CurrentSkin']} <span id='currentSkin'>${cLang[returnCurrentSkin()]}</span></span>
+      <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${cLang['DemerNkardaz']}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;<span data-key="CurrentSkin">${cLang['CurrentSkin']}</span> <span id='currentSkin' data-key="${returnCurrentSkin()}">${cLang[returnCurrentSkin()]}</span></span>
       <span class="ambientControls ms-auto me-3">
         <button nk-music="pause/play"><span class="material-icons">pause</span></button>
         <button nk-music="random"><span class="material-icons">shuffle</span></button>

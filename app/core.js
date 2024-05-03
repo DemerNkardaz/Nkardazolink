@@ -25,12 +25,12 @@ window.clearStorage = function () {
 }
 
 window.observeOn = function (type, element, callback, timeout, context) {
-  var observer = new MutationObserver(function (mutations) {
+  let observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
       if (mutation.attributeName === 'style') {
-        var parts = type.split(':');
-        var style = parts[1];
-        var value = parts[2];
+        let parts = type.split(':');
+        let style = parts[1];
+        let value = parts[2];
         if (getComputedStyle(mutation.target).getPropertyValue(style) === value) {
           if (timeout > 0) {
             setTimeout(function () {
@@ -48,7 +48,7 @@ window.observeOn = function (type, element, callback, timeout, context) {
   observer.observe(element, { attributes: true });
 }
 
-var lastLoaded = null;
+let lastLoaded = null;
 
 window.DataExtend = async function (dataArray, callback, index = 0) {
   if (index >= dataArray.length) {
@@ -209,8 +209,8 @@ window.redirTo = function({ index, url, new_tab }) {
 }
 
 window.copyCurrentURL = function() {
-    var currentURL = window.location.href;
-    var tempInput = document.createElement('input');
+    let currentURL = window.location.href;
+    let tempInput = document.createElement('input');
     tempInput.value = currentURL;
     document.body.appendChild(tempInput);
     tempInput.select();
@@ -232,11 +232,11 @@ window.copyCurrentURL = function() {
 
 
 window.setTabIndex = function() {
-    var elementsWithTabIndex = document.querySelectorAll('[tabindex]');
-    var usedTabIndexes = [];
+    let elementsWithTabIndex = document.querySelectorAll('[tabindex]');
+    let usedTabIndexes = [];
 
     elementsWithTabIndex.forEach(function(element) {
-        var index = parseInt(element.getAttribute('tabindex'));
+        let index = parseInt(element.getAttribute('tabindex'));
         usedTabIndexes.push(index);
     });
 
@@ -244,13 +244,25 @@ window.setTabIndex = function() {
         return !usedTabIndexes.includes(index);
     }
 
-    var uniqueIndex = 1;
+    let uniqueIndex = 1;
     while (!isUnique(uniqueIndex)) {
         uniqueIndex++;
     }
 
     return uniqueIndex;
 }
+
+window.languageLoaded = function (callback) {
+  $(document).on('languageJSON_loaded', function () {
+    callback();
+  });
+};
+
+window.pageTriggerCallback = function (callback) {
+  $(document).on(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
+    callback();
+  });
+};
 
 /*
 document.addEventListener('DOMContentLoaded', function() {
