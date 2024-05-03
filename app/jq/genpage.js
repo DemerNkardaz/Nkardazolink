@@ -11,32 +11,58 @@ function generateLinks({ linkClass, source } = {}) {
     let link = source[key];
     if (linkClass) {
       link.LINK_Class = linkClass ? linkClass : 'default';
-    }
+    };
     lArray.push(new link_block(link));
-  }
+  };
   console.log(lArray);
   return lArray;
 };
 
-const createObject = {
-  item: {
-    kamon: function ({ source } = {}) {
-      let itemArray = [];
-      $.each(source.root, function (_, category) {
-        let image_folder = category.img_folder;
-        $.each(category.items, function (_, item) {
-          let itemEntity = new item_prop({
-            PROP_ENTITY: item.entity_prop,
-          });
-          itemArray.push(itemEntity);
+window.createObject = {
+  link: function ({ source, linkClass } = {}) {
+    let lArray = [];
+    
+    for (let key in source) {
+      let link = source[key];
+      if (linkClass) {
+        link.LINK_Class = linkClass ? linkClass : 'default';
+      };
+      lArray.push(new link_block(link));
+    };
+    console.log(lArray);
+    return lArray;
+  },
+  item: function ({ source, entClass } = {}) {
+    let itemArray = [];
+    $.each(source.root, function (_, category) {
+      let image_default = data.default_img_path;
+      let image_folder = image_default + category.img_folder;
+      $.each(category.items, function (_, item) {
+        let itemEntity = new item_prop({
+          PROP_Class: entClass ? entClass : 'kamon',
+          PROP_ENTITY: item.entity_prop,
+          PROP_Rarity: item.rarity,
         });
+        itemArray.push(itemEntity);
       });
+    });
 
-
-      return itemArray;
-    }
+    return itemArray;
+  },
+  portfolio: function ({ source, entClass } = {}) {
+    let itemArray = [];
+    $.each(source.root, function (_, category) {
+      $.each(category.items, function (_, item) {
+        let itemEntity = new item_portfolio({
+          PROP_Class: entClass ? entClass : 'default',
+          PROP_ENTITY: item.entity_prop,
+        });
+        itemArray.push(itemEntity);
+      });
+    });
+    return itemArray;
   }
-}
+};
 
 let pageBuild = new Promise(function (resolve, reject) {
   $(document).on('languageJSON_loaded', function () {
@@ -229,8 +255,8 @@ let pageBuild = new Promise(function (resolve, reject) {
     } else {
 
       
-      nk.siteMainContainer.find('anchor-contentLinks').replaceWith(generateLinks({linkClass : 'default', source : dataBlocks.default.links.content}));
-      nk.siteMainContainer.find('anchor-socialLinks').replaceWith(generateLinks({linkClass : 'default', source : dataBlocks.default.links.social}));
+      nk.siteMainContainer.find('anchor-contentLinks').replaceWith(createObject.link({linkClass : 'default', source : dataBlocks.default.links.content}));
+      nk.siteMainContainer.find('anchor-socialLinks').replaceWith(createObject.link({linkClass : 'default', source : dataBlocks.default.links.social}));
       //nk.siteMainContainer.prepend(generateLinks({linkClass : 'long-thin', source : dataBlocks.linktree.links.content}));
 
     };
