@@ -237,6 +237,7 @@ class item_prop extends HTMLElement {
 }
 
 customElements.define('item-prop', item_prop);
+window.item_prop = item_prop;
 
 class item_viewer_body extends HTMLElement {
   constructor() {
