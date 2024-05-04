@@ -168,8 +168,8 @@ window.setDiacritic = function (type, pos, margins) {
   
   if (type === 'tilde') { pos && pos === 'sub' ? symbol = '&#816;' : (pos && pos === 'mid' ? symbol = '&#820;' : (pos && pos === 'vert' ? symbol = '&#830;' : symbol = '&#771;')) }
 
-  margin.left = margins.left ? margins.left : (margins && !margins.top ? margins : null);
-  margin.top = margins.top ? margins.top : null;
+  margin.left = margins && margins.left ? margins.left : (margins && !margins.top ? margins : null);
+  margin.top = margins && margins.top ? margins.top : null;
 
   const base = `<span class="diacritic ${type} ${pos ? pos : ''}" style="${margin.left !== null ? `--mleft: -${margin.left}em; ` : ''}${margin.top !== null ? `--top: ${margin.top}px;` : ''}">${symbol}</span>`;
   if (typePlace === 'place') {
