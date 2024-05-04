@@ -916,6 +916,51 @@ window.ui_components = {
 }
 
 
+class light_box extends HTMLElement {
+  constructor({ Image, Controls } = {}) {
+    super();
+    const component = `
+    <div class="lBox-Container">
+      <div class="lBox-Close material-icons">close</div>
+      <div class="lBox-Content">
+        <div class="lBox-Image">
+          <div class="lBox-View>
+            <div class="lBox-Res"></div>
+            <img src="${Image.src}" alt="${Image.alt}" loading="eager">
+            ${Controls &&  Controls.extra.ytube ? `<iframe src="" loading="lazy" frameborder="0" allowfullscreen hidden></iframe>` : ''}
+            <div class="lBox-Controls">
+              <span id="lBox-Download" class="material-icons">download</span>
+              <span id="lBox-Fscreen" class="material-icons">fullscreen</span>
+              <span id="lBox-Blank" class="material-icons">launch</span>
+            </div>
+            ${Controls && Controls.extra ?
+              `
+              <div class="lBox-Controls-Extra">
+                ${Controls.extra.maxres ? `<span id="lBox-MaxRes" class="material-icons">hd</span>` : ''}
+                ${Controls.extra.pdf ? `<span id="lBox-Pdf" class="material-icons" data-pdf="${Controls.extra.pdf}">picture_as_pdf</span>` : ''}
+                ${Controls.extra.ytube ? `<span id="lBox-Yt" class="material-icons" data-yt="${Controls.extra.ytube}"><img src="resources/svg/social_youtube_dark.svg" width="20" class="socialIconSVG"></span>` : ''}
+              </div>
+              `
+            : ''}
+          </div>
+          <div class="lBox-Image-Label" ${Image.labelKey ? `data-key="${Image.labelKey}"` : ''}>${Image.label}</div>
+        </div>
+        <div class="lBox-Group"></div>
+      </div>
+    </div>`;
+    this.innerHTML = component;
+  }
+  connectedCallback() {
+    $(function () {
+    });
+    $(this).attr('role', 'dialog');
+  }
+}
+
+customElements.define('light-box', light_box);
+window.nkUI.light_box = light_box;
+
+
 /* Object.values(window.ui_components).forEach(component => component()); */
 
 

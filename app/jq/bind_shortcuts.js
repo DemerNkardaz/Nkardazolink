@@ -585,6 +585,45 @@ $(document).on('click', '.trackProgress', function (e) {
 /* ------------------- MUSIC CONTOLS ------------------- */
 
 
+/* ------------------- OPEN IMAGE IN LIGHTBOX ------------------- */
+
+function bornLightbox(array) {
+  if (array.target.length > 0) {
+    let boxEntity;
+    const cat = array.target.closest('[nk-pf]').getAttribute('nk-pf');
+    const ent = array.target.getAttribute('ent_prop');
+    $.each(portfolioJSON.root, function (_, category) {
+      $.each(category.items, function (_, item) {
+        if (category === cat && item.entity_prop === ent) {
+          boxEntity = new nkUI.lightbox({
+            Image: {
+              src: item.img.src ? item.img.src : '',
+              alt: item.img.alt ? item.img.alt : '',
+              label: item.name ? item.name : null,
+              labelKey : item.nameKey ? item.nameKey : null
+            },
+            Controls: item.extra ? {
+              extra: {
+                maxres: item.extra.maxres ? item.extra.maxres : null,
+                pdf: item.extra.pdf ? item.extra.pdf : null,
+                ytube: item.extra.ytube ? item.extra.ytube : null
+              }
+            } : null
+          });
+          return false;
+        }
+      });
+      if (boxEntity) return false;
+    });
+    return boxEntity;
+  }
+}
+
+
+
+
+/* ------------------- OPEN IMAGE IN LIGHTBOX ------------------- */
+
 
 /* ------------------- OTHER BINDS ------------------- */
 

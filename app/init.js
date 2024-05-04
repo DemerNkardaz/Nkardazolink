@@ -134,6 +134,10 @@ if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
       { type: 'data', source: `app/data/${mode}.json`, as: `items.${mode}` }
     ]);
     window.items[mode] = metaData[`items.${mode}`];
+  } else {
+    DataExtend([
+      { type: 'data', source: 'app/data/portfolio.json', as: 'portfolioJSON' },
+    ]);
   }
 }
 

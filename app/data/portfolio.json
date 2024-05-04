@@ -1,0 +1,28 @@
+{
+  "root": 
+  [
+    {
+      "category": "artwork",
+      "items": [
+        {
+          "entity_prop": "ent_artwork_1",
+          "name": "Artwork 1",
+          "localised_name": {
+            "ru": "Арт-ворк 1"
+          },
+          "img": {
+            "alt": "Artwork 1",
+            "src": "artwork/1.png",
+            "thumb": "artwork/1_thumb.png"
+            
+          },
+          "extra": {
+            "maxres": "artwork/1_maxres.png",
+            "pdf": "artwork/1.pdf",
+            "ytube": "https://www.youtube.com/watch?v=2fX5kK9JqZU"
+          }
+        }
+      ]
+    }
+  ]
+}

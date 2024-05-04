@@ -1,8 +1,12 @@
 {
+  "common": {
+    "Factorio": "Factorio"
+  },
   "ru": {
     "DemerNkardaz": "Демер Нкардаз",
     "Copyright": "&copy;&nbsp;${cLang[\"DemerNkardaz\"]},&nbsp;${returnCopyright()}",
     "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${cLang[\"DemerNkardaz\"]}", "${cLang[\"test\"]}"],
+    
     "ContentLinks": "Контент",
     "SocialLinks": "Социалус",
     "Ficbook": "Книга Фанфиков",
@@ -63,7 +67,7 @@
     "Sekiban": "“Sekiban”${fromLang('Sekiban', 'ja')}",
     "Azumatsuyu": "“Azumatsuyu”${fromLang('Azumatsuyu', 'ja')}",
 
-    "CurrentSkin": "Current skin: ${iLang(returnCurrentSkin())}",
+    "CurrentSkin": "Current view: ${iLang(returnCurrentSkin())}",
 
     "console": "CONSOLE : System user interface",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
@@ -114,5 +118,7 @@
     "save_search_result": "Lưu kết quả tìm kiếm",
     "save_selected_item": "Lưu mục đã chọn cuối cùng",
     "turn_off_preloader": "Tắt hiệu ứng tải trước"
-  }
+  },
+  "mo": {},
+  "ro": {}
 }
