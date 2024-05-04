@@ -137,18 +137,33 @@ languageLoaded(function () {
       return eval('`' + locale + '`');
   };
 
-  window.uLang = function (key) {
-      const err = `<span>Ключ “${key}” ${NoAv}<br/>Функция <b>uLang(key)</b></span>`;
-      const keys = key.split('.');
-      let currentObj = cLang;
-      for (const k of keys) {
-          if (!currentObj || !currentObj[k]) {
-              return textUnPacker(err);
-          }
-          currentObj = currentObj[k];
-      }
-      return textUnPacker(currentObj);
-  };
+window.uLang = function (key) {
+    const err = `<span>Ключ “${key}” ${NoAv}<br/>Функция <b>uLang(key)</b></span>`;
+    const keys = key.split('.');
+    let currentObj = cLang;
+    
+    for (const k of keys) {
+        if (!currentObj || !currentObj[k]) {
+            const foundTranslation = Object.values(languageJSON).flatMap(langObj => {
+                let tempObj = langObj;
+                for (const k of keys) {
+                    if (!tempObj || !tempObj[k]) {
+                        tempObj = null;
+                        break;
+                    }
+                    tempObj = tempObj[k];
+                }
+                return tempObj ? [tempObj] : [];
+            })[0];
+            
+            return foundTranslation ? textUnPacker(foundTranslation) : textUnPacker(err);
+        }
+        currentObj = currentObj[k];
+    }
+    
+    return textUnPacker(currentObj);
+};
+
 
   window.iLang = function (key) {
     return eval('`' + uLang(key) + '`');

@@ -9,7 +9,7 @@
       "copyright": "&copy;&nbsp;${iLang('Nkardaz.name')},&nbsp;${returnCopyright()}"
     },
 
-    "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${iLang('Nkardaz.name')}", "${cLang[\"test\"]}"],
+    "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${iLang('Nkardaz.name')}", "${iLang('test')}"],
 
     "C": {
       "test": ["Тест", "${iLang(\"links.Ficbook\")}"]
