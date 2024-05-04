@@ -35,10 +35,10 @@ window.transcriptReplacement = function (text) {
     .replace(/\—{(.*?)\}—/g, function (match, p1) {
       return `<ruby class='ruby_bottom'>${p1}</ruby>`;
     })
-    .replace(/([^$])\{(.*?)\}/g, function (match, p1, p2) {
+    .replace(/([^$])\{\.(.*?)\.\}/g, function (match, p1, p2) {
       return `${p1}<ruby>${p2}</ruby>`;
     })
-    .replace(/\((.*?)\:(.*?)\)/g, function (match, p1, p2) {
+    .replace(/\(\.(.*?)\:(.*?)\.\)/g, function (match, p1, p2) {
       return `${p1}<rt>${p2}</rt>`;
     })
     .replace(/\≈\[(.*?)\]≈/g, function (match, p1) {
@@ -142,8 +142,9 @@ $.fn.isdrag = function(options) {
 
 //setDiacritic('place-macron', 'sub', 0.25);
 
-window.setDiacritic = function (type, pos, mleft) {
+window.setDiacritic = function (type, pos, margins) {
   let symbol, typeSplit, typePlace;
+  let margin = {};
   if (type.includes('-')) {
     typeSplit = type.split('-');
     typePlace = typeSplit[0];
@@ -167,7 +168,10 @@ window.setDiacritic = function (type, pos, mleft) {
   
   if (type === 'tilde') { pos && pos === 'sub' ? symbol = '&#816;' : (pos && pos === 'mid' ? symbol = '&#820;' : (pos && pos === 'vert' ? symbol = '&#830;' : symbol = '&#771;')) }
 
-  const base = `<span class="diacritic ${type} ${pos ? pos : ''}" ${mleft ? `style="--mleft: -${mleft}em;` : ''}">${symbol}</span>`;
+  margin.left = margins.left ? margins.left : (margins && !margins.top ? margins : null);
+  margin.top = margins.top ? margins.top : null;
+
+  const base = `<span class="diacritic ${type} ${pos ? pos : ''}" style="${margin.left !== null ? `--mleft: -${margin.left}em; ` : ''}${margin.top !== null ? `--top: ${margin.top}px;` : ''}">${symbol}</span>`;
   if (typePlace === 'place') {
     return base;
   } else {

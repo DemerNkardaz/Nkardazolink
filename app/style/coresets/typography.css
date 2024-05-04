@@ -60,7 +60,9 @@
 
 .diacritic {
   --mleft: -0.25em;
+  --top: 0.05em;
   position: relative;
   letter-spacing: 0.25em;
+  top: var(--top);
   margin-left: var(--mleft);
 }
