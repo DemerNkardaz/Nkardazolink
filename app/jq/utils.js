@@ -28,38 +28,40 @@ function ideographicsSpaceToCJKV(text) {
 }
 
 window.transcriptReplacement = function (text) {
-	return text
-		.replace(/\″(.*?)\←(.*?)\″/g, function(match, p1, p2) {
-			return "<ruby>" + p1 + "<rt>" + p2 + "</rt></ruby>";
-		})
-		.replace(/\—{(.*?)\}—/g, function(match, p1) {
-			return "<ruby class=\'ruby_bottom\'>" + p1 + "</ruby>";
-		})
-		.replace(/\{(.*?)\}/g, function(match, p1) {
-			return "<ruby>" + p1 + "</ruby>";
-		})
-		.replace(/\((.*?)\:(.*?)\)/g, function(match, p1, p2) {
-			return p1 + "<rt>" + p2 + "</rt>";
-		})
-		.replace(/\[(.*?)\]/g, function(match, p1) {
-			return "<rt>" + p1 + "</rt>";
-		});
+  return text
+    .replace(/\″(.*?)\←(.*?)\″/g, function (match, p1, p2) {
+      return `<ruby>${p1}<rt>${p2}</rt></ruby>`;
+    })
+    .replace(/\—{(.*?)\}—/g, function (match, p1) {
+      return `<ruby class='ruby_bottom'>${p1}</ruby>`;
+    })
+    .replace(/([^$])\{(.*?)\}/g, function (match, p1, p2) {
+      return `${p1}<ruby>${p2}</ruby>`;
+    })
+    .replace(/\((.*?)\:(.*?)\)/g, function (match, p1, p2) {
+      return `${p1}<rt>${p2}</rt>`;
+    })
+    .replace(/\≈\[(.*?)\]≈/g, function (match, p1) {
+      return `<rt>${p1}</rt>`;
+    });
 }
 
 window.defaultReplacement = function (text) {
 	return text
 		.replace(/\/n/g, '<br>')
-		.replace(/\/t/g, '&Tab;')
+    .replace(/\/t/g, '&Tab;')
 }
 
+
 window.textUnPacker = function (text) {
-	return transcriptReplacement(
+  let unpacked = transcriptReplacement(
 		defaultReplacement(
 			ideographicsSpaceToCJKV(
 				unpackArrayToStrings(text)
 			)
 		)
 	);
+	return unpacked;
 }
 
 window.checkKeyDowned = function () {

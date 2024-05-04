@@ -71,11 +71,11 @@ window.setSkin = function (skin, saveToStorage) {
       });
     };
 
-      if (typeof cLang !== 'undefined') {
-        $('#currentSkin').text(cLang[returnCurrentSkin()]);
+      if (typeof cLang !== 'undefined' && typeof uLang !== 'undefined') {
+        $('#currentSkin').text(uLang(returnCurrentSkin()));
       } else {
         languageLoaded(function () {
-          $('#currentSkin').text(cLang[returnCurrentSkin()]);
+          $('#currentSkin').text(uLang(returnCurrentSkin()));
         });
       }
     }

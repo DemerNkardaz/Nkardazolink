@@ -83,4 +83,12 @@ window.anUrlParameter = {
   select: (parseUrlParameter('select') ? parseUrlParameter('select') : null)
 };
 
-languageLoaded(function () { window.cLang = languageJSON[selectedLanguage]; });
+languageLoaded(function () {
+  window.cLang = languageJSON[selectedLanguage];
+  window.uLang = function (key) {
+    return textUnPacker(cLang[key] ? cLang[key] : NoAv);
+  };
+  window.iLang = function (key) {
+    return eval('`' + uLang(key) + '`');
+  };
+});

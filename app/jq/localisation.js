@@ -31,9 +31,14 @@ window.updateLanguageKeys = function (target) {
 
       getLocale = getLocale ? textUnPacker(getLocale) : (key ? keyMSG : null);
 
-      $(this).attr('data-key') && $(this).html(getLocale);
-      $(this).attr('alt-key') && $(this).attr('alt', getLocale);
-
+      if ($(this).attr('data-key')) {
+        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
+        $(this).html(interpolatedLocale);
+      }
+      if ($(this).attr('alt-key')) {
+        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
+        $(this).attr('alt', interpolatedLocale);
+      }
     });
   }; update();
 

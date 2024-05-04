@@ -209,21 +209,21 @@ const pageBuild = new Promise(function (resolve, reject) {
       <div class="personBannerWrapper ${nkPreferences && (nkPreferences.skin === "sekiban" || nkPreferences.skin === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkPreferences.skin}" style="--banner: url(${nkPreferences.banner[savedSettings.current_banner].url});" data-banner="${savedSettings.current_banner}"></div></div>
       <div class="personAvatar">
         <span class="avatarWrapper ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `plate_chinese` : ''}">
-          <img src="resources/cherepkhed32_thumb.png" alt="${cLang['OCKhertahiron']}" alt-key="OCKhertahiron" width="74" loading="eager">
+          <img src="resources/cherepkhed32_thumb.png" alt="${uLang('Cherepkhed')}" alt-key="OCKhertahiron" width="74" loading="eager">
         </span>
         ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
       </div>
-      <div>Теставые букавы</div>
+      <div>Теставые букавы<span>${uLang('test')}</span></div>
       `;
       main = `
       <div class="links_Wrapper">
-        <h2 class="links_Header"><hr><span data-key="ContentLinks">${cLang['ContentLinks']}</span><hr></h2>
+        <h2 class="links_Header"><hr><span data-key="ContentLinks">${uLang('ContentLinks')}</span><hr></h2>
         <div class="vert-border-alpha-0 links_Grid_Parent" >
-          <div class="links_Grid" tooltip_key="DemerNkardaz" tooltip_pos="left">
+          <div class="links_Grid" tooltip_key="Tess" tooltip_pos="left">
             <anchor-contentLinks/>
           </div>
         </div>
-        <h2 class="links_Header"><hr><span data-key="SocialLinks">${cLang['SocialLinks']}</span><hr></h2>
+        <h2 class="links_Header"><hr><span data-key="SocialLinks">${uLang('SocialLinks')}</span><hr></h2>
         <div class="vert-border-alpha-0 links_Grid_Parent">
           <div class="links_Grid">
           <anchor-socialLinks/>
@@ -233,7 +233,7 @@ const pageBuild = new Promise(function (resolve, reject) {
       `;
 
       footer = `
-      <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${cLang['DemerNkardaz']}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;<span data-key="CurrentSkin">${cLang['CurrentSkin']}</span> <span id='currentSkin' data-key="${returnCurrentSkin()}">${cLang[returnCurrentSkin()]}</span></span>
+      <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${uLang('DemerNkardaz')}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;<span data-key="CurrentSkin">${uLang('CurrentSkin')}</span> <span id='currentSkin' data-key="${returnCurrentSkin()}">${uLang(returnCurrentSkin())}</span></span>
       <span class="ambientControls ms-auto me-3">
         <button nk-music="pause/play"><span class="material-icons">pause</span></button>
         <button nk-music="random"><span class="material-icons">shuffle</span></button>
@@ -243,7 +243,7 @@ const pageBuild = new Promise(function (resolve, reject) {
           <div class="trackTime">00:00 / 00:00</div>
           <div class="trackProgress"></div>
         </div>
-        ${nkUI.dropdown({ content: `${cLang['DemerNkardaz']}`, id: 'musicCredits', hide: false })}
+        ${nkUI.dropdown({ content: `${uLang('MusicCredits')}`, id: 'musicCredits', hide: false })}
       </span>`;
     }
     nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
