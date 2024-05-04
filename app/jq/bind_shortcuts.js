@@ -205,49 +205,63 @@ languageLoaded(function () {/*
     const uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
     const tooltip = new tooltip_element({ tooltip: cLang[key] ? cLang[key] : key, tooltip_key: cLang[key] ? key : null, tooltip_pos: pos, id: uniqId });
 
-    function calcTooltipPos(id) {
-      const tooltip = document.getElementById(id);
-      const parent = document.querySelector(`[data-tooltip_id="${id}"]`) || target.closest('[data-tooltip_id]');
-
-      const parentOffset = parent.getBoundingClientRect();
-      const parentPosition = parentOffset;
-      let calc_pos;
-
-      if (pos === 'bottom') {
-        calc_pos = { top: parentPosition.top + parent.offsetHeight + 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
-      } else if (pos === 'top') {
-        calc_pos = { top: parentPosition.top - tooltip.offsetHeight - 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
-      } else if (pos === 'left') {
-        calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left - tooltip.offsetWidth - 15 }
-      } else if (pos === 'right') {
-        calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left + parent.offsetWidth + 15 }
-      };
-
-      tooltip.style.top = calc_pos.top + 'px';
-      tooltip.style.left = calc_pos.left + 'px';
-    };
-
     target.setAttribute('data-tooltip_id', uniqId);
     document.body.appendChild(tooltip);
-    calcTooltipPos(uniqId);
+    calcTooltipPos(uniqId, pos, target);
     document.getElementById(uniqId).classList.add('show');
     document.getElementById(uniqId).style.opacity = 1;
+  };
+
+  function calcTooltipPos(id, pos, target) {
+    const tooltip = document.getElementById(id);
+    const parent = document.querySelector(`[data-tooltip_id="${id}"]`) || target.closest('[data-tooltip_id]');
+
+    const parentOffset = parent.getBoundingClientRect();
+    const parentPosition = parentOffset;
+    let calc_pos;
+
+    if (pos === 'bottom') {
+      calc_pos = { top: parentPosition.top + parent.offsetHeight + 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
+    } else if (pos === 'top') {
+      calc_pos = { top: parentPosition.top - tooltip.offsetHeight - 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
+    } else if (pos === 'left') {
+      calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left - tooltip.offsetWidth - 15 }
+    } else if (pos === 'right') {
+      calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left + parent.offsetWidth + 15 }
+    };
+
+    tooltip.style.top = calc_pos.top + 'px';
+    tooltip.style.left = calc_pos.left + 'px';
 
   };
 
-  window.updateTooltipPos = function() {
-  const tooltips = document.querySelectorAll('[data-tooltip_id]');
+  function updateTooltipPos() {
+    const tooltips = document.querySelectorAll('tooltip-element');
 
-  tooltips.forEach(tooltip => {
-    const tooltipId = tooltip.getAttribute('data-tooltip_id');
-    const target = document.getElementById(tooltipId);
-    const pos = target.getAttribute('tooltip_pos');
+    tooltips.forEach(tooltip => {
+      const id = tooltip.getAttribute('id');
+      let target = document.querySelector(`[data-tooltip_id="${id}"]`);
 
-    if (target) {
-      calcTooltipPos(tooltipId, pos);
-    }
-  });
+      document.querySelectorAll('*').forEach(function (el) {
+        if (el.shadowRoot !== null) {
+          el.shadowRoot.querySelectorAll('[data-tooltip_id]').forEach(function (shadowEl) {
+            if (shadowEl.getAttribute('data-tooltip_id') === id) {
+              target = shadowEl;
+            }
+          });
+        }
+      });
+
+      if (target) {
+        const pos = target.getAttribute('tooltip_pos');
+        calcTooltipPos(id, pos, target);
+      }
+    });
   };
+
+  window.addEventListener('resize', updateTooltipPos);
+  window.addEventListener('scroll', updateTooltipPos);
+
   
   let timers_array = {};
   function tooltipLeave(target) {
@@ -271,6 +285,7 @@ languageLoaded(function () {/*
 
   pageTriggerCallback(function () {
     const tooltipParent = document.querySelectorAll('[tooltip_key]');
+    const linkBlocks = document.querySelectorAll('[link_class]');
     document.querySelectorAll('*').forEach(function (el) {
       if (el.shadowRoot !== null) {
         el.shadowRoot.querySelectorAll('[tooltip_key]').forEach(function (shadowEl) {
@@ -291,6 +306,11 @@ languageLoaded(function () {/*
       el.addEventListener('mouseleave', function () {
         tooltipLeave(el);
       })
+    });
+    linkBlocks.forEach(function (el) {
+      el.addEventListener('mousemove', function () {
+        updateTooltipPos();
+      });
     });
     
     document.addEventListener('mouseover', function (e) {
