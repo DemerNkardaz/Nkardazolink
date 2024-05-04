@@ -10,6 +10,7 @@ window.updateItemsLanguage = function () {
 }
 
 window.updateLanguageKeys = function (target) {
+  cLang = languageJSON[selectedLanguage];
   let key_elements = target ? $(target) : $('[data-key], [alt-key]');
   function update () {
     key_elements.each(function () {

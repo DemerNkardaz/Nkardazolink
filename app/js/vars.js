@@ -85,6 +85,10 @@ window.anUrlParameter = {
 
 languageLoaded(function () {
   window.cLang = languageJSON[selectedLanguage];
+  window.fromLang = function (key, lang) {
+    const locale = textUnPacker(languageJSON[lang][key] ? languageJSON[lang][key] : NoAv);
+    return eval('`' + locale + '`');
+  }
   window.uLang = function (key) {
     return textUnPacker(cLang[key] ? cLang[key] : NoAv);
   };

@@ -233,7 +233,7 @@ const pageBuild = new Promise(function (resolve, reject) {
       `;
 
       footer = `
-      <span class="copyright">&copy;&nbsp;<span data-key="DemerNkardaz">${uLang('DemerNkardaz')}</span>,&nbsp;${returnCopyright()}&ensp;|&ensp;<span data-key="CurrentSkin">${uLang('CurrentSkin')}</span> <span id='currentSkin' data-key="${returnCurrentSkin()}">${uLang(returnCurrentSkin())}</span></span>
+      <span class="copyright"><span data-key="Copyright">${iLang('Copyright')}</span>&ensp;|&ensp;<span data-key="CurrentSkin">${iLang('CurrentSkin')}</span></span>
       <span class="ambientControls ms-auto me-3">
         <button nk-music="pause/play"><span class="material-icons">pause</span></button>
         <button nk-music="random"><span class="material-icons">shuffle</span></button>

@@ -1,6 +1,7 @@
 {
   "ru": {
     "DemerNkardaz": "Демер Нкардаз",
+    "Copyright": "&copy;&nbsp;${cLang[\"DemerNkardaz\"]},&nbsp;${returnCopyright()}",
     "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${cLang[\"DemerNkardaz\"]}", "${cLang[\"test\"]}"],
     "ContentLinks": "Контент",
     "SocialLinks": "Социалус",
@@ -20,12 +21,12 @@
     "Anime_Heike-monogatari": "Автор Peropicnic, аниме «Повесть о доме Тайра»",
     "Hachiman-jin_Tooltip": "Хатиман, бог войны",
 
-    "Byakujou": "«Бякудзё»「白城」",
-    "Aoguro-no Getsu": "«Аогуро-но Гэцу»「青黒月」",
-    "Sekiban": "«Сэкибан»「石盤」",
-    "Azumatsuyu": "«Адзумацую»「東露」",
+    "Byakujou": "«Бякудзё»${fromLang('Byakujou', 'ja')}",
+    "Aoguro-no Getsu": "«Аогуро-но Гэцу»${fromLang('Aoguro-no Getsu', 'ja')}",
+    "Sekiban": "«Сэкибан»${fromLang('Sekiban', 'ja')}",
+    "Azumatsuyu": "«Адзумацую»${fromLang('Azumatsuyu', 'ja')}",
 
-    "CurrentSkin": "Текущий вид: ",
+    "CurrentSkin": "Текущий вид: ${iLang(returnCurrentSkin())}",
 
     "console": "КОНСОЛЬ : Системный программный интерфейс",
     "test": ["Тест", "—{{(日本:にほん)(皇室:こうしつ)(の:)(紋章:もんしょう)}≈[Герб императорской семьи Японии]≈}—"],
@@ -38,6 +39,7 @@
   },
   "en": {
     "DemerNkardaz": "Demer Nkardaz",
+    "Copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${cLang[\"DemerNkardaz\"]}. All rights reserved",
     "ContentLinks": "Content",
     "SocialLinks": "Socialus",
     "Ficbook": "Fickbook",
@@ -56,12 +58,12 @@
     "Anime_Heike-monogatari": "Peropicnic artist, “Heike-monogatari” Anime",
     "Hachiman-jin_Tooltip": "Hachiman, The God of War",
 
-    "Byakujou": "“Byakujou”「白城」",
-    "Aoguro-no Getsu": "“Aoguro-no Getsu”「青黒月」",
-    "Sekiban": "“Sekiban”「石盤」",
-    "Azumatsuyu": "“Azumatsuyu”「東露」",
+    "Byakujou": "“Byakujou”${fromLang('Byakujou', 'ja')}",
+    "Aoguro-no Getsu": "“Aoguro-no Getsu”${fromLang('Aoguro-no Getsu', 'ja')}",
+    "Sekiban": "“Sekiban”${fromLang('Sekiban', 'ja')}",
+    "Azumatsuyu": "“Azumatsuyu”${fromLang('Azumatsuyu', 'ja')}",
 
-    "CurrentSkin": "Current skin:",
+    "CurrentSkin": "Current skin: ${iLang(returnCurrentSkin())}",
 
     "console": "CONSOLE : System user interface",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
