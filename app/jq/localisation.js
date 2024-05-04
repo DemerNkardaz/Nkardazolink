@@ -9,6 +9,8 @@ window.updateItemsLanguage = function () {
   });
 }
 
+
+/*
 window.updateLanguageKeys = function (target) {
   cLang = languageJSON[selectedLanguage];
   let key_elements = target ? $(target) : $('[data-key], [alt-key]');
@@ -50,7 +52,71 @@ window.updateLanguageKeys = function (target) {
     update();
   });
   $('html').attr('lang', selectedLanguage);
+};*/
+
+
+window.updateLanguageKeys = function (target) {
+  cLang = languageJSON[selectedLanguage];
+  let key_elements = target ? $(target) : $('[data-key], [alt-key]');
+
+  function update () {
+    key_elements.each(function () {
+      let key = $(this).attr('data-key') || $(this).attr('alt-key');
+      let getLocale = getLocaleForKey(key);
+
+      let keyMSG = '';
+
+      if (!getLocale) {
+        keyMSG = generateErrorMessage(key);
+      }
+
+      getLocale = getLocale ? textUnPacker(getLocale) : (key ? keyMSG : null);
+
+      if ($(this).attr('data-key')) {
+        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
+        $(this).html(interpolatedLocale);
+      }
+      if ($(this).attr('alt-key')) {
+        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
+        $(this).attr('alt', interpolatedLocale);
+      }
+    });
+  }; 
+  update();
+
+  $('*').filter(function () {
+    return this.shadowRoot !== null;
+  }).each(function () {
+    key_elements = $(this.shadowRoot).find('[data-key], [alt-key]');
+    update();
+  });
+
+  $('html').attr('lang', selectedLanguage);
 };
+
+function getLocaleForKey(key) {
+  let parts = key.split('.');
+  let locale = languageJSON[selectedLanguage];
+  for (let part of parts) {
+    if (!locale || !locale[part]) {
+      return null;
+    }
+    locale = locale[part];
+  }
+  return locale;
+}
+
+function generateErrorMessage(key) {
+  let parts = key.split('.');
+  let errorMessage = '';
+  let currentKey = '';
+  for (let part of parts) {
+    currentKey += (currentKey ? '.' : '') + part;
+    errorMessage += `${currentKey} ${NoAv}`;
+  }
+  return errorMessage;
+}
+
 
 window.switchLang = function (lang) {
   let language = lang.toLowerCase();

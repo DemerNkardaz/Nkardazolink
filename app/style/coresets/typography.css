@@ -56,3 +56,11 @@
 .rtl {
   direction: rtl;
 }
+
+
+.diacritic {
+  --mleft: -0.25em;
+  position: relative;
+  letter-spacing: 0.25em;
+  margin-left: var(--mleft);
+}

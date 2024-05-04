@@ -140,5 +140,41 @@ $.fn.isdrag = function(options) {
 	});
 };
 
+//setDiacritic('place-macron', 'sub', 0.25);
+
+window.setDiacritic = function (type, pos, mleft) {
+  let symbol, typeSplit, typePlace;
+  if (type.includes('-')) {
+    typeSplit = type.split('-');
+    typePlace = typeSplit[0];
+    type = typeSplit[1];
+  }
+  
+  if (type === 'macron') { pos && pos === 'sub' ? symbol = '&#817;' : symbol = '&#772;' }
+  if (type === 'caron') { pos && pos === 'sub' ? symbol = '&#812;' : symbol = '&#780;' }
+  if (type === 'circumflex') { pos && pos === 'sub' ? symbol = '&#813;' : symbol = '&#770;' }
+  if (type === 'gravis') { pos && pos === 'sub' ? symbol = '&#790;' : symbol = '&#768;' }
+  if (type === 'ogonek') { pos && pos === 'sub' ? symbol = '&#808;' : symbol = '&#777;' }
+  if (type === 'dot') { pos && pos === 'sub' ? symbol = '&#804;' : symbol = '&#776;' }
+  if (type === 'x2dot') { pos && pos === 'sub' ? symbol = '&#803;' : symbol = '&#775;' }
+  if (type === 'breve') { pos && pos === 'sub' ? symbol = '&#814;' : symbol = '&#774;' }
+  if (type === 'invertBreve') { pos && pos === 'sub' ? symbol = '&#815;' : symbol = '&#785;' }
+  if (type === 'acute') { pos && pos === 'sub' ? symbol = '&#791;' : symbol = '&#769;' }
+  if (type === 'overline') { pos && pos === 'sub' ? symbol = '&#817;' : symbol = '&#773;' }
+  if (type === 'x2gravis') { symbol = '&#783;' }
+  if (type === 'x2acute') { symbol = '&#779;' }
+  if (type === 'x2overline') { symbol = '&#831;' }
+  
+  if (type === 'tilde') { pos && pos === 'sub' ? symbol = '&#816;' : (pos && pos === 'mid' ? symbol = '&#820;' : (pos && pos === 'vert' ? symbol = '&#830;' : symbol = '&#771;')) }
+
+  const base = `<span class="diacritic ${type} ${pos ? pos : ''}" ${mleft ? `style="--mleft: -${mleft}em;` : ''}">${symbol}</span>`;
+  if (typePlace === 'place') {
+    return base;
+  } else {
+    return symbol;
+  }
+};
+
+
 
 

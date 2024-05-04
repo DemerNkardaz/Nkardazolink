@@ -3,34 +3,48 @@
     "Factorio": "Factorio"
   },
   "ru": {
-    "DemerNkardaz": "Демер Нкардаз",
-    "Copyright": "&copy;&nbsp;${cLang[\"DemerNkardaz\"]},&nbsp;${returnCopyright()}",
-    "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${cLang[\"DemerNkardaz\"]}", "${cLang[\"test\"]}"],
-    
-    "ContentLinks": "Контент",
-    "SocialLinks": "Социалус",
-    "Ficbook": "Книга Фанфиков",
-    "AuthorToday": "Author.Today",
-    "ArtStation": "ArtStation",
-    "ShagorRealms": "«Царства Шагора»",
-    "DTF_Blog": "Блог на DTF",
-    "Naeda_Kitetsugi": "Наэда Китэцуги",
-    "Shikimori": "Шикимори",
-    "Shikimori_description": "Манганимешный список",
-    "Steam": "STEAM",
-    "Steam_description": "Игрульки",
-    "Steam_Hi": "Привет",
-    "Anime_Naruto_Tooltip": "Аниме «Наруто»",
-    "Anime_BlackClover_Tooltip": "Аниме «Черный Клевер»",
-    "Anime_Heike-monogatari": "Автор Peropicnic, аниме «Повесть о доме Тайра»",
-    "Hachiman-jin_Tooltip": "Хатиман, бог войны",
+    "Nkardaz": {
+      "name": "Демер Нкардаз",
+      "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
+      "copyright": "&copy;&nbsp;${iLang('Nkardaz.name')},&nbsp;${returnCopyright()}"
+    },
 
-    "Byakujou": "«Бякудзё»${fromLang('Byakujou', 'ja')}",
-    "Aoguro-no Getsu": "«Аогуро-но Гэцу»${fromLang('Aoguro-no Getsu', 'ja')}",
-    "Sekiban": "«Сэкибан»${fromLang('Sekiban', 'ja')}",
-    "Azumatsuyu": "«Адзумацую»${fromLang('Azumatsuyu', 'ja')}",
+    "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${iLang('Nkardaz.name')}", "${cLang[\"test\"]}"],
 
-    "CurrentSkin": "Текущий вид: ${iLang(returnCurrentSkin())}",
+    "C": {
+      "test": ["Тест", "${iLang(\"links.Ficbook\")}"]
+    },
+
+    "links": {
+      "ContentLinks": "Контент",
+      "SocialLinks": "Социалус",
+      "Ficbook": "Книга Фанфиков",
+      "AuthorToday": "Author.Today",
+      "ArtStation": "ArtStation",
+      "ShagorRealms": "«Царства Шагора»",
+      "DTF_Blog": "Блог на DTF",
+      "Naeda_Kitetsugi": "Наэда Китэцуги",
+
+      "Shikimori": "Шикимори",
+      "Shikimori_description": "Манганимешный список",
+
+      "Steam": "STEAM",
+      "Steam_description": "Игрульки",
+      "Steam_Hi": "Привет",
+
+      "Anime_Naruto_Tooltip": "Аниме «Наруто»",
+      "Anime_BlackClover_Tooltip": "Аниме «Черный Клевер»",
+      "Anime_Heike-monogatari": "Автор Peropicnic, аниме «Повесть о доме Тайра»",
+      "Hachiman-jin_Tooltip": "Хатиман, синтоистский бог войны"
+    },
+
+    "Skins": {
+      "Current": "Текущий вид: ${iLang(returnCurrentSkin('loc'))}",
+      "Byakujou": "«Бякудзё»${fromLang('Skins.Byakujou', 'ja')}",
+      "Aoguro-no Getsu": "«Аогуро-но Гэцу»${fromLang('Skins.Aoguro-no Getsu', 'ja')}",
+      "Sekiban": "«Сэкибан»${fromLang('Skins.Sekiban', 'ja')}",
+      "Azumatsuyu": "«Адзумацую»${fromLang('Skins.Azumatsuyu', 'ja')}"
+    },
 
     "console": "КОНСОЛЬ : Системный программный интерфейс",
     "test": ["Тест", "—{{(日本:にほん)(皇室:こうしつ)(の:)(紋章:もんしょう)}≈[Герб императорской семьи Японии]≈}—"],
@@ -39,11 +53,61 @@
     "save_search_result": ["Сохранять ввод строки поиска", "Test string"],
     "save_selected_item": "Сохранять последний выбранный знак",
     "turn_off_preloader": "Отключить анимацию предзагрузки",
-    "OCKhertahiron": "Хертахирон — Оригинальный Персонаж (Персона)"
+
+    "SitePreferences": {
+      "Titles": {
+        "default": "Демер Нкардаз・2D・3D・Писательство・Вёрстка"
+      }
+    },
+
+    "UserPreferences": {
+      "save_search_result": "Сохранять ввод строки поиска",
+      "save_selected_item": "Сохранять последний выбранный знак",
+      "turn_off_preloader": "Отключить анимацию предзагрузки",
+      "change_skin_by_time": "Смена вида по времени суток",
+      "current_banner": "Текущий орнамент",
+      "ambience_off": "Отключить фоновую музыку"
+    }
   },
   "en": {
     "DemerNkardaz": "Demer Nkardaz",
-    "Copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${cLang[\"DemerNkardaz\"]}. All rights reserved",
+    "Nkardaz": {
+      "name": "Demer Nkardaz",
+      "fursona": "Khertahiron — Original Character (Person)",
+      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${iLang('Nkardaz.name')}. All rights reserved"
+    },
+
+    "links": {
+      "ContentLinks": "The Contentum",
+      "SocialLinks": "The Socialus",
+      "Ficbook": "Ficbook",
+      "AuthorToday": "Author.Today",
+      "ArtStation": "ArtStation",
+      "ShagorRealms": "“Shagor Realms”",
+      "DTF_Blog": "Blog on DTF",
+      "Naeda_Kitetsugi": "Naeda Kitetsugi",
+
+      "Shikimori": "Shikimori",
+      "Shikimori_description": "Manganime list",
+
+      "Steam": "STEAM",
+      "Steam_description": "Games",
+      "Steam_Hi": "Hi",
+
+      "Anime_Naruto_Tooltip": "The “Naruto” Anime",
+      "Anime_BlackClover_Tooltip": "The “Black Clover” Anime",
+      "Anime_Heike-monogatari": "Peropicnic artist, The “Heike-monogatari” Anime",
+      "Hachiman-jin_Tooltip": "<span>The Hachiman, The Shinto${setDiacritic('place-macron')} god of war</span>"
+    },
+
+    "Skins": {
+      "Current": "Сurrent view: ${iLang(returnCurrentSkin('loc'))}",
+      "Byakujou": "“Byakujo${setDiacritic('place-macron', null, 0.255)}”${fromLang('Skins.Byakujou', 'ja')}",
+      "Aoguro-no Getsu": "“Aoguro-no Getsu”${fromLang('Skins.Aoguro-no Getsu', 'ja')}",
+      "Sekiban": "“Sekiban”$${fromLang('Skins.Sekiban', 'ja')}",
+      "Azumatsuyu": "“Azumatsuyu”${fromLang('Skins.Azumatsuyu', 'ja')}"
+    },
+
     "ContentLinks": "Content",
     "SocialLinks": "Socialus",
     "Ficbook": "Fickbook",
@@ -80,10 +144,13 @@
     "DemerNkardaz": "デメル・ナカルダズ",
     "ContentLinks": "コンテンツ",
 
-    "Byakujou": "「白城」",
-    "Aoguro-no Getsu": "「青黒月」",
-    "Sekiban": "「石盤」",
-    "Azumatsuyu": "「東露」",
+    "Skins": {
+      "Current": "現在の眺め：${iLang(returnCurrentSkin())}",
+      "Byakujou": "「白城」",
+      "Aoguro-no Getsu": "「青黒月」",
+      "Sekiban": "「石盤」",
+      "Azumatsuyu": "「東露」"
+    },
 
     "console": "コンソール: システムユーザーインターフェイス",
     "Naeda_Kitetsugi": "菜枝 鬼鉄義",

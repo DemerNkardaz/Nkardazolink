@@ -46,6 +46,7 @@ window.savedSettings = {
   "turn_off_preloader": (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false'),
   "change_skin_by_time": (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false'),
   "current_banner": (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha'),
+  "ambience_off": (loadSettings('ambience_off') ? loadSettings('ambience_off') : 'false'),
 };
 
 if (savedSettings.save_search_result === 'true') {
@@ -85,6 +86,7 @@ window.anUrlParameter = {
 };
 anUrlParameter.lang && supportedLanguages.includes(anUrlParameter.lang) ? selectedLanguage = anUrlParameter.lang : '';
 
+/*
 languageLoaded(function () {
   function reservedKey(key) {
     for (const lang in languageJSON) {
@@ -104,6 +106,48 @@ languageLoaded(function () {
 
   window.uLang = function (key) {
     return textUnPacker(cLang[key] || reservedKey(key) || `<span>Key “${key}” ${NoAv}<br/>function <b>uLang(key)</b></span>`);
+  };
+
+  window.iLang = function (key) {
+    return eval('`' + uLang(key) + '`');
+  };
+});*/
+languageLoaded(function () {
+  function reservedKey(key) {
+    for (const lang in languageJSON) {
+      if (languageJSON[lang][key]) {
+        return languageJSON[lang][key];
+      }
+    }
+    return null;
+  }
+
+  window.cLang = languageJSON[selectedLanguage];
+  window.fromLang = function (key, lang) {
+      const err = `<span>Ключ “${key}” не найден в языке “${lang}”<br/>Функция <b>fromLang(key, lang)</b></span>`;
+      const keys = key.split('.');
+      let currentObj = languageJSON[lang];
+      for (const k of keys) {
+          if (!currentObj || !currentObj[k]) {
+              return textUnPacker(err);
+          }
+          currentObj = currentObj[k];
+      }
+      const locale = textUnPacker(currentObj);
+      return eval('`' + locale + '`');
+  };
+
+  window.uLang = function (key) {
+      const err = `<span>Ключ “${key}” ${NoAv}<br/>Функция <b>uLang(key)</b></span>`;
+      const keys = key.split('.');
+      let currentObj = cLang;
+      for (const k of keys) {
+          if (!currentObj || !currentObj[k]) {
+              return textUnPacker(err);
+          }
+          currentObj = currentObj[k];
+      }
+      return textUnPacker(currentObj);
   };
 
   window.iLang = function (key) {

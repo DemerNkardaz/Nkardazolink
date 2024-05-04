@@ -147,11 +147,17 @@
       font-size: 2em;
 
       & hr {
-        width: 100%;
+        flex-grow: 1;
         margin: 0;
         border: 0;
         border-top: 1px solid var(--text_8d);
         opacity: 0.25;
+      }
+      & > span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
       }
     }
 

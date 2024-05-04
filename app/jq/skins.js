@@ -10,7 +10,8 @@ const skinLoad = new Promise(function (resolve, reject) {
 window.returnCurrentSkin = function (type) {
   const preference = nkPreferences.skin;
   const skinName = availableSkins[preference] ? (type === 'url' ? availableSkins[preference].url : availableSkins[preference].name) : 'Byakujou';
-  return skinName;
+  if (type === 'loc') return `Skins.${skinName}`;
+  if (type !== 'loc') return skinName;
 };
 
 
@@ -72,10 +73,10 @@ window.setSkin = function (skin, saveToStorage) {
     };
 
       if (typeof cLang !== 'undefined' && typeof iLang !== 'undefined') {
-        $('[data-key="CurrentSkin"]').text(iLang('CurrentSkin'));
+        $('[data-key="Skins.Current"]').html(iLang('Skins.Current'));
       } else {
         languageLoaded(function () {
-          $('[data-key="CurrentSkin"]').text(iLang('CurrentSkin'));
+          $('[data-key="Skins.Current"]').html(iLang('Skins.Current'));
         });
       }
     }
