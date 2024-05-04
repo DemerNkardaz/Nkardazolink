@@ -80,18 +80,32 @@ window.parseUrlParameter = function (name) {
 
 window.anUrlParameter = {
   mode: (parseUrlParameter('mode') ? parseUrlParameter('mode') : null),
-  select: (parseUrlParameter('select') ? parseUrlParameter('select') : null)
+  select: (parseUrlParameter('select') ? parseUrlParameter('select') : null),
+  lang: (parseUrlParameter('lang') ? parseUrlParameter('lang') : null)
 };
+anUrlParameter.lang && supportedLanguages.includes(anUrlParameter.lang) ? selectedLanguage = anUrlParameter.lang : '';
 
 languageLoaded(function () {
+  function reservedKey(key) {
+    for (const lang in languageJSON) {
+      if (languageJSON[lang][key]) {
+        return languageJSON[lang][key];
+      }
+    }
+    return null;
+  }
+
   window.cLang = languageJSON[selectedLanguage];
   window.fromLang = function (key, lang) {
-    const locale = textUnPacker(languageJSON[lang][key] ? languageJSON[lang][key] : NoAv);
+    const err = `<span>Key “${key}” not found in language “${lang}”<br/>function <b>fromLang(key, lang)</b></span>`;
+    const locale = textUnPacker(languageJSON[lang][key] || err);
     return eval('`' + locale + '`');
-  }
-  window.uLang = function (key) {
-    return textUnPacker(cLang[key] ? cLang[key] : NoAv);
   };
+
+  window.uLang = function (key) {
+    return textUnPacker(cLang[key] || reservedKey(key) || `<span>Key “${key}” ${NoAv}<br/>function <b>uLang(key)</b></span>`);
+  };
+
   window.iLang = function (key) {
     return eval('`' + uLang(key) + '`');
   };
