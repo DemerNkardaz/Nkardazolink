@@ -302,15 +302,15 @@ customElements.define('settings-check', settings_check);
 $(document).on('languageJSON_loaded', function () {
   nk.siteMainContainer.prepend(
     new settings_check({
-      label: languageJSON[selectedLanguage]['save_search_result'],
+      label: languageJSON[]['save_search_result'],
       setting: 'save_search_result'
     }),
     new settings_check({
-      label: languageJSON[selectedLanguage]['save_selected_item'],
+      label: languageJSON[]['save_selected_item'],
       setting: 'save_selected_item'
     }),
     new settings_check({
-      label: languageJSON[selectedLanguage]['turn_off_preloader'],
+      label: languageJSON[]['turn_off_preloader'],
       setting: 'turn_off_preloader'
     })
   );
@@ -420,7 +420,7 @@ window.nkUI = {
       </div>
       <div class="preloader-progress" part="preloader-progress">
         <div class="progress-value" part="progress-value"></div>
-        <p style="width: 160px"><span class="progress-label">${loadingText[selectedLanguage]}</span><br>
+        <p style="width: 160px"><span class="progress-label">${loadingText[nkSettings.get('lang')]}</span><br>
           <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
         </p>
       </div>
@@ -432,7 +432,7 @@ window.nkUI = {
       const siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       const siblings = $(preloader).siblings(':not(#preloader)');
 
-      const loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      const loadmarker_style = (nkSettings.get('lang') === 'ja' || nkSettings.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
       $(document).on('setSkin', function () { 
         const skinName = returnCurrentSkin('url');
@@ -441,7 +441,7 @@ window.nkUI = {
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();
-        preloader.find('.progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
+        preloader.find('.progress-label').html(`${executingText[nkSettings.get('lang')]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {
           setTimeout(() => {
             siblings.removeClass(siblingClass);
@@ -493,7 +493,7 @@ class link_block extends HTMLElement {
       constructor += `</span>`;
       return constructor;
     }
-    const component = `<div class="linkWrapper ${nkPreferences.skin === 'azumatsuyu' && LINK_Class !== 'long-thin' ? `plate_chinese` : ''}" part="link-wrapper">
+    const component = `<div class="linkWrapper ${nkSettings.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? `plate_chinese` : ''}" part="link-wrapper">
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
       ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `tooltip_key="${Tooltip.key}" tooltip_pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner plate_chinese">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
@@ -873,7 +873,7 @@ window.ui_components = {
         </div>
         <div class="preloader-progress">
           <div id="preloader-progress" class="progress_bar progress-value" value="0"></div>
-          <p style="width: 160px"><span class="progress-label">${loadingText[selectedLanguage]}</span><br>
+          <p style="width: 160px"><span class="progress-label">${loadingText[nkSettings.get('lang')]}</span><br>
             <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
           </p>
         </div>
@@ -881,7 +881,7 @@ window.ui_components = {
     );
     $('body').prepend(component).promise().done(() => {
       var preloader = $('#preloader');
-      var loadmarker_style = (selectedLanguage === 'ja' || selectedLanguage === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      var loadmarker_style = (nkSettings.get('lang') === 'ja' || nkSettings.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       var siblings = preloader.siblings(':not(#preloader)');
       var siblingClass = (siblingType === 'noscroll') ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       siblings.addClass(siblingClass);
@@ -889,7 +889,7 @@ window.ui_components = {
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();
-        preloader.find('.progress-label').html(`${executingText[selectedLanguage]}<span class="${loadmarker_style}"></span>`);
+        preloader.find('.progress-label').html(`${executingText[nkSettings.get('lang')]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {
           setTimeout(() => {
             siblings.removeClass(siblingClass);
@@ -970,7 +970,7 @@ class console_run extends HTMLElement {
   constructor() {
     super();
     const component = `
-    <header class="cmd_header forceDrag"><span data-key="console">${languageJSON[selectedLanguage]['console']}</span><span class="close">close</span></header>
+    <header class="cmd_header forceDrag"><span data-key="console">${languageJSON[nkSettings.get('lang')]['console']}</span><span class="close">close</span></header>
     <section class="cmd_input"><span class="cmd_line"><label>PROMPT : ></label><textarea spellcheck="false" type="text" rows="1"></textarea></span></section>
     <footer class="cmd_footer"></footer>
     `;

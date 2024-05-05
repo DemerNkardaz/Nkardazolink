@@ -9,8 +9,7 @@ window.nkPreferences = {
   }
 }
 window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi", "mo", "ro"];
-window.navigatorLanguage = window.supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
-window.selectedLanguage = (fromStorage('selectedLanguage') ? fromStorage('selectedLanguage') : navigatorLanguage);
+
 
 window.languagesList = {
   ru: { emoji: '🇷🇺', name: 'Русский' },
@@ -22,6 +21,7 @@ window.languagesList = {
   mo: { emoji: '🇲🇩', name: 'Молдовеняскэ' },
   ro: { emoji: '🇷🇴', name: 'Română' },
 }
+window.navigatorLanguage = Object.keys(window.languagesList).includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
 
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
@@ -44,21 +44,17 @@ window.nkSettings = new Map([
   ["save_search_result", (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true')],
   ["save_selected_item", (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false')],
   ["turn_off_preloader", (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false')],
-  ["change_skin_by_time", (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false')],
-  ["current_banner", (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha')],
   ["ambience_off", (loadSettings('ambience_off') ? loadSettings('ambience_off') : 'false')],
+  // Skin Settings
+  ["skin", (loadSettings('selectedSiteSkin') ? loadSettings('selectedSiteSkin') : 'byakujou')],
+  ["change_skin_by_time", (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false')],
+  // Other customizations
+  ["current_banner", (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha')],
+  // Lang
+  ["lang", (loadSettings('selectedLanguage') ? loadSettings('selectedLanguage') : navigatorLanguage)],
 ]);
 
-window.savedSettings = {
-  "save_search_result": (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true'),
-  "save_selected_item": (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false'),
-  "turn_off_preloader": (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false'),
-  "change_skin_by_time": (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false'),
-  "current_banner": (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha'),
-  "ambience_off": (loadSettings('ambience_off') ? loadSettings('ambience_off') : 'false'),
-};
-
-if (savedSettings.save_search_result === 'true') {
+if (nkSettings.get('save_search_result') === 'true') {
   window.latestSearches = {
     "kamon": (fromStorage('latestSearches.kamon') ? fromStorage('latestSearches.kamon') : null),
     "banners": (fromStorage('latestSearches.banners') ? fromStorage('latestSearches.banners') : null),
@@ -71,7 +67,7 @@ if (savedSettings.save_search_result === 'true') {
   };
 };
 
-if (savedSettings.save_selected_item === 'true') {
+if (nkSettings.get('save_selected_item') === 'true') {
   window.selectedItems = {
     "kamon": (fromStorage('selectedItems.kamon') ? fromStorage('selectedItems.kamon') : null),
     "banners": (fromStorage('selectedItems.banners') ? fromStorage('selectedItems.banners') : null),
@@ -93,9 +89,9 @@ window.anUrlParameter = {
   select: (parseUrlParameter('select') ? parseUrlParameter('select') : null),
   lang: (parseUrlParameter('lang') ? parseUrlParameter('lang') : null)
 };
-anUrlParameter.lang && supportedLanguages.includes(anUrlParameter.lang) ? selectedLanguage = anUrlParameter.lang : '';
+(anUrlParameter.lang && supportedLanguages.includes(anUrlParameter.lang)) && nkSettings.set('lang', anUrlParameter.lang);
 
-/*
+
 languageLoaded(function () {
   function reservedKey(key) {
     for (const lang in languageJSON) {
@@ -106,32 +102,7 @@ languageLoaded(function () {
     return null;
   }
 
-  window.cLang = languageJSON[selectedLanguage];
-  window.fromLang = function (key, lang) {
-    const err = `<span>Key “${key}” not found in language “${lang}”<br/>function <b>fromLang(key, lang)</b></span>`;
-    const locale = textUnPacker(languageJSON[lang][key] || err);
-    return eval('`' + locale + '`');
-  };
-
-  window.uLang = function (key) {
-    return textUnPacker(cLang[key] || reservedKey(key) || `<span>Key “${key}” ${NoAv}<br/>function <b>uLang(key)</b></span>`);
-  };
-
-  window.iLang = function (key) {
-    return eval('`' + uLang(key) + '`');
-  };
-});*/
-languageLoaded(function () {
-  function reservedKey(key) {
-    for (const lang in languageJSON) {
-      if (languageJSON[lang][key]) {
-        return languageJSON[lang][key];
-      }
-    }
-    return null;
-  }
-
-  window.cLang = languageJSON[selectedLanguage];
+  window.cLang = languageJSON[nkSettings.get('lang')];
   window.fromLang = function (key, lang) {
       const err = `<span>Ключ “${key}” не найден в языке “${lang}”<br/>Функция <b>fromLang(key, lang)</b></span>`;
       const keys = key.split('.');

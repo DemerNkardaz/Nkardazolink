@@ -207,13 +207,13 @@ const pageBuild = new Promise(function (resolve, reject) {
 
           } else {
             header = `
-            ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `<div class="personBannerBorder azumatsuyu wrap_border"></div>` : ''}
-            <div class="personBannerWrapper ${nkPreferences && (nkPreferences.skin === "sekiban" || nkPreferences.skin === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkPreferences.skin}" style="--banner: url(${nkPreferences.banner[savedSettings.current_banner].url});" data-banner="${savedSettings.current_banner}"></div></div>
+            ${nkSettings.get('skin') === "azumatsuyu" ? `<div class="personBannerBorder azumatsuyu wrap_border"></div>` : ''}
+            <div class="personBannerWrapper ${(nkSettings.get('skin') === "sekiban" || nkSettings.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkSettings.get('skin')}" style="--banner: url(${nkPreferences.banner[nkSettings.get('current_banner')].url});" data-banner="${nkSettings.get('current_banner')}"></div></div>
             <div class="personAvatar">
-              <span class="avatarWrapper ${nkPreferences && nkPreferences.skin === "azumatsuyu" ? `plate_chinese` : ''}">
+              <span class="avatarWrapper ${nkSettings.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
                 <img src="resources/cherepkhed32_thumb.png" alt="${iLang('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">
               </span>
-              ${nkPreferences && nkPreferences.skin === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
+              ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
             </div>
             <div>Теставые букавы<span>${iLang('test')}</span><br/><span data-key="C.test"></span>${iLang('C.test')}</div>
             `;
@@ -258,7 +258,7 @@ const pageBuild = new Promise(function (resolve, reject) {
       });
 
       pageConfig.then(() => {
-        console.log('Configuration is set & loaded');
+        console.log('[GENPAGE] → Configuration is set & loaded');
       
         function generateContent() {
           if (anUrlParameter.mode === 'kamon') {
@@ -279,9 +279,9 @@ const pageBuild = new Promise(function (resolve, reject) {
 });
 
 pageBuild.then(function () {
-  console.log(`Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`);
+  console.log(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`);
   updateLanguageKeys();
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
 });
 
-logCurrentTrigger();
+//logCurrentTrigger();

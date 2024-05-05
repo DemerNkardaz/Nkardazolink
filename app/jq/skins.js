@@ -1,14 +1,14 @@
-let skin = (nkPreferences.skin && nkPreferences.skin !== null) ? `app/style/skins/${nkPreferences.skin}.css` : 'app/style/skins/byakujou.css';
+let skin = (nkSettings.get('skin') !== null) ? `app/style/skins/${nkSettings.get('skin')}.css` : 'app/style/skins/byakujou.css';
 $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 
 const skinLoad = new Promise(function (resolve, reject) {
   pageTriggerCallback(function () {
-    nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.log(`Skin assigned based on “Daytime” Preference`));
+    nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.log(`[NK_SKIN] → Skin assigned based on “Daytime” Preference`));
   }); resolve();
 });
 
 window.returnCurrentSkin = function (type) {
-  const preference = nkPreferences.skin;
+  const preference = nkSettings.get('skin');
   const skinName = availableSkins[preference] ? (type === 'url' ? availableSkins[preference].url : availableSkins[preference].name) : 'Byakujou';
   if (type === 'loc') return `Skins.${skinName}`;
   if (type !== 'loc') return skinName;
@@ -21,8 +21,10 @@ window.setSkin = function (skin, saveToStorage) {
     try {
       if (skin && window.availableSkins[skin]) {
         $('#skinloader').attr('href', `app/style/skins/${skin}.css`);
-        saveToStorage !== false && toStorage('selectedSiteSkin', skin);
-        nkPreferences.skin = skin;
+        if (nkSettings.get('skin') !== skin) {
+          saveToStorage !== false && saveSettings('selectedSiteSkin', skin);
+          nkSettings.set('skin', skin);
+        }
 
         if (anUrlParameter.mode === 'kamon') {
 
@@ -88,7 +90,7 @@ window.setSkin = function (skin, saveToStorage) {
   });
   onSetSkin.then(function () {
     $(document).trigger('setSkin');
-    console.log(`Skin set to: “${returnCurrentSkin()}” : Locale key “${returnCurrentSkin('loc')}”`);
+    console.log(`[NK_SKIN] → Skin set to: “${returnCurrentSkin()}” : Locale key “${returnCurrentSkin('loc')}”`);
   });
 };
 

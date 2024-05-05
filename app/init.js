@@ -1,7 +1,7 @@
 (anUrlParameter.mode && !availableModes.includes(anUrlParameter.mode)) ||
 ((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select))) ? redirOrigin() : null;
 
-selectedLanguage ? $('html').attr('lang', selectedLanguage) : $('html').attr('lang', 'ru');
+nkSettings.get('lang') ? $('html').attr('lang', nkSettings.get('lang')) : $('html').attr('lang', 'ru');
 
 //var skin = (nkPreferences.skin && nkPreferences.skin !== null) ? `app/style/skins/${nkPreferences.skin}.css` : '';
 
@@ -102,11 +102,7 @@ window.showLoadPercentage = function () {
 
 
 
-/*
-if (savedSettings.turn_off_preloader !== 'true') {
-  ui_components.preloader();
-}*/
-if (savedSettings.turn_off_preloader !== 'true') {
+if (nkSettings.get('turn_off_preloader') !== 'true') {
   nkUI.preLoader({
     hiding_role: 'hide',
   });
@@ -116,7 +112,7 @@ if (savedSettings.turn_off_preloader !== 'true') {
 waitFor('title', () => {
   var title = document.querySelector('title');
   if (title) {
-    title.textContent = (metaData['title'][anUrlParameter.mode] && metaData['title'][anUrlParameter.mode][anUrlParameter.select]) ? metaData['title'][anUrlParameter.mode][anUrlParameter.select][selectedLanguage] : (metaData['title'][anUrlParameter.mode] ? metaData['title'][anUrlParameter.mode][selectedLanguage] : metaData['title']['common'][selectedLanguage]);
+    title.textContent = (metaData['title'][anUrlParameter.mode] && metaData['title'][anUrlParameter.mode][anUrlParameter.select]) ? metaData['title'][anUrlParameter.mode][anUrlParameter.select][nkSettings.get('lang')] : (metaData['title'][anUrlParameter.mode] ? metaData['title'][anUrlParameter.mode][nkSettings.get('lang')] : metaData['title']['common'][nkSettings.get('lang')]);
   }
 });
 

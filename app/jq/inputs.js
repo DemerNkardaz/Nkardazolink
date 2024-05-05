@@ -3,7 +3,7 @@ $(document).on('input', '[nk-search-bar]', function () {
   const searchBarType = this_bar.attr('nk-search-bar');
   if (this_bar.val().length > 0) {
   }
-  if (savedSettings.save_search_result === 'true') {
+  if (nkSettings.get('save_search_result') === 'true') {
     if (this_bar.attr('nk-search-bar')) {
       if (this_bar.val().length > 0) {
         toStorage(`latestSearches.${searchBarType}`, this_bar.val());

@@ -1,15 +1,15 @@
 $.fn.countTextVolume = function() {
-		var char_count = 0;
+		let char_count = 0;
 		this.each(function() {
 				char_count += $(this).text().trim().length;
 		});
-		var formatted_count = char_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, String.fromCharCode(0x2007));
+		let formatted_count = char_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, String.fromCharCode(0x2007));
 		return formatted_count;
 };
 
 $.fn.countAuthorLists = function() {
-		var char_count = parseInt(this.countTextVolume().replace(/\s/g,''));
-		var formatted_volume = (char_count / 40000).toFixed(2);
+		let char_count = parseInt(this.countTextVolume().replace(/\s/g,''));
+		let formatted_volume = (char_count / 40000).toFixed(2);
 		return formatted_volume;
 };
 
@@ -71,7 +71,7 @@ window.checkKeyDowned = function () {
 }
 
 $.fn.isdrag = function(options) {
-	var isMouseDown = false,
+	let isMouseDown = false,
 		isResizing = false,
 		currentElement = null,
 		offset = { x: 0, y: 0 },
@@ -83,7 +83,7 @@ $.fn.isdrag = function(options) {
 		isResizing = true; 
 		return;
 	}
-	var target = document.elementFromPoint(e.clientX, e.clientY);
+	let target = document.elementFromPoint(e.clientX, e.clientY);
 		if (
 			$(e.target).is('input, textarea') ||
 			((["SPAN", "LABEL", "BUTTON", "P", "UL", "OL", "LI", "H1", "H2", "H3", "H4", "H5", "H6", "PRE", "BLOCKQUOTE"].includes(target.tagName)) &&
@@ -94,7 +94,7 @@ $.fn.isdrag = function(options) {
 		}
 		isMouseDown = true;
 		currentElement = $(this);
-		var position = currentElement.position();
+		let position = currentElement.position();
 		offset = {
 			x: e.pageX - position.left,
 			y: e.pageY - position.top
@@ -110,19 +110,19 @@ $.fn.isdrag = function(options) {
 
 	$(document).on('mousemove', function(e) {
 		if (isMouseDown && !isResizing) {
-			var dx = e.pageX - prevPosition.x;
-			var dy = e.pageY - prevPosition.y;
+			let dx = e.pageX - prevPosition.x;
+			let dy = e.pageY - prevPosition.y;
 			prevPosition = { x: e.pageX, y: e.pageY };
 			if (container) {
-				var containerWidth = container.width();
-				var containerHeight = container.height();
-				var elementWidth = currentElement.width();
-				var elementHeight = currentElement.height();
-				var left = Math.min(
+				let containerWidth = container.width();
+				let containerHeight = container.height();
+				let elementWidth = currentElement.width();
+				let elementHeight = currentElement.height();
+				let left = Math.min(
 					Math.max(e.pageX - offset.x, 0),
 					containerWidth - elementWidth
 				);
-				var top = Math.min(
+				let top = Math.min(
 				Math.max(e.pageY - offset.y, 0),
 				containerHeight - elementHeight
 				);

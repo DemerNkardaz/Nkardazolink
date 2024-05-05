@@ -9,54 +9,8 @@ window.updateItemsLanguage = function () {
   });
 }
 
-
-/*
 window.updateLanguageKeys = function (target) {
-  cLang = languageJSON[selectedLanguage];
-  let key_elements = target ? $(target) : $('[data-key], [alt-key]');
-  function update () {
-    key_elements.each(function () {
-      let key = $(this).attr('data-key') || $(this).attr('alt-key');
-      let getLocale = languageJSON[selectedLanguage][key];
-      if (!getLocale) {
-        for (let lang in languageJSON) {
-          if (languageJSON[lang][key]) {
-            getLocale = languageJSON[lang][key];
-            break;
-          }
-        }
-      };
-
-      let keyMSG = ``;
-
-      $(this).attr('data-key') && (keyMSG += `DATA-KEY “${$(this).attr('data-key')}” ${NoAv}`);
-      $(this).attr('alt-key') && (keyMSG += `ALT-KEY “${$(this).attr('alt-key')}” ${NoAv}`);
-
-      getLocale = getLocale ? textUnPacker(getLocale) : (key ? keyMSG : null);
-
-      if ($(this).attr('data-key')) {
-        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
-        $(this).html(interpolatedLocale);
-      }
-      if ($(this).attr('alt-key')) {
-        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
-        $(this).attr('alt', interpolatedLocale);
-      }
-    });
-  }; update();
-
-  $('*').filter(function () {
-    return this.shadowRoot !== null;
-  }).each(function () {
-    key_elements = $(this.shadowRoot).find('[data-key], [alt-key]');
-    update();
-  });
-  $('html').attr('lang', selectedLanguage);
-};*/
-
-
-window.updateLanguageKeys = function (target) {
-  cLang = languageJSON[selectedLanguage];
+  cLang = languageJSON[nkSettings.get('lang')];
   let key_elements = target ? $(target) : $('[data-key], [alt-key]');
 
   function update () {
@@ -91,12 +45,12 @@ window.updateLanguageKeys = function (target) {
     update();
   });
 
-  $('html').attr('lang', selectedLanguage);
+  $('html').attr('lang', nkSettings.get('lang'));
 };
 
 function getLocaleForKey(key) {
   let parts = key.split('.');
-  let locale = languageJSON[selectedLanguage];
+  let locale = languageJSON[nkSettings.get('lang')];
   for (let part of parts) {
     if (!locale || !locale[part]) {
       return null;
@@ -119,10 +73,20 @@ function generateErrorMessage(key) {
 
 
 window.switchLang = function (lang) {
-  let language = lang.toLowerCase();
-  toStorage('selectedLanguage', language);
-  selectedLanguage = language;
-  updateLanguageKeys();
+  const switchPromise = new Promise((resolve, reject) => {
+    try {
+      const language = lang.toLowerCase();
+      saveSettings('selectedLanguage', language);
+      nkSettings.set('lang', language);
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+
+  switchPromise.then(function () {
+    updateLanguageKeys();
+  });
 }
 
 window.cyclic_language = function () {

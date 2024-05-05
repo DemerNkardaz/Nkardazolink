@@ -9,9 +9,22 @@ window.toStorage = function (key, value) {
 }
 
 window.saveSettings = function (key, value) {
-  nkSettings.set(key, value);
-  window.toStorage(`savedSettings.${key}`, value);
-  console.log(`Settings saved: ${key} = ${value} : Map “${nkSettings.get(key)}” & Store “${loadSettings(key)}”`);
+  const previousSetting = loadSettings(key);
+  const previousMap = nkSettings.get(key);
+  
+  const savePromise = new Promise((resolve, reject) => {
+    try {
+      nkSettings.set(key, value);
+      window.toStorage(`savedSettings.${key}`, value);
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+
+  savePromise.then(function () {
+    console.log(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`);
+  });
 }
 
 window.loadSettings = function (key) {
