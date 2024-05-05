@@ -46,13 +46,37 @@ window.nkSettings = new Map([
   ["turn_off_preloader", (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false')],
   ["ambience_off", (loadSettings('ambience_off') ? loadSettings('ambience_off') : 'false')],
   // Skin Settings
-  ["skin", (loadSettings('selectedSiteSkin') ? loadSettings('selectedSiteSkin') : 'byakujou')],
+  ["skin", (loadSettings('skin') ? loadSettings('skin') : 'byakujou')],
   ["change_skin_by_time", (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false')],
   // Other customizations
   ["current_banner", (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha')],
   // Lang
-  ["lang", (loadSettings('selectedLanguage') ? loadSettings('selectedLanguage') : navigatorLanguage)],
+  ["lang", (loadSettings('lang') ? loadSettings('lang') : navigatorLanguage)],
 ]);
+
+/*
+{
+  let isFilled = false;
+  let navLang = false;
+  const insertDefault = new Promise((resolve, reject) => { 
+    try {
+      for (const [key, value] of nkSettings) {
+        if (loadSettings(key) === null || loadSettings(key) === undefined) saveSettings(key, value), isFilled = true;
+        if (key === 'lang' && value !== navigatorLanguage) saveSettings(key, navigatorLanguage), navLang = true;
+      }
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+
+  insertDefault.then(function () {
+    isFilled && console.log(`[SETTING] → Inserted default settings to localStorage`);
+    navLang && console.log(`[SETTING] → Detected change of navigator language. Assigned to new language`);
+  });
+}*/
+
+
 
 if (nkSettings.get('save_search_result') === 'true') {
   window.latestSearches = {

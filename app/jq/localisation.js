@@ -9,8 +9,11 @@ window.updateItemsLanguage = function () {
   });
 }
 
+
+
 window.updateLanguageKeys = function (target) {
   cLang = languageJSON[nkSettings.get('lang')];
+  
   let key_elements = target ? $(target) : $('[data-key], [alt-key]');
 
   function update () {
@@ -49,16 +52,30 @@ window.updateLanguageKeys = function (target) {
 };
 
 function getLocaleForKey(key) {
-  let parts = key.split('.');
-  let locale = languageJSON[nkSettings.get('lang')];
-  for (let part of parts) {
-    if (!locale || !locale[part]) {
-      return null;
+  const keys = key.split('.');
+  let currentLocale = languageJSON[nkSettings.get('lang')];
+
+  for (const k of keys) {
+    if (!currentLocale || !currentLocale.hasOwnProperty(k)) {
+      const foundTranslation = Object.values(languageJSON).flatMap(langObj => {
+        let tempLocale = langObj;
+        for (const k of keys) {
+          if (!tempLocale || !tempLocale.hasOwnProperty(k)) {
+            tempLocale = null;
+            break;
+          }
+          tempLocale = tempLocale[k];
+        }
+        return tempLocale ? [tempLocale] : [];
+      })[0];
+      
+      return foundTranslation ? foundTranslation : null;
     }
-    locale = locale[part];
+    currentLocale = currentLocale[k];
   }
-  return locale;
+  return currentLocale;
 }
+
 
 function generateErrorMessage(key) {
   let parts = key.split('.');
@@ -76,7 +93,7 @@ window.switchLang = function (lang) {
   const switchPromise = new Promise((resolve, reject) => {
     try {
       const language = lang.toLowerCase();
-      saveSettings('selectedLanguage', language);
+      saveSettings('lang', language);
       nkSettings.set('lang', language);
       resolve();
     } catch (err) {

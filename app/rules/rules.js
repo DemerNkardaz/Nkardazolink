@@ -14,11 +14,20 @@ window.updateCopyrightYears = function() {
 
 updateCopyrightYears();
 
-window.returnCopyright = function () {
+window.returnCopyright = function (CJK) {
   const start = 2024;
   const current = new Date().getFullYear();
-  return (current > start) ? `${start}-${current}` : `${current}`;
+
+  if (CJK) {
+    const toFullWidthDigits = num => num.toString().replace(/[0-9]/g, char => String.fromCharCode(char.charCodeAt(0) + 0xFEE0));
+    const startYear = toFullWidthDigits(start);
+    const currentYear = toFullWidthDigits(current);
+    return (current > start) ? `${startYear} - ${currentYear}` : `${currentYear}`;
+  } else {
+    return (current > start) ? `${start}-${current}` : `${current}`;
+  }
 }
+
 
 const h3 = document.querySelectorAll('h3.rule');
 

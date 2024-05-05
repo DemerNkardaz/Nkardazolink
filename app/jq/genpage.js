@@ -217,7 +217,7 @@ const pageBuild = new Promise(function (resolve, reject) {
             </div>
             <div>Теставые букавы<span>${iLang('test')}</span><br/><span data-key="C.test"></span>${iLang('C.test')}
             </div>
-            <div class="lang-optionOwner">${nkUI.langList('row')}</div>
+            <div class="lang-optionOwner">${nkUI.langList('row')}</div>${iLang('testqu')}
             `;
 
             main = `
@@ -238,7 +238,7 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             footer = `
-            <span class="copyright"><span data-key="Nkardaz.copyright">${iLang('Nkardaz.copyright')}</span>&ensp;|&ensp;<span data-key="Skins.Current">${iLang('Skins.Current')}</span></span>
+            <span class="copyright"><span data-key="Nkardaz.copyright">${iLang('Nkardaz.copyright')}</span><span data-key="Skins.Current">${iLang('Skins.Current')}</span></span>
             <span class="ambientControls ms-auto me-3">
               <button nk-music="pause/play"><span class="material-icons">pause</span></button>
               <button nk-music="random"><span class="material-icons">shuffle</span></button>

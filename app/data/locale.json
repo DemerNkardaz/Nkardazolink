@@ -6,7 +6,7 @@
     "Nkardaz": {
       "name": "Демер Нкардаз",
       "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
-      "copyright": "&copy;&nbsp;${iLang('Nkardaz.name')},&nbsp;${returnCopyright()}"
+      "copyright": "&copy;&nbsp;${iLang('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
     },
 
     "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${iLang('Nkardaz.name')}", "${iLang('test')}"],
@@ -48,7 +48,7 @@
 
     "console": "КОНСОЛЬ : Системный программный интерфейс",
     "test": ["Тест", "—{{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}≈[Герб императорской семьи Японии]≈}—"],
-    "testqu": "—{{(悟墳:Го Фун)(乱:Ран)}[Смута Гофун]}—",
+    "testqu": "—{{.(.悟墳:Го Фун.)(.乱:Ран.).}≈[Смута Гофун]≈}—",
     "Site_Title_Nkardaz": "Демер Нкардаз・2D・3D・Писательство・Вёрстка",
     "save_search_result": ["Сохранять ввод строки поиска", "Test string"],
     "save_selected_item": "Сохранять последний выбранный знак",
@@ -74,7 +74,7 @@
     "Nkardaz": {
       "name": "Demer Nkardaz",
       "fursona": "Khertahiron — Original Character (Person)",
-      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${iLang('Nkardaz.name')}. All rights reserved"
+      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${iLang('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
     },
 
     "links": {
@@ -142,10 +142,14 @@
   },
   "ja": {
     "DemerNkardaz": "デメル・ナカルダズ",
-    "ContentLinks": "コンテンツ",
+    "Nkardaz": {
+      "name": "デマル・ナカルダス",
+      "fursona": "ケルタヒロヌ、原キャラ（化身）",
+      "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${iLang('Nkardaz.name')}・全著作権所有｜"
+    },
 
     "Skins": {
-      "Current": "現在の眺め：${iLang(returnCurrentSkin())}",
+      "Current": "現在の眺め：${iLang(returnCurrentSkin('loc'))}",
       "Byakujou": "「白城」",
       "Aoguro-no Getsu": "「青黒月」",
       "Sekiban": "「石盤」",

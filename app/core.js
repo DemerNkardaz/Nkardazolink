@@ -1,17 +1,18 @@
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
-window.fromStorage = function (key) {
-  return localStorage.getItem(key);
+window.fromStorage = function (key, isJSON) {
+  if (isJSON) return JSON.parse(localStorage.getItem(key)); else return localStorage.getItem(key);
 }
 
 window.toStorage = function (key, value) {
   localStorage.setItem(key, value);
 }
 
+/*
 window.saveSettings = function (key, value) {
   const previousSetting = loadSettings(key);
   const previousMap = nkSettings.get(key);
-  
+
   const savePromise = new Promise((resolve, reject) => {
     try {
       nkSettings.set(key, value);
@@ -29,7 +30,33 @@ window.saveSettings = function (key, value) {
 
 window.loadSettings = function (key) {
   return fromStorage(`savedSettings.${key}`);
+}*/
+window.saveSettings = function (key, value) {
+  const previousSetting = loadSettings(key);
+  const previousMap = nkSettings.get(key);
+
+  const savePromise = new Promise((resolve, reject) => {
+    try {
+      nkSettings.set(key, value);
+      let savedSettings = fromStorage('savedSettings', true) || {};
+      savedSettings[key] = value;
+      localStorage.setItem('savedSettings', JSON.stringify(savedSettings));
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+
+  savePromise.then(function () {
+    console.log(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`);
+  });
 }
+
+window.loadSettings = function (key) {
+  let savedSettings = fromStorage('savedSettings', true) || {};
+  return savedSettings[key];
+}
+
 
 window.removeStorage = function (key) {
   localStorage.removeItem(key);

@@ -4,6 +4,7 @@ $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 const skinLoad = new Promise(function (resolve, reject) {
   pageTriggerCallback(function () {
     nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.log(`[NK_SKIN] → Skin assigned based on “Daytime” Preference`));
+    nkSettings.get('change_skin_by_time') !== 'true' && setSkin(nkSettings.get('skin'));
   }); resolve();
 });
 
