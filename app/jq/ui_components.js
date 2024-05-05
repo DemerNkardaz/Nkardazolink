@@ -456,7 +456,6 @@ window.nkUI = {
         skinName === 'aogurogetsu' ? preloader_logo.attr('src', 'resources/svg/hangetsu.svg') : preloader_logo.attr('src', 'resources/svg/NkardazKamon.svg');
       });
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
-        console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();
         preloader.find('.progress-label').html(`${executingText[nkSettings.get('lang')]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {
@@ -904,7 +903,6 @@ window.ui_components = {
       siblings.addClass(siblingClass);
 
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
-        console.log('style:--progress:100%');
         preloader.find('br').nextAll().remove();
         preloader.find('.progress-label').html(`${executingText[nkSettings.get('lang')]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {

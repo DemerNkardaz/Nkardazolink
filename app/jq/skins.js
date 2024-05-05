@@ -3,7 +3,7 @@ $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 
 const skinLoad = new Promise(function (resolve, reject) {
   pageTriggerCallback(function () {
-    nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.log(`[NK_SKIN] → Skin assigned based on “Daytime” Preference`));
+    nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.buildType(`[NK_SKIN] → Skin assigned based on “Daytime” Preference`, 'success'));
     nkSettings.get('change_skin_by_time') !== 'true' && setSkin(nkSettings.get('skin'));
   }); resolve();
 });
@@ -91,7 +91,7 @@ window.setSkin = function (skin, saveToStorage) {
   });
   onSetSkin.then(function () {
     $(document).trigger('setSkin');
-    console.log(`[NK_SKIN] → Skin set to: “${returnCurrentSkin()}” : Locale key “${returnCurrentSkin('loc')}”`);
+    console.buildType(`[NK_SKIN] → Skin set to: “${returnCurrentSkin()}” : Locale key “${returnCurrentSkin('loc')}”`, 'info');
   });
 };
 

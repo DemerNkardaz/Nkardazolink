@@ -67,7 +67,7 @@ window.createObject = {
 
 const pageBuild = new Promise(function (resolve, reject) {
   function anErrorOnBuild(err, str) {
-    console.log(`An error occured during ${str}: ${err}`);
+    console.error(`An error occured during ${str}: ${err}`);
   }
   try {
     languageLoaded(function () {
@@ -261,7 +261,7 @@ const pageBuild = new Promise(function (resolve, reject) {
       });
 
       pageConfig.then(() => {
-        console.log('[GENPAGE] → Configuration is set & loaded');
+        console.buildType('[GENPAGE] → Configuration is set & loaded', 'info');
       
         function generateContent() {
           if (anUrlParameter.mode === 'kamon') {
@@ -282,7 +282,7 @@ const pageBuild = new Promise(function (resolve, reject) {
 });
 
 pageBuild.then(function () {
-  console.log(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`);
+  console.buildType(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`, 'info');
   updateLanguageKeys();
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
 });

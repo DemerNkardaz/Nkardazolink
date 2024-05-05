@@ -1,5 +1,17 @@
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
+window.console.buildType = function (message, type) {
+  let styles = 'font-size: 12px; padding-inline: 5px; width: 100%; height: 24px; display: inline-flex; align-items: center; justify-content: start;';
+  switch (type) {
+    case 'error': styles += 'color: white; background-color: red;'; break;
+    case 'info': styles += 'color: white; background-color: blue;'; break;
+    case 'success': styles += 'color: white; background-color: limegreen;'; break;
+    case 'warning': styles += 'color: #b8a66b; background-color: #fffbd6;'; break;
+    default: styles += 'color: black;'; break;
+  }
+  return console.info('%c' + message, styles);
+};
+
 window.fromStorage = function (key, isJSON) {
   if (isJSON) return JSON.parse(localStorage.getItem(key)); else return localStorage.getItem(key);
 }
@@ -48,7 +60,7 @@ window.saveSettings = function (key, value) {
   });
 
   savePromise.then(function () {
-    console.log(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`);
+    console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`, 'info');
   });
 }
 
@@ -189,7 +201,7 @@ window.waitFor = function(selector, callback) {
 
   let timeoutId = setTimeout(() => {
     observer.disconnect();
-    console.log(`Obeserver has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`);
+    console.warn(`Obeserver has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`);
   }, 2000);
 
   const observer = new MutationObserver((mutationsList, observer) => {
