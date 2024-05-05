@@ -406,6 +406,23 @@ window.nkUI = {
     return markup;
   },
 
+  langList: function (variant) {
+    let gArray = [];
+    for (let key in window.languagesList) {
+      const language = window.languagesList[key];
+      const isSelected = nkSettings.get('lang') === key;
+      let component;
+      const emoji = `<span class="ms-auto emoji_font">${language.emoji}</span>`;
+      if (variant === 'row') {
+        component = `<span tabindex="0" class="lang-option inline" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${emoji}</span>`
+      } else {
+        component = `<div tabindex="0" class="lang-option" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${language.name}&nbsp;${emoji}</div>`;
+      }
+      gArray.push(component);
+    }
+    return gArray.join('');
+  },
+
   loadKamon: function () {
     return `<div><img src="resources/svg/NkardazKamon.svg" width="100" alt="content preloader"></div>`;
   },

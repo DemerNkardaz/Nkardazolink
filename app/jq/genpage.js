@@ -215,9 +215,12 @@ const pageBuild = new Promise(function (resolve, reject) {
               </span>
               ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
             </div>
-            <div>Теставые букавы<span>${iLang('test')}</span><br/><span data-key="C.test"></span>${iLang('C.test')}</div>
+            <div>Теставые букавы<span>${iLang('test')}</span><br/><span data-key="C.test"></span>${iLang('C.test')}
+            </div>
+            <div class="lang-optionOwner">${nkUI.langList('row')}</div>
             `;
-                  main = `
+
+            main = `
             <div class="links_Wrapper">
               <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${iLang('links.ContentLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent" >

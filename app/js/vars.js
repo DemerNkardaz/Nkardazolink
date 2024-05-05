@@ -8,7 +8,6 @@ window.nkPreferences = {
     }
   }
 }
-window.supportedLanguages = ['ru', "en", "ja", "zh", "ko", "vi", "mo", "ro"];
 
 
 window.languagesList = {
@@ -20,8 +19,9 @@ window.languagesList = {
   vi: { emoji: '🇻🇳', name: 'Tiếng Việt' },
   mo: { emoji: '🇲🇩', name: 'Молдовеняскэ' },
   ro: { emoji: '🇷🇴', name: 'Română' },
-}
-window.navigatorLanguage = Object.keys(window.languagesList).includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
+};
+window.supportedLanguages = Object.keys(window.languagesList);
+window.navigatorLanguage = supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
 
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
