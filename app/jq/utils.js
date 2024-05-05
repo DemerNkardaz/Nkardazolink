@@ -141,7 +141,24 @@ $.fn.isdrag = function(options) {
 };
 
 //setDiacritic('place-macron', 'sub', 0.25);
-
+/* ------------------------ DIACRITICS ------------------------ */
+const diacritics = {
+  macron:        { sup: '&#772;', sub: '&#817;' },
+  caron:         { sup: '&#780;', sub: '&#812;' },
+  circumflex:    { sup: '&#770;', sub: '&#813;' },
+  gravis:        { sup: '&#768;', sub: '&#790;' },
+  ogonek:        { sup: '&#777;', sub: '&#808;' },
+  dot:           { sup: '&#776;', sub: '&#804;' },
+  x2dot:         { sup: '&#775;', sub: '&#803;' },
+  breve:         { sup: '&#774;', sub: '&#814;' },
+  invertBreve:   { sup: '&#785;', sub: '&#815;' },
+  acute:         { sup: '&#769;', sub: '&#791;' },
+  overline:      { sup: '&#773;', sub: '&#817;' },
+  x2gravis:      { sup: '&#783;' },
+  x2acute:       { sup: '&#779;' },
+  x2overline:    { sup: '&#831;' },
+  tilde:         { sup: '&#771;', sub: '&#816;', mid: '&#820;', vert: '&#830;' }
+};
 window.setDiacritic = function (type, pos, margins) {
   let symbol, typeSplit, typePlace;
   let margin = {};
@@ -151,23 +168,6 @@ window.setDiacritic = function (type, pos, margins) {
     type = typeSplit[1];
   }
 
-  const diacritics = {
-    macron:        { sup: '&#772;', sub: '&#817;' },
-    caron:         { sup: '&#780;', sub: '&#812;' },
-    circumflex:    { sup: '&#770;', sub: '&#813;' },
-    gravis:        { sup: '&#768;', sub: '&#790;' },
-    ogonek:        { sup: '&#777;', sub: '&#808;' },
-    dot:           { sup: '&#776;', sub: '&#804;' },
-    x2dot:         { sup: '&#775;', sub: '&#803;' },
-    breve:         { sup: '&#774;', sub: '&#814;' },
-    invertBreve:   { sup: '&#785;', sub: '&#815;' },
-    acute:         { sup: '&#769;', sub: '&#791;' },
-    overline:      { sup: '&#773;', sub: '&#817;' },
-    x2gravis:      { sup: '&#783;' },
-    x2acute:       { sup: '&#779;' },
-    x2overline:    { sup: '&#831;' },
-    tilde:         { sup: '&#771;', sub: '&#816;', mid: '&#820;', vert: '&#830;' }
-  };
   symbol = diacritics[type][pos ? pos : 'sup'];
 
   margin.left = margins && margins.left ? margins.left : (margins && !margins.top ? margins : null);
