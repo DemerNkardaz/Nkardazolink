@@ -150,23 +150,25 @@ window.setDiacritic = function (type, pos, margins) {
     typePlace = typeSplit[0];
     type = typeSplit[1];
   }
-  
-  if (type === 'macron') { pos && pos === 'sub' ? symbol = '&#817;' : symbol = '&#772;' }
-  if (type === 'caron') { pos && pos === 'sub' ? symbol = '&#812;' : symbol = '&#780;' }
-  if (type === 'circumflex') { pos && pos === 'sub' ? symbol = '&#813;' : symbol = '&#770;' }
-  if (type === 'gravis') { pos && pos === 'sub' ? symbol = '&#790;' : symbol = '&#768;' }
-  if (type === 'ogonek') { pos && pos === 'sub' ? symbol = '&#808;' : symbol = '&#777;' }
-  if (type === 'dot') { pos && pos === 'sub' ? symbol = '&#804;' : symbol = '&#776;' }
-  if (type === 'x2dot') { pos && pos === 'sub' ? symbol = '&#803;' : symbol = '&#775;' }
-  if (type === 'breve') { pos && pos === 'sub' ? symbol = '&#814;' : symbol = '&#774;' }
-  if (type === 'invertBreve') { pos && pos === 'sub' ? symbol = '&#815;' : symbol = '&#785;' }
-  if (type === 'acute') { pos && pos === 'sub' ? symbol = '&#791;' : symbol = '&#769;' }
-  if (type === 'overline') { pos && pos === 'sub' ? symbol = '&#817;' : symbol = '&#773;' }
-  if (type === 'x2gravis') { symbol = '&#783;' }
-  if (type === 'x2acute') { symbol = '&#779;' }
-  if (type === 'x2overline') { symbol = '&#831;' }
-  
-  if (type === 'tilde') { pos && pos === 'sub' ? symbol = '&#816;' : (pos && pos === 'mid' ? symbol = '&#820;' : (pos && pos === 'vert' ? symbol = '&#830;' : symbol = '&#771;')) }
+
+  const diacritics = {
+    macron:        { sup: '&#772;', sub: '&#817;' },
+    caron:         { sup: '&#780;', sub: '&#812;' },
+    circumflex:    { sup: '&#770;', sub: '&#813;' },
+    gravis:        { sup: '&#768;', sub: '&#790;' },
+    ogonek:        { sup: '&#777;', sub: '&#808;' },
+    dot:           { sup: '&#776;', sub: '&#804;' },
+    x2dot:         { sup: '&#775;', sub: '&#803;' },
+    breve:         { sup: '&#774;', sub: '&#814;' },
+    invertBreve:   { sup: '&#785;', sub: '&#815;' },
+    acute:         { sup: '&#769;', sub: '&#791;' },
+    overline:      { sup: '&#773;', sub: '&#817;' },
+    x2gravis:      { sup: '&#783;' },
+    x2acute:       { sup: '&#779;' },
+    x2overline:    { sup: '&#831;' },
+    tilde:         { sup: '&#771;', sub: '&#816;', mid: '&#820;', vert: '&#830;' }
+  };
+  symbol = diacritics[type][pos ? pos : 'sup'];
 
   margin.left = margins && margins.left ? margins.left : (margins && !margins.top ? margins : null);
   margin.top = margins && margins.top ? margins.top : null;

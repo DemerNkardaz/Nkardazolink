@@ -104,7 +104,7 @@
       "Current": "Сurrent view: ${iLang(returnCurrentSkin('loc'))}",
       "Byakujou": "“Byakujo${setDiacritic('place-macron', null, 0.255)}”${fromLang('Skins.Byakujou', 'ja')}",
       "Aoguro-no Getsu": "“Aoguro-no Getsu”${fromLang('Skins.Aoguro-no Getsu', 'ja')}",
-      "Sekiban": "“Sekiban”$${fromLang('Skins.Sekiban', 'ja')}",
+      "Sekiban": "“Sekiban”${fromLang('Skins.Sekiban', 'ja')}",
       "Azumatsuyu": "“Azumatsuyu”${fromLang('Skins.Azumatsuyu', 'ja')}"
     },
 
