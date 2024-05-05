@@ -6,13 +6,13 @@
     "Nkardaz": {
       "name": "Демер Нкардаз",
       "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
-      "copyright": "&copy;&nbsp;${iLang('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
+      "copyright": "&copy;&nbsp;${nkLocale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
     },
 
-    "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${iLang('Nkardaz.name')}", "${iLang('test')}"],
+    "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${nkLocale.get('Nkardaz.name')}", "${nkLocale.get('test')}"],
 
     "C": {
-      "test": ["Тест", "${iLang(\"links.Ficbook\")}"]
+      "test": ["Тест", "${nkLocale.get(\"links.Ficbook\")}"]
     },
 
     "links": {
@@ -39,11 +39,11 @@
     },
 
     "Skins": {
-      "Current": "Текущий вид: ${iLang(returnCurrentSkin('loc'))}",
-      "Byakujou": "«Бякудзё»${fromLang('Skins.Byakujou', 'ja')}",
-      "Aoguro-no Getsu": "«Аогуро-но Гэцу»${fromLang('Skins.Aoguro-no Getsu', 'ja')}",
-      "Sekiban": "«Сэкибан»${fromLang('Skins.Sekiban', 'ja')}",
-      "Azumatsuyu": "«Адзумацую»${fromLang('Skins.Azumatsuyu', 'ja')}"
+      "Current": "Текущий вид: ${nkLocale.get(returnCurrentSkin('loc'))}",
+      "Byakujou": "«Бякудзё»${nkLocale.get('ja:Skins.Byakujou')}",
+      "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Sekiban": "«Сэкибан»${nkLocale.get('ja:Skins.Sekiban')}",
+      "Azumatsuyu": "«Адзумацую»${nkLocale.get('ja:Skins.Azumatsuyu')}"
     },
 
     "console": "КОНСОЛЬ : Системный программный интерфейс",
@@ -74,7 +74,7 @@
     "Nkardaz": {
       "name": "Demer Nkardaz",
       "fursona": "Khertahiron — Original Character (Person)",
-      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${iLang('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
+      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${nkLocale.get('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
     },
 
     "links": {
@@ -101,11 +101,11 @@
     },
 
     "Skins": {
-      "Current": "Сurrent view: ${iLang(returnCurrentSkin('loc'))}",
-      "Byakujou": "“Byakujo${setDiacritic('place-macron', null, 0.255)}”${fromLang('Skins.Byakujou', 'ja')}",
-      "Aoguro-no Getsu": "“Aoguro-no Getsu”${fromLang('Skins.Aoguro-no Getsu', 'ja')}",
-      "Sekiban": "“Sekiban”${fromLang('Skins.Sekiban', 'ja')}",
-      "Azumatsuyu": "“Azumatsuyu”${fromLang('Skins.Azumatsuyu', 'ja')}"
+      "Current": "Сurrent view: ${nkLocale.get(returnCurrentSkin('loc'))}",
+      "Byakujou": "“Byakujo${setDiacritic('place-macron', null, 0.255)}”${nkLocale.get('ja:Skins.Byakujou')}",
+      "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
+      "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}"
     },
 
     "ContentLinks": "Content",
@@ -131,7 +131,7 @@
     "Sekiban": "“Sekiban”${fromLang('Sekiban', 'ja')}",
     "Azumatsuyu": "“Azumatsuyu”${fromLang('Azumatsuyu', 'ja')}",
 
-    "CurrentSkin": "Current view: ${iLang(returnCurrentSkin())}",
+    "CurrentSkin": "Current view: ${nkLocale.get(returnCurrentSkin())}",
 
     "console": "CONSOLE : System user interface",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
@@ -145,11 +145,11 @@
     "Nkardaz": {
       "name": "デマル・ナカルダス",
       "fursona": "ケルタヒロヌ、原キャラ（化身）",
-      "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${iLang('Nkardaz.name')}・全著作権所有｜"
+      "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${nkLocale.get('Nkardaz.name')}・全著作権所有｜"
     },
 
     "Skins": {
-      "Current": "現在の眺め：${iLang(returnCurrentSkin('loc'))}",
+      "Current": "現在の眺め：${nkLocale.get(returnCurrentSkin('loc'))}",
       "Byakujou": "「白城」",
       "Aoguro-no Getsu": "「青黒月」",
       "Sekiban": "「石盤」",

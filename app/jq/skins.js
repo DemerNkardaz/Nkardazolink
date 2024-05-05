@@ -77,11 +77,11 @@ window.setSkin = function (skin, saveToStorage) {
           });
         };
 
-        if (typeof cLang !== 'undefined' && typeof iLang !== 'undefined') {
-          $('[data-key="Skins.Current"]').html(iLang('Skins.Current'));
+        if (typeof nkLocale !== 'undefined' && typeof iLang !== 'undefined') {
+          $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current'));
         } else {
           languageLoaded(function () {
-            $('[data-key="Skins.Current"]').html(iLang('Skins.Current'));
+            $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current'));
           });
         }
       }

@@ -141,35 +141,60 @@ languageLoaded(function () {
       return eval('`' + locale + '`');
   };
 
-window.uLang = function (key) {
+  window.uLang = function (key) {
+
     const err = `<span>Ключ “${key}” ${NoAv}<br/>Функция <b>uLang(key)</b></span>`;
     const keys = key.split('.');
     let currentObj = cLang;
-    
+
     for (const k of keys) {
-        if (!currentObj || !currentObj[k]) {
-            const foundTranslation = Object.values(languageJSON).flatMap(langObj => {
-                let tempObj = langObj;
-                for (const k of keys) {
+      if (!currentObj || !currentObj[k]) {
+        const foundTranslation = Object.values(languageJSON).flatMap(langObj => {
+          let tempObj = langObj;
+                  for (const k of keys) {
                     if (!tempObj || !tempObj[k]) {
-                        tempObj = null;
-                        break;
+                      tempObj = null;
+                      break;
                     }
                     tempObj = tempObj[k];
-                }
-                return tempObj ? [tempObj] : [];
-            })[0];
-            
-            return foundTranslation ? textUnPacker(foundTranslation) : textUnPacker(err);
-        }
-        currentObj = currentObj[k];
-    }
-    
-    return textUnPacker(currentObj);
-};
+          }
+          return tempObj ? [tempObj] : [];
+        })[0];
 
+        return foundTranslation ? textUnPacker(foundTranslation) : textUnPacker(err);
+          }
+      currentObj = currentObj[k];
+    }
+
+    return textUnPacker(currentObj);
+  };
 
   window.iLang = function (key) {
     return eval('`' + uLang(key) + '`');
   };
+
+  window.nkLocale =
+  {
+    get: function (key) {
+      let keys, mode;
+      if (key.includes(':')) {
+        keys = key.split(':');
+        mode = keys[0];
+        key = keys[1];
+      }
+
+      if (supportedLanguages.includes(mode)) {
+        return fromLang(key, mode);
+      }
+
+      switch (mode) {
+        case 'u':
+          return uLang(key);
+        case 'c':
+          return cLang[key];
+        default:
+          return iLang(key);
+      }
+    }
+  }
 });

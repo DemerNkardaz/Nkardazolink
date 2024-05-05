@@ -205,7 +205,7 @@ languageLoaded(function () {/*
     }
 
     const uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
-    const tooltip = new tooltip_element({ tooltip: iLang(key) ? iLang(key) : key, tooltip_key: cLang[key] ? key : null, tooltip_pos: pos, id: uniqId });
+    const tooltip = new tooltip_element({ tooltip: nkLocale.get(key) ? nkLocale.get(key) : key, tooltip_key: nkLocale.get(`c:${key}`) ? key : null, tooltip_pos: pos, id: uniqId });
 
     target.setAttribute('data-tooltip_id', uniqId);
     document.body.appendChild(tooltip);

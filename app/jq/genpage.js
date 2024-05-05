@@ -76,7 +76,7 @@ const pageBuild = new Promise(function (resolve, reject) {
           links: {
             content: {
               ficbook: ({
-                LINK_Title: iLang('links.Ficbook'),
+                LINK_Title: nkLocale.get('links.Ficbook'),
                 LINK_Title_Key: 'links.Ficbook',
                 LINK_Source: 'https://ficbook.net/authors/4241255',
                 LINK_Types: ['writing'],
@@ -87,7 +87,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 Tooltip: { key: 'links.Anime_BlackClover_Tooltip', pos: 'right' }
               }),
               authorToday: ({
-                LINK_Title: iLang('links.AuthorToday'),
+                LINK_Title: nkLocale.get('links.AuthorToday'),
                 LINK_Title_Key: 'links.AuthorToday',
                 LINK_Source: 'https://author.today/u/demer_nkardaz',
                 LINK_Types: ['writing'],
@@ -97,7 +97,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 Tooltip: { key: 'links.Anime_Heike-monogatari', pos: 'right' }
               }),
               artStation: ({
-                LINK_Title: iLang('links.ArtStation'),
+                LINK_Title: nkLocale.get('links.ArtStation'),
                 LINK_Title_Key: 'links.ArtStation',
                 LINK_Source: 'https://www.artstation.com/demernkardaz',
                 LINK_Types: ['artwork', 'modeling', 'layout'],
@@ -107,7 +107,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 Tooltip: { key: 'links.Hachiman-jin_Tooltip', pos: 'right' }
               }),
               shagorRealmsCommunity: ({
-                LINK_Title: iLang('links.ShagorRealms'),
+                LINK_Title: nkLocale.get('links.ShagorRealms'),
                 LINK_Title_Key: 'links.ShagorRealms',
                 LINK_Source: 'https://vk.com/club203543966',
                 LINK_Types: ['artwork', 'modeling', 'layout', 'writing'],
@@ -117,7 +117,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 Tooltip: { key: 'links.Hachiman-jin_Tooltip', pos: 'right' }
               }),
               DTFBlog: ({
-                LINK_Title: iLang('links.DTF_Blog'),
+                LINK_Title: nkLocale.get('links.DTF_Blog'),
                 LINK_Title_Key: 'links.DTF_Blog',
                 LINK_Source: 'https://dtf.ru/u/266902-demer-nkardaz',
                 LINK_Types: ['artwork', 'modeling', 'layout', 'writing'],
@@ -128,7 +128,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 Arrow: { blend: 'color-burn' },
               }),
               NaedaKitetsugi: ({
-                LINK_Title: iLang('links.Naeda_Kitetsugi'),
+                LINK_Title: nkLocale.get('links.Naeda_Kitetsugi'),
                 LINK_Title_Key: 'links.Naeda_Kitetsugi',
                 LINK_Source: 'https://vk.com/public219642160',
                 LINK_Types: ['artwork'],
@@ -143,10 +143,10 @@ const pageBuild = new Promise(function (resolve, reject) {
           
             social: {
               shikimori: ({
-                LINK_Title: iLang('links.Shikimori'),
+                LINK_Title: nkLocale.get('links.Shikimori'),
                 LINK_Title_Key: 'links.Shikimori',
                 LINK_Source: 'https://shikimori.one/Демер+Нкардаз',
-                LINK_Subscript: iLang('links.Shikimori_description'),
+                LINK_Subscript: nkLocale.get('links.Shikimori_description'),
                 LINK_Subscript_Key: 'links.Shikimori_description',
                 LINK_Background: { image: 'https://i.imgur.com/QqfSX2E.png', color: `#ffcad4`, size: '100%', position: '50% 57%' },
                 LINK_Image: 'https://desu.shikimori.one/system/users/x160/1137748.png?1658010531',
@@ -155,10 +155,10 @@ const pageBuild = new Promise(function (resolve, reject) {
                 Tooltip: { key: 'links.Anime_Naruto_Tooltip', pos: 'right' }
               }),
               steam: ({
-                LINK_Title: iLang('links.Steam'),
+                LINK_Title: nkLocale.get('links.Steam'),
                 LINK_Title_Key: 'links.Steam',
                 LINK_Source: 'https://steamcommunity.com/profiles/76561198177249942',
-                LINK_Subscript: iLang('links.Steam_description'),
+                LINK_Subscript: nkLocale.get('links.Steam_description'),
                 LINK_Subscript_Key: 'links.Steam_description',
                 LINK_Background: { image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/570/51c2cf9ddfe8a170b458fc37ff55b083f6a5ec6c.jpg', color: `#2868ee`, size: '110%', position: '50% 25%' },
                 LINK_Image: 'https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/2022180/2b76687e49715a75da390cd0ff4f84f5c5382cb2.gif',
@@ -172,7 +172,7 @@ const pageBuild = new Promise(function (resolve, reject) {
           links: {
             content: {
               ficbook: ({
-                LINK_Title: iLang('links.Ficbook'),
+                LINK_Title: nkLocale.get('links.Ficbook'),
                 LINK_Title_Key: 'links.Ficbook',
                 LINK_Source: 'https://ficbook.net/authors/4241255',
                 LINK_Types: ['writing'],
@@ -211,24 +211,24 @@ const pageBuild = new Promise(function (resolve, reject) {
             <div class="personBannerWrapper ${(nkSettings.get('skin') === "sekiban" || nkSettings.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkSettings.get('skin')}" style="--banner: url(${nkPreferences.banner[nkSettings.get('current_banner')].url});" data-banner="${nkSettings.get('current_banner')}"></div></div>
             <div class="personAvatar">
               <span class="avatarWrapper ${nkSettings.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
-                <img src="resources/cherepkhed32_thumb.png" alt="${iLang('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">
+                <img src="resources/cherepkhed32_thumb.png" alt="${nkLocale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">
               </span>
               ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
             </div>
-            <div>Теставые букавы<span>${iLang('test')}</span><br/><span data-key="C.test"></span>${iLang('C.test')}
+            <div>Теставые букавы<span>${nkLocale.get('test')}</span><br/><span data-key="C.test"></span>${nkLocale.get('C.test')}
             </div>
-            <div class="lang-optionOwner">${nkUI.langList('row')}</div>${iLang('testqu')}
+            <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nkLocale.get('testqu')}
             `;
 
             main = `
             <div class="links_Wrapper">
-              <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${iLang('links.ContentLinks')}</span><hr></h2>
+              <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent" >
                 <div class="links_Grid" tooltip_key="Tess" tooltip_pos="left">
                   <anchor-contentLinks/>
                 </div>
               </div>
-              <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${iLang('links.SocialLinks')}</span><hr></h2>
+              <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent">
                 <div class="links_Grid">
                 <anchor-socialLinks/>
@@ -238,7 +238,7 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             footer = `
-            <span class="copyright"><span data-key="Nkardaz.copyright">${iLang('Nkardaz.copyright')}</span><span data-key="Skins.Current">${iLang('Skins.Current')}</span></span>
+            <span class="copyright"><span data-key="Nkardaz.copyright">${nkLocale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nkLocale.get('Skins.Current')}</span></span>
             <span class="ambientControls ms-auto me-3">
               <button nk-music="pause/play"><span class="material-icons">pause</span></button>
               <button nk-music="random"><span class="material-icons">shuffle</span></button>
@@ -248,7 +248,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="trackTime">00:00 / 00:00</div>
                 <div class="trackProgress"></div>
               </div>
-              ${nkUI.dropdown({ content: `${uLang('MusicCredits')}`, id: 'musicCredits', hide: false })}
+              ${nkUI.dropdown({ content: `${nkLocale.get('MusicCredits')}`, id: 'musicCredits', hide: false })}
             </span>`;
           }
           nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
