@@ -40,6 +40,15 @@ TREE IS A LINKTREE
 */
 
 
+window.nkSettings = new Map([
+  ["save_search_result", (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true')],
+  ["save_selected_item", (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false')],
+  ["turn_off_preloader", (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false')],
+  ["change_skin_by_time", (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false')],
+  ["current_banner", (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha')],
+  ["ambience_off", (loadSettings('ambience_off') ? loadSettings('ambience_off') : 'false')],
+]);
+
 window.savedSettings = {
   "save_search_result": (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true'),
   "save_selected_item": (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false'),

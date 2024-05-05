@@ -9,7 +9,9 @@ window.toStorage = function (key, value) {
 }
 
 window.saveSettings = function (key, value) {
+  nkSettings.set(key, value);
   window.toStorage(`savedSettings.${key}`, value);
+  console.log(`Settings saved: ${key} = ${value} : Map “${nkSettings.get(key)}” & Store “${loadSettings(key)}”`);
 }
 
 window.loadSettings = function (key) {
@@ -259,9 +261,13 @@ window.languageLoaded = function (callback) {
 };
 
 window.pageTriggerCallback = function (callback) {
-  $(document).on(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
-    callback();
-  });
+  if (typeof callback === 'function') {
+    $(document).on(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
+      callback();
+    });
+  } else if (typeof callback === 'string' && callback === 'return') {
+    return `${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`;
+  }
 };
 
 /*

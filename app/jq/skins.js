@@ -3,7 +3,7 @@ $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 
 const skinLoad = new Promise(function (resolve, reject) {
   pageTriggerCallback(function () {
-    savedSettings.change_skin_by_time === 'true' && setSkinByTime();
+    nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.log(`Skin assigned based on “Daytime” Preference`));
   }); resolve();
 });
 
@@ -85,6 +85,7 @@ window.setSkin = function (skin, saveToStorage) {
   });
   onSetSkin.then(function () {
     $(document).trigger('setSkin');
+    console.log(`Skin set to: “${returnCurrentSkin()}” : Locale key “${returnCurrentSkin('loc')}”`);
   });
 };
 
