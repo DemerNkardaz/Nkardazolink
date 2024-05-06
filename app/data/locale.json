@@ -1,5 +1,13 @@
 {
   "common": {
+    "RU": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Русский')}<br>${nkLocale.get('LangEl.Russia')}</span>",
+    "EN": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓English')}<br>${nkLocale.get('LangEl.UK/USA')}</span>",
+    "JA": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓日本語')}<br>${nkLocale.get('LangEl.Japan')}</span>",
+    "ZH": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓简体中文')}<br>${nkLocale.get('LangEl.China')}</span>",
+    "KO": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓한국어')}<br>${nkLocale.get('LangEl.Korea')}</span>",
+    "VI": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Tiếng Việt')}<br>${nkLocale.get('LangEl.Vietnam')}</span>",
+    "MO": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Молдовеняскэ')}<br>${nkLocale.get('LangEl.Moldova')}</span>",
+    "RO": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Română')}<br>${nkLocale.get('LangEl.Romania')}</span>",
     "Factorio": "Factorio"
   },
   "ru": {
@@ -7,6 +15,18 @@
       "name": "Демер Нкардаз",
       "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
       "copyright": "&copy;&nbsp;${nkLocale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
+    },
+
+    "LangEl": {
+      "temp" :"Язык «$(place)»",
+      "Russia": "Россия",
+      "UK/USA": "Англия/США",
+      "Japan": "Япония",
+      "China": "Китай",
+      "Korea": "Корея",
+      "Vietnam": "Вьетнам",
+      "Moldova": "Молдова",
+      "Romania": "Румыния"
     },
 
     "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${nkLocale.get('Nkardaz.name')}", "${nkLocale.get('test')}"],
@@ -75,6 +95,18 @@
       "name": "Demer Nkardaz",
       "fursona": "Khertahiron — Original Character (Person)",
       "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${nkLocale.get('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
+    },
+
+    "LangEl": {
+      "temp" :"Language “$(place)”",
+      "Russia": "Russia",
+      "UK/USA": "UK/USA",
+      "Japan": "Japan",
+      "China": "China",
+      "Korea": "Korea",
+      "Vietnam": "Vietnam",
+      "Moldova": "Moldova",
+      "Romania": "Romania"
     },
 
     "links": {

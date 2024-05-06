@@ -153,7 +153,7 @@ languageLoaded(function () {
       const sourceName = keyMap.get('source');
       if (sourceName && window.hasOwnProperty(sourceName)) {
         sourceLink = window[sourceName];
-        sourceLang = (keyMap.get('mode') !== null && supportedLanguages.includes(keyMap.get('mode'))) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
+        sourceLang = (keyMap.get('mode') !== null && (supportedLanguages.includes(keyMap.get('mode') || keyMap.get('mode') === 'common'))) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
         
       } else {
         console.error(`Variable ${sourceName} not found in global scope`);
@@ -173,16 +173,20 @@ languageLoaded(function () {
             if (sourceLink[lang].hasOwnProperty(k)) {
               localisedString = sourceLink[lang][k];
               keyFound = true;
-              break;н
+              break;
             }
           }
         }
       
         if (!keyFound) {
           console.error(`Key '${k}' not found in ${keyMap.get('source')}`);
-          return;
+          return `“${k}”&nbsp;${NoAv}`;
         }
       }
+    }
+
+    if (keyMap.get('placement') !== null) {
+      localisedString = localisedString.replace('$(place)', keyMap.get('placement'));
     }
 
     return textUnPacker(localisedString);
@@ -205,13 +209,14 @@ languageLoaded(function () {
       
       const keyMap = new Map([
         ['mode', mode],
-        ['key', remainingKey.split('>')[0]],
+        ['key', remainingKey.includes('↓') ? remainingKey.split('↓')[0].split('>')[0] : remainingKey.split('>')[0]],
+        ['placement', remainingKey.includes('↓') ? remainingKey.split('↓')[1].split('>')[0] : null],
         ['source', remainingKey.split('>')[1] || 'languageJSON' || null]
       ]);
 
       result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
 
-      if (keyMap.get('mode') !== 'c') return eval('`' + result + '`');
+      if (keyMap.get('mode') !== '0') return eval('`' + result + '`');
       return result;
     }
   }

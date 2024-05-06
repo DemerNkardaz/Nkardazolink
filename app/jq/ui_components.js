@@ -414,7 +414,7 @@ window.nkUI = {
       let component;
       const emoji = `<span class="ms-auto emoji_font">${language.emoji}</span>`;
       if (variant === 'row') {
-        component = `<span tabindex="0" class="lang-option inline" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${emoji}</span>`
+        component = `<span tooltip_key="${key.toUpperCase()}" tooltip_pos="top" tabindex="0" class="lang-option inline" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${emoji}</span>`
       } else {
         component = `<div tabindex="0" class="lang-option" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${language.name}&nbsp;${emoji}</div>`;
       }

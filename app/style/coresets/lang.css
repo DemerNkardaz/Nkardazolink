@@ -46,3 +46,10 @@
   gap: 5px;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
 }
+
+.lang-tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
