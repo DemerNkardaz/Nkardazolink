@@ -118,14 +118,16 @@ waitFor('title', () => {
 
 DataExtend([
   { type: 'data',  source: 'app/data/locale.json', as: 'languageJSON' },
+  { type: 'data',  source: 'app/data/license.json', as: 'licenseJSON' },
 ]);
 window.languageJSON = metaData['languageJSON'];
+window.licenseJSON = metaData['licenseJSON'];
 
 
 
 if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
   var mode = anUrlParameter.mode;
-  if (availableModes.includes(mode)) {
+  if (availableModes.includes(mode) && mode !== 'license') {
     DataExtend([
       { type: 'data', source: `app/data/${mode}.json`, as: `${mode}Item` }
     ]);

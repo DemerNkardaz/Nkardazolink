@@ -10,85 +10,55 @@ window.updateItemsLanguage = function () {
 }
 
 window.updateLanguageKeys = function ({ target, source } = {}) {
-  (source === null || source === undefined) && (cLang = languageJSON[nkSettings.get('lang')]);
-  
+  let sourceName;
   let key_elements = target ? $(target.selector) : $('[data-key], [alt-key]');
+  const sourcePromise = new Promise((resolve, reject) => {
+    try {
+      if (source !== null && source !== undefined) {
+        for (let key in window) {
+          if (window[key] === source) {
+            sourceName = key;
+            break;
+          }
+        }
+      };
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+  
 
   function update () {
     key_elements.each(function () {
       let dataKey = $(this).attr('data-key');
       let altKey = $(this).attr('alt-key');
+      let cutKey = $(this).attr('data-keyCutter');
       let key = target ? $(this).attr(target.attrib) : (dataKey || altKey);
-      let getLocale = getLocaleForKey({ key: key, source: source });
+      let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);
+      let interpolatedLocale = eval('`' + getLocale + '`');
 
-      let keyMSG = '';
+      //if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : ''}`); return };
 
-      if (!getLocale) {
-        keyMSG = generateErrorMessage(key);
-      }
-
-      getLocale = getLocale ? textUnPacker(getLocale) : (key ? keyMSG : null);
-
-      if (dataKey || key) {
-        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
-        $(this).html(interpolatedLocale);
-      }
-      if (altKey) {
-        let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
-        $(this).attr('alt', interpolatedLocale);
-      }
+      if (dataKey || key) $(this).html(interpolatedLocale);
+      if (altKey) $(this).attr('alt', interpolatedLocale);
+      
     });
   }; 
-  update();
 
-  $('*').filter(function () {
-    return this.shadowRoot !== null;
-  }).each(function () {
-    key_elements = $(this.shadowRoot).find('[data-key], [alt-key]');
+  sourcePromise.then(() => {
     update();
+  
+    $('*').filter(function () {
+      return this.shadowRoot !== null;
+    }).each(function () {
+      key_elements = target ? $(this.shadowRoot).find(target.selector) : $(this.shadowRoot).find('[data-key], [alt-key]');
+      update();
+    });
+  
+    $('html').attr('lang', nkSettings.get('lang'));
   });
-
-  $('html').attr('lang', nkSettings.get('lang'));
 };
-
-
-function getLocaleForKey({ key, source } = {}) {
-  const keys = key.split('.');
-  source = (source !== null && source !== undefined) ? source : languageJSON;
-  let currentLocale = source[nkSettings.get('lang')];
-
-  for (const k of keys) {
-    if (!currentLocale || !currentLocale.hasOwnProperty(k)) {
-      const foundTranslation = Object.values(source).flatMap(langObj => {
-        let tempLocale = langObj;
-        for (const k of keys) {
-          if (!tempLocale || !tempLocale.hasOwnProperty(k)) {
-            tempLocale = null;
-            break;
-          }
-          tempLocale = tempLocale[k];
-        }
-        return tempLocale ? [tempLocale] : [];
-      })[0];
-      
-      return foundTranslation ? foundTranslation : null;
-    }
-    currentLocale = currentLocale[k];
-  }
-  return currentLocale;
-}
-
-
-function generateErrorMessage(key) {
-  let parts = key.split('.');
-  let errorMessage = '';
-  let currentKey = '';
-  for (let part of parts) {
-    currentKey += (currentKey ? '.' : '') + part;
-    errorMessage += `${currentKey} ${NoAv}`;
-  }
-  return errorMessage;
-}
 
 
 window.switchLang = function (lang) {

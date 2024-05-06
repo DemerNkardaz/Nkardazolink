@@ -216,8 +216,11 @@ const pageBuild = new Promise(function (resolve, reject) {
           } else if (anUrlParameter.mode === 'tree') {
 
           } else if (anUrlParameter.mode === 'license') {
-            header = `<div data-test="Text">
-            </div>`;
+            header = `<div data-test="Text">${nkLocale.get('Text>licenseJSON')}</div>`;
+
+            footer = `<div>
+              ${nkLocale.get('Nkardaz.copyright', '&copy;')}
+            </div><div data-key="Nkardaz.copyright" data-keyCutter="&copy;"></div>`;
 
           } else if (anUrlParameter.mode === 'pattern') {
 
@@ -320,7 +323,7 @@ pageBuild.then(function () {
   $(document).on('')
   switch (anUrlParameter.mode) {
     case 'license':
-      $(document).on('licenseItem_loaded', () => updateLanguageKeys({ target: { selector: '[data-test]', attrib: 'data-test' }, source: licenseItem }));
+      $(document).on('licenseJSON_loaded', function () { updateLanguageKeys({ target: { selector: '[data-test]', attrib: 'data-test' }, source: licenseJSON }); });
       break;
   }
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);

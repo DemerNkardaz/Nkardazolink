@@ -114,86 +114,105 @@ window.anUrlParameter = {
 };
 (anUrlParameter.lang && supportedLanguages.includes(anUrlParameter.lang)) && nkSettings.set('lang', anUrlParameter.lang);
 
-
+const cutsLibrary = [
+  ['©', '&copy;'],
+  ['®', '&reg;'],
+  ['TM', '&trade;'],
+  ['£', '&pound;'],
+  ['$', '&#36;'],
+  ['€', '&euro;'],
+  ['¥', '&yen;'],
+  ['§', '&sect;'],
+  ['†', '&dagger;'],
+  ['‡', '&Dagger;'],
+  ['¶', '&para;'],
+  ['"', '&quot;'],
+  ["'", '&#39;'],
+  ['×', '&times;'],
+  ['÷', '&divide;'],
+  ['±', '&plusmn;'],
+  ['¬', '&not;'],
+  ['%', '&#37;'],
+  ['>', '&gt;'],
+  ['<', '&lt;'],
+  ['~', '&#126;'],
+  ['°', '&deg;'],
+  ['·', '&bull;'],
+  ['...', '&#8230;'],
+  ['⁂', '&darr;'],
+  ['⁃', '&uarr;'],
+  ['⁄', '&rarr;'],
+  ['⁅', '&larr;']
+];
 languageLoaded(function () {
-  function reservedKey(key) {
-    for (const lang in languageJSON) {
-      if (languageJSON[lang][key]) {
-        return languageJSON[lang][key];
+  function uLang(keyMap) {    
+    const nestedKeys = keyMap.get('key').split('.');
+    let sourceLink, sourceLang, localisedString;
+
+    ((keyMap) => {
+      const sourceName = keyMap.get('source');
+      if (sourceName && window.hasOwnProperty(sourceName)) {
+        sourceLink = window[sourceName];
+        sourceLang = (keyMap.get('mode') !== null && supportedLanguages.includes(keyMap.get('mode'))) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
+        
+      } else {
+        console.error(`Variable ${sourceName} not found in global scope`);
+      }
+    })(keyMap);
+    
+    localisedString = sourceLang;
+    for (let i = 0; i < nestedKeys.length; i++) {
+      const k = nestedKeys[i];
+      if (localisedString.hasOwnProperty(k)) {
+        localisedString = localisedString[k];
+      } else {
+        let keyFound = false;
+      
+        for (let lang in sourceLink) {
+          if (sourceLink.hasOwnProperty(lang)) {
+            if (sourceLink[lang].hasOwnProperty(k)) {
+              localisedString = sourceLink[lang][k];
+              keyFound = true;
+              break;н
+            }
+          }
+        }
+      
+        if (!keyFound) {
+          console.error(`Key '${k}' not found in ${keyMap.get('source')}`);
+          return;
+        }
       }
     }
-    return null;
-  }
 
-  window.cLang = languageJSON[nkSettings.get('lang')];
-  window.fromLang = function (key, lang) {
-      const err = `<span>Ключ “${key}” не найден в языке “${lang}”<br/>Функция <b>fromLang(key, lang)</b></span>`;
-      const keys = key.split('.');
-      let currentObj = languageJSON[lang];
-      for (const k of keys) {
-          if (!currentObj || !currentObj[k]) {
-              return textUnPacker(err);
-          }
-          currentObj = currentObj[k];
-      }
-      const locale = textUnPacker(currentObj);
-      return eval('`' + locale + '`');
+    return textUnPacker(localisedString);
   };
 
-  window.uLang = function (key) {
-
-    const err = `<span>Ключ “${key}” ${NoAv}<br/>Функция <b>uLang(key)</b></span>`;
-    const keys = key.split('.');
-    let currentObj = cLang;
-
-    for (const k of keys) {
-      if (!currentObj || !currentObj[k]) {
-        const foundTranslation = Object.values(languageJSON).flatMap(langObj => {
-          let tempObj = langObj;
-                  for (const k of keys) {
-                    if (!tempObj || !tempObj[k]) {
-                      tempObj = null;
-                      break;
-                    }
-                    tempObj = tempObj[k];
-          }
-          return tempObj ? [tempObj] : [];
-        })[0];
-
-        return foundTranslation ? textUnPacker(foundTranslation) : textUnPacker(err);
-          }
-      currentObj = currentObj[k];
+  window.nkLocale = {
+    get: function (key, cut) {
+    function cutter(str) {
+      cutsLibrary.forEach(pair => {
+        const [original, replacement] = pair;
+        const regex = new RegExp(replacement);
+        str = str.replace(regex, original);
+      });
+      return str.replace(cut, '');
     }
+      let result;
+      const parts = key.split(':');
+      const mode = parts.length > 1 ? parts.shift() : null;
+      const remainingKey = parts.join(':');
+      
+      const keyMap = new Map([
+        ['mode', mode],
+        ['key', remainingKey.split('>')[0]],
+        ['source', remainingKey.split('>')[1] || 'languageJSON' || null]
+      ]);
 
-    return textUnPacker(currentObj);
-  };
+      result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
 
-  window.iLang = function (key) {
-    return eval('`' + uLang(key) + '`');
-  };
-
-  window.nkLocale =
-  {
-    get: function (key) {
-      let keys, mode;
-      if (key.includes(':')) {
-        keys = key.split(':');
-        mode = keys[0];
-        key = keys[1];
-      }
-
-      if (supportedLanguages.includes(mode)) {
-        return fromLang(key, mode);
-      }
-
-      switch (mode) {
-        case 'u':
-          return uLang(key);
-        case 'c':
-          return cLang[key];
-        default:
-          return iLang(key);
-      }
+      if (keyMap.get('mode') !== 'c') return eval('`' + result + '`');
+      return result;
     }
   }
 });
