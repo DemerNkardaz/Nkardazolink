@@ -120,7 +120,7 @@ window.nkLocale = {
     } else {
       return console.error('[LOCALE] → Wrong type of key');
     }
-    console.log(keyMap);
+    //console.log(keyMap);
 
     result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
 
@@ -128,9 +128,6 @@ window.nkLocale = {
     return result;
   }
 }
-
-
-
 
 window.updateItemsLanguage = function () {
   let item_props = $('item-prop');
@@ -146,6 +143,31 @@ window.updateItemsLanguage = function () {
 window.nkLocale.langUpdate = function ({ target, source } = {}) {
   let sourceName;
   let key_elements = target ? $(target.selector) : $('[data-key], [alt-key]');
+  $('*').filter(function () {
+    return this.shadowRoot !== null;
+  }).each(function () {
+    const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key]');
+    key_elements = key_elements.add(shadowElements);
+  });
+
+
+  function update () {
+    key_elements.each(function () {
+      let dataKey = $(this).attr('data-key');
+      let altKey = $(this).attr('alt-key');
+      let cutKey = $(this).attr('data-keyCutter');
+      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey);
+      let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);
+      let interpolatedLocale = eval('`' + getLocale + '`');
+
+      if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : ''}`); return };
+
+      if (dataKey || key) $(this).html(interpolatedLocale);
+      if (altKey) $(this).attr('alt', interpolatedLocale);
+      
+    });
+  }; 
+
   const sourcePromise = new Promise((resolve, reject) => {
     try {
       if (source !== null && source !== undefined) {
@@ -161,37 +183,8 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
       reject(err);
     }
   });
-  
 
-  function update () {
-    key_elements.each(function () {
-      let dataKey = $(this).attr('data-key');
-      let altKey = $(this).attr('alt-key');
-      let cutKey = $(this).attr('data-keyCutter');
-      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey);
-      let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);
-      let interpolatedLocale = eval('`' + getLocale + '`');
-
-      //if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : ''}`); return };
-
-      if (dataKey || key) $(this).html(interpolatedLocale);
-      if (altKey) $(this).attr('alt', interpolatedLocale);
-      
-    });
-  }; 
-
-  sourcePromise.then(() => {
-    update();
-  
-    $('*').filter(function () {
-      return this.shadowRoot !== null;
-    }).each(function () {
-      key_elements = target ? $(this.shadowRoot).find(target.selector) : $(this.shadowRoot).find('[data-key], [alt-key]');
-      update();
-    });
-  
-    $('html').attr('lang', nkSettings.get('lang'));
-  });
+  sourcePromise.then(() => { update(); $('html').attr('lang', nkSettings.get('lang')) });
 };
 
 
@@ -199,18 +192,26 @@ window.nkLocale.switch = function (lang) {
   const switchPromise = new Promise((resolve, reject) => {
     try {
       const language = lang.toLowerCase();
+      if (!supportedLanguages.includes(language)) {
+        reject(new Error(`Language “${language}” is not supported.`));
+        return;
+      }
       saveSettings('lang', language);
       nkSettings.set('lang', language);
       resolve();
     } catch (err) {
+      console.error('Error while switching language:', err);
       reject(err);
     }
   });
 
   switchPromise.then(function () {
     nkLocale.langUpdate();
+  }).catch(function (error) {
+    console.error('Language switch failed:', error);
   });
 }
+
 
 window.cyclic_language = function () {
   let index = 0;
