@@ -16,7 +16,7 @@
       "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
       "copyright": "&copy;&nbsp;${nkLocale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
     },
-
+    "place25": "$(place_1) $(place_5) $(place_150) $(place_520)",
     "LangEl": {
       "temp" :"Язык «$(place)»",
       "Russia": "Россия",

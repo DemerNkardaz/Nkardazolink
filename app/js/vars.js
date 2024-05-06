@@ -144,6 +144,12 @@ const cutsLibrary = [
   ['⁄', '&rarr;'],
   ['⁅', '&larr;']
 ];
+window.loi = {
+  "ru": {
+    "based": "Этот текст имеет $(place_0), а ещё это $(place_150)",
+    "from": "Angular JS",
+  }
+}
 languageLoaded(function () {
   function uLang(keyMap) {    
     const nestedKeys = keyMap.get('key').split('.');
@@ -186,7 +192,20 @@ languageLoaded(function () {
     }
 
     if (keyMap.get('placement') !== null) {
-      localisedString = localisedString.replace('$(place)', keyMap.get('placement'));
+      const placeholder = keyMap.get('placement_counter') !== null ? `$(place_${keyMap.get('placement_counter')})` : '$(place)';
+      localisedString = localisedString.replace(placeholder, keyMap.get('placement'));
+    }
+    // sample of call nkLocale.get({mode: 'ru', key: 'based', placements: [['0', 'from'], ['150', 5+5]], source: 'loi'});
+
+    if ('placements' in keyMap || keyMap.has('placements')) {
+      const placements = keyMap.get('placements');
+      for (let i = 0; i < placements.length; i++) {
+        const placement = placements[i];
+        const placeholder = `$(place_${placement[1]})`;
+        localisedString = localisedString.replace(placeholder, placement[0])
+      }
+      console.log(placements);
+      console.log(localisedString);
     }
 
     return textUnPacker(localisedString);
@@ -203,16 +222,27 @@ languageLoaded(function () {
       return str.replace(cut, '');
     }
       let result;
-      const parts = key.split(':');
-      const mode = parts.length > 1 ? parts.shift() : null;
-      const remainingKey = parts.join(':');
+      const keyMap = new Map();
+
+      if (typeof key === 'object') {
+        keyMap.set('mode', key.mode || null).set('key', key.key || null).set('source', key.source || 'languageJSON' || null);
+        ('placement' in key) && keyMap.set('placement', key.placement || null).set('placement_counter', key.placement_counter || null);
+        ('placements' in key) && keyMap.set('placements', key.placements || null);
+
+      } else if (typeof key === 'string') {
+        const parts = key.split(':');
+        const mode = parts.length > 1 ? parts.shift() : null;
+        const remainingKey = parts.join(':');
       
-      const keyMap = new Map([
-        ['mode', mode],
-        ['key', remainingKey.includes('↓') ? remainingKey.split('↓')[0].split('>')[0] : remainingKey.split('>')[0]],
-        ['placement', remainingKey.includes('↓') ? remainingKey.split('↓')[1].split('>')[0] : null],
-        ['source', remainingKey.split('>')[1] || 'languageJSON' || null]
-      ]);
+        keyMap.set('mode', mode)
+              .set('key', remainingKey.includes('↓') ? remainingKey.split('↓')[0].split('>')[0] : remainingKey.split('>')[0])
+              .set('placement', remainingKey.includes('↓') ? remainingKey.split('↓')[1].split('>')[0].split('$')[0] : null)
+              .set('placement_counter', remainingKey.includes('$') ? remainingKey.split('$')[1].split('>')[0] : null)
+              .set('source', remainingKey.split('>')[1] || 'languageJSON' || null);
+      } else {
+        return console.error('[LOCALE] → Wrong type of key');
+      }
+      console.log(keyMap);
 
       result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
 
