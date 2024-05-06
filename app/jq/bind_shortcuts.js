@@ -115,7 +115,7 @@ $(document).on('click', '[data-language_selector]', function () {
   const lang = $(this).attr('value').toLowerCase();
   $('[data-language_selector]').attr('data-language_selector', '');
   $(this).attr('data-language_selector', 'selected');
-  switchLang(lang);
+  nkLocale.switch(lang);
 });
 
 

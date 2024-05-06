@@ -319,11 +319,11 @@ const pageBuild = new Promise(function (resolve, reject) {
 
 pageBuild.then(function () {
   console.buildType(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`, 'info');
-  updateLanguageKeys();
+  nkLocale.langUpdate();
   $(document).on('')
   switch (anUrlParameter.mode) {
     case 'license':
-      $(document).on('licenseJSON_loaded', function () { updateLanguageKeys({ target: { selector: '[data-test]', attrib: 'data-test' }, source: licenseJSON }); });
+      $(document).on('licenseJSON_loaded', function () { nkLocale.langUpdate({ target: { selector: '[data-test]', attrib: 'data-test' }, source: licenseJSON }); });
       break;
   }
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);

@@ -1,33 +1,14 @@
 const cutsLibrary = [
-  ['©', '&copy;'],
-  ['®', '&reg;'],
-  ['TM', '&trade;'],
-  ['£', '&pound;'],
-  ['$', '&#36;'],
-  ['€', '&euro;'],
-  ['¥', '&yen;'],
-  ['§', '&sect;'],
-  ['†', '&dagger;'],
-  ['‡', '&Dagger;'],
-  ['¶', '&para;'],
-  ['"', '&quot;'],
-  ["'", '&#39;'],
-  ['×', '&times;'],
-  ['÷', '&divide;'],
-  ['±', '&plusmn;'],
-  ['¬', '&not;'],
-  ['%', '&#37;'],
-  ['>', '&gt;'],
-  ['<', '&lt;'],
-  ['~', '&#126;'],
-  ['°', '&deg;'],
-  ['·', '&bull;'],
-  ['...', '&#8230;'],
-  ['⁂', '&darr;'],
-  ['⁃', '&uarr;'],
-  ['⁄', '&rarr;'],
-  ['⁅', '&larr;']
+  ['©', '&copy;'], ['®', '&reg;'], ['TM', '&trade;'], ['£', '&pound;'], ['$', '&#36;'], ['€', '&euro;'], ['¥', '&yen;'],
+  ['§', '&sect;'], ['†', '&dagger;'], ['‡', '&Dagger;'], ['¶', '&para;'], ['"', '&quot;'], ["'", '&#39;'], ['×', '&times;'],
+  ['÷', '&divide;'], ['±', '&plusmn;'], ['¬', '&not;'], ['%', '&#37;'], ['>', '&gt;'], ['<', '&lt;'], ['~', '&#126;'],
+  ['°', '&deg;'], ['·', '&bull;'], ['...', '&#8230;'], ['⁂', '&darr;'], ['⁃', '&uarr;'], ['⁄', '&rarr;'], ['⁅', '&larr;'],
+  ['⁆', '&harr;'], ['⁇', '&crarr;'], ['⁈', '&lceil;'], ['⁉', '&rceil;'], ['⁊', '&lfloor;'], ['⁋', '&rfloor;'], ['⁌', '&loz;'],
+  ['⁍', '&spades;'], ['⁎', '&clubs;'], ['⁏', '&hearts;'], ['⁐', '&diams;'], ['⁑', '&quot;'], ['⁒', '&#39;'], ['⁓', '&copy;'],
+  ['⁔', '&reg;'], ['⁕', '&trade;'], ['⁖', '&pound;'], ['⁗', '&#36;'], ['⁘', '&euro;'], ['⁙', '&yen;'], ['⁚', '&sect;'],
+  ['⁛', '&dagger;'], ['⁜', '&Dagger;'], ['⁝', '&para;'], ['⁞', '&quot;']
 ];
+
 /*
 window.loi = {
   "ru": {
@@ -151,18 +132,6 @@ window.nkLocale = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 window.updateItemsLanguage = function () {
   let item_props = $('item-prop');
 
@@ -174,7 +143,7 @@ window.updateItemsLanguage = function () {
   });
 }
 
-window.updateLanguageKeys = function ({ target, source } = {}) {
+window.nkLocale.langUpdate = function ({ target, source } = {}) {
   let sourceName;
   let key_elements = target ? $(target.selector) : $('[data-key], [alt-key]');
   const sourcePromise = new Promise((resolve, reject) => {
@@ -226,7 +195,7 @@ window.updateLanguageKeys = function ({ target, source } = {}) {
 };
 
 
-window.switchLang = function (lang) {
+window.nkLocale.switch = function (lang) {
   const switchPromise = new Promise((resolve, reject) => {
     try {
       const language = lang.toLowerCase();
@@ -239,7 +208,7 @@ window.switchLang = function (lang) {
   });
 
   switchPromise.then(function () {
-    updateLanguageKeys();
+    nkLocale.langUpdate();
   });
 }
 
@@ -247,7 +216,7 @@ window.cyclic_language = function () {
   let index = 0;
 
   setInterval(function () {
-    switchLang(supportedLanguages[index]);
+    nkLocale.switch(supportedLanguages[index]);
     index = (index + 1) % supportedLanguages.length;
   }, 1000);
 }
