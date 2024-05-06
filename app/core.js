@@ -126,6 +126,7 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
         window[as] = jsonData;
         $(document).trigger(`${as}_loaded`);
         await DataExtend(dataArray, callback, index + 1);
+        console.buildType(`Data loaded: ${as} : from file “${source}”`, 'success');
         return;
       }
     } catch (error) {

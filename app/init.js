@@ -125,11 +125,10 @@ window.languageJSON = metaData['languageJSON'];
 
 if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
   var mode = anUrlParameter.mode;
-  if (mode === 'kamon' || mode === 'banners' || mode === 'clans') {
+  if (availableModes.includes(mode)) {
     DataExtend([
-      { type: 'data', source: `app/data/${mode}.json`, as: `items.${mode}` }
+      { type: 'data', source: `app/data/${mode}.json`, as: `${mode}Item` }
     ]);
-    window.items[mode] = metaData[`items.${mode}`];
   } else {
     DataExtend([
       { type: 'data', source: 'app/data/portfolio.json', as: 'portfolioJSON' },

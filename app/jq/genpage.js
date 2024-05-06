@@ -205,6 +205,24 @@ const pageBuild = new Promise(function (resolve, reject) {
 
             });
 
+          } else if (anUrlParameter.mode === 'banners') {
+
+          } else if (anUrlParameter.mode === 'clans') {
+
+          } else if (anUrlParameter.mode === 'cv') {
+
+          } else if (anUrlParameter.mode === 'landing') {
+
+          } else if (anUrlParameter.mode === 'tree') {
+
+          } else if (anUrlParameter.mode === 'license') {
+            header = `<div data-test="Text">
+            </div>`;
+
+          } else if (anUrlParameter.mode === 'pattern') {
+
+          } else if (anUrlParameter.mode === 'reader') {
+
           } else {
             header = `
             ${nkSettings.get('skin') === "azumatsuyu" ? `<div class="personBannerBorder azumatsuyu wrap_border"></div>` : ''}
@@ -266,8 +284,23 @@ const pageBuild = new Promise(function (resolve, reject) {
         function generateContent() {
           if (anUrlParameter.mode === 'kamon') {
 
-          } else {
+          } else if (anUrlParameter.mode === 'banners') {
 
+          } else if (anUrlParameter.mode === 'clans') {
+
+          } else if (anUrlParameter.mode === 'cv') {
+
+          } else if (anUrlParameter.mode === 'landing') {
+
+          } else if (anUrlParameter.mode === 'tree') {
+
+          } else if (anUrlParameter.mode === 'license') {
+
+          } else if (anUrlParameter.mode === 'pattern') {
+
+          } else if (anUrlParameter.mode === 'reader') {
+
+          } else {
       
             nk.siteMainContainer.find('anchor-contentLinks').replaceWith(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }));
             nk.siteMainContainer.find('anchor-socialLinks').replaceWith(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }));
@@ -284,6 +317,12 @@ const pageBuild = new Promise(function (resolve, reject) {
 pageBuild.then(function () {
   console.buildType(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`, 'info');
   updateLanguageKeys();
+  $(document).on('')
+  switch (anUrlParameter.mode) {
+    case 'license':
+      $(document).on('licenseItem_loaded', () => updateLanguageKeys({ target: { selector: '[data-test]', attrib: 'data-test' }, source: licenseItem }));
+      break;
+  }
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
 });
 

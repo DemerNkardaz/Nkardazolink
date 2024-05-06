@@ -9,17 +9,17 @@ window.updateItemsLanguage = function () {
   });
 }
 
-
-
-window.updateLanguageKeys = function (target) {
-  cLang = languageJSON[nkSettings.get('lang')];
+window.updateLanguageKeys = function ({ target, source } = {}) {
+  (source === null || source === undefined) && (cLang = languageJSON[nkSettings.get('lang')]);
   
-  let key_elements = target ? $(target) : $('[data-key], [alt-key]');
+  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key]');
 
   function update () {
     key_elements.each(function () {
-      let key = $(this).attr('data-key') || $(this).attr('alt-key');
-      let getLocale = getLocaleForKey(key);
+      let dataKey = $(this).attr('data-key');
+      let altKey = $(this).attr('alt-key');
+      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey);
+      let getLocale = getLocaleForKey({ key: key, source: source });
 
       let keyMSG = '';
 
@@ -29,11 +29,11 @@ window.updateLanguageKeys = function (target) {
 
       getLocale = getLocale ? textUnPacker(getLocale) : (key ? keyMSG : null);
 
-      if ($(this).attr('data-key')) {
+      if (dataKey || key) {
         let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
         $(this).html(interpolatedLocale);
       }
-      if ($(this).attr('alt-key')) {
+      if (altKey) {
         let interpolatedLocale = getLocale ? eval('`' + getLocale + '`') : null;
         $(this).attr('alt', interpolatedLocale);
       }
@@ -51,13 +51,15 @@ window.updateLanguageKeys = function (target) {
   $('html').attr('lang', nkSettings.get('lang'));
 };
 
-function getLocaleForKey(key) {
+
+function getLocaleForKey({ key, source } = {}) {
   const keys = key.split('.');
-  let currentLocale = languageJSON[nkSettings.get('lang')];
+  source = (source !== null && source !== undefined) ? source : languageJSON;
+  let currentLocale = source[nkSettings.get('lang')];
 
   for (const k of keys) {
     if (!currentLocale || !currentLocale.hasOwnProperty(k)) {
-      const foundTranslation = Object.values(languageJSON).flatMap(langObj => {
+      const foundTranslation = Object.values(source).flatMap(langObj => {
         let tempLocale = langObj;
         for (const k of keys) {
           if (!tempLocale || !tempLocale.hasOwnProperty(k)) {

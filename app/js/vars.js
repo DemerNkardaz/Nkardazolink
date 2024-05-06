@@ -1,4 +1,3 @@
-window.items = {};
 window.nkPreferences = {
   skin: fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : null,
   banner: {
