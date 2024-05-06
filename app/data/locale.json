@@ -1,13 +1,14 @@
 {
   "common": {
-    "RU": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Русский')}<br>${nkLocale.get('LangEl.Russia')}</span>",
-    "EN": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓English')}<br>${nkLocale.get('LangEl.UK/USA')}</span>",
-    "JA": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓日本語')}<br>${nkLocale.get('LangEl.Japan')}</span>",
-    "ZH": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓简体中文')}<br>${nkLocale.get('LangEl.China')}</span>",
-    "KO": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓한국어')}<br>${nkLocale.get('LangEl.Korea')}</span>",
-    "VI": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Tiếng Việt')}<br>${nkLocale.get('LangEl.Vietnam')}</span>",
-    "MO": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Молдовеняскэ')}<br>${nkLocale.get('LangEl.Moldova')}</span>",
-    "RO": "<span class=\"lang-tooltip\">${nkLocale.get('LangEl.temp↓Română')}<br>${nkLocale.get('LangEl.Romania')}</span>",
+    "RU": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'Русский'}, { '1': nkLocale.get('LangEl.Russia') }]} ) }</span>",
+    "EN": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'English'}, { '1': nkLocale.get('LangEl.UK/USA') }]} ) }</span>",
+    "JA": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': '日本語'}, { '1': nkLocale.get('LangEl.Japan') }]} ) }</span>",
+    "ZH": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': '简体中文'}, { '1': nkLocale.get('LangEl.China') }]} ) }</span>",
+    "KO": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': '한국어'}, { '1': nkLocale.get('LangEl.Korea') }]} ) }</span>",
+    "VI": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'Tiếng Việt'}, { '1': nkLocale.get('LangEl.Vietnam') }]} ) }</span>",
+    "MO": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'Молдовеняскэ'}, { '1': nkLocale.get('LangEl.Moldova') }]} ) }</span>",
+    "RO": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'Română'}, { '1': nkLocale.get('LangEl.Romania') }]} ) }</span>",
+
     "Factorio": "Factorio"
   },
   "ru": {
@@ -18,7 +19,7 @@
     },
     "place25": "$(place_1) $(place_5) $(place_150) $(place_520)",
     "LangEl": {
-      "temp" :"Язык «$(place)»",
+      "temp" :"Язык «$(place_0)»<br>$(place_1)",
       "Russia": "Россия",
       "UK/USA": "Англия/США",
       "Japan": "Япония",
