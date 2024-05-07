@@ -17,7 +17,7 @@ import './jq/ui_components.js';
 import './init.js';
 import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
-import './jq/tooltips.js';
+isMobileDevice() !== true && import('./jq/tooltips.js');
 import './jq/utils.js';
 import './jq/localisation.js';
 import './jq/genpage.js';

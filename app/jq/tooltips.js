@@ -46,7 +46,7 @@ pageTriggerCallback(function () {
         target.on('click', function (e) {
           if (!$(e.target).closest('.tl-close').length && ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined)) {
             $(this).attr('data-prevent_close', 'true').addClass('tl-pinned tl-highlight');
-            setTimeout(() => $(this).removeClass('tl-highlight'), 150);
+            setTimeout(() => $(this).removeClass('tl-highlight'), 100);
           }
         });
         target.on('mouseenter', function () {
@@ -215,5 +215,5 @@ pageTriggerCallback(function () {
   tooltipParents.on('mouseenter', function () { tooltipOperations(this) });
   tooltipParents.on('mouseleave', function () { tooltipLeave(this) });
     
-
+  console.buildType('[TOOLTIP] → Tooltips Initialized', 'success');
 });

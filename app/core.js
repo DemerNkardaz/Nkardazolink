@@ -1,5 +1,13 @@
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
+window.isMobileDevice = function () {
+  let chk = false;
+  const isMobile = /Android|MIUI|Galaxy|Xiaomi|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile/i.test(navigator.userAgent);
+  (isMobile && window.screen.width <= 600 /*&& window.navigator.maxTouchPoints > 1*/) ? chk = true : chk = false;
+  return chk;
+}
+
+
 window.console.buildType = function (message, type) {
   let styles = 'font-size: 12px; padding-inline: 5px; width: 100%; height: 24px; display: inline-flex; align-items: center; justify-content: start;';
   let marker;
