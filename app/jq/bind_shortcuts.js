@@ -178,19 +178,26 @@ languageLoaded(function () {
       const ownerId = $(owner).attr('data-tooltip_id');
       const targetPromise = new Promise((resolve, reject) => {
         try {
+          target.on('click', function () {
+            if ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined) {
+              $(this).attr('data-prevent_close', 'true');
+            }
+          });
           target.on('mouseenter', function () {
             $(this).css('opacity', 1);
             !$(this).find('.tl-close').length ? $(this).append('<div class="tl-close">close</div>') : null;
             clearTimeout(timers_array[ownerId]);
           });
           target.on('mouseleave', function () {
-            const timer = setTimeout(() => {
-              const onProgress = new Promise((resolve) => { $(this).css('opacity', 0); resolve(); });
-              onProgress.then(() => { setTimeout(() => $(this).remove(), 320); });
-              $(ownerId).removeAttr('data-tooltip_id');
-            }, 750);
-            timers_array[ownerId] = timer;
-          })
+            if ($(this).attr('data-prevent_close') !== 'true') {
+              const timer = setTimeout(() => {
+                const onProgress = new Promise((resolve) => { $(this).css('opacity', 0); resolve(); });
+                onProgress.then(() => { setTimeout(() => $(this).remove(), 320); });
+                $(ownerId).removeAttr('data-tooltip_id');
+              }, 750);
+              timers_array[ownerId] = timer;
+            }
+          });
           resolve();
         } catch (error) {
           reject(error);
