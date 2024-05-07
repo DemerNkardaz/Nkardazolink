@@ -2,14 +2,25 @@ window.localHostIP = window.location.href.startsWith("http://localhost") || wind
 
 window.console.buildType = function (message, type) {
   let styles = 'font-size: 12px; padding-inline: 5px; width: 100%; height: 24px; display: inline-flex; align-items: center; justify-content: start;';
+  let marker;
   switch (type) {
-    case 'error': styles += 'color: white; background-color: red;'; break;
-    case 'info': styles += 'color: white; background-color: blue;'; break;
-    case 'success': styles += 'color: white; background-color: limegreen;'; break;
-    case 'warning': styles += 'color: #b8a66b; background-color: #fffbd6;'; break;
+    case 'error': styles += 'color: #ff3f3f; background-color: #ffdada;'; marker = '🚫'; break;
+    case 'info': styles += 'color: #2c6c9e; background-color: #d6f0ff;'; marker = 'ℹ️'; break;
+    case 'success': styles += 'color: #3f9e3f; background-color: #c3ffc3;'; marker = '✅'; break;
+    case 'warning': styles += 'color: #988958; background-color: #fffbd6;'; marker = '⚠️'; break;
     default: styles += 'color: black;'; break;
   }
-  return console.info('%c' + message, styles);
+  return console.log(`%c${marker} ${message}`, styles);
+};
+
+window.collectTargets = function (target) {
+  let targetsCollection = $(target);
+  $('*').filter(function () {
+    return this.shadowRoot !== null;
+  }).each(function () {
+    targetsCollection = targetsCollection.add($(this.shadowRoot).find(target));
+  });
+  return targetsCollection;
 };
 
 window.fromStorage = function (key, isJSON) {

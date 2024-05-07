@@ -39,7 +39,7 @@ function uLang(keyMap) {
         }
       }
     } else {
-      console.error(`Variable ${sourceName} not found in global scope`);
+      console.buildType(`Variable ${sourceName} not found in global scope`, 'error');
     }
   })(keyMap);
     
@@ -62,7 +62,7 @@ function uLang(keyMap) {
       }
       
       if (!keyFound) {
-        console.error(`Key '${k}' not found in ${keyMap.get('source')}`);
+        console.buildType(`Key '${k}' not found in ${keyMap.get('source')}`, 'error');
         return `“${k}”&nbsp;${NoAv}`;
       }
     }
