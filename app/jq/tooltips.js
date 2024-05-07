@@ -1,13 +1,19 @@
 pageTriggerCallback(function () {
   let tooltipParents = collectTargets('[tooltip_key]');
+  let tooltipParentsIdes = collectTargets('[data-tooltip_id]');
   let timers_array = {};
   let offsetInterval;
   let detectedTooltips = false;
 
-  const tooltipOberserver = new MutationObserver(mutations => {
+  const tooltipObserver = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
-      if (mutation.type === 'attributes') {
+      if (mutation.type === 'attributes' || mutation.type === 'childList') {
         const newTooltipParents = collectTargets('[tooltip_key]');
+        const newTooltipParentsIdes = collectTargets('[data-tooltip_id]');
+
+        if (!areCollectionsEqual(tooltipParentsIdes, newTooltipParentsIdes)) {
+          tooltipParentsIdes = newTooltipParentsIdes;
+        }
 
         if (!areCollectionsEqual(tooltipParents, newTooltipParents)) {
           tooltipParents = newTooltipParents;
@@ -16,13 +22,27 @@ pageTriggerCallback(function () {
           tooltipParents.on('mouseenter', function () { tooltipOperations(this) });
           tooltipParents.on('mouseleave', function () { tooltipLeave(this) });
 
+  
           console.buildType('[TOOLTIP] → Collection of tooltips is updated', 'warning');
         }
+        
+        const tooltipElements = $('tooltip-element');
+        tooltipElements.each(function () {
+          const tooltipId = $(this).attr('id');
+          const found = tooltipParentsIdes.toArray().some(parent => parent.getAttribute('data-tooltip_id') === tooltipId);
+          if (!found) {
+            $(this).css('opacity', 0);
+            setTimeout(() => {
+              $(this).remove();
+            }, 300);
+          }
+        });
+        
       }
     });
   });
 
-  tooltipOberserver.observe(document, { childList: true, subtree: true, attributes: true, attributeFilter: ['tooltip_key'] });
+  tooltipObserver.observe(document, { childList: true, subtree: true, attributes: true, attributeFilter: ['tooltip_key'] });
 
   function areCollectionsEqual(collection1, collection2) {
     if (collection1.length !== collection2.length) {
@@ -137,7 +157,6 @@ pageTriggerCallback(function () {
         target: hrefTarget || '_blank'
       });
       previewEntity = new tooltip_preview(previewParams);
-      console.log(previewEntity);
       tooltip = new tooltip_element({
         tooltip: previewEntity,
         tooltip_role: 'preview',
