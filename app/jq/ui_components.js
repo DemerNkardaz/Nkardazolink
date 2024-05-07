@@ -346,13 +346,14 @@ window.item_create = function () {
 }; item_create();
 
 class tooltip_element extends HTMLElement {
-  constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, id } = {}) {
+  constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, id } = {}) {
     super();
     const component = `
     <div class="tl-arrow" ${tooltip_pos ? `tooltip-pos="${tooltip_pos}"` : 'tooltip-pos="bottom"'}></div>
-    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview>${tooltip.innerHTML}</tooltip-preview>`}</div>
+    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview>${tooltip.innerHTML}</tooltip-preview>`}</div>
     `;
     (id ? $(this).attr('id', id) : '');
+    (tooltip_classes ? $(this).addClass(tooltip_classes) : '');
     $(this).attr('role', 'tooltip');
     this.innerHTML = component;
   }

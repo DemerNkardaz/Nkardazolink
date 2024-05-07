@@ -129,9 +129,11 @@ pageTriggerCallback(function () {
   function tooltipOperations(target) {
     const key = $(target).attr('tooltip_key');
     const pos = $(target).attr('tooltip_pos') || 'top';
-    const role = $(target).attr('tooltip_role');
-    const href = $(target).attr('href');
+    const role = $(target).attr('tooltip_role') || null;
+    const href = $(target).attr('href') || null;
     const hrefTarget = $(target).attr('href_target');
+    const customs = $(target).attr('tooltip_customs') || null;
+    const classes = $(target).attr('tooltip_classes') || null;
     let tooltip, previewEntity;
 
     if ($(`#${$(target).attr('data-tooltip_id')}`).length) {
@@ -168,13 +170,13 @@ pageTriggerCallback(function () {
       tooltip = new tooltip_element({
         tooltip: previewEntity,
         tooltip_role: 'preview',
-        tooltip_pos: pos, id: uniqId
+        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null
       });
     } else {
       tooltip = new tooltip_element({
         tooltip: nkLocale.get(key) ? nkLocale.get(key) : key,
         tooltip_key: nkLocale.get(`${key}`) ? key : null,
-        tooltip_pos: pos, id: uniqId
+        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null
       });
     }
 
