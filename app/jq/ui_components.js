@@ -358,6 +358,10 @@ class tooltip_element extends HTMLElement {
   }
 
   connectedCallback() {
+    const $this = $(this);
+    if ($this.find('tooltip-preview').length) {
+      $this.addClass('tl-preview');
+    }
   }
 }
 
@@ -368,7 +372,7 @@ class tooltip_preview extends HTMLElement {
   constructor({ image, content, subscript, link } = {}) {
     super();
     const component = `${link ? `<a href="${link.src}" ${link.target ? `target="${link.target}"` : ''}>` : ''}
-    ${image ? `<img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" ${image.shift ? `style="--shift: ${image.shift};"` : ''}>` : ''}
+    ${image ? `<div class="Preview_tooltip-imgWrapper" ${image.h ? `style="--h: ${image.h}px;"` : ''}><img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" ${image.shift ? `style="--shift: ${image.shift};"` : ''}></div>` : ''}
     <div class="Preview_tooltip-content vert-border-alpha-0" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
     ${subscript && subscript.text ? `<div class="Preview_tooltip-subscript" data-key="${subscript.key}">${subscript.text}</div>` : ''}
     ${link ? `</a>` : ''}`;

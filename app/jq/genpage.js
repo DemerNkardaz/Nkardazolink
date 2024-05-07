@@ -249,7 +249,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="links_Grid" tooltip_key="Tess" tooltip_pos="left">
                   <anchor-contentLinks/>
                 </div>
-              </div><span tooltip_key=\"Nkardaz.name\" tooltip_pos=\"right\">[?]</span>
+              </div>
               <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent">
                 <div class="links_Grid">

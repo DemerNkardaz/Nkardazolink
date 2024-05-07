@@ -32,8 +32,7 @@
 
     "prevtest": { 
       "preview": {
-        "image": "https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png",
-        "shift": "center -100px",
+        "image": {"src":"https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png", "shift":"center -100px"},
         "content": [
           "${nkUI.tooltipInfo.header('Клан Мацудайра', 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@32px.png')}",
           "<p>Древний клан на Нихонсёто(⁛macron⁛)${nkUI.tooltipInfo.quest('NihonshotoDesc', 'right')}, ведущий свою родословную к роду Минамото и к древним тэнно(⁛macron⁛).</p>"
@@ -114,8 +113,7 @@
 
     "prevtest": { 
       "preview": {
-        "image": "https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png",
-        "shift": "center -100px",
+        "image": {"src":"https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png", "shift":"center -100px"},
         "content": [
           "${nkUI.tooltipInfo.header('The Matsudaira Clan', 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@32px.png')}",
           "<p>An ancient clan of Nihonshoto(⁛macron⁛)${nkUI.tooltipInfo.quest('NihonshotoDesc', 'right')}, descending one's lineage from Minamoto, and to the elden tenno(⁛macron⁛).</p>",

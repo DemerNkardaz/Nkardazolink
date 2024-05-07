@@ -119,6 +119,7 @@ pageTriggerCallback(function () {
   };
 
 
+
   function tooltipOperations(target) {
     const key = $(target).attr('tooltip_key');
     const pos = $(target).attr('tooltip_pos') || 'top';
@@ -142,16 +143,17 @@ pageTriggerCallback(function () {
 
     if (role !== undefined && role === 'preview') {
       let previewParams = {};
-      nkLocale.get(`${key}.preview.image`) && (previewParams.image = { src: nkLocale.get(`${key}.preview.image`) });
-      nkLocale.get(`${key}.preview.shift`) && (previewParams.image.shift = nkLocale.get(`${key}.preview.shift`));
-      nkLocale.get(`${key}.preview.content`) && (previewParams.content = {
-        text: nkLocale.get(`${key}.preview.content`),
+      nkLocale.get(`check:${key}.preview.image.src`) ? (previewParams.image = { src: nkLocale.get(`${key}.preview.image.src`) }) : null;
+      nkLocale.get(`check:${key}.preview.image.shift`) ? (previewParams.image.shift = nkLocale.get(`${key}.preview.image.shift`)) : null;
+      nkLocale.get(`check:${key}.preview.image.h`) ? (previewParams.image.h = nkLocale.get(`${key}.preview.image.h`)) : null;
+      nkLocale.get(`check:${key}.preview.content`) ? (previewParams.content = {
+        text: nkLocale.get(`check:${key}.preview.content`),
         key: `${key}.preview.content`
-      });
-      nkLocale.get(`${key}.preview.subscript`) && (previewParams.subscript = {
-        text: nkLocale.get(`${key}.preview.subscript`),
+      }) : null;
+      nkLocale.get(`check:${key}.preview.subscript`) ? (previewParams.subscript = {
+        text: nkLocale.get(`check:${key}.preview.subscript`),
         key: `${key}.preview.subscript`
-      });
+      }) : null;
       href && (previewParams.link = {
         src: href,
         target: hrefTarget || '_blank'

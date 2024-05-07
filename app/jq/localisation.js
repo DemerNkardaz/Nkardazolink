@@ -62,8 +62,9 @@ function uLang(keyMap) {
       }
       
       if (!keyFound) {
-        console.buildType(`Key '${k}' not found in ${keyMap.get('source')}`, 'error');
-        return `“${k}”&nbsp;${NoAv}`;
+        //console.buildType(`Key '${k}' not found in ${keyMap.get('source')}`, 'error');
+        //return `“${k}”&nbsp;${NoAv}`;
+        return null;
       }
     }
   }
@@ -123,7 +124,12 @@ window.nkLocale = {
     //console.log(keyMap);
 
     result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
-
+    if (result === null && keyMap.get('mode') !== 'check') {
+      console.buildType(`Key “${keyMap.get('key')}” not found in ${keyMap.get('source')}`, 'error');
+      return `${key}&nbsp;${NoAv}`;
+    } else if (result === null && keyMap.get('mode') === 'check') {
+      return;
+    }
     if (keyMap.get('mode') !== '0') return eval('`' + result + '`');
     return result;
   }
