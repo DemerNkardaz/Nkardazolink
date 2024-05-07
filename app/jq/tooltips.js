@@ -204,7 +204,7 @@ pageTriggerCallback(function () {
     });
   });
 
-  checkForLivingTooltips.observe(document.body, { childList: true, subtree: true });
+  checkForLivingTooltips.observe(document.body, { childList: true, subtree: false });
   function tooltipOffsetInterval(close) { (close && close === true) ? clearInterval(offsetInterval) : offsetInterval = setInterval(updateTooltipPos, 50) };
 
   tooltipParents.on('mouseenter', function () { tooltipOperations(this) });
