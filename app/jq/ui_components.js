@@ -369,7 +369,7 @@ class tooltip_preview extends HTMLElement {
     super();
     const component = `${link ? `<a href="${link.src}" ${link.target ? `target="${link.target}"` : ''}>` : ''}
     ${image ? `<img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" ${image.shift ? `style="--shift: ${image.shift};"` : ''}>` : ''}
-    <div class="Preview_tooltip-content" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
+    <div class="Preview_tooltip-content vert-border-alpha-0" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
     ${subscript && subscript.text ? `<div class="Preview_tooltip-subscript" data-key="${subscript.key}">${subscript.text}</div>` : ''}
     ${link ? `</a>` : ''}`;
     $(this).addClass('Preview_tooltip');
