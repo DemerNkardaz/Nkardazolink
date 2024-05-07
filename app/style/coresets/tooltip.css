@@ -14,11 +14,14 @@
     z-index: 1080;
     cursor: pointer;
 
+    &.tl-highlight {filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
+    &.tl-downed {transition: all 0.3s ease; filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
+
     &[data-prevent_close="true"] {
+      user-select: text;
       cursor: unset;
       &.tl-pinned {
         transition: all 0.3s ease;
-        &.tl-highlight {filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
       
 
         &::before {
@@ -49,7 +52,6 @@
   
     &.show {
       pointer-events: all;
-      user-select: text;
     }
   
     & .tl-content {
@@ -93,6 +95,7 @@
           height: var(--h);
           max-height: var(--h);
           overflow: hidden;
+          transition: all 0.3s ease;
 
           & img.Preview_tooltip-img {
             --shift: center;
@@ -101,6 +104,18 @@
             object-fit: cover;
             scale: 1.05;
             object-position: var(--shift);
+            transition: all 0.3s ease;
+          }
+
+          &:hover {
+            & img.Preview_tooltip-img {
+              scale: 1.5;
+            }
+          }
+          &:active {
+            & img.Preview_tooltip-img {
+              scale: 1.2;
+            }
           }
         }
         & .Preview_tooltip-content {
