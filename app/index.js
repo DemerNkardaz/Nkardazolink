@@ -17,14 +17,15 @@ import './jq/ui_components.js';
 import './init.js';
 import './jq/jquery_core.js';
 import './jq/bind_shortcuts.js';
+import './jq/tooltips.js';
 import './jq/utils.js';
 import './jq/localisation.js';
 import './jq/genpage.js';
 /*-- --------------- AFTERINIT ---------------- --*/
 
-export async function HTMX_INIT() {
-  await import('https://unpkg.com/htmx.org@latest/dist/htmx.min.js');
-}
+//export async function HTMX_INIT() {
+//  await import('https://unpkg.com/htmx.org@latest/dist/htmx.min.js');
+//}
 
 /*-- --------------- ENDPOINT_INIT ---------------- --*/
 window.ENDPOINT_INIT = function() {
