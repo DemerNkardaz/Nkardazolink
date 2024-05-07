@@ -200,10 +200,48 @@ pageTriggerCallback(function () {
       console.error(error);
     });
   };
+  function isElementInViewport(el) {
+    let isVisible = true;
+    let parent = el.parentElement;
   
+    while (parent !== null) {
+      const parentRect = parent.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const parentStyle = window.getComputedStyle(parent);
+
+      const parentOverflowX = parentStyle.overflowX;
+      const parentOverflowY = parentStyle.overflowY;
+      const parentScrollableX = parentOverflowX === 'auto' || parentOverflowX === 'scroll';
+      const parentScrollableY = parentOverflowY === 'auto' || parentOverflowY === 'scroll';
+
+      if (parentScrollableX && (elRect.left < parentRect.left || elRect.right > parentRect.right)) {
+        isVisible = false;
+        break;
+      }
+
+      if (parentScrollableY && (elRect.top < parentRect.top || elRect.bottom > parentRect.bottom)) {
+        isVisible = false;
+        break;
+      }
+
+      parent = parent.parentElement;
+    }
+    if (isVisible) {
+      const rect = el.getBoundingClientRect();
+      const buffer = 100;
+      isVisible = (
+        rect.top >= -(el.offsetHeight + buffer) &&
+        rect.left >= -(el.offsetWidth + buffer) &&
+        rect.bottom <= (window.innerHeight + (el.offsetHeight + buffer) || document.documentElement.clientHeight + (el.offsetHeight + buffer)) &&
+        rect.right <= (window.innerWidth + (el.offsetWidth + buffer) || document.documentElement.clientWidth + (el.offsetWidth + buffer))
+      );
+    }
+    return isVisible;
+  }
+
   function calcTooltipPos(id, pos, target) {
     const tooltip = document.getElementById(id);
-    const parent = document.querySelector(`[data-tooltip_id="${id}"]`) || target.closest('[data-tooltip_id]');
+    const parent = tooltipParents.toArray().find(parent => parent.getAttribute('data-tooltip_id') === id);
 
     const parentOffset = parent.getBoundingClientRect();
     const tooltipWidth = tooltip.offsetWidth;
@@ -217,35 +255,7 @@ pageTriggerCallback(function () {
       left: { top: parentOffset.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left - tooltip.offsetWidth - 15 },
       right: { top: parentOffset.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left + parent.offsetWidth + 15 }
     }
-    function isElementInViewport(el) {
-      let isVisible = true;
-      let parent = el.parentElement;
-  
-      while (parent !== null) {
-        const parentRect = parent.getBoundingClientRect();
-        const elRect = el.getBoundingClientRect();
-        const parentStyle = window.getComputedStyle(parent);
 
-        const parentOverflowX = parentStyle.overflowX;
-        const parentOverflowY = parentStyle.overflowY;
-        const parentScrollableX = parentOverflowX === 'auto' || parentOverflowX === 'scroll';
-        const parentScrollableY = parentOverflowY === 'auto' || parentOverflowY === 'scroll';
-
-        if (parentScrollableX && (elRect.left < parentRect.left || elRect.right > parentRect.right)) {
-          isVisible = false;
-          break;
-        }
-
-        if (parentScrollableY && (elRect.top < parentRect.top || elRect.bottom > parentRect.bottom)) {
-          isVisible = false;
-          break;
-        }
-
-        parent = parent.parentElement;
-      }
-
-      return isVisible;
-    }
 
     function returnPoses() {
       if (pos === 'bottom') {
@@ -283,7 +293,7 @@ pageTriggerCallback(function () {
 
     const ownerId = tooltipParents.toArray().find(parent => parent.getAttribute('data-tooltip_id') === id);
     if (ownerId) {
-      const owner = ownerId; // Получаем элемент owner
+      const owner = ownerId;
       let ownerVisible = isElementInViewport(owner);
       if (!ownerVisible) {
         const timer = setTimeout(() => {
@@ -316,18 +326,18 @@ pageTriggerCallback(function () {
       const tooltipRightPos = calc_pos.left + tooltip.offsetWidth;
       const tooltipBottomPos = calc_pos.top + tooltip.offsetHeight;
 
-      if (calc_pos.left < 5) {
-        calc_pos = defCalcs.right;
-        children.attr('tooltip-pos', 'right');
-      } else if ((tooltipRightPos + 15) > window.innerWidth) {
-        calc_pos = defCalcs.left;
-        children.attr('tooltip-pos', 'left');
-      } else if (calc_pos.top < 5) {
+      if (calc_pos.top < 5) {
         calc_pos = defCalcs.bottom;
         children.attr('tooltip-pos', 'bottom');
       } else if ((tooltipBottomPos + 15) > window.innerHeight) {
         calc_pos = defCalcs.top;
         children.attr('tooltip-pos', 'top');
+      } else if (calc_pos.left < 5) {
+        calc_pos = defCalcs.right;
+        children.attr('tooltip-pos', 'right');
+      } else if ((tooltipRightPos + 15) > window.innerWidth) {
+        calc_pos = defCalcs.left;
+        children.attr('tooltip-pos', 'left');
       }
     }
 
