@@ -138,14 +138,14 @@ if (nkSettings.get('save_selected_item') !== 'true') {
 /* ------------------- FOOTNOTE ------------------- */
 $(document).on('mouseenter', '.foot-note', function () {
   var key = $(this).attr('key');
-  var target = $(`[tooltip_key="${key}"]`);
+  var target = $(`[data-tooltip-key="${key}"]`);
 
   target ? (target.addClass('show_note'), $(this).addClass('show_note')) : '';
 });
 
 $(document).on('click', '.foot-note', function () {
   var key = $(this).attr('key');
-  var target = $(`[tooltip_key="${key}"]`);
+  var target = $(`[data-tooltip-key="${key}"]`);
   var scroll_body = $(this).attr('scroll_body');
   (target && target.length ?
     (target.addClass('note_active show_note'),
@@ -163,7 +163,7 @@ $(document).on('click', '.foot-note', function () {
 
 $(document).on('mouseleave', '.foot-note', function () {
   if (!$(this).hasClass('note_active')) {
-    $(`[tooltip_key]`).removeClass('show_note');
+    $(`[data-tooltip-key]`).removeClass('show_note');
     $(this).removeClass('show_note');
   }
 });

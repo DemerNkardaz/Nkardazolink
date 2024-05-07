@@ -349,12 +349,11 @@ class tooltip_element extends HTMLElement {
   constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, id } = {}) {
     super();
     const component = `
-    <div class="tl-arrow" ${tooltip_pos ? `tooltip-pos="${tooltip_pos}"` : 'tooltip-pos="bottom"'}></div>
+    <div class="tl-arrow" ${tooltip_pos ? `data-parent-tooltip-pos="${tooltip_pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
     <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview>${tooltip.innerHTML}</tooltip-preview>`}</div>
     `;
-    (id ? $(this).attr('id', id) : '');
     (tooltip_classes ? $(this).addClass(tooltip_classes) : '');
-    $(this).attr('role', 'tooltip');
+    $(this).attr({ 'role': 'tooltip', 'id': id ? id : null });
     this.innerHTML = component;
   }
 
@@ -435,7 +434,7 @@ window.nkUI = {
       let component;
       const emoji = `<span class="ms-auto emoji_font">${language.emoji}</span>`;
       if (variant === 'row') {
-        component = `<span tooltip_key="${key.toUpperCase()}" tooltip_pos="top" tabindex="0" class="lang-option inline" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${emoji}</span>`
+        component = `<span data-tooltip-key="${key.toUpperCase()}" data-tooltip-pos="top" tabindex="0" class="lang-option inline" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${emoji}</span>`
       } else {
         component = `<div tabindex="0" class="lang-option" value="${key}" data-language_selector="${isSelected ? 'selected' : ''}">${language.name}&nbsp;${emoji}</div>`;
       }
@@ -503,9 +502,9 @@ window.nkUI = {
 
   tooltipInfo: {
     header: function (text, logo) {return `<div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
-    quest: function (key, pos) { return `<span class="tooltip-quest" tooltip_key="${key}" ${pos ? `tooltip_pos="${pos}"` : ''}>[?]</span>`; }
+    quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${key}" ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
   },
-  tooltipEventLess: function (text, key, pos) {return `<span class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nkLocale.get(key)}" eventLess-tooltip_key="${key}">${text}</span>`;}
+  tooltipEventLess: function (text, key, pos) {return `<span class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nkLocale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;}
 }
 
 
@@ -538,7 +537,7 @@ class link_block extends HTMLElement {
     }
     const component = `<div class="linkWrapper ${nkSettings.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? `plate_chinese` : ''}" part="link-wrapper">
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
-      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `tooltip_key="${Tooltip.key}" tooltip_pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
+      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `data-tooltip-key="${Tooltip.key}" data-tooltip-pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner plate_chinese">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>

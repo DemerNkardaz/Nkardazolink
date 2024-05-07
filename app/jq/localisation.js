@@ -148,7 +148,7 @@ window.updateItemsLanguage = function () {
 
 window.nkLocale.langUpdate = function ({ target, source } = {}) {
   let sourceName;
-  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip_key]');
+  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key]');
   $('*').filter(function () {
     return this.shadowRoot !== null;
   }).each(function () {
@@ -161,7 +161,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
     key_elements.each(function () {
       let dataKey = $(this).attr('data-key');
       let altKey = $(this).attr('alt-key');
-      let eventLessKey = $(this).attr('eventLess-tooltip_key');
+      let eventLessKey = $(this).attr('eventLess-tooltip-key');
       let cutKey = $(this).attr('data-keyCutter');
       let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey);
       let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);

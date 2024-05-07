@@ -14,8 +14,8 @@ class overnote extends HTMLSpanElement {
 
     $(this).attr({
       'role': 'term',
-      'tooltip_key': `${this.getAttribute('key')}`,
-      'tooltip_pos': 'top',
+      'data-tooltip-key': `${this.getAttribute('key')}`,
+      'data-tooltip-pos': 'top',
     }).addClass('text-underline line_dottes line_grey underline-offset-2 question').removeAttr('key');
   }
 
