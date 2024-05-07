@@ -64,17 +64,20 @@ pageTriggerCallback(function () {
     const targetPromise = new Promise((resolve, reject) => {
       try {
         target.on('mousedown', function () { if (!$(this).hasClass('tl-highlight') && !$(this).attr('data-prevent_close')) { $(this).addClass('tl-highlight') } });
-        target.on('mousemove', function () { if ($(this).hasClass('tl-highlight')) { $(this).removeClass('tl-highlight') } });
+        //target.on('mousemove', function () { if ($(this).hasClass('tl-highlight')) { $(this).removeClass('tl-highlight') } });
         target.on('click', function (e) {
           if ($(this).hasClass('tl-highlight')) { $(this).removeClass('tl-highlight') }
           if (!$(e.target).closest('.tl-close').length && ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined)) {
             $(this).attr('data-prevent_close', 'true').addClass('tl-pinned tl-highlight');
             setTimeout(() => $(this).removeClass('tl-highlight'), 100);
           }
+          if (!$(this).find('.tl-close').length) {
+            $(this).append('<div class="tl-close">close</div>');
+          }
         });
         target.on('mouseenter', function () {
           $(this).css('opacity', 1);
-          !$(this).find('.tl-close').length ? $(this).append('<div class="tl-close">close</div>') : null;
+          (!$(this).find('.tl-close').length && !$(this).find('tooltip-preview').length) ? $(this).append('<div class="tl-close">close</div>') : null;
           clearTimeout(timers_array[ownerId]);
         });
         target.on('mouseleave', function () {

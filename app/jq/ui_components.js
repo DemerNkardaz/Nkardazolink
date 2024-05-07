@@ -501,17 +501,10 @@ window.nkUI = {
   },
 
   tooltipInfo: {
-    header: function (text, logo) {
-      return `
-      <div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>
-      `;
-    },
-    quest: function (key, pos) {
-      return `
-      <span class="tooltip-quest" tooltip_key="${key}" ${pos ? `tooltip_pos="${pos}"` : ''}>[?]</span>
-      `;
-    }
-  }
+    header: function (text, logo) {return `<div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
+    quest: function (key, pos) { return `<span class="tooltip-quest" tooltip_key="${key}" ${pos ? `tooltip_pos="${pos}"` : ''}>[?]</span>`; }
+  },
+  tooltipEventLess: function (text, key, pos) {return `<span class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nkLocale.get(key)}" eventLess-tooltip_key="${key}">${text}</span>`;}
 }
 
 

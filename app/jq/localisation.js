@@ -148,7 +148,7 @@ window.updateItemsLanguage = function () {
 
 window.nkLocale.langUpdate = function ({ target, source } = {}) {
   let sourceName;
-  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key]');
+  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip_key]');
   $('*').filter(function () {
     return this.shadowRoot !== null;
   }).each(function () {
@@ -161,15 +161,17 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
     key_elements.each(function () {
       let dataKey = $(this).attr('data-key');
       let altKey = $(this).attr('alt-key');
+      let eventLessKey = $(this).attr('eventLess-tooltip_key');
       let cutKey = $(this).attr('data-keyCutter');
-      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey);
+      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey);
       let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);
       let interpolatedLocale = eval('`' + getLocale + '`');
 
       if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : ''}`); return };
 
-      if (dataKey || key) $(this).html(interpolatedLocale);
+      if ((dataKey || key) && !eventLessKey) $(this).html(interpolatedLocale);
       if (altKey) $(this).attr('alt', interpolatedLocale);
+      if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
       
     });
   }; 

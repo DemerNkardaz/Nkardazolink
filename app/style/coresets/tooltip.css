@@ -309,3 +309,59 @@
 }
 
 
+.eventLess-Tooltip {
+  --tl-mw: 100px;
+  --tl-w: 100%;
+  --tl-xw: 384px;
+  position: relative;
+  z-index: 1;
+
+  &::after {
+    content: attr(eventLess-tooltip);
+    width: clamp(var(--tl-w), var(--tl-mw), var(--tl-xw));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--tooltip_body);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    filter: drop-shadow(0 5px 10px var(--shadow_22a29)) drop-shadow(0 2px 1px var(--shadow_22a29));
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1080;
+  }
+  &.tl-bottom {
+    &::after {
+      bottom: auto;
+      top: calc(100% + 5px);
+    }
+  }
+  &.tl-right {
+    &::after {
+      left: auto;
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+  &.tl-left {
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  &:hover {
+    cursor: pointer;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
