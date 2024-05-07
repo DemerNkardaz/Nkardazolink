@@ -43,8 +43,8 @@ pageTriggerCallback(function () {
     const ownerId = $(owner).attr('data-tooltip_id');
     const targetPromise = new Promise((resolve, reject) => {
       try {
-        target.on('click', function () {
-          if ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined) {
+        target.on('click', function (e) {
+          if (!$(e.target).closest('.tl-close').length && ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined)) {
             $(this).attr('data-prevent_close', 'true').addClass('tl-pinned tl-highlight');
             setTimeout(() => $(this).removeClass('tl-highlight'), 150);
           }
@@ -158,6 +158,7 @@ pageTriggerCallback(function () {
   };
 
   function updateTooltipPos() {
+    //! MAKE RESTRICTIONS ON WINDOW SIZE
     const tooltips = document.querySelectorAll('tooltip-element');
 
     tooltips.forEach(tooltip => {
