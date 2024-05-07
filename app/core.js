@@ -23,6 +23,11 @@ window.collectTargets = function (target) {
   return targetsCollection;
 };
 
+$.fn.tagName = function() {
+  return this.prop("tagName");
+};
+
+
 window.fromStorage = function (key, isJSON) {
   if (isJSON) return JSON.parse(localStorage.getItem(key)); else return localStorage.getItem(key);
 }
@@ -213,7 +218,7 @@ window.waitFor = function(selector, callback) {
 
   let timeoutId = setTimeout(() => {
     observer.disconnect();
-    console.warn(`Obeserver has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`);
+    console.buildType(`[OBSERVER] → Obeserver “WaitFor” has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`, 'warning');
   }, 2000);
 
   const observer = new MutationObserver((mutationsList, observer) => {

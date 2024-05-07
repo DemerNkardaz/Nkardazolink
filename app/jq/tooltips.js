@@ -6,7 +6,7 @@ pageTriggerCallback(function () {
 
   const tooltipOberserver = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
-      if (mutation.type === 'childList') {
+      if (mutation.type === 'attributes') {
         const newTooltipParents = collectTargets('[tooltip_key]');
 
         if (!areCollectionsEqual(tooltipParents, newTooltipParents)) {
@@ -22,7 +22,7 @@ pageTriggerCallback(function () {
     });
   });
 
-  tooltipOberserver.observe(document, { childList: true, subtree: true });
+  tooltipOberserver.observe(document, { childList: true, subtree: true, attributes: true, attributeFilter: ['tooltip_key'] });
 
   function areCollectionsEqual(collection1, collection2) {
     if (collection1.length !== collection2.length) {
@@ -106,6 +106,11 @@ pageTriggerCallback(function () {
     if ($(`#${$(target).attr('data-tooltip_id')}`).length) {
       $(`#${$(target).attr('data-tooltip_id')}`).removeAttr('data-prevent_close');
       clearTimeout(timers_array[$(target).attr('data-tooltip_id')]);
+      return;
+    }
+
+    if ((key !== null || key !== undefined) && (pos === null || pos === undefined)) {
+      console.buildType(`[TOOLTIP] → Can't create tooltip without position : [tooltip_pos] attribute not exists in <${$(target).tagName()}> with KEY “${key}”`, 'error');
       return;
     }
 
