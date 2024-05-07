@@ -1,3 +1,26 @@
+let privateConfig = {
+  'enabled': true,
+  'animation': 'default',
+  'observe': true,
+};
+
+if (loadSettings('enableTooltips') === 'false') privateConfig['enabled'] = false;
+
+window.nkTooltips = {};
+nkTooltips.opts = function (config) {
+  for (let key in config) {
+    privateConfig[key] = config[key];
+    if (key === 'enabled') {
+      if (config[key] === false) {
+        saveSettings('enableTooltips', 'false');
+      }
+    }
+  }
+  console.log(privateConfig);
+};
+
+
+
 pageTriggerCallback(function () {
   let tooltipParents = collectTargets('[data-tooltip-key]');
   let tooltipParentsIdes = collectTargets('[data-tooltip-id]');
