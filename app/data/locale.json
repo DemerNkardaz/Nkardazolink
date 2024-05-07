@@ -99,7 +99,7 @@
     },
 
     "LangEl": {
-      "temp" :"Language “$(place)”",
+      "temp" :"Language “$(place_0)”<br>$(place_1)",
       "Russia": "Russia",
       "UK/USA": "UK/USA",
       "Japan": "Japan",

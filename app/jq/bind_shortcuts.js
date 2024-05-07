@@ -140,6 +140,8 @@ languageLoaded(function () {
   pageTriggerCallback(function () {
     let tooltipParents = collectTargets('[tooltip_key]');
     let timers_array = {};
+    let offsetInterval;
+    let detectedTooltips = false;
 
     const tooltipOberserver = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
@@ -172,6 +174,8 @@ languageLoaded(function () {
       }
       return true;
     }
+
+
 
     function addEvent_TooltipClearTimer(target, owner) {
       const targetId = target.attr('id');;
@@ -263,7 +267,7 @@ languageLoaded(function () {
 
       tooltipBorn.then(function () {
         addEvent_TooltipClearTimer($(`#${uniqId}`), target);
-        console.buildType('[TOOLTIP] → Tooltip is created', 'success');
+        //console.buildType('[TOOLTIP] → Tooltip is created', 'success');
       }).catch(function (error) {
         console.error(error);
       });
@@ -319,18 +323,30 @@ languageLoaded(function () {
     window.addEventListener('resize', updateTooltipPos);
     window.addEventListener('scroll', updateTooltipPos);
 
-    const linkBlocks = $('[link_class]');
-
-    tooltipParents.on('mouseenter', function () {
-      tooltipOperations(this);
+    const checkForLivingTooltips = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+          const tooltips = $('tooltip-element');
+          if (tooltips.length > 0 && detectedTooltips === false) {
+            //console.buildType('[TOOLTIP] → There are more tooltips', 'info');
+            detectedTooltips = true;
+            tooltipOffsetInterval();
+          } else if (tooltips.length === 0 && detectedTooltips === true) {
+            //console.buildType('[TOOLTIP] → No more tooltips', 'warning');
+            detectedTooltips = false;
+            tooltipOffsetInterval(true);
+          } else {
+            return;
+          }
+        }
+      });
     });
-    tooltipParents.on('mouseleave', function () {
-      tooltipLeave(this);
-    });
 
-    linkBlocks.on('mouseenter', function () {
-      updateTooltipPos();
-    })
+    checkForLivingTooltips.observe(document.body, { childList: true, subtree: true });
+    function tooltipOffsetInterval(close) { (close && close === true) ? clearInterval(offsetInterval) : offsetInterval = setInterval(updateTooltipPos, 50) };
+
+    tooltipParents.on('mouseenter', function () { tooltipOperations(this) });
+    tooltipParents.on('mouseleave', function () { tooltipLeave(this) });
     
 
   });
