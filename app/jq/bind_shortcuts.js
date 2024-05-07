@@ -180,7 +180,8 @@ languageLoaded(function () {
         try {
           target.on('click', function () {
             if ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined) {
-              $(this).attr('data-prevent_close', 'true');
+              $(this).attr('data-prevent_close', 'true').addClass('tl-pinned tl-highlight');
+              setTimeout(() => $(this).removeClass('tl-highlight'), 150);
             }
           });
           target.on('mouseenter', function () {
@@ -234,11 +235,12 @@ languageLoaded(function () {
 
 
     function tooltipOperations(target) {
-      const key = target.getAttribute('tooltip_key');
-      const pos = target.getAttribute('tooltip_pos');
+      const key = $(target).attr('tooltip_key');
+      const pos = $(target).attr('tooltip_pos');
 
-      if (document.querySelector(`[id="${target.getAttribute('data-tooltip_id')}"]`)) {
-        clearTimeout(timers_array[target.getAttribute('data-tooltip_id')]);
+      if ($(`#${$(target).attr('data-tooltip_id')}`).length) {
+        $(`#${$(target).attr('data-tooltip_id')}`).removeAttr('data-prevent_close');
+        clearTimeout(timers_array[$(target).attr('data-tooltip_id')]);
         return;
       }
 
@@ -247,11 +249,11 @@ languageLoaded(function () {
 
       const tooltipBorn = new Promise((resolve, reject) => {
         try {
-          target.setAttribute('data-tooltip_id', uniqId);
-          document.body.appendChild(tooltip);
+          $(target).attr('data-tooltip_id', uniqId);
+          $('body').append(tooltip);
           calcTooltipPos(uniqId, pos, target);
-          document.getElementById(uniqId).classList.add('show');
-          document.getElementById(uniqId).style.opacity = 1;
+          $(`#${uniqId}`).addClass('show');
+          $(`#${uniqId}`).css('opacity', 1);
 
           resolve();
         } catch (error) {

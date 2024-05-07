@@ -53,6 +53,7 @@
 
 
   --tooltip_body: linear-gradient(0deg, #efefef, #ffffff);
+  --tooltip_body_pinned: linear-gradient(0deg, #eeeedb, #ffffed);
   --tooltip_bottom: #efefef;
   --tooltip_top: #ffffff;
 
