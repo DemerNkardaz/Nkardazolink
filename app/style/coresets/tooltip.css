@@ -39,12 +39,12 @@
           user-select: none;
           pointer-events: none;
         }
-        &:has([data-parent-tooltip-pos='right'])::before {
+        &:has([data-parent-tooltip-pos^='right'])::before {
           right: auto;
           left: -5px;
           rotate: -45deg;
         }
-        &:has([data-parent-tooltip-pos='top'])::before {
+        &:has([data-parent-tooltip-pos^='top'])::before {
           top: -20px;
         }
       }

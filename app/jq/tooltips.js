@@ -261,14 +261,14 @@ function calcTooltipPos(id, pos) {
   if (pos.includes('-start')) {
     pos = pos.split('-')[0];
     if (pos === 'bottom' || pos === 'top') {
-      defCalcs[pos].left = parentOffset.left;
+      defCalcs[pos].left = parentOffset.left - 12;
     } else {
       defCalcs[pos].top = parentOffset.top - tooltipHeight + 33;
     }
   } else if (pos.includes('-end')) {
     pos = pos.split('-')[0];
     if (pos === 'bottom' || pos === 'top') {
-      defCalcs[pos].left = parentOffset.left + parent.offsetWidth - tooltipWidth;
+      defCalcs[pos].left = parentOffset.left + parent.offsetWidth - tooltipWidth + 18;
     } else {
       defCalcs[pos].top = parentOffset.top + parent.offsetHeight - 34;
     }
