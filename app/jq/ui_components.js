@@ -346,11 +346,11 @@ window.item_create = function () {
 }; item_create();
 
 class tooltip_element extends HTMLElement {
-  constructor({ tooltip, tooltip_key, tooltip_pos, id } = {}) {
+  constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, id } = {}) {
     super();
     const component = `
     <div class="tl-arrow" ${tooltip_pos ? `tooltip-pos="${tooltip_pos}"` : 'tooltip-pos="bottom"'}></div>
-    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''}>${textUnPacker(tooltip)}</div>
+    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview>${tooltip.innerHTML}</tooltip-preview>`}</div>
     `;
     (id ? $(this).attr('id', id) : '');
     $(this).attr('role', 'tooltip');
@@ -363,6 +363,22 @@ class tooltip_element extends HTMLElement {
 
 customElements.define('tooltip-element', tooltip_element);
 window.tooltip_element = tooltip_element;
+
+class tooltip_preview extends HTMLElement {
+  constructor({ image, content, subscript, link } = {}) {
+    super();
+    const component = `${link ? `<a href="${link.src}" ${link.target ? `target="${link.target}"` : ''}>` : ''}
+    ${image ? `<img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" ${image.shift ? `style="--shift: ${image.shift};"` : ''}>` : ''}
+    <div class="Preview_tooltip-content" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
+    ${subscript && subscript.text ? `<div class="Preview_tooltip-subscript" data-key="${subscript.key}">${subscript.text}</div>` : ''}
+    ${link ? `</a>` : ''}`;
+    $(this).addClass('Preview_tooltip');
+    !this.innerHTML.length ? this.innerHTML = component : '';
+  }
+}
+
+customElements.define('tooltip-preview', tooltip_preview);
+window.tooltip_preview = tooltip_preview;
 
 class dropdown_element extends HTMLElement {
   constructor({ content, id } = {}) {
@@ -479,6 +495,14 @@ window.nkUI = {
       </div>
     </drop-down>`;
   },
+
+  tooltipInfo: {
+    header: function (text, logo) {
+      return `
+      <div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>
+      `;
+    }
+  }
 }
 
 

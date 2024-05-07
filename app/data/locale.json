@@ -30,6 +30,18 @@
       "Romania": "Румыния"
     },
 
+    "prevtest": { 
+      "preview": {
+        "image": "https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png",
+        "shift": "center -100px",
+        "content": [
+          "${nkUI.tooltipInfo.header('Клан Мацудайра', 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@32px.png')}",
+          "<p>Древний клан на Нихонсёто(⁛macron⁛), ведущий свою родословную к роду Минамото и к древним тэнно(⁛macron⁛).</p>"
+        ],
+        "subscript": "Клановые летописи Киото"
+      }
+    },
+
     "Tess": ["Тесс", "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">", "${nkLocale.get('Nkardaz.name')}", "${nkLocale.get('test')}"],
 
     "C": {
@@ -98,6 +110,18 @@
       "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${nkLocale.get('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
     },
 
+    "prevtest": { 
+      "preview": {
+        "image": "https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png",
+        "shift": "center -100px",
+        "content": [
+          "${nkUI.tooltipInfo.header('The Matsudaira Clan', 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@32px.png')}",
+          "<p>An ancient clan of Nihonshoto(⁛macron⁛), descending one's lineage from Minamoto, and to the elden tenno(⁛macron⁛).</p>"
+        ],
+        "subscript": "Kyo(⁛macron⁛)to Clans' chronicles"
+      }
+    },
+
     "LangEl": {
       "temp" :"Language “$(place_0)”<br>$(place_1)",
       "Russia": "Russia",
@@ -111,7 +135,7 @@
     },
 
     "links": {
-      "ContentLinks": "The Co${setDiacritic('place-macron', null, {top: 2})}ntentum",
+      "ContentLinks": "The Co(⁛macron_z,2⁛)ntentum",
       "SocialLinks": "The Socialus",
       "Ficbook": "Ficbook",
       "AuthorToday": "Author.Today",
@@ -130,12 +154,12 @@
       "Anime_Naruto_Tooltip": "The “Naruto” Anime",
       "Anime_BlackClover_Tooltip": "The “Black Clover” Anime",
       "Anime_Heike-monogatari": "Peropicnic artist, The “Heike-monogatari” Anime",
-      "Hachiman-jin_Tooltip": "<span>The Hachiman, The Shinto${setDiacritic('place-macron')} god of war</span>"
+      "Hachiman-jin_Tooltip": "<span>The Hachiman, The Shinto(⁛macron⁛) god of war</span>"
     },
 
     "Skins": {
       "Current": "Сurrent view: ${nkLocale.get(returnCurrentSkin('loc'))}",
-      "Byakujou": "“Byakujo${setDiacritic('place-macron', null, 0.255)}”${nkLocale.get('ja:Skins.Byakujou')}",
+      "Byakujou": "“Byakujo(⁛macron_0.255⁛)”${nkLocale.get('ja:Skins.Byakujou')}",
       "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
       "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
       "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}"

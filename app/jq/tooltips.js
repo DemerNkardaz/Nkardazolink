@@ -101,7 +101,11 @@ pageTriggerCallback(function () {
 
   function tooltipOperations(target) {
     const key = $(target).attr('tooltip_key');
-    const pos = $(target).attr('tooltip_pos');
+    const pos = $(target).attr('tooltip_pos') || 'top';
+    const role = $(target).attr('tooltip_role');
+    const href = $(target).attr('href');
+    const hrefTarget = $(target).attr('href_target');
+    let tooltip, previewEntity;
 
     if ($(`#${$(target).attr('data-tooltip_id')}`).length) {
       $(`#${$(target).attr('data-tooltip_id')}`).removeAttr('data-prevent_close');
@@ -109,13 +113,43 @@ pageTriggerCallback(function () {
       return;
     }
 
-    if ((key !== null || key !== undefined) && (pos === null || pos === undefined)) {
-      console.buildType(`[TOOLTIP] → Can't create tooltip without position : [tooltip_pos] attribute not exists in <${$(target).tagName()}> with KEY “${key}”`, 'error');
-      return;
-    }
+    //if ((key !== null || key !== undefined) && (pos === null || pos === undefined)) {
+    //  console.buildType(`[TOOLTIP] → Can't create tooltip without position : [tooltip_pos] attribute not exists in <${$(target).tagName()}> with KEY “${key}”`, 'error');
+    //  return;
+    //}
 
     const uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
-    const tooltip = new tooltip_element({ tooltip: nkLocale.get(key) ? nkLocale.get(key) : key, tooltip_key: nkLocale.get(`c:${key}`) ? key : null, tooltip_pos: pos, id: uniqId });
+
+    if (role !== undefined && role === 'preview') {
+      let previewParams = {};
+      nkLocale.get(`${key}.preview.image`) && (previewParams.image = { src: nkLocale.get(`${key}.preview.image`) });
+      nkLocale.get(`${key}.preview.shift`) && (previewParams.image.shift = nkLocale.get(`${key}.preview.shift`));
+      nkLocale.get(`${key}.preview.content`) && (previewParams.content = {
+        text: nkLocale.get(`${key}.preview.content`),
+        key: `${key}.preview.content`
+      });
+      nkLocale.get(`${key}.preview.subscript`) && (previewParams.subscript = {
+        text: nkLocale.get(`${key}.preview.subscript`),
+        key: `${key}.preview.subscript`
+      });
+      href && (previewParams.link = {
+        src: href,
+        target: hrefTarget || '_blank'
+      });
+      previewEntity = new tooltip_preview(previewParams);
+      console.log(previewEntity);
+      tooltip = new tooltip_element({
+        tooltip: previewEntity,
+        tooltip_role: 'preview',
+        tooltip_pos: pos, id: uniqId
+      });
+    } else {
+      tooltip = new tooltip_element({
+        tooltip: nkLocale.get(key) ? nkLocale.get(key) : key,
+        tooltip_key: nkLocale.get(`${key}`) ? key : null,
+        tooltip_pos: pos, id: uniqId
+      });
+    }
 
     const tooltipBorn = new Promise((resolve, reject) => {
       try {
@@ -124,6 +158,7 @@ pageTriggerCallback(function () {
         calcTooltipPos(uniqId, pos, target);
         $(`#${uniqId}`).addClass('show');
         $(`#${uniqId}`).css('opacity', 1);
+        //(role === 'preview') && $(`#${uniqId}`).find('.tl-content').html(previewEntity || 'No entity assigned');
 
         resolve();
       } catch (error) {
@@ -181,7 +216,7 @@ pageTriggerCallback(function () {
       });
 
       if (target) {
-        const pos = target.getAttribute('tooltip_pos');
+        const pos = target.getAttribute('tooltip_pos') || 'top';
         calcTooltipPos(id, pos, target);
       }
     });

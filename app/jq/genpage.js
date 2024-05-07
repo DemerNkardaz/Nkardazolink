@@ -238,7 +238,8 @@ const pageBuild = new Promise(function (resolve, reject) {
             </div>
             <div>Теставые букавы<span>${nkLocale.get('test')}</span><br/><span data-key="C.test"></span>${nkLocale.get('C.test')}
             </div>
-            <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nkLocale.get('testqu')}
+            <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nkLocale.get('testqu')}<br>
+            <div tooltip_key="prevtest" tooltip_pos="right" tooltip_role="preview">TESTING OF PREVIEW TOOLTIP</div>
             `;
 
             main = `

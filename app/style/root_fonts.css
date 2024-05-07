@@ -5,6 +5,12 @@
     'Noto Serif KR',
     'Noto Color Emoji',
     serif;
+  --font_header_set: 'Cormorant Garamond',
+    'Noto Serif JP',
+    'Noto Serif TC',
+    'Noto Serif KR',
+    'Noto Color Emoji',
+    serif;
 }
 .emoji_font {
   font-family: 'Noto Color Emoji';

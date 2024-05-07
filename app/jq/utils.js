@@ -27,6 +27,92 @@ function ideographicsSpaceToCJKV(text) {
 		return text.replace(regex, '$1\u3000$2');
 }
 
+
+const diacritics = {
+  macron:        { sup: '&#772;', sub: '&#817;' },
+  caron:         { sup: '&#780;', sub: '&#812;' },
+  circumflex:    { sup: '&#770;', sub: '&#813;' },
+  gravis:        { sup: '&#768;', sub: '&#790;' },
+  ogonek:        { sup: '&#777;', sub: '&#808;' },
+  dot:           { sup: '&#776;', sub: '&#804;' },
+  x2dot:         { sup: '&#775;', sub: '&#803;' },
+  breve:         { sup: '&#774;', sub: '&#814;' },
+  invertBreve:   { sup: '&#785;', sub: '&#815;' },
+  acute:         { sup: '&#769;', sub: '&#791;' },
+  overline:      { sup: '&#773;', sub: '&#817;' },
+  x2gravis:      { sup: '&#783;' },
+  x2acute:       { sup: '&#779;' },
+  x2overline:    { sup: '&#831;' },
+  tilde:         { sup: '&#771;', sub: '&#816;', mid: '&#820;', vert: '&#830;' }
+};
+
+//setDiacritic('place-macron', 'sub', 0.25);
+/* ------------------------ DIACRITICS ------------------------ */
+
+window.setDiacritic = function (type, pos, margins) {
+  if (typeof type !== 'string') {
+    type.margins ? margins = type.margins : margins = margins;
+    type.pos ? pos = type.pos : pos = pos;
+    type.type ? type = type.type : type = type;
+  }
+  if (!Object.keys(diacritics).includes(type.split('-')[1])) {
+    console.buildType(`[DIACRITIC] → Unknown diacritic type: ${type}`, 'error');
+    return;
+  }
+  let symbol, typeSplit, typePlace;
+  let margin = {};
+  if (type.includes('-')) {
+    typeSplit = type.split('-');
+    typePlace = typeSplit[0];
+    type = typeSplit[1];
+  }
+
+  symbol = diacritics[type][pos ? pos : 'sup'];
+
+  margin.left = margins && margins.left ? margins.left : (margins && !margins.top ? margins : null);
+  margin.top = margins && margins.top ? margins.top : null;
+
+  const base = `<span class="diacritic ${type} ${pos ? pos : ''}" style="${margin.left !== null ? `--mleft: -${margin.left}em; ` : ''}${margin.top !== null ? `--top: ${margin.top}px;` : ''}">${symbol}</span>`;
+  if (typePlace === 'place') {
+    return base;
+  } else {
+    return symbol;
+  }
+};
+
+window.diacriticReplaces = function(text) {
+  const diacriticRegex = /\(\⁛(.*?)\⁛\)/g;
+  const matches = Array.from(text.matchAll(diacriticRegex), match => match[1]);
+  if (matches === null || matches.length === 0 || matches[0] === null || matches === undefined) {
+    return text;
+  }
+  const splitMatches = matches.map(match => match.split('_'));
+  let params = {};
+
+  let type = `place-${splitMatches[0][0].split(',')[0]}`;
+  let pos = splitMatches[0][0].split(',')[1] || null;
+  let margins = splitMatches[0][1] ? splitMatches[0][1].split(',').map(item => parseInt(item.trim(), 10)) : null;
+
+  if (margins !== null && margins.length === 1) {
+    margins = margins[0];
+  } else if (margins !== null && margins.length === 2) {
+    margins = { left: margins[0], top: margins[1] };
+    if (typeof margins.left !== 'number' || margins.left === 0) {
+      delete margins.left;
+    }
+  }
+  
+  params.type = type;
+  pos !== null && (params.pos = pos);
+  margins !== null && (params.margins = margins);
+
+  return text.replace(diacriticRegex, setDiacritic(params));
+  
+  //return text.replace(diacriticRegex, '2');
+};
+
+
+
 window.transcriptReplacement = function (text) {
   return text
     .replace(/\″(.*?)\←(.*?)\″/g, function (match, p1, p2) {
@@ -52,6 +138,9 @@ window.defaultReplacement = function (text) {
     .replace(/\/t/g, '&Tab;')
 }
 
+const diacriticLibrary = {
+  
+}
 
 window.textUnPacker = function (text) {
   let unpacked = transcriptReplacement(
@@ -60,7 +149,8 @@ window.textUnPacker = function (text) {
 				unpackArrayToStrings(text)
 			)
 		)
-	);
+  );
+  unpacked = diacriticReplaces(unpacked);
 	return unpacked;
 }
 
@@ -139,48 +229,6 @@ $.fn.isdrag = function(options) {
 		}
 	});
 };
-
-//setDiacritic('place-macron', 'sub', 0.25);
-/* ------------------------ DIACRITICS ------------------------ */
-const diacritics = {
-  macron:        { sup: '&#772;', sub: '&#817;' },
-  caron:         { sup: '&#780;', sub: '&#812;' },
-  circumflex:    { sup: '&#770;', sub: '&#813;' },
-  gravis:        { sup: '&#768;', sub: '&#790;' },
-  ogonek:        { sup: '&#777;', sub: '&#808;' },
-  dot:           { sup: '&#776;', sub: '&#804;' },
-  x2dot:         { sup: '&#775;', sub: '&#803;' },
-  breve:         { sup: '&#774;', sub: '&#814;' },
-  invertBreve:   { sup: '&#785;', sub: '&#815;' },
-  acute:         { sup: '&#769;', sub: '&#791;' },
-  overline:      { sup: '&#773;', sub: '&#817;' },
-  x2gravis:      { sup: '&#783;' },
-  x2acute:       { sup: '&#779;' },
-  x2overline:    { sup: '&#831;' },
-  tilde:         { sup: '&#771;', sub: '&#816;', mid: '&#820;', vert: '&#830;' }
-};
-window.setDiacritic = function (type, pos, margins) {
-  let symbol, typeSplit, typePlace;
-  let margin = {};
-  if (type.includes('-')) {
-    typeSplit = type.split('-');
-    typePlace = typeSplit[0];
-    type = typeSplit[1];
-  }
-
-  symbol = diacritics[type][pos ? pos : 'sup'];
-
-  margin.left = margins && margins.left ? margins.left : (margins && !margins.top ? margins : null);
-  margin.top = margins && margins.top ? margins.top : null;
-
-  const base = `<span class="diacritic ${type} ${pos ? pos : ''}" style="${margin.left !== null ? `--mleft: -${margin.left}em; ` : ''}${margin.top !== null ? `--top: ${margin.top}px;` : ''}">${symbol}</span>`;
-  if (typePlace === 'place') {
-    return base;
-  } else {
-    return symbol;
-  }
-};
-
 
 
 
