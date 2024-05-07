@@ -200,51 +200,153 @@ pageTriggerCallback(function () {
       console.error(error);
     });
   };
-
+  
   function calcTooltipPos(id, pos, target) {
     const tooltip = document.getElementById(id);
     const parent = document.querySelector(`[data-tooltip_id="${id}"]`) || target.closest('[data-tooltip_id]');
 
     const parentOffset = parent.getBoundingClientRect();
-    const parentPosition = parentOffset;
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+    const children = $(tooltip).children('.tl-arrow');
     let calc_pos;
 
-    if (pos === 'bottom') {
-      calc_pos = { top: parentPosition.top + parent.offsetHeight + 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
-    } else if (pos === 'top') {
-      calc_pos = { top: parentPosition.top - tooltip.offsetHeight - 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 }
-    } else if (pos === 'left') {
-      calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left - tooltip.offsetWidth - 15 }
-    } else if (pos === 'right') {
-      calc_pos = { top: parentPosition.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left + parent.offsetWidth + 15 }
-    };
+    const defCalcs = {
+      bottom: { top: parentOffset.top + parent.offsetHeight + 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 },
+      top: { top: parentOffset.top - tooltip.offsetHeight - 15, left: parentOffset.left + parent.offsetWidth / 2 - tooltip.offsetWidth / 2 },
+      left: { top: parentOffset.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left - tooltip.offsetWidth - 15 },
+      right: { top: parentOffset.top + parent.offsetHeight / 2 - tooltip.offsetHeight / 2, left: parentOffset.left + parent.offsetWidth + 15 }
+    }
+    function isElementInViewport(el) {
+      let isVisible = true;
+      let parent = el.parentElement;
+  
+      while (parent !== null) {
+        const parentRect = parent.getBoundingClientRect();
+        const elRect = el.getBoundingClientRect();
+        const parentStyle = window.getComputedStyle(parent);
 
-    tooltip.style.top = calc_pos.top + 'px';
-    tooltip.style.left = calc_pos.left + 'px';
+        const parentOverflowX = parentStyle.overflowX;
+        const parentOverflowY = parentStyle.overflowY;
+        const parentScrollableX = parentOverflowX === 'auto' || parentOverflowX === 'scroll';
+        const parentScrollableY = parentOverflowY === 'auto' || parentOverflowY === 'scroll';
 
+        if (parentScrollableX && (elRect.left < parentRect.left || elRect.right > parentRect.right)) {
+          isVisible = false;
+          break;
+        }
+
+        if (parentScrollableY && (elRect.top < parentRect.top || elRect.bottom > parentRect.bottom)) {
+          isVisible = false;
+          break;
+        }
+
+        parent = parent.parentElement;
+      }
+
+      return isVisible;
+    }
+
+    function returnPoses() {
+      if (pos === 'bottom') {
+        if ((defCalcs.bottom.top + tooltipHeight) > window.innerHeight) {
+          calc_pos = defCalcs.top;
+          children.attr('tooltip-pos', 'top');
+        } else {
+          calc_pos = defCalcs.bottom;
+        }
+      } else if (pos === 'top') {
+        if (defCalcs.top.top < 5) {
+          calc_pos = defCalcs.bottom;
+          children.attr('tooltip-pos', 'bottom');
+        } else {
+          calc_pos = defCalcs.top;
+        }
+      } else if (pos === 'left') {
+        if (defCalcs.left.left < 5) {
+          calc_pos = defCalcs.right;
+          children.attr('tooltip-pos', 'right');
+        } else {
+          calc_pos = defCalcs.left;
+        }
+      } else if (pos === 'right') {
+        if (defCalcs.right.left + tooltipWidth > window.innerWidth) {
+          calc_pos = defCalcs.left;
+          children.attr('tooltip-pos', 'left');
+        } else {
+          calc_pos = defCalcs.right;
+        }
+      }
+    }
+
+    returnPoses();
+
+    const ownerId = tooltipParents.toArray().find(parent => parent.getAttribute('data-tooltip_id') === id);
+    if (ownerId) {
+      const owner = ownerId; // Получаем элемент owner
+      let ownerVisible = isElementInViewport(owner);
+      if (!ownerVisible) {
+        const timer = setTimeout(() => {
+          const onProgress = new Promise((resolve) => { $(tooltip).css('opacity', 0); resolve(); });
+          onProgress.then(() => { setTimeout(() => $(tooltip).remove(), 200); });
+          $(ownerId).removeAttr('data-tooltip_id');
+        }, 200);
+        timers_array[`${id}Unbreak`] = timer;
+      }
+    
+      let ownerPos = $(ownerId).attr('tooltip_pos');
+      if (ownerPos === 'top' && children.attr('tooltip-pos') !== 'top' && calc_pos.top > (tooltip.offsetHeight)) {
+        calc_pos = defCalcs.top;
+        children.attr('tooltip-pos', 'top');
+      }
+      if (ownerPos === 'bottom' && children.attr('tooltip-pos') !== 'bottom' && calc_pos.top > (tooltip.offsetHeight)) {
+        calc_pos = defCalcs.bottom;
+        children.attr('tooltip-pos', 'bottom');
+      }
+      if (ownerPos === 'left' && children.attr('tooltip-pos') !== 'left' && calc_pos.left < (tooltip.offsetWidth * tooltipWidth)) {
+        calc_pos = defCalcs.left;
+        children.attr('tooltip-pos', 'left');
+      }
+      if (ownerPos === 'right' && children.attr('tooltip-pos') !== 'right' && calc_pos.left < (tooltip.offsetWidth * tooltipWidth)) {
+        calc_pos = defCalcs.right;
+        children.attr('tooltip-pos', 'right');
+      }
+    }
+    if (calc_pos) {
+      const tooltipRightPos = calc_pos.left + tooltip.offsetWidth;
+      const tooltipBottomPos = calc_pos.top + tooltip.offsetHeight;
+
+      if (calc_pos.left < 5) {
+        calc_pos = defCalcs.right;
+        children.attr('tooltip-pos', 'right');
+      } else if ((tooltipRightPos + 15) > window.innerWidth) {
+        calc_pos = defCalcs.left;
+        children.attr('tooltip-pos', 'left');
+      } else if (calc_pos.top < 5) {
+        calc_pos = defCalcs.bottom;
+        children.attr('tooltip-pos', 'bottom');
+      } else if ((tooltipBottomPos + 15) > window.innerHeight) {
+        calc_pos = defCalcs.top;
+        children.attr('tooltip-pos', 'top');
+      }
+    }
+
+    if (calc_pos) {
+      tooltip.style.top = calc_pos.top + 'px';
+      tooltip.style.left = calc_pos.left + 'px';
+    }
   };
 
   function updateTooltipPos() {
     //! MAKE RESTRICTIONS ON WINDOW SIZE
-    const tooltips = document.querySelectorAll('tooltip-element');
-
-    tooltips.forEach(tooltip => {
-      const id = tooltip.getAttribute('id');
-      let target = document.querySelector(`[data-tooltip_id="${id}"]`);
-
-      document.querySelectorAll('*').forEach(function (el) {
-        if (el.shadowRoot !== null) {
-          el.shadowRoot.querySelectorAll('[data-tooltip_id]').forEach(function (shadowEl) {
-            if (shadowEl.getAttribute('data-tooltip_id') === id) {
-              target = shadowEl;
-            }
-          });
-        }
-      });
-
+    const tooltips = $('tooltip-element');
+    tooltips.each(function () {
+      const tooltip = this;
+      const tooltipId = $(tooltip).attr('id');
+      let target = tooltipParents.toArray().find(parent => parent.getAttribute('data-tooltip_id') === tooltipId);
       if (target) {
-        const pos = target.getAttribute('tooltip_pos') || 'top';
-        calcTooltipPos(id, pos, target);
+        const pos = $(tooltip).children('.tl-arrow').attr('tooltip-pos') || 'left';
+        calcTooltipPos(tooltipId, pos, target);
       }
     });
   };

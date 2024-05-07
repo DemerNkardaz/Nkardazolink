@@ -240,6 +240,8 @@ const pageBuild = new Promise(function (resolve, reject) {
             </div>
             <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nkLocale.get('testqu')}<br>
             <div tooltip_key="prevtest" tooltip_pos="right" tooltip_role="preview">TESTING OF PREVIEW TOOLTIP</div>
+            <div style="height: 1000px">f</div>
+            <div class="my-auto" tooltip_key="test" tooltip_pos="bottom">TESTING OF TOOLTIPUSU</div>
             `;
 
             main = `
