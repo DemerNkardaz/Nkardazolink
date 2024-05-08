@@ -11,8 +11,10 @@
     opacity: 0;
     user-select: none;
     pointer-events: none;
-    z-index: 1080;
     cursor: pointer;
+    z-index: 1080;
+    overscroll-behavior: contain;
+    & * {overscroll-behavior: inherit;}
 
     &.tl-highlight {filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
     &.tl-downed {transition: all 0.3s ease; filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
