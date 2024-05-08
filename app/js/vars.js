@@ -1,5 +1,5 @@
 window.nkPreferences = {
-  skin: fromStorage('selectedSiteSkin') ? fromStorage('selectedSiteSkin') : null,
+  skin: fromStorage('skin') ? fromStorage('skin') : null,
   banner: {
     asanoha: {
       url: '../../../resources/svg/pattern_asanoha_90deg.svg',

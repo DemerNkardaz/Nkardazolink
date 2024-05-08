@@ -40,7 +40,7 @@ $(document).on('click', '[nk-skin]', function () {
   var skin = $(this).attr('nk-skin');
   var link = $('#skinLoader');
   link.attr('href', `app/style/skins/${skin}.css`);
-  toStorage('selectedSiteSkin', skin);
+  toStorage('skin', skin);
   $('[nk-skin]').removeClass('active');
   $(this).addClass('active');
 });

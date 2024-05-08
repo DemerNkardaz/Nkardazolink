@@ -2,6 +2,8 @@
   --bg_0084: #00000084;
   --bg_00ad: #000000ad;
   --bg_22: #222;
+  --bg_33: #333;
+
 
   --banner_gradient_old: linear-gradient(#c29819, #c29819);
   --banner_gradient_new: linear-gradient(#3d67dc, #3d67dc);
@@ -9,6 +11,8 @@
 
   --text_eff: #e1eaff;
   --text_abcefff: #abceff;
+  --text_d0c: #d0c8b3;
+  --text_d0c70: #d0c8b370;
 
   --rurikon: #1B294B;
 }
@@ -118,3 +122,52 @@ link-block[link_class="default"] {
     filter: brightness(150%) sepia(100%) saturate(300%) hue-rotate(-180deg);
   }
 }
+
+
+
+/* --------------------- TOOLTIPS --------------------- */
+tooltip-element {
+  color: var(--text_d0c);
+  filter: drop-shadow(0 5px 5px var(--bg_00ad)) drop-shadow(0 2px 1px var(--bg_00ad));
+  &.tl-highlight {
+      filter: drop-shadow(0 5px 5px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a64)) brightness(105%) sepia(50%) saturate(150%) hue-rotate(190deg);
+  }
+  &[data-prevent_close="true"] {
+    user-select: text;
+    cursor: unset;
+    &.tl-pinned {
+      transition: all 0.15s ease;
+    }
+  }
+      
+  & .tl-content {
+    background: var(--bg_22);
+    & .Preview_tooltip {
+      & .Preview_tooltip-content {
+          scrollbar-color: var(--text_d0c70) transparent;
+          & ::-webkit-scrollbar-thumb {
+            background-color: var(--text_d0c70) transparent;
+          }
+      }
+    }
+
+  }
+  & .tl-arrow {
+    background: var(--bg_22);
+  }
+
+  & .tl-close {
+    background: var(--bg_33);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* --------------------- TOOLTIPS --------------------- */
