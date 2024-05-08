@@ -351,12 +351,7 @@ function bornLightbox(array) {
 
 /* ------------------- OTHER BINDS ------------------- */
 
-$(document).on('click', '.personBannerWrapper, .personAvatar', function () {
-  $(this).addClass('clicked');
-  setTimeout(() => {
-    $(this).removeClass('clicked');
-  }, 200);
-});
+$(document).on('click', '.personBannerWrapper, .personAvatar', function () { $(this).timedClass('clicked', 200) });
 
 
 /* ------------------- OTHER BINDS ------------------- */

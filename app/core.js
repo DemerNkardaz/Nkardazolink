@@ -14,6 +14,7 @@ window.console.buildType = function (message, type) {
   switch (type) {
     case 'error': styles += 'color: #ff3f3f; background-color: #ffdada;'; marker = '🚫'; break;
     case 'info': styles += 'color: #2c6c9e; background-color: #d6f0ff;'; marker = 'ℹ️'; break;
+    case 'important': styles += 'color: #612c9e; background-color: #efd6ff;'; marker = '🆔'; break;
     case 'success': styles += 'color: #3f9e3f; background-color: #c3ffc3;'; marker = '✅'; break;
     case 'warning': styles += 'color: #988958; background-color: #fffbd6;'; marker = '⚠️'; break;
     default: styles += 'color: black;'; break;
@@ -31,10 +32,10 @@ window.collectTargets = function (target) {
   return targetsCollection;
 };
 
-$.fn.tagName = function() {
-  return this.prop("tagName");
-};
+$.fn.tagName = function () { return this.prop("tagName") };
+$.fn.timedClass = function (className, end, start) { $(this).addClass(className); setTimeout(() => { setTimeout(() => { $(this).removeClass(className) }, end ? end : 100) }, start ? start : null) }
 
+$.fn.timedClassEvent = function (eventType, className, end, start) { $(this).on(eventType, function () { $(this).timedClass(className, end, start); }) }
 
 window.fromStorage = function (key, isJSON) {
   if (isJSON) return JSON.parse(localStorage.getItem(key)); else return localStorage.getItem(key);
@@ -44,29 +45,138 @@ window.toStorage = function (key, value) {
   localStorage.setItem(key, value);
 }
 
-/*
-window.saveSettings = function (key, value) {
-  const previousSetting = loadSettings(key);
-  const previousMap = nkSettings.get(key);
 
-  const savePromise = new Promise((resolve, reject) => {
-    try {
-      nkSettings.set(key, value);
-      window.toStorage(`savedSettings.${key}`, value);
-      resolve();
-    } catch (err) {
-      reject(err);
+
+function storageOperations(key, type, value) {
+  if (key.includes('.')) {
+    let result = JSON.parse(localStorage.getItem(key.split('.')[0]));
+    for (let i = 1; i < key.split('.').length - 1; i++) {
+      result = result !== null ? result[key.split('.')[i]] : null;
     }
-  });
+    const lastKey = key.split('.').pop();
+    if (type === 'set') {
+      result[lastKey] = value;
+      localStorage.setItem(key.split('.')[0], JSON.stringify(result));
+    } else if (type === 'remove') {
+      delete result[lastKey];
+      localStorage.setItem(key.split('.')[0], JSON.stringify(result));
+    }
+    return result !== null ? result[lastKey] : null;
+  } else {
+    return localStorage.getItem(key);
+  }
+}
+window.storageOperations = storageOperations;
 
-  savePromise.then(function () {
-    console.log(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`);
-  });
+window.$Setting = function (key) {
+  let methods = {};
+  methods.save = function (value, offNKSettings) {
+    const previousSetting = storageOperations(`savedSettings.${key}`, 'load') || null;
+    const previousMap = nkSettings.get(key) || null;
+    const savePromise = new Promise((resolve, reject) => {
+      try {
+        storageOperations(`savedSettings.${key}`, 'set', typeof value === 'string' ? value : JSON.stringify(value));
+        offNKSettings !== true && nkSettings.set(key, value);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    });
+
+    savePromise.then(function () {
+      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`, 'info');
+    }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
+
+    return new Promise((resolve) => {
+      const valueBefore = previousSetting !== null ? previousSetting : previousMap;
+      const valueNew = value;
+      resolve({ valueBefore, valueNew });
+    });
+  };
+  methods.load = function () {
+    return new Promise((resolve, reject) => {
+      const result = storageOperations(`savedSettings.${key}`, 'load');
+      resolve(result);
+    });
+  };
+  methods.remove = function () {
+    const previousSetting = storageOperations(`savedSettings.${key}`, 'load') || null;
+    const previousMap = nkSettings.get(key) || null;
+    const removePromise = new Promise((resolve, reject) => {
+      try {
+        storageOperations(`savedSettings.${key}`, 'remove');
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    });
+
+    removePromise.then(function () {
+      console.buildType(`[SETTING] → Removed setting: ${key} = “${previousSetting}” : Map “${previousMap} → ${nkSettings.get(key)}”`, 'important');
+    }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
+    return new Promise((resolve) => {
+      const valueBefore = previousSetting !== null ? previousSetting : previousMap;
+      const valueNew = null;
+      resolve({ valueBefore, valueNew });
+    });
+  };
+  return methods;
 }
 
-window.loadSettings = function (key) {
-  return fromStorage(`savedSettings.${key}`);
+/*window.$Setting = function (key) {
+  let methods = {};
+  methods.save = function (value, offNKSettings) {
+    return new Promise((resolve, reject) => {
+      try {
+        const previousSetting = storageOperations(`savedSettings.${key}`, 'load');
+        const previousMap = nkSettings.get(key);
+        const savePromise = new Promise((saveResolve, saveReject) => {
+          try {
+            storageOperations(`savedSettings.${key}`, 'set', typeof value === 'string' ? value : JSON.stringify(value));
+            offNKSettings !== true && nkSettings.set(key, value);
+            saveResolve();
+          } catch (err) {
+            saveReject(err);
+          }
+        });
+
+        savePromise.then(function () {
+          console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`, 'info');
+          resolve();
+        }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
+
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
+
+  methods.load = function () {
+    return new Promise((resolve, reject) => {
+      try {
+        const result = storageOperations(`savedSettings.${key}`, 'load');
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
+
+  methods.remove = function () {
+    return new Promise((resolve, reject) => {
+      try {
+        storageOperations(`savedSettings.${key}`, 'remove');
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
+
+  return methods;
 }*/
+
+
 window.saveSettings = function (key, value) {
   const previousSetting = loadSettings(key);
   const previousMap = nkSettings.get(key);

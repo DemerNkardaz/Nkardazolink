@@ -204,7 +204,7 @@ window.nkLocale.switch = function (lang) {
         reject(new Error(`Language “${language}” is not supported.`));
         return;
       }
-      saveSettings('lang', language);
+      $Setting('lang').save(language);
       nkSettings.set('lang', language);
       resolve();
     } catch (err) {

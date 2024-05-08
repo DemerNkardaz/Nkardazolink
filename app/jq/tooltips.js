@@ -12,7 +12,7 @@ nkTooltips.opts = function (config) {
     privateConfig[key] = config[key];
     if (key === 'enabled') {
       if (config[key] === false) {
-        saveSettings('enableTooltips', 'false');
+        $Setting('enableTooltips').save(false);
       }
     }
   }

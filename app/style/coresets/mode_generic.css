@@ -196,9 +196,11 @@
       filter: brightness(115%);
       cursor: pointer;
     }
-
-    &.clicked .personBanner {
+    &:hover .personBanner {
       background-size: 125%;
+    }
+    &.clicked .personBanner {
+      background-size: 135%;
     }
     & .personBanner {
       position: relative;

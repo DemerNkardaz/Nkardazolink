@@ -23,7 +23,7 @@ window.setSkin = function (skin, saveToStorage) {
       if (skin && window.availableSkins[skin]) {
         $('#skinloader').attr('href', `app/style/skins/${skin}.css`);
         if (nkSettings.get('skin') !== skin) {
-          saveToStorage !== false && saveSettings('skin', skin);
+          saveToStorage !== false && $Setting('skin').save(skin);
           nkSettings.set('skin', skin);
         }
 
