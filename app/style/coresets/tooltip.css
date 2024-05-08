@@ -334,6 +334,8 @@
   &::after {
     content: attr(eventLess-tooltip);
     width: clamp(var(--tl-w), var(--tl-mw), var(--tl-xw));
+    user-select: none;
+    pointer-events: none;
 
     display: flex;
     flex-direction: column;
@@ -375,6 +377,8 @@
     cursor: pointer;
 
     &::after {
+      user-select: text;
+      pointer-events: all;
       opacity: 1;
     }
   }

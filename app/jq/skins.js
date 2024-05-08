@@ -114,14 +114,16 @@ window.setSkinByTime = function (isReturn) {
 
   let skin;
 
-  if (hour >= 5 && hour < 12) {
+  if (hour >= 7 && hour < 12) {
     skin = 'azumatsuyu';
   } else if (hour >= 12 && hour < 18) {
     skin = 'byakujou';
   } else if (hour >= 18 && hour < 22) {
     skin = 'sekiban';
-  } else {
+  } else if (hour >= 22 || hour < 4) {
     skin = 'aogurogetsu';
+  } else {
+    skin = 'akatsukikurai';
   }
 
   if (!isReturn) {
