@@ -29,6 +29,7 @@ window.availableSkins = {
   byakujou:       {name: 'Byakujou',        url: 'byakujou'},
   sekiban:        {name: 'Sekiban',         url: 'sekiban'},
   aogurogetsu:    {name: 'Aoguro-no Getsu', url: 'aogurogetsu'},
+  akatsukikurai:    {name: 'Akatsuki-no Kurai', url: 'akatsukikurai'},
 }
 
 window.NoAv = 'N/A';

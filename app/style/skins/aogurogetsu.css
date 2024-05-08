@@ -4,12 +4,18 @@
   --bg_22: #222;
   --bg_33: #333;
 
+  --bg_272830: #272830;
+  --bg_272830ee: #272830df;
+  --bg_383b48: #383b48;
+
 
   --banner_gradient_old: linear-gradient(#c29819, #c29819);
   --banner_gradient_new: linear-gradient(#3d67dc, #3d67dc);
   --preloader_gradient: linear-gradient(#223875, #3d67dc);
 
-  --text_eff: #e1eaff;
+  --text_dae5ff: #dae5ff;
+  --text_eff: #c8d5e0;
+  --text_eff70: #c8d5e070;
   --text_abcefff: #abceff;
   --text_d0c: #d0c8b3;
   --text_d0c70: #d0c8b370;
@@ -57,7 +63,7 @@ page-preloader, #preloader {
   color: var(--text_eff);
   backdrop-filter: blur(20px) invert(100%);
   & #site-header {
-    background: var(--bg_0084);
+    background: var(--bg_272830ee);
     box-shadow: 0 5px 5px var(--bg_00ad);
   }
 
@@ -88,7 +94,7 @@ link-block[link_class="default"] {
     color: var(--text_abcefff);
   }
   &::part(link) {
-    background: var(--bg_22);
+    background: var(--bg_272830);
     
   }
   &::part(link-wrapper) {
@@ -96,7 +102,7 @@ link-block[link_class="default"] {
     box-shadow: 2px 3px 5px var(--bg_00ad);
   }
   &::part(link-image) {
-    background: var(--bg_22);
+    background: var(--bg_272830);
   }
   &:hover::part(link-image), &:focus::part(link-image) {
     background: var(--text_abcefff);
@@ -127,8 +133,8 @@ link-block[link_class="default"] {
 
 /* --------------------- TOOLTIPS --------------------- */
 tooltip-element {
-  color: var(--text_d0c);
-  filter: drop-shadow(0 5px 5px var(--bg_00ad)) drop-shadow(0 2px 1px var(--bg_00ad));
+  color: var(--text_eff);
+  filter: drop-shadow(0 5px 5px var(--shadow_22a64)) drop-shadow(0 2px 1px var(--bg_00ad));
   &.tl-highlight {
       filter: drop-shadow(0 5px 5px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a64)) brightness(105%) sepia(50%) saturate(150%) hue-rotate(190deg);
   }
@@ -137,31 +143,40 @@ tooltip-element {
     cursor: unset;
     &.tl-pinned {
       transition: all 0.15s ease;
+      &::before {
+        color: var(--text_eff);
+        opacity: 1;
+        filter: drop-shadow(0 0px 1px var(--bg_00ad)) drop-shadow(0 2px 1px var(--bg_00ad)) brightness(105%);
+      }
     }
   }
       
   & .tl-content {
-    background: var(--bg_22);
+    background: var(--bg_272830);
     & .Preview_tooltip {
       & .Preview_tooltip-content {
-          scrollbar-color: var(--text_d0c70) transparent;
+          scrollbar-color: var(--text_eff70) transparent;
           & ::-webkit-scrollbar-thumb {
-            background-color: var(--text_d0c70) transparent;
+            background-color: var(--text_eff70) transparent;
           }
       }
     }
 
   }
   & .tl-arrow {
-    background: var(--bg_22);
+    background: var(--bg_272830);
   }
 
   & .tl-close {
-    background: var(--bg_33);
+    background: var(--bg_383b48);
   }
 }
 
-
+.eventLess-Tooltip {
+  &::after {
+    background: var(--bg_272830);
+  }
+}
 
 
 

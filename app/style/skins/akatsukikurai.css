@@ -1,0 +1,80 @@
+:root {
+  --bg_0084: #00000084;
+  --bg_00ad: #000000ad;
+  --bg_22: #222;
+  --bg_33: #333;
+
+  --bg_272830: #272830;
+
+
+  --banner_gradient_old: linear-gradient(#c29819, #c29819);
+  --banner_gradient_new: linear-gradient(#3d67dc, #3d67dc);
+  --preloader_gradient: linear-gradient(#223875, #3d67dc);
+
+  --text_eff: #dae5ff;
+  --text_abcefff: #abceff;
+  --text_d0c: #d0c8b3;
+  --text_d0c70: #d0c8b370;
+
+  --rurikon: #1B294B;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------- TOOLTIPS --------------------- */
+tooltip-element {
+  color: var(--text_d0c);
+  filter: drop-shadow(0 5px 5px var(--bg_00ad)) drop-shadow(0 2px 1px var(--bg_00ad));
+
+  &.tl-highlight {
+    filter: drop-shadow(0 5px 5px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a64)) brightness(105%) sepia(50%) saturate(150%);
+  }
+
+  &[data-prevent_close="true"] {
+    user-select: text;
+    cursor: unset;
+
+    &.tl-pinned {
+      transition: all 0.15s ease;
+
+      &::before {
+        color: var(--text_d0c);
+        opacity: 1;
+        filter: drop-shadow(0 0px 1px var(--bg_00ad)) drop-shadow(0 2px 1px var(--bg_00ad)) brightness(105%) sepia(50%) saturate(150%);
+      }
+    }
+  }
+
+  & .tl-content {
+    background: var(--bg_22);
+
+    & .Preview_tooltip {
+      & .Preview_tooltip-content {
+        scrollbar-color: var(--text_d0c70) transparent;
+
+        & ::-webkit-scrollbar-thumb {
+          background-color: var(--text_d0c70) transparent;
+        }
+      }
+    }
+
+  }
+
+  & .tl-arrow {
+    background: var(--bg_22);
+  }
+
+  & .tl-close {
+    background: var(--bg_33);
+  }
+}

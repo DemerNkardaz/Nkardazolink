@@ -76,6 +76,7 @@
       "Current": "Текущий вид: ${nkLocale.get(returnCurrentSkin('loc'))}",
       "Byakujou": "«Бякудзё»${nkLocale.get('ja:Skins.Byakujou')}",
       "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Akatsuki-no Kurai": "«Акацўки-но Курай»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
       "Sekiban": "«Сэкибан»${nkLocale.get('ja:Skins.Sekiban')}",
       "Azumatsuyu": "«Адзумацую»${nkLocale.get('ja:Skins.Azumatsuyu')}"
     },
@@ -211,6 +212,7 @@
       "Current": "現在の眺め：${nkLocale.get(returnCurrentSkin('loc'))}",
       "Byakujou": "「白城」",
       "Aoguro-no Getsu": "「青黒月」",
+      "Akatsuki-no Kurai": "「暁の暗い」",
       "Sekiban": "「石盤」",
       "Azumatsuyu": "「東露」"
     },
