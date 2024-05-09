@@ -355,6 +355,7 @@
       user-select: none;
       cursor: pointer;
       z-index: 1;
+      box-shadow: 2px 0 5px transparent;
     
       &:active {
         font-size: 0.65em;
@@ -385,18 +386,13 @@
       .tl-content {
         border-radius: 0 10px 10px 0;
       }
-    }/*
-    &.tl-preview .tl-close {
-      &::before {
-        content: '';
-        position: absolute;
-        height: 100%;
-        width: 3px;
-        background: var(--text_ed);
-        left: -3px;
-        z-index: 1;
+    }
+
+    &:has(tooltip-img):has(.tl-close) {
+      & .tl-close {
+          box-shadow: 1px 0 3px var(--shadow_22a29);
       }
-    }*/
+    }
 
     &.tl-preview:has(.tl-arrow[data-parent-tooltip-pos^='right']):has(.tl-close) {& .tl-close {right: -18px;}}
     &.tl-preview:has(.tl-arrow[data-parent-tooltip-pos^='left']):has(.tl-close) {& .tl-close {left: -18px; &::before {left: auto; right: -3px; }}}

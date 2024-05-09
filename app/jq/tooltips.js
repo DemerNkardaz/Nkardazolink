@@ -528,8 +528,9 @@ function calcTooltipPos(id, pos) {
 //? BIND SHORTCUS
 $(document).on('click', '.Preview_tooltip-imgFull', function () {
   const tooltip = $(this).closest('tooltip-element');
-  const imageSource = $(this).siblings('.Preview_tooltip-img').attr('src');
   const imageAlt = $(this).siblings('.Preview_tooltip-img').attr('alt');
+  let imageSource = $(this).siblings('.Preview_tooltip-img').attr('src');
+  imageSource = imageSource.replace('_thumb', '');
   if (tooltip.find('tooltip-img').find('img').attr('src') !== imageSource) {
     tooltip.append(new tooltip_img({ src: imageSource, alt: imageAlt })); $(this).text('fullscreen_exit'); return;
   } else {
