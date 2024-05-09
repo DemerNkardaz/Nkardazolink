@@ -1,36 +1,28 @@
-/*-- --------------- INIT ---------------- --*/
+//? ------------------------------- CORE INITIALISATION -------------------------------
 import './core.js';
+import './jq/jquery_core.js';
 import './js/vars.js';
-/*-- --------------- INIT ---------------- --*/
-/*-- --------------- LIBS ---------------- --*/
 
 
-/*-- --------------- LIBS ---------------- --*/
-/*-- --------------- AFTERINIT ---------------- --*/
+
+//? ------------------------------- MAIN INITIALISATION -------------------------------
 import './rules/rules.js';
-import './howler_init.js';
 import './jq/selectors.js';
 import './jq/skins.js';
 import './jq/ui_diacrit.js';
 import './jq/ui_tags.js';
 import './jq/ui_components.js';
 import './init.js';
-import './jq/jquery_core.js';
+
 import './jq/bind_shortcuts.js';
-isMobileDevice() !== true && import('./jq/tooltips.js');
+isMobileDevice() !== true && import('./jq/tooltips.js'), import('./howler_init.js');
 import './jq/utils.js';
 import './jq/localisation.js';
 import './jq/genpage.js';
-/*-- --------------- AFTERINIT ---------------- --*/
 
-//export async function HTMX_INIT() {
-//  await import('https://unpkg.com/htmx.org@latest/dist/htmx.min.js');
-//}
-
-/*-- --------------- ENDPOINT_INIT ---------------- --*/
-window.ENDPOINT_INIT = function() {
-  import('./libs/standalone/OverlayScrollbars.js');
-  import('./jq/inputs.js');
-  import('./jq/init_settings.js');
-}
-/*-- --------------- ENDPOINT_INIT ---------------- --*/
+//? ------------------------------- ENDPOINT INITIALISATION -------------------------------
+window.addEventListener('DOMContentLoaded', async () => {
+  await import('./libs/standalone/OverlayScrollbars.js');
+  await import('./jq/inputs.js');
+  await import('./jq/init_settings.js')
+});

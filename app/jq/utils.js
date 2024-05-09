@@ -14,6 +14,26 @@ $.fn.countAuthorLists = function() {
 };
 
 
+async function replaceTextLinkToTag (text) {
+  const linkRegex = /((https?|ftp):\/\/[^\s/$.?#].[^\s]*)/gi;
+  const links = text.match(linkRegex);
+  if (!links) { return text; }
+
+  for (let i = 0; i < links.length; i++) {
+    const url = links[i];
+    try {
+      const response = await fetch(url);
+      const html = await response.text();
+      const title = html.match(/<title>(.*?)<\/title>/i)[1];
+      text = text.replace(url, `<a href="${url}" target="_blank" title="${title}">${title}</a>`);
+    } catch (err) {
+      console.error('Ошибка при запросе:', err);
+    }
+  }
+  return text;
+}
+window.replaceTextLinkToTag = replaceTextLinkToTag;
+
 window.unpackArrayToStrings = function (text) {
 	if (Array.isArray(text)) {
 		return text.join('\n');

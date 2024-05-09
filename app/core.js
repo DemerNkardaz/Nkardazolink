@@ -45,6 +45,7 @@ window.collectTargets = function (target) {
 };
 
 
+
 $.fn.reapplyClass = function (addClass, selector) { $(selector).removeClass(addClass); $(this).addClass(addClass); };
 $.fn.tagName = function () { return this.prop("tagName") };
 $.fn.timedClass = function (className, end, start) { $(this).addClass(className); setTimeout(() => { setTimeout(() => { $(this).removeClass(className) }, end ? end : 100) }, start ? start : null) }

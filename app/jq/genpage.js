@@ -240,8 +240,6 @@ const pageBuild = new Promise(function (resolve, reject) {
             </div>
             <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nkLocale.get('testqu')}<br>
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
-            <div style="height: 1000px">f</div>
-            <div class="my-auto" data-tooltip-key="test" data-tooltip-pos="bottom">TESTING OF TOOLTIPUSU</div>
             `;
 
             main = `
@@ -251,13 +249,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="links_Grid" data-tooltip-key="Tess" data-tooltip-pos="left">
                   <anchor-contentLinks/>
                 </div>
-              </div>${nkUI.tooltipEventLess(nkLocale.get('Skins.Current'), 'Skins.Current/data')}<br>
-              <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="left-start">TESTING OF PREVIEW TOOLTIP</span>
-              <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="left-end">TESTING OF PREVIEW TOOLTIP</span>
-              <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="right-start">TESTING OF PREVIEW TOOLTIP</span>
-              <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="right-end">TESTING OF PREVIEW TOOLTIP</span>
-              <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="top-start">TESTING OF PREVIEW TOOLTIP</span>
-              <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="top-end">TESTING OF PREVIEW TOOLTIP</span>
+              </div>
               <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent">
                 <div class="links_Grid">
