@@ -393,6 +393,19 @@ class tooltip_img extends HTMLElement {
     image && image.classes ? $(this).addClass(image.classes) : '';
     !this.innerHTML.length ? this.innerHTML = component : '';
   }
+
+  connectedCallback() {
+    const imgSrc = $(this).find('img').attr('src');
+    let originalWidth, originalHeight, aspect_ration;
+    let image = new Image();
+    image.src = imgSrc;
+    image.onload = () => {
+      originalWidth = image.width;
+      originalHeight = image.height;
+      aspect_ration = originalWidth / originalHeight;
+      $(this).css('aspect-ratio', `${aspect_ration}`);
+    }
+  }
 }
 customElements.define('tooltip-img', tooltip_img);
 window.tooltip_img = tooltip_img;

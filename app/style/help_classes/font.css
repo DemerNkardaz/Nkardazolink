@@ -1,9 +1,26 @@
+.fs--3 {
+  font-size: 0.45rem !important;
+  &.em { font-size: 0.45em !important; }
+}
+
+.fs--2 {
+  font-size: 0.6rem !important;
+  &.em { font-size: 0.6em !important; }
+}
+
+.fs--1 {
+  font-size: 0.75rem !important;
+  &.em { font-size: 0.75em !important; }
+}
+
 .fs-1 {
   font-size: 1rem !important;
+  &.em { font-size: 1em !important; }
 }
 
 .fs-2 {
   font-size: 1.25rem !important;
+  &.em { font-size: 1.25em !important; }
 }
 
 .fs-3 {

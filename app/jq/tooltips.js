@@ -21,6 +21,7 @@ nkTooltips.opts = function (config) {
 
 
 
+
 pageTriggerCallback(function () {
   let tooltipParents = collectTargets('[data-tooltip-key]');
   let tooltipParentsIdes = collectTargets('[data-tooltip-id]');
@@ -60,18 +61,50 @@ pageTriggerCallback(function () {
           const tooltipId = $(this).attr('id');
           const tooltipMeta = $(this).attr('data-meta-anchor');
           const found = tooltipParentsIdes.toArray().some(parent => parent.getAttribute('data-tooltip-id') === tooltipId);
+          const regeneratedTooltip = tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta);
           if (!found) {
-            setTimeout(() => {
-              const regeneratedTooltip = tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta);
-              if (!regeneratedTooltip) {
-                $(this).css('opacity', 0);
-                setTimeout(() => {
-                  $(this).remove();
-                }, 300);
-              } else {
-                tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta && parent.setAttribute('data-tooltip-id', tooltipId));
-              }
+            const removeTimer = setTimeout(() => {
+              $(this).css('opacity', 0);
+              setTimeout(() => {
+                $(this).remove();
+              }, 300);
             }, 10);
+            timers_array[tooltipId] = removeTimer;
+          }
+          if (regeneratedTooltip) {
+            clearTimeout(timers_array[tooltipId]);
+
+            tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta && parent.setAttribute('data-tooltip-id', tooltipId));
+            const checkDuplicated = tooltipMetaAnchors.toArray().filter(duplicated => duplicated.getAttribute('data-meta-tooltip') === tooltipMeta);
+            const count = checkDuplicated.length;
+            let duplicate;
+
+            if (checkDuplicated.length > 1) {
+              const firstDuplicateIndex = Array.from(tooltipMetaAnchors).findIndex(duplicated => duplicated.getAttribute('data-meta-tooltip') === tooltipMeta);
+              if (firstDuplicateIndex !== -1) {
+                tooltipMetaAnchors[firstDuplicateIndex].setAttribute('data-tooltip-id', tooltipId);
+              }
+              let message = `<span class="w-100 meta-duplicate-alert mb-3" style="max-width: 512px; max-height: 100px; overflow: auto;">[${tooltipMeta}] : Найдены дубликаты якора : ${count} : `;
+              checkDuplicated.forEach((duplicated, index) => {
+                if (index !== firstDuplicateIndex) {
+                  duplicate = duplicated;
+                  message += `<br><span class="fs--1 em lh-1">&lt;${duplicate.nodeName} ${extractAttributes(duplicate).toUpperCase().replace(`DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"`, `<span style="color: red; font-weight: 800">DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"</span>`)}&gt;${duplicate.innerHTML}&lt;/${duplicate.nodeName}&gt;</span>`;
+                }
+              });
+              message += `</span>`
+
+                  
+              console.log(`[TOOLTIP] → Tooltip ${tooltipId} has been duplicated`);
+              if (!$(this).find('.meta-duplicate-alert').length) {
+                $(this).find('.tl-content').filter(function () {
+                  if ($(this).text().trim().length > 0 && $(this).children().length === 0) {
+                    $(this).prepend(message);
+                  } else if ($(this).text().trim().length > 0 && $(this).children().length > 0) {
+                    $(this).children().filter(function () { return $(this).text().trim().length > 0 }).first().prepend(message);
+                  }
+                });
+              }
+            }
           }
         });
         
@@ -215,7 +248,6 @@ pageTriggerCallback(function () {
         tooltip_role: 'preview',
         tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
       });
-      console.log(previewParams);
     } else {
       tooltip = new tooltip_element({
         tooltip: nkLocale.get(key) ? nkLocale.get(key) : key,
@@ -507,90 +539,19 @@ $(document).on('dblclick', 'tooltip-img', function () {
 
 
 //? ZOOMING TOOLTIP-IMG
-/*
 let originalWidth, originalHeight;
-let zoomLevel = 1;
-let isKeyDown = false;
-
-$(document).on("mousedown", "tooltip-img", function (e) {
+$(document).on("wheel", "tooltip-img", function (e) {
   let element = $(this);
   let image = new Image();
   image.src = element.find('img').attr('src');
   image.onload = function () {
+    if (!image.complete) {
+      return console.log('image not loaded');
+    }
     originalWidth = image.width;
     originalHeight = image.height;
   };
-  isKeyDown = true;
-  zoomLevel = 2;
+
   element.find('img').attr('draggable', false);
-  $(document).on("mousemove", function (e) {
-    if (isKeyDown) {
-      let mouseX = e.pageX - element.offset().left;
-      let mouseY = e.pageY - element.offset().top;
-      let imageX = mouseX * (1 - zoomLevel);
-      let imageY = mouseY * (1 - zoomLevel);
 
-      element.find('img').css({
-        width: originalWidth * zoomLevel,
-        height: originalHeight * zoomLevel,
-        marginLeft: -imageX,
-        marginTop: -imageY
-      });
-    }
-  });
-});*/
-let originalWidth, originalHeight;
-let zoomLevel = 1;
-let isKeyDown = false;
-
-$(document).on("mousedown", "tooltip-img", function (e) {
-  let element = $(this);
-  let image = new Image();
-  image.src = element.find('img').attr('src');
-  image.onload = function () {
-    originalWidth = image.width;
-    originalHeight = image.height;
-    console.log(`originalWidth: ${originalWidth}, originalHeight: ${originalHeight}`);
-  };
-  isKeyDown = true;
-  zoomLevel = 1;
-  element.find('img').attr('draggable', false);
-  
-  let zoomAxis = element.attr('data-zoomAxis');
-  let centerX, centerY;
-  if (zoomAxis === 'at-page') {
-    centerX = $(window).width() / 2;
-    centerY = $(window).height() / 2;
-  } else {
-    centerX = element.offset().left + element.outerWidth() / 2;
-    centerY = element.offset().top + element.outerHeight() / 2;
-  }
-
-  $(document).on("mousemove", function (e) {
-    if (isKeyDown) {
-      let mouseX, mouseY, imageX, imageY, offsetX, offsetY;
-      if (zoomAxis === 'at-page') {
-        mouseX = e.pageX - element.offset().left;
-        mouseY = e.pageY - element.offset().top;
-        imageX = mouseX * (1 - zoomLevel);
-        imageY = mouseY * (1 - zoomLevel);
-      } else {
-        mouseX = e.pageX;
-        mouseY = e.pageY;
-      
-        offsetX = mouseX - centerX;
-        offsetY = mouseY - centerY;
-
-        imageX = offsetX * (1 - zoomLevel);
-        imageY = offsetY * (1 - zoomLevel);
-      }
-
-      element.find('img').css({
-        width: originalWidth * zoomLevel,
-        height: originalHeight * zoomLevel,
-        marginLeft: -imageX,
-        marginTop: -imageY
-      });
-    }
-  });
 });
