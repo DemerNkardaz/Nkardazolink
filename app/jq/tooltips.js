@@ -530,11 +530,14 @@ $(document).on('click', '.Preview_tooltip-imgFull', function () {
   const tooltip = $(this).closest('tooltip-element');
   const imageSource = $(this).siblings('.Preview_tooltip-img').attr('src');
   const imageAlt = $(this).siblings('.Preview_tooltip-img').attr('alt');
-  tooltip.find('tooltip-img').find('img').attr('src') !== imageSource && tooltip.append(new tooltip_img({ src: imageSource, alt: imageAlt }));
+  if (tooltip.find('tooltip-img').find('img').attr('src') !== imageSource) {
+    tooltip.append(new tooltip_img({ src: imageSource, alt: imageAlt })); $(this).text('fullscreen_exit'); return;
+  } else {
+    tooltip.children('tooltip-img').hide('fast'); setTimeout(() => { tooltip.children('tooltip-img').remove(); }, 500); $(this).text('fullscreen');
+  }
 });
 $(document).on('dblclick', 'tooltip-img', function () {
-  $(this).hide('fast');
-  setTimeout(() => { $(this).remove(); }, 500);
+  $(this).hide('fast'); setTimeout(() => { $(this).remove(); }, 500);
 });
 
 

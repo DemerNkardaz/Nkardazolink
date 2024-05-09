@@ -391,10 +391,12 @@ class tooltip_img extends HTMLElement {
     super();
     const component = `<div class="tooltip-img-opened"><img src="${image ? image.src : image}" alt="${image.alt ? image.alt : ''}" loading="eager"></div>`;
     image && image.classes ? $(this).addClass(image.classes) : '';
+    $(this).hide();
     !this.innerHTML.length ? this.innerHTML = component : '';
   }
 
   connectedCallback() {
+    $(this).show('fast');
     const imgSrc = $(this).find('img').attr('src');
     let originalWidth, originalHeight, aspect_ration;
     let image = new Image();
