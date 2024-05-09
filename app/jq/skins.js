@@ -1,13 +1,6 @@
 let skin = (nkSettings.get('skin') !== null) ? `app/style/skins/${nkSettings.get('skin')}.css` : 'app/style/skins/byakujou.css';
 $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 
-const skinLoad = new Promise(function (resolve, reject) {
-  pageTriggerCallback(function () {
-    nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.buildType(`[NK_SKIN] → Skin assigned based on “Daytime” Preference`, 'success'));
-    nkSettings.get('change_skin_by_time') !== 'true' && setSkin(nkSettings.get('skin'));
-  }); resolve();
-});
-
 window.returnCurrentSkin = function (type) {
   const preference = nkSettings.get('skin');
   const skinName = availableSkins[preference] ? (type === 'url' ? availableSkins[preference].url : availableSkins[preference].name) : 'Byakujou';

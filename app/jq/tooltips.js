@@ -24,6 +24,7 @@ nkTooltips.opts = function (config) {
 pageTriggerCallback(function () {
   let tooltipParents = collectTargets('[data-tooltip-key]');
   let tooltipParentsIdes = collectTargets('[data-tooltip-id]');
+  let tooltipMetaAnchors = collectTargets('[data-meta-tooltip]');
   let timers_array = {};
   let offsetInterval;
   let detectedTooltips = false;
@@ -33,9 +34,14 @@ pageTriggerCallback(function () {
       if (mutation.type === 'attributes' || mutation.type === 'childList') {
         const newTooltipParents = collectTargets('[data-tooltip-key]');
         const newTooltipParentsIdes = collectTargets('[data-tooltip-id]');
+        const newTooltipMetaAnchors = collectTargets('[data-meta-tooltip]');
 
         if (!areCollectionsEqual(tooltipParentsIdes, newTooltipParentsIdes)) {
           tooltipParentsIdes = newTooltipParentsIdes;
+        }
+
+        if (!areCollectionsEqual(tooltipMetaAnchors, newTooltipMetaAnchors)) {
+          tooltipMetaAnchors = newTooltipMetaAnchors;
         }
 
         if (!areCollectionsEqual(tooltipParents, newTooltipParents)) {
@@ -52,12 +58,20 @@ pageTriggerCallback(function () {
         const tooltipElements = $('tooltip-element');
         tooltipElements.each(function () {
           const tooltipId = $(this).attr('id');
+          const tooltipMeta = $(this).attr('data-meta-anchor');
           const found = tooltipParentsIdes.toArray().some(parent => parent.getAttribute('data-tooltip-id') === tooltipId);
           if (!found) {
-            $(this).css('opacity', 0);
             setTimeout(() => {
-              $(this).remove();
-            }, 300);
+              const regeneratedTooltip = tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta);
+              if (!regeneratedTooltip) {
+                $(this).css('opacity', 0);
+                setTimeout(() => {
+                  $(this).remove();
+                }, 300);
+              } else {
+                tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta && parent.setAttribute('data-tooltip-id', tooltipId));
+              }
+            }, 10);
           }
         });
         
@@ -157,6 +171,7 @@ pageTriggerCallback(function () {
     const hrefTarget = $(target).attr('target') || null;
     const customs = $(target).attr('data-tooltip-customs') || null;
     const classes = $(target).attr('data-tooltip-classes') || null;
+    const metaAnchor = $(target).attr('data-meta-tooltip') || null;
     let tooltip, previewEntity;
 
     if ($(`#${$(target).attr('data-tooltip-id')}`).length) {
@@ -174,8 +189,13 @@ pageTriggerCallback(function () {
 
     if (role !== undefined && role === 'preview') {
       let previewParams = {};
-      nkLocale.get(`check:${key}.preview.image.src`) ? (previewParams.image = { src: nkLocale.get(`${key}.preview.image.src`) }) : null;
+      if (nkLocale.get(`check:${key}.preview.image.src`)) {
+        previewParams.image = { src: nkLocale.get(`${key}.preview.image.src`) };
+        previewParams.image.key = `${key}.preview.image.src`
+      }
       nkLocale.get(`check:${key}.preview.image.shift`) ? (previewParams.image.shift = nkLocale.get(`${key}.preview.image.shift`)) : null;
+      nkLocale.get(`check:${key}.preview.image.blur`) ? (previewParams.image.blur = nkLocale.get(`${key}.preview.image.blur`)) : null;
+      nkLocale.get(`check:${key}.preview.image.opacity`) ? (previewParams.image.opacity = nkLocale.get(`${key}.preview.image.opacity`)) : null;
       nkLocale.get(`check:${key}.preview.image.h`) ? (previewParams.image.h = nkLocale.get(`${key}.preview.image.h`)) : null;
       nkLocale.get(`check:${key}.preview.content`) ? (previewParams.content = {
         text: nkLocale.get(`check:${key}.preview.content`),
@@ -193,13 +213,14 @@ pageTriggerCallback(function () {
       tooltip = new tooltip_element({
         tooltip: previewEntity,
         tooltip_role: 'preview',
-        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null
+        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
       });
+      console.log(previewParams);
     } else {
       tooltip = new tooltip_element({
         tooltip: nkLocale.get(key) ? nkLocale.get(key) : key,
         tooltip_key: nkLocale.get(`${key}`) ? key : null,
-        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null
+        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
       });
     }
 
@@ -272,6 +293,7 @@ function calcTooltipPos(id, pos) {
   const tooltipWidth = tooltip.offsetWidth;
   const tooltipHeight = tooltip.offsetHeight;
   const children = $(tooltip).children('.tl-arrow');
+  const tooltipFullres = $(tooltip).children('tooltip-img');
   let calc_pos;
 
   const defCalcs = {
@@ -348,34 +370,42 @@ function calcTooltipPos(id, pos) {
     if (ownerPos === 'top' && children.attr('data-parent-tooltip-pos') !== 'top' && calc_pos.top > (tooltip.offsetHeight)) {
       calc_pos = defCalcs.top;
       children.attr('data-parent-tooltip-pos', 'top');
+      tooltipFullres.attr('class', 'view-side-top');
     }
     if (ownerPos === 'bottom' && children.attr('data-parent-tooltip-pos') !== 'bottom' && calc_pos.top > (tooltip.offsetHeight)) {
       calc_pos = defCalcs.bottom;
       children.attr('data-parent-tooltip-pos', 'bottom');
+      tooltipFullres.attr('class', 'view-side-bottom');
     }
     if (ownerPos === 'left' && children.attr('data-parent-tooltip-pos') !== 'left' && calc_pos.left < (tooltip.offsetWidth * tooltipWidth)) {
       calc_pos = defCalcs.left;
       children.attr('data-parent-tooltip-pos', 'left');
+      tooltipFullres.attr('class', 'view-side-left');
     }
     if (ownerPos === 'right' && children.attr('data-parent-tooltip-pos') !== 'right' && calc_pos.left < (tooltip.offsetWidth * tooltipWidth)) {
       calc_pos = defCalcs.right;
       children.attr('data-parent-tooltip-pos', 'right');
+      tooltipFullres.attr('class', 'view-side-right');
     }
     if (ownerPos === 'top-start' && children.attr('data-parent-tooltip-pos') !== 'top-start' && calc_pos.top > (tooltip.offsetHeight)) {
       defCalcs.top.left = parentOffset.left;
       children.attr('data-parent-tooltip-pos', 'top-start');
+      tooltipFullres.attr('class', 'view-side-top');
     }
     if (ownerPos === 'top-end' && children.attr('data-parent-tooltip-pos') !== 'top-end' && calc_pos.top > (tooltip.offsetHeight)) {
       defCalcs.top.left = parentOffset.left + parent.offsetWidth - tooltipWidth;
       children.attr('data-parent-tooltip-pos', 'top-end');
+      tooltipFullres.attr('class', 'view-side-top');
     }
     if (ownerPos === 'bottom-start' && children.attr('data-parent-tooltip-pos') !== 'bottom-start' && calc_pos.top > (tooltip.offsetHeight)) {
       defCalcs.bottom.left = parentOffset.left;
       children.attr('data-parent-tooltip-pos', 'bottom-start');
+      tooltipFullres.attr('class', 'view-side-bottom');
     }
     if (ownerPos === 'bottom-end' && children.attr('data-parent-tooltip-pos') !== 'bottom-end' && calc_pos.top > (tooltip.offsetHeight)) {
       defCalcs.bottom.left = parentOffset.left + parent.offsetWidth - tooltipWidth;
       children.attr('data-parent-tooltip-pos', 'bottom-end');
+      tooltipFullres.attr('class', 'view-side-bottom');
     }
   }
   if (calc_pos) {
@@ -385,15 +415,19 @@ function calcTooltipPos(id, pos) {
     if (calc_pos.top < 5) {
       calc_pos = defCalcs.bottom;
       children.attr('data-parent-tooltip-pos', 'bottom');
+      tooltipFullres.attr('class', 'view-side-bottom');
     } else if ((tooltipBottomPos + 15) > window.innerHeight) {
       calc_pos = defCalcs.top;
       children.attr('data-parent-tooltip-pos', 'top');
+      tooltipFullres.attr('class', 'view-side-top');
     } else if (calc_pos.left < 5) {
       calc_pos = defCalcs.right;
       children.attr('data-parent-tooltip-pos', 'right');
+      tooltipFullres.attr('class', 'view-side-right');
     } else if ((tooltipRightPos + 15) > window.innerWidth) {
       calc_pos = defCalcs.left;
       children.attr('data-parent-tooltip-pos', 'left');
+      tooltipFullres.attr('class', 'view-side-left');
     }
   }
 
@@ -447,4 +481,116 @@ function calcTooltipPos(id, pos) {
   tooltipParents.on('mouseleave', function () { tooltipLeave(this) });
     
   console.buildType('[TOOLTIP] → Tooltips Initialized', 'success');
+});
+
+
+
+
+
+
+
+
+
+
+
+//? BIND SHORTCUS
+$(document).on('click', '.Preview_tooltip-imgFull', function () {
+  const tooltip = $(this).closest('tooltip-element');
+  const imageSource = $(this).siblings('.Preview_tooltip-img').attr('src');
+  const imageAlt = $(this).siblings('.Preview_tooltip-img').attr('alt');
+  tooltip.find('tooltip-img').find('img').attr('src') !== imageSource && tooltip.append(new tooltip_img({ src: imageSource, alt: imageAlt }));
+});
+$(document).on('dblclick', 'tooltip-img', function () {
+  $(this).hide('fast');
+  setTimeout(() => { $(this).remove(); }, 500);
+});
+
+
+//? ZOOMING TOOLTIP-IMG
+/*
+let originalWidth, originalHeight;
+let zoomLevel = 1;
+let isKeyDown = false;
+
+$(document).on("mousedown", "tooltip-img", function (e) {
+  let element = $(this);
+  let image = new Image();
+  image.src = element.find('img').attr('src');
+  image.onload = function () {
+    originalWidth = image.width;
+    originalHeight = image.height;
+  };
+  isKeyDown = true;
+  zoomLevel = 2;
+  element.find('img').attr('draggable', false);
+  $(document).on("mousemove", function (e) {
+    if (isKeyDown) {
+      let mouseX = e.pageX - element.offset().left;
+      let mouseY = e.pageY - element.offset().top;
+      let imageX = mouseX * (1 - zoomLevel);
+      let imageY = mouseY * (1 - zoomLevel);
+
+      element.find('img').css({
+        width: originalWidth * zoomLevel,
+        height: originalHeight * zoomLevel,
+        marginLeft: -imageX,
+        marginTop: -imageY
+      });
+    }
+  });
+});*/
+let originalWidth, originalHeight;
+let zoomLevel = 1;
+let isKeyDown = false;
+
+$(document).on("mousedown", "tooltip-img", function (e) {
+  let element = $(this);
+  let image = new Image();
+  image.src = element.find('img').attr('src');
+  image.onload = function () {
+    originalWidth = image.width;
+    originalHeight = image.height;
+    console.log(`originalWidth: ${originalWidth}, originalHeight: ${originalHeight}`);
+  };
+  isKeyDown = true;
+  zoomLevel = 1;
+  element.find('img').attr('draggable', false);
+  
+  let zoomAxis = element.attr('data-zoomAxis');
+  let centerX, centerY;
+  if (zoomAxis === 'at-page') {
+    centerX = $(window).width() / 2;
+    centerY = $(window).height() / 2;
+  } else {
+    centerX = element.offset().left + element.outerWidth() / 2;
+    centerY = element.offset().top + element.outerHeight() / 2;
+  }
+
+  $(document).on("mousemove", function (e) {
+    if (isKeyDown) {
+      let mouseX, mouseY, imageX, imageY, offsetX, offsetY;
+      if (zoomAxis === 'at-page') {
+        mouseX = e.pageX - element.offset().left;
+        mouseY = e.pageY - element.offset().top;
+        imageX = mouseX * (1 - zoomLevel);
+        imageY = mouseY * (1 - zoomLevel);
+      } else {
+        mouseX = e.pageX;
+        mouseY = e.pageY;
+      
+        offsetX = mouseX - centerX;
+        offsetY = mouseY - centerY;
+
+        imageX = offsetX * (1 - zoomLevel);
+        imageY = offsetY * (1 - zoomLevel);
+      }
+
+      element.find('img').css({
+        width: originalWidth * zoomLevel,
+        height: originalHeight * zoomLevel,
+        marginLeft: -imageX,
+        marginTop: -imageY
+      });
+    }
+  });
 });

@@ -345,15 +345,17 @@ window.item_create = function () {
 
 }; item_create();
 
+
+
 class tooltip_element extends HTMLElement {
-  constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, id } = {}) {
+  constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, tooltip_meta, id } = {}) {
     super();
     const component = `
     <div class="tl-arrow" ${tooltip_pos ? `data-parent-tooltip-pos="${tooltip_pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
-    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview>${tooltip.innerHTML}</tooltip-preview>`}</div>
+    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview ${extractAttributes(tooltip)}>${tooltip.innerHTML}</tooltip-preview>`}</div>
     `;
     (tooltip_classes ? $(this).addClass(tooltip_classes) : '');
-    $(this).attr({ 'role': 'tooltip', 'id': id ? id : null });
+    $(this).attr({ 'role': 'tooltip', 'id': id ? id : null, 'data-meta-anchor': tooltip_meta ? tooltip_meta : null });
     this.innerHTML = component;
   }
 
@@ -372,17 +374,28 @@ class tooltip_preview extends HTMLElement {
   constructor({ image, content, subscript, link } = {}) {
     super();
     const component = `${link ? `<a href="${link.src}" ${link.target ? `target="${link.target}"` : ''}>` : ''}
-    ${image ? `<div class="Preview_tooltip-imgWrapper" ${image.h ? `style="--h: ${image.h}px;"` : ''}><img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" ${image.shift ? `style="--shift: ${image.shift};"` : ''}></div>` : ''}
+    ${image ? `<div class="Preview_tooltip-imgWrapper" ${image.h ? `style="--h: ${image.h}px;"` : ''}><img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" style="${image.shift ? `--shift: ${image.shift};` : ''} ${image.opacity ? `--imgOpacity: ${image.opacity};` : ''}" ${image.blur ? `data-blur="${image.blur}"` : ''} ${image.key ? `data-key-image="${image.key}"` : ''}><span class="Preview_tooltip-imgFull material-icons">fullscreen</span></div>` : ''}
     <div class="Preview_tooltip-content vert-border-alpha-0" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
     ${subscript && subscript.text ? `<div class="Preview_tooltip-subscript" data-key="${subscript.key}">${subscript.text}</div>` : ''}
     ${link ? `</a>` : ''}`;
     $(this).addClass('Preview_tooltip');
+    image && image.blur ? $(this).attr('data-blur', image.blur) : '';
     !this.innerHTML.length ? this.innerHTML = component : '';
   }
 }
-
 customElements.define('tooltip-preview', tooltip_preview);
 window.tooltip_preview = tooltip_preview;
+
+class tooltip_img extends HTMLElement {
+  constructor(image) {
+    super();
+    const component = `<div class="tooltip-img-opened"><img src="${image ? image.src : image}" alt="${image.alt ? image.alt : ''}" loading="eager"></div>`;
+    image && image.classes ? $(this).addClass(image.classes) : '';
+    !this.innerHTML.length ? this.innerHTML = component : '';
+  }
+}
+customElements.define('tooltip-img', tooltip_img);
+window.tooltip_img = tooltip_img;
 
 class dropdown_element extends HTMLElement {
   constructor({ content, id } = {}) {
@@ -502,7 +515,7 @@ window.nkUI = {
 
   tooltipInfo: {
     header: function (text, logo) {return `<div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
-    quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${key}" ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
+    quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${typeof key === 'object' ? key.key : key}" ${typeof key === 'object' ? `data-meta-tooltip="${key.meta}"` : ''} ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
   },
   tooltipEventLess: function (text, key, pos) {
     let fromData = null;

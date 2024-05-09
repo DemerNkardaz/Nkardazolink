@@ -19,5 +19,15 @@ if (nkSettings.get('save_selected_item') === 'true') {
   });
 }
 
-
-//nkSettings.get('change_skin_by_time') === 'true' && (setSkinByTime(), console.log(`Skin assigned based on “Daytime” Preference`));
+//? APPLYING SKIN
+const skinLoad = new Promise(function (resolve) {
+  try {
+    pageTriggerCallback(function () {
+      nkSettings.get('change_skin_by_time') === 'true' ? setSkinByTime() : setSkin(nkSettings.get('skin'));
+      resolve();
+    });
+  } catch (err) { console.error(err); }
+}).then(function () {
+  nkSettings.get('change_skin_by_time') === 'true' ? console.buildType(`[NK_SKIN] → Skin “${availableSkins[nkSettings.get('skin')].name}” assigned based on “Daytime” Preference`, 'success') :
+    console.buildType(`[NK_SKIN] → Skin “${availableSkins[nkSettings.get('skin')].name}” assigned based on User Preference`, 'success');
+});

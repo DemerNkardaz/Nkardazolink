@@ -22,6 +22,18 @@ window.console.buildType = function (message, type) {
   return console.log(`%c${marker} ${message}`, styles);
 };
 
+
+window.extractAttributes = function(element) {
+    var attributesString = Array.from(element.attributes)
+        .map(attr => `${attr.name}="${attr.value}"`)
+        .join(" ");
+    var datasetString = Object.keys(element.dataset)
+        .map(key => `data-${key}="${element.dataset[key]}"`)
+        .join(" ");
+    return `${attributesString} ${datasetString}`;
+}
+
+
 window.collectTargets = function (target) {
   let targetsCollection = $(target);
   $('*').filter(function () {

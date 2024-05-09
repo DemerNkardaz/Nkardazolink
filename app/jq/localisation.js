@@ -148,11 +148,11 @@ window.updateItemsLanguage = function () {
 
 window.nkLocale.langUpdate = function ({ target, source } = {}) {
   let sourceName;
-  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key]');
+  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
   $('*').filter(function () {
     return this.shadowRoot !== null;
   }).each(function () {
-    const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key]');
+    const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
     key_elements = key_elements.add(shadowElements);
   });
 
@@ -162,8 +162,9 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
       let dataKey = $(this).attr('data-key');
       let altKey = $(this).attr('alt-key');
       let eventLessKey = $(this).attr('eventLess-tooltip-key');
+      let imageKey = $(this).attr('data-key-image');
       let cutKey = $(this).attr('data-keyCutter');
-      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey);
+      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
       let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);
       let interpolatedLocale = eval('`' + getLocale + '`');
 
@@ -172,6 +173,15 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
       if ((dataKey || key) && !eventLessKey) $(this).html(interpolatedLocale);
       if (altKey) $(this).attr('alt', interpolatedLocale);
       if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
+      if (imageKey) {
+        $(this).attr('src', nkLocale.get(sourceName ? `${imageKey}>${sourceName}` : key));
+        let folder = imageKey.replace('.src', '');
+        console.log(folder);
+        nkLocale.get(`check:${folder}.shift`) ? $(this).css('--shift', nkLocale.get(`${folder}.shift`)) : $(this).css('--shift', '');
+        nkLocale.get(`check:${folder}.opacity`) ? $(this).css('--imgOpacity', nkLocale.get(`${folder}.opacity`)) : $(this).css('--imgOpacity', '');
+        nkLocale.get(`check:${folder}.h`) ? $(this).closest('.Preview_tooltip-imgWrapper').css('--h', nkLocale.get(`${folder}.h`)) : $(this).closest('.Preview_tooltip-imgWrapper').css('--h', '');
+        nkLocale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nkLocale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
+      }
       
     });
   }; 
