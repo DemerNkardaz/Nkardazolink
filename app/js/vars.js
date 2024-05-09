@@ -1,5 +1,4 @@
 window.nkPreferences = {
-  skin: fromStorage('skin') ? fromStorage('skin') : null,
   banner: {
     asanoha: {
       url: '../../../resources/svg/pattern_asanoha_90deg.svg',
@@ -41,66 +40,43 @@ TREE IS A LINKTREE
 
 
 window.nkSettings = new Map([
-  ["save_search_result", (loadSettings('save_search_result') ? loadSettings('save_search_result') : 'true')],
-  ["save_selected_item", (loadSettings('save_selected_item') ? loadSettings('save_selected_item') : 'false')],
-  ["turn_off_preloader", (loadSettings('turn_off_preloader') ? loadSettings('turn_off_preloader') : 'false')],
-  ["ambience_off", (loadSettings('ambience_off') ? loadSettings('ambience_off') : 'false')],
+  ["save_search_result", ($Setting('save_search_result').load() ? $Setting('save_search_result').load() : 'true')],
+  ["save_selected_item", ($Setting('save_selected_item').load() ? $Setting('save_selected_item').load() : 'false')],
+  ["turn_off_preloader", ($Setting('turn_off_preloader').load() ? $Setting('turn_off_preloader').load() : 'false')],
+  ["ambience_off", ($Setting('ambience_off').load() ? $Setting('ambience_off').load() : 'false')],
   // Skin Settings
-  ["skin", (loadSettings('skin') ? loadSettings('skin') : 'byakujou')],
-  ["change_skin_by_time", (loadSettings('change_skin_by_time') ? loadSettings('change_skin_by_time') : 'false')],
+  ["skin", ($Setting('skin').load() ? $Setting('skin').load() : 'byakujou')],
+  ["change_skin_by_time", ($Setting('change_skin_by_time').load() ? $Setting('change_skin_by_time').load() : 'false')],
   // Other customizations
-  ["current_banner", (loadSettings('current_banner') ? loadSettings('current_banner') : 'asanoha')],
+  ["current_banner", ($Setting('current_banner').load() ? $Setting('current_banner').load() : 'asanoha')],
   // Lang
-  ["lang", (loadSettings('lang') ? loadSettings('lang') : navigatorLanguage)],
+  ["lang", ($Setting('lang').load() ? $Setting('lang').load() : navigatorLanguage)],
 ]);
-
-/*
-{
-  let isFilled = false;
-  let navLang = false;
-  const insertDefault = new Promise((resolve, reject) => { 
-    try {
-      for (const [key, value] of nkSettings) {
-        if (loadSettings(key) === null || loadSettings(key) === undefined) saveSettings(key, value), isFilled = true;
-        if (key === 'lang' && value !== navigatorLanguage) saveSettings(key, navigatorLanguage), navLang = true;
-      }
-      resolve();
-    } catch (err) {
-      reject(err);
-    }
-  });
-
-  insertDefault.then(function () {
-    isFilled && console.log(`[SETTING] → Inserted default settings to localStorage`);
-    navLang && console.log(`[SETTING] → Detected change of navigator language. Assigned to new language`);
-  });
-}*/
-
 
 
 if (nkSettings.get('save_search_result') === 'true') {
   window.latestSearches = {
-    "kamon": (fromStorage('latestSearches.kamon') ? fromStorage('latestSearches.kamon') : null),
-    "banners": (fromStorage('latestSearches.banners') ? fromStorage('latestSearches.banners') : null),
-    "clans": (fromStorage('latestSearches.clans') ? fromStorage('latestSearches.clans') : null),
-    "pattern": (fromStorage('latestSearches.pattern') ? fromStorage('latestSearches.pattern') : null),
+    "kamon": ($Store('latestSearches.kamon').load() ? $Store('latestSearches.kamon').load() : null),
+    "banners": ($Store('latestSearches.banners').load() ? $Store('latestSearches.banners').load() : null),
+    "clans": ($Store('latestSearches.clans').load() ? $Store('latestSearches.clans').load() : null),
+    "pattern": ($Store('latestSearches.pattern').load() ? $Store('latestSearches.pattern').load() : null),
   };
 } else {
-  if (window.latestSearches !== null || fromStorage('latestSearches')) {
-    removeStorage('latestSearches');
+  if (window.latestSearches !== null || $Store('latestSearches').load()) {
+    $Store('latestSearches').remove();
   };
 };
 
 if (nkSettings.get('save_selected_item') === 'true') {
   window.selectedItems = {
-    "kamon": (fromStorage('selectedItems.kamon') ? fromStorage('selectedItems.kamon') : null),
-    "banners": (fromStorage('selectedItems.banners') ? fromStorage('selectedItems.banners') : null),
-    "clans": (fromStorage('selectedItems.clans') ? fromStorage('selectedItems.clans') : null),
-    "pattern": (fromStorage('selectedItems.pattern') ? fromStorage('selectedItems.pattern') : null),
+    "kamon": ($Store('selectedItems.kamon').load() ? $Store('selectedItems.kamon').load() : null),
+    "banners": ($Store('selectedItems.banners').load() ? $Store('selectedItems.banners').load() : null),
+    "clans": ($Store('selectedItems.clans').load() ? $Store('selectedItems.clans') : null),
+    "pattern": ($Store('selectedItems.pattern').load() ? $Store('selectedItems.pattern').load() : null),
   };
 } else {
-  if (window.selectedItems !== null || fromStorage('selectedItems')) {
-    removeStorage('selectedItems');
+  if (window.selectedItems !== null || $Store('selectedItems').load()) {
+    $Store('selectedItems').remove();
   };
 };
 

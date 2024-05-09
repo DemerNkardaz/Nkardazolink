@@ -10,7 +10,7 @@ if (nkSettings.get('save_selected_item') === 'true') {
       var entity = $(this).attr('entity');
       if (entity) {
         var storageKey = `selectedItems.${entity}`;
-        var storedValue = fromStorage(storageKey);
+        var storedValue = $Store(storageKey).load();
         if (storedValue) {
           $(this).addClass('selected');
         }

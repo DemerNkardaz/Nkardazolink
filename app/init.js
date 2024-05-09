@@ -1,5 +1,5 @@
 (anUrlParameter.mode && !availableModes.includes(anUrlParameter.mode)) ||
-((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select))) ? redirOrigin() : null;
+((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select))) ? redirect.origin() : null;
 
 nkSettings.get('lang') ? $('html').attr('lang', nkSettings.get('lang')) : $('html').attr('lang', 'ru');
 

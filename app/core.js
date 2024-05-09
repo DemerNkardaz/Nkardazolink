@@ -32,42 +32,49 @@ window.collectTargets = function (target) {
   return targetsCollection;
 };
 
+
+$.fn.reapplyClass = function (addClass, selector) { $(selector).removeClass(addClass); $(this).addClass(addClass); };
 $.fn.tagName = function () { return this.prop("tagName") };
 $.fn.timedClass = function (className, end, start) { $(this).addClass(className); setTimeout(() => { setTimeout(() => { $(this).removeClass(className) }, end ? end : 100) }, start ? start : null) }
 
 $.fn.timedClassEvent = function (eventType, className, end, start) { $(this).on(eventType, function () { $(this).timedClass(className, end, start); }) }
 
-window.fromStorage = function (key, isJSON) {
-  if (isJSON) return JSON.parse(localStorage.getItem(key)); else return localStorage.getItem(key);
-}
-
-window.toStorage = function (key, value) {
-  localStorage.setItem(key, value);
-}
-
-
-
+window.clearStorage = function () { localStorage.clear(); };
 function storageOperations(key, type, value) {
   if (key.includes('.')) {
     let result = JSON.parse(localStorage.getItem(key.split('.')[0]));
-    for (let i = 1; i < key.split('.').length - 1; i++) {
-      result = result !== null ? result[key.split('.')[i]] : null;
-    }
+    for (let i = 1; i < key.split('.').length - 1; i++) { result = result !== null ? result[key.split('.')[i]] : null; };
+    
     const lastKey = key.split('.').pop();
-    if (type === 'set') {
-      result[lastKey] = value;
-      localStorage.setItem(key.split('.')[0], JSON.stringify(result));
-    } else if (type === 'remove') {
-      delete result[lastKey];
-      localStorage.setItem(key.split('.')[0], JSON.stringify(result));
-    }
+
+    if (type === 'set') { result === null && (result = {}); result[lastKey] = value; localStorage.setItem(key.split('.')[0], JSON.stringify(result)); }
+    else if (type === 'remove') { delete result[lastKey]; localStorage.setItem(key.split('.')[0], JSON.stringify(result)); };
+
     return result !== null ? result[lastKey] : null;
   } else {
-    return localStorage.getItem(key);
+    switch (type) {
+      case 'set': localStorage.setItem(key, value); break;
+      case 'remove': localStorage.removeItem(key); break;
+      default: return localStorage.getItem(key);
+    }
   }
+};
+window.$Store = function (key) {
+  let methods = {};
+  methods.load = function (promise) {
+    const result = storageOperations(key, 'load');
+    return promise === true ? Promise.resolve(result) : result;
+  };
+  methods.save = function (value) {
+    storageOperations(key, 'set', value);
+    Promise.resolve(value);
+  };
+  methods.remove = function () {
+    storageOperations(key, 'remove');
+    Promise.resolve();
+  };
+  return methods;
 }
-window.storageOperations = storageOperations;
-
 window.$Setting = function (key) {
   let methods = {};
   methods.save = function (value, offNKSettings) {
@@ -84,7 +91,7 @@ window.$Setting = function (key) {
     });
 
     savePromise.then(function () {
-      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`, 'info');
+      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${$Setting(key).load()}”`, 'info');
     }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
 
     return new Promise((resolve) => {
@@ -93,12 +100,11 @@ window.$Setting = function (key) {
       resolve({ valueBefore, valueNew });
     });
   };
-  methods.load = function () {
-    return new Promise((resolve, reject) => {
-      const result = storageOperations(`savedSettings.${key}`, 'load');
-      resolve(result);
-    });
+  methods.load = function (promise) {
+    const result = storageOperations(`savedSettings.${key}`, 'load');
+    return promise === true ? Promise.resolve(result) : result;
   };
+
   methods.remove = function () {
     const previousSetting = storageOperations(`savedSettings.${key}`, 'load') || null;
     const previousMap = nkSettings.get(key) || null;
@@ -121,96 +127,7 @@ window.$Setting = function (key) {
     });
   };
   return methods;
-}
-
-/*window.$Setting = function (key) {
-  let methods = {};
-  methods.save = function (value, offNKSettings) {
-    return new Promise((resolve, reject) => {
-      try {
-        const previousSetting = storageOperations(`savedSettings.${key}`, 'load');
-        const previousMap = nkSettings.get(key);
-        const savePromise = new Promise((saveResolve, saveReject) => {
-          try {
-            storageOperations(`savedSettings.${key}`, 'set', typeof value === 'string' ? value : JSON.stringify(value));
-            offNKSettings !== true && nkSettings.set(key, value);
-            saveResolve();
-          } catch (err) {
-            saveReject(err);
-          }
-        });
-
-        savePromise.then(function () {
-          console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`, 'info');
-          resolve();
-        }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
-
-      } catch (err) {
-        reject(err);
-      }
-    });
-  };
-
-  methods.load = function () {
-    return new Promise((resolve, reject) => {
-      try {
-        const result = storageOperations(`savedSettings.${key}`, 'load');
-        resolve(result);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  };
-
-  methods.remove = function () {
-    return new Promise((resolve, reject) => {
-      try {
-        storageOperations(`savedSettings.${key}`, 'remove');
-        resolve();
-      } catch (err) {
-        reject(err);
-      }
-    });
-  };
-
-  return methods;
-}*/
-
-
-window.saveSettings = function (key, value) {
-  const previousSetting = loadSettings(key);
-  const previousMap = nkSettings.get(key);
-
-  const savePromise = new Promise((resolve, reject) => {
-    try {
-      nkSettings.set(key, value);
-      let savedSettings = fromStorage('savedSettings', true) || {};
-      savedSettings[key] = value;
-      localStorage.setItem('savedSettings', JSON.stringify(savedSettings));
-      resolve();
-    } catch (err) {
-      reject(err);
-    }
-  });
-
-  savePromise.then(function () {
-    console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${loadSettings(key)}”`, 'info');
-  });
-}
-
-window.loadSettings = function (key) {
-  let savedSettings = fromStorage('savedSettings', true) || {};
-  return savedSettings[key];
-}
-
-
-window.removeStorage = function (key) {
-  localStorage.removeItem(key);
-}
-
-window.clearStorage = function () {
-  localStorage.clear();
-}
+};
 
 window.observeOn = function (type, element, callback, timeout, context) {
   let observer = new MutationObserver(function (mutations) {
@@ -357,47 +274,18 @@ window.waitFor = function(selector, callback) {
   observer.observe(document.documentElement, { childList: true, subtree: true });
 }
 
-window.redirOrigin = function() {
-  if (window.localHostIP) {
-    window.location.replace(window.location.href.split('?')[0]);
-  } else {
-    window.location.replace(window.location.href.split('.html')[0]);
-  }
+window.redirect = function(linkOrigin) {
+  let methods = {};
+  methods.origin = function () { if (window.localHostIP) { window.location.replace(window.location.href.split('?')[0]); } else { window.location.replace(window.location.href.split('.html')[0]); } };
+  methods.index = function () { if (window.localHostIP) { window.location.replace('index.html'); } else { window.location.replace('./'); } };
+  methods.to = function (url) {
+    if (typeof url === 'object') { linkOrigin === 'external' ? window.open(`https://${url.url}`, url.target ? url.target : '_blank') : window.location.replace(url.url); }
+    else { linkOrigin === 'external' ? window.open(`https://${url}`, '_blank') : window.location.replace(url); }
+  };
+  return methods;
 }
 
-window.redirToIndex = function() {
-  if (window.localHostIP) {
-    window.location.replace('index.html');
-  } else {
-    window.location.replace('./');
-  }
-}
-
-window.redirTo = function({ index, url, new_tab }) {
-  if (new_tab) {
-    if (index) {
-      if (window.localHostIP) {
-        window.open(`index.html${url}`, '_blank');
-      } else {
-        window.open(`./${url}`, '_blank');
-      }
-    } else {
-      window.open(url, '_blank');
-    }
-  } else {
-    if (index) {
-      if (window.localHostIP) {
-        window.location.replace(`index.html${url}`);
-      } else {
-        window.location.replace(`./${url}`);
-      }
-    } else {
-      window.location.replace(url);
-    }
-  }
-}
-
-window.copyCurrentURL = function() {
+window.URLCopy = function() {
     let currentURL = window.location.href;
     let tempInput = document.createElement('input');
     tempInput.value = currentURL;

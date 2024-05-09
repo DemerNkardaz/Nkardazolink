@@ -15,77 +15,65 @@ window.returnCurrentSkin = function (type) {
   if (type !== 'loc') return skinName;
 };
 
-
-window.setSkin = function (skin, saveToStorage) {
+window.setSkin = function (skin) {
   skin = skin.toLowerCase();
   const onSetSkin = new Promise(function (resolve, reject) {
     try {
       if (skin && window.availableSkins[skin]) {
-        $('#skinloader').attr('href', `app/style/skins/${skin}.css`);
+        
         if (nkSettings.get('skin') !== skin) {
-          saveToStorage !== false && $Setting('skin').save(skin);
-          nkSettings.set('skin', skin);
-        }
+          $Setting('skin').save(skin).then((result) => {
+            const prev_skin = result.valueBefore;
+            const new_skin = result.valueNew;
+            $('#skinloader').attr('href', `app/style/skins/${new_skin}.css`);
 
-        if (anUrlParameter.mode === 'kamon') {
+            if (anUrlParameter.mode === 'kamon') { 
 
-        } else {
 
-          if (skin === 'sekiban') {
-            $('.personBannerWrapper').addClass('plate_chinese');
-          } else if (skin === 'aogurogetsu') {
-            $('.personAvatar').append(`<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">`);
-            $('.personBanner').addClass('aogurogetsu');
-          } else if (skin === 'azumatsuyu') {
-            $('.personBannerWrapper, .avatarWrapper').addClass('plate_chinese');
-            $('link-block').each(function () {
-              $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').addClass('plate_chinese');
-            });
-            !$('.personBannerBorder').length ? $('<div class="personBannerBorder azumatsuyu wrap_border"></div>').insertBefore('.personBannerWrapper') : '';
-          };
+            } else {
+              //* DEFAULT MODE SKIN OPERATIONS
+              //! REMOVING OPERATIONS FOR SKINS
+              if (prev_skin === 'sekiban' && new_skin !== 'sekiban') { //! REMOVE “SEKIBAN”
+                $('.personBannerWrapper').removeClass('plate_chinese');
+              } else if (prev_skin === 'aogurogetsu' && new_skin !== 'aogurogetsu') { //! REMOVE “AOGUROGETSU”
+                $('.personAvatar').find('.avatarHalo').remove();
+              } else if (prev_skin === 'azumatsuyu' && new_skin !== 'azumatsuyu') { //! REMOVE “AZUMATSUYU”
+                new_skin !== 'sekiban' && $('.personBannerWrapper').removeClass('plate_chinese');
+                $('.avatarWrapper').removeClass('plate_chinese');
+                $('link-block').each(function () {
+                  $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').removeClass('plate_chinese');
+                });
+              } else if (prev_skin === 'byakujou' && new_skin !== 'byakujou') { //! REMOVE “BYAKUJOU”
 
-          if (skin !== 'azumatsuyu') {
-            $('.avatarWrapper').removeClass('plate_chinese');
-            $('link-block').each(function () {
-              $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').removeClass('plate_chinese');
-            });
-          };
-          if (skin !== 'azumatsuyu' && skin !== 'sekiban') {
-            $('.personBannerWrapper').removeClass('plate_chinese');
-          };
-          if (skin !== 'aogurogetsu') {
-            $('.personAvatar').find('.avatarHalo').remove();
-            $('.personBanner').removeClass('aogurogetsu');
-          };
-          $('.personBanner').each(function () {
-            let $this = $(this);
-            let skinClass = window.availableSkins[skin].url;
-            let existingClasses = $this.attr('class').split(' ');
+              } else if (prev_skin === 'akatsukikurai' && new_skin !== 'akatsukikurai') { //! REMOVE “AKATSUKIKURAI”
 
-            if (!existingClasses.includes(skinClass)) {
-              $this.addClass(skinClass);
-            }
-      
-            for (let key in window.availableSkins) {
-              if (window.availableSkins.hasOwnProperty(key) && key !== skin) {
-                let classToRemove = window.availableSkins[key].url;
-                if (existingClasses.includes(classToRemove)) {
-                  $this.removeClass(classToRemove);
-                }
               }
-            }
-          });
-        };
 
-        if (typeof nkLocale !== 'undefined' && typeof iLang !== 'undefined') {
-          $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current'));
-        } else {
-          languageLoaded(function () {
-            $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current'));
+              //? SETTING OPERATIONS FOR SKINS
+              if (new_skin === 'sekiban' && prev_skin !== 'sekiban') { //? SEKIN “SEKIBAN”
+                $('.personBannerWrapper').addClass('plate_chinese');
+              } else if (new_skin === 'aogurogetsu' && prev_skin !== 'aogurogetsu') { //? SEKIN “AOGUROGETSU”
+                $('.personAvatar').append(`<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">`);
+              } else if (new_skin === 'azumatsuyu' && prev_skin !== 'azumatsuyu') { //? SEKIN “AZUMATSUYU”
+                $('.personBannerWrapper, .avatarWrapper').addClass('plate_chinese');
+                $('link-block').each(function () {
+                  $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').addClass('plate_chinese');
+                });
+                !$('.personBannerBorder').length ? $('<div class="personBannerBorder azumatsuyu wrap_border"></div>').insertBefore('.personBannerWrapper') : '';
+              } else if (new_skin === 'byakujou' && prev_skin !== 'byakujou') { //? SEKIN “BYAKUJOU”
+
+              } else if (new_skin === 'akatsukikurai' && prev_skin !== 'akatsukikurai') { //? SEKIN “AKATSUKIKURAI”
+
+              };
+            };
+
+            $('.personBanner, body').each(function () { $(this).removeClass(prev_skin).addClass(new_skin); });
+            $('[data-key="Skins.Current"]').hide('slow', function () {
+              setTimeout(function () { $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current')).show('slow'); }, 200);
+            })
           });
         }
       }
-
       resolve();
     } catch (err) { reject(err); }
   });

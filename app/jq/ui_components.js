@@ -504,7 +504,11 @@ window.nkUI = {
     header: function (text, logo) {return `<div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
     quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${key}" ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
   },
-  tooltipEventLess: function (text, key, pos) {return `<span class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nkLocale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;}
+  tooltipEventLess: function (text, key, pos) {
+    let fromData = null;
+    if (key.includes('/')) { fromData = key.split('/')[1]; key = key.split('/')[0]; }
+    return `<span ${fromData === 'data' ? `data-key="${key}"` : ''} class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nkLocale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;
+  }
 }
 
 

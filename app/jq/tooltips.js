@@ -4,7 +4,7 @@ let privateConfig = {
   'observe': true,
 };
 
-if (loadSettings('enableTooltips') === 'false') privateConfig['enabled'] = false;
+if ($Setting('enableTooltips').load() === 'false') privateConfig['enabled'] = false;
 
 window.nkTooltips = {};
 nkTooltips.opts = function (config) {

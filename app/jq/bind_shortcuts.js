@@ -24,13 +24,13 @@ $(document).on('click', 'item-prop', function () {
   if (nkSettings.get('save_selected_item') === 'true') {
     if (entity) {
       if (item === 'kamon') {
-        toStorage('selectedItems.kamon', entity);
+        $Store('selectedItems.kamon', entity).save();
       } else if (item === 'banners') {
-        toStorage('selectedItems.banners', entity);
+        $Store('selectedItems.banners', entity).save();;
       } else if (item === 'clans') {
-        toStorage('selectedItems.clans', entity);
+        $Store('selectedItems.clans', entity).save();;
       } else if (item === 'pattern') {
-        toStorage('selectedItems.pattern', entity);
+        $Store('selectedItems.pattern', entity).save();;
       }
     }
   }
@@ -40,9 +40,8 @@ $(document).on('click', '[nk-skin]', function () {
   var skin = $(this).attr('nk-skin');
   var link = $('#skinLoader');
   link.attr('href', `app/style/skins/${skin}.css`);
-  toStorage('skin', skin);
-  $('[nk-skin]').removeClass('active');
-  $(this).addClass('active');
+  $Setting('skin', skin).save();
+  $(this).reapplyClass('active', '[nk-skin]');
 });
 
 $(document).on('click', '[nk-banner]', function () {
@@ -50,12 +49,10 @@ $(document).on('click', '[nk-banner]', function () {
   var target = $('[nk-banner="target"]');
   if (banner && banner !== 'target') {
     target.addClass(banner);
-    toStorage('selectedBanner', banner);
-    $('[nk-banner]').removeClass('active');
-    $(this).addClass('active');
+    $Setting('current_banner', banner).save();
+    $(this).reapplyClass('active', '[nk-banner]');
   }
 });
-
 
 /* ------------------- INPUT SETTINGS ------------------- */
 
@@ -70,7 +67,7 @@ $(document).on('click', 'settings-check', function () {
   var value = $(this).find('[option_type="checkbox"]:not([disabled="true"])').attr('aria-checked');
   var set_check = (typeof value === 'undefined' ? 'true' : value === 'false' ? 'true' : 'false');
   $(this).find('[option_type="checkbox"]').attr('aria-checked', set_check);
-  saveSettings(setting, set_check);
+  //saveSettings(setting, set_check);
 });
 
 
@@ -200,29 +197,36 @@ $(document).on('click', 'run-cmd .cmd_input', function (e) {
 });
 
 function clearOldCommand () {
-  var storedCommands = JSON.parse(fromStorage('latestCommands'));
+  var storedCommands = JSON.parse($Store('latestCommands').load());
   var limit_commands = 40;
   if (storedCommands.length > limit_commands) {
     storedCommands = storedCommands.slice(storedCommands.length - limit_commands);
-    toStorage('latestCommands', JSON.stringify(storedCommands));
+    $Store('latestCommands', JSON.stringify(storedCommands)).save();
   }
 }
 
 window.clrcm = function () {
-  removeStorage('latestCommands');
+  $Store('latestCommands').remove();
   return 'Latest commands cleared'
 };
 window.shwcm = function () {
-  return fromStorage('latestCommands').replace('[', '').replace(']', '').replace(/"/g, '');
+  return $Store('latestCommands').load().replace('[', '').replace(']', '').replace(/"/g, '');
 };
 window.helpcmd = function () {
-  return (`
+  return (`<div>
   The console commands is:<br>
-  shwcm() — show latest commands;<br>
-  clrcm() — clear latest commands;<br>
-  `).replace(/\n/g, '');
+  /help — you already written this;<br>
+  /story — show latest commands;<br>
+  /clear — clear latest commands;<br>
+  </div>`).replace(/\n/g, '');
 }
 
+const CMD_COMMANDS_LIBRARY = {
+  '/clear': clrcm,
+  '/help': helpcmd,
+  '/story': shwcm
+  
+}
 
 $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
   var getParentCMDID = $(this).parents('run-cmd').attr('id');
@@ -232,11 +236,17 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     const inputValue = $(this).val();
     $(`<span class="console_send"><span>${inputValue}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 
-    let existingCommands = JSON.parse(fromStorage('latestCommands')) || [];
+    let existingCommands = JSON.parse($Store('latestCommands').load()) || [];
     inputValue.length > 0 ? existingCommands = [...existingCommands, inputValue] : '';
-    toStorage('latestCommands', JSON.stringify(existingCommands));
+    $Store('latestCommands', JSON.stringify(existingCommands)).save();
     clearOldCommand();
     try {
+      if (inputValue in CMD_COMMANDS_LIBRARY) {
+        CMD_COMMANDS_LIBRARY[inputValue]();
+        $(`<span class="console_response"><span>${CMD_COMMANDS_LIBRARY[inputValue]()}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
+        $(this).val('').trigger('input');
+        return;
+      }
       eval(inputValue);
       function getConsoleResponse() {
         return (inputValue.length > 0 ? JSON.stringify(eval(inputValue)).replace(/\,/g, ', ').replace(/\:/g, ': ').replace(/"/g, '') : JSON.stringify(eval(inputValue)));
@@ -251,7 +261,7 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     $(this).val('').trigger('input');
     $(InputCMDField).animate({ scrollTop: $(InputCMDField).height() }, 0);
   }
-  var storedCommands = JSON.parse(fromStorage('latestCommands'));
+  let storedCommands = JSON.parse($Store('latestCommands').load());
   if ((e.ctrlKey && e.which === 38)) {
     if (storedCommands.length > 1) {
       const currentIndex = storedCommands.indexOf($(this).val());

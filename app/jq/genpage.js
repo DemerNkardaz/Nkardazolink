@@ -251,7 +251,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="links_Grid" data-tooltip-key="Tess" data-tooltip-pos="left">
                   <anchor-contentLinks/>
                 </div>
-              </div>${nkUI.tooltipEventLess(nkLocale.get('Skins.Current'), 'Skins.Azumatsuyu')}<br>
+              </div>${nkUI.tooltipEventLess(nkLocale.get('Skins.Current'), 'Skins.Current/data')}<br>
               <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="left-start">TESTING OF PREVIEW TOOLTIP</span>
               <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="left-end">TESTING OF PREVIEW TOOLTIP</span>
               <span data-tooltip-key="prevtest" data-tooltip-role="preview" data-tooltip-pos="right-start">TESTING OF PREVIEW TOOLTIP</span>
