@@ -133,6 +133,26 @@ function uLang(keyMap) {
   for (let i = 0; i < nestedKeys.length; i++) {
     const k = nestedKeys[i];
     let keyFound = false;
+    if (k.includes('*')) {
+      if (k === '*') {
+        localisedString = sourceLang;
+        keyFound = true;
+      } else {
+        const keys = k.split('*');
+        let source = sourceLang;
+        for (let j = 0; j < keys.length; j++) {
+          if (source.hasOwnProperty(keys[j])) {
+            source = source[keys[j]];
+          } else {
+            break;
+          }
+        }
+        if (source) {
+          localisedString = source;
+          keyFound = true;
+        }
+      }
+    }
     if (localisedString.hasOwnProperty(k)) {
       localisedString = localisedString[k];
       keyFound = true;
@@ -185,8 +205,29 @@ function uLang(keyMap) {
       }
     }
   }
+  if (typeof localisedString === 'object') {
+    const resultArray = [];
 
-  return localisedString.unpackText();
+    const processObject = (obj) => {
+      Object.entries(obj).forEach(([key, value]) => {
+        if (typeof value === 'object') {
+          const nestedResultArray = [];
+          processObject(value);
+          resultArray.push(nestedResultArray);
+        } else {
+          keyMap.get('raw') === true ? resultArray.push(`${key} : ${value}`) : resultArray.push(`${value}`);
+        }
+      });
+    };
+
+    if (Object.keys(localisedString).length > 0) {
+      processObject(localisedString);
+    }
+
+    localisedString = resultArray;
+  }
+
+  return keyMap.get('raw') === true ? localisedString : localisedString.unpackText();
 }
 
 window.nkLocale = {
@@ -201,6 +242,7 @@ window.nkLocale = {
     }
     let result;
     const keyMap = new Map();
+    if (cut === 'raw') { keyMap.set('raw', true) }
 
     if (typeof key === 'object') {
       keyMap.set('mode', key.mode || null).set('key', key.key || null).set('source', key.source || 'languageJSON' || null);
@@ -222,14 +264,14 @@ window.nkLocale = {
     }
     //console.log(keyMap);
 
-    result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
+    result = (cut && cut !== 'raw') ? cutter(uLang(keyMap)) : uLang(keyMap);
     if (result === null && keyMap.get('mode') !== 'check') {
       console.buildType(`[LOCALE] → Key “${keyMap.get('key')}” not found in “${keyMap.get('source')}”`, 'error');
       return `${key}&nbsp;${NoAv}`;
     } else if (result === null && keyMap.get('mode') === 'check') {
       return;
     }
-    if (keyMap.get('mode') !== '0') return eval('`' + result + '`');
+    if (keyMap.get('mode') !== '0' && keyMap.get('raw') !== true) return eval('`' + result + '`');
     return result;
   }
 }
