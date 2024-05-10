@@ -12,10 +12,11 @@ import './jq/ui_tags.js';
 import './jq/ui_components.js';
 import './init.js';
 
-isMobileDevice() !== true && import('./jq/tooltips.js'), import('./howler_init.js');
 import './jq/bind_shortcuts.js';
 import './jq/localisation.js';
 import './jq/genpage.js';
+import './jq/tooltips.js';
+import './howler_init.js';
 
 //? ------------------------------- ENDPOINT INITIALISATION -------------------------------
 window.addEventListener('DOMContentLoaded', async () => {

@@ -16,6 +16,7 @@
     overscroll-behavior: contain;
     & * {overscroll-behavior: inherit;}
 
+
     &.tl-highlight {filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
     &.tl-downed {transition: all 0.3s ease; filter: drop-shadow(0 5px 10px var(--color_gold_light)) drop-shadow(0 2px 1px var(--shadow_22a29)) brightness(105%) sepia(50%) saturate(150%);}
 
@@ -72,6 +73,10 @@
       left: 100%;
       transition: all 0.3s ease;
       user-select: none;
+      opacity: 1;
+      &.hide {
+        opacity: 0;
+      }
       & .tooltip-img-opened {
         background: var(--bg_efa80);
         width: 100%;

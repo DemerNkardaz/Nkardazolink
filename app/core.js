@@ -358,6 +358,26 @@ window.pageTriggerCallback = function (callback) {
   }
 };
 
+
+window.exportStorageData = function() {
+    var localStorageData = {};
+
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        var value = localStorage.getItem(key);
+
+        localStorageData[key] = value;
+    }
+
+    var jsonData = JSON.stringify(localStorageData, null, 2); 
+
+    var a = document.createElement('a');
+    var file = new Blob([jsonData], {type: 'application/json'});
+    a.href = URL.createObjectURL(file);
+    a.download = 'localStorageData.json';
+    a.click();
+}
+
 /*
 document.addEventListener('DOMContentLoaded', function() {
     var elementsWithTabindex = document.querySelectorAll('[tabindex]');
