@@ -24,11 +24,11 @@ window.navigatorLanguage = supportedLanguages.includes(navigator.language.toLowe
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
 window.availableSkins = {
-  azumatsuyu:     {name: 'Azumatsuyu',      url: 'azumatsuyu'},
-  byakujou:       {name: 'Byakujou',        url: 'byakujou'},
-  sekiban:        {name: 'Sekiban',         url: 'sekiban'},
-  aogurogetsu:    {name: 'Aoguro-no Getsu', url: 'aogurogetsu'},
-  akatsukikurai:    {name: 'Akatsuki-no Kurai', url: 'akatsukikurai'},
+  azumatsuyu:     {name: 'Azumatsuyu',        url: 'azumatsuyu',    emoji: '🌸'},
+  byakujou:       {name: 'Byakujou',          url: 'byakujou',      emoji: '🏯'},
+  sekiban:        {name: 'Sekiban',           url: 'sekiban',       emoji: '⛩️'},
+  aogurogetsu:    {name: 'Aoguro-no Getsu',   url: 'aogurogetsu',   emoji: '🌕'},
+  akatsukikurai:  {name: 'Akatsuki-no Kurai', url: 'akatsukikurai', emoji: '🌙'},
 }
 
 window.NoAv = 'N/A';

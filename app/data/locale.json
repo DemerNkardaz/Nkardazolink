@@ -1,4 +1,7 @@
 {
+  "templates": {
+
+  },
   "common": {
     "RU": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'Русский'}, { '1': nkLocale.get('LangEl.Russia') }]} ) }</span>",
     "EN": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'English'}, { '1': nkLocale.get('LangEl.UK/USA') }]} ) }</span>",
@@ -33,18 +36,7 @@
       "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
       "copyright": "&copy;&nbsp;${nkLocale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
     },
-    "place25": "$(place_1) $(place_5) $(place_150) $(place_520)",
-    "LangEl": {
-      "temp" :"Язык «$(place_0)»<br>$(place_1)",
-      "Russia": "Россия",
-      "UK/USA": "Англия/США",
-      "Japan": "Япония",
-      "China": "Китай",
-      "Korea": "Корея",
-      "Vietnam": "Вьетнам",
-      "Moldova": "Молдова",
-      "Romania": "Румыния"
-    },
+    "LangEl": {"temp" :"Язык «$(place_0)»<br>$(place_1)", "Russia": "Россия", "UK/USA": "Англия/США", "Japan": "Япония", "China": "Китай", "Korea": "Корея", "Vietnam": "Вьетнам", "Moldova": "Молдова", "Romania": "Румыния"},
 
     "prevtest": { 
       "preview": {
@@ -89,10 +81,10 @@
     },
 
     "Skins": {
-      "Current": "Текущий вид: ${nkLocale.get(returnCurrentSkin('loc'))}",
+      "Current": "Текущий вид: ${CheckSkin('run')}",
       "Byakujou": "«Бякудзё»${nkLocale.get('ja:Skins.Byakujou')}",
       "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
-      "Akatsuki-no Kurai": "«Акацўки-но Курай»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Akatsuki-no Kurai": "«Акацўки-но Курай»${nkLocale.get('ja:Skins.Akatsuki-no Kurai')}",
       "Sekiban": "«Сэкибан»${nkLocale.get('ja:Skins.Sekiban')}",
       "Azumatsuyu": "«Адзумацую»${nkLocale.get('ja:Skins.Azumatsuyu')}"
     },
@@ -100,10 +92,6 @@
     "console": "КОНСОЛЬ : Системный программный интерфейс",
     "test": ["Тест", "—{{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}≈[Герб императорской семьи Японии]≈}—"],
     "testqu": "—{{.(.悟墳:Го Фун.)(.乱:Ран.).}≈[Смута Гофун]≈}—",
-    "Site_Title_Nkardaz": "Демер Нкардаз・2D・3D・Писательство・Вёрстка",
-    "save_search_result": ["Сохранять ввод строки поиска", "Test string"],
-    "save_selected_item": "Сохранять последний выбранный знак",
-    "turn_off_preloader": "Отключить анимацию предзагрузки",
 
     "Meta_Pereferences": {
       "titles": {
@@ -138,6 +126,7 @@
       "turn_off_preloader": "Отключить анимацию предзагрузки",
       "change_skin_by_time": "Смена вида по времени суток",
       "current_banner": "Текущий орнамент",
+      "skins": "${CheckSkin('emoji').removeCJK().removeQuotes()}",
       "ambience_off": "Отключить фоновую музыку"
     }
   },
@@ -198,9 +187,10 @@
     },
 
     "Skins": {
-      "Current": "Сurrent view: ${nkLocale.get(returnCurrentSkin('loc'))}",
+      "Current": "Сurrent view: ${nkLocale.get(CheckSkin('loc'))}",
       "Byakujou": "“Byakujo(⁛macron_0.255⁛)”${nkLocale.get('ja:Skins.Byakujou')}",
       "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Akatsuki-no Kurai": "“Akatsuki-no Kurai”${nkLocale.get('ja:Skins.Akatsuki-no Kurai')}",
       "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
       "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}"
     },
@@ -228,7 +218,7 @@
     "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
     "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}",
 
-    "CurrentSkin": "Current view: ${nkLocale.get(returnCurrentSkin())}",
+    "CurrentSkin": "Current view: ${nkLocale.get(CheckSkin())}",
 
     "console": "CONSOLE : System user interface",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
@@ -246,7 +236,7 @@
     },
 
     "Skins": {
-      "Current": "現在の眺め：${nkLocale.get(returnCurrentSkin('loc'))}",
+      "Current": "現在の眺め：${nkLocale.get(CheckSkin('loc'))}",
       "Byakujou": "「白城」",
       "Aoguro-no Getsu": "「青黒月」",
       "Akatsuki-no Kurai": "「暁の暗い」",

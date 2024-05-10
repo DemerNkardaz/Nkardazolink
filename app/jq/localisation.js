@@ -148,11 +148,14 @@ function uLang(keyMap) {
               keyFound = true;
               break;
             } else {
-              let formattedSkipped = Array.from(skippedLangs).map(lang => `[${lang}]`).join(' : ').toUpperCase();
-              formattedSkipped.length > 0 && console.buildType(`[LOCALE] → Ignored languages ${formattedSkipped} when trying to get “${keyMap.get('key')}”`, 'warning');
               skippedLangs.add(lang);
               fallback(skippedLangs, currentKey);
-              statusSended !== true  && console.buildType(`[LOCALE] → The sended key “${currentKey}” instead of “${keyMap.get('key')}” in cycle of Fallback(). When not identical then context is lost`, 'important'), statusSended = true;
+              if (statusSended !== true && keyMap.get('mode') !== "check" &&  keyFound !== true) {
+                let formattedSkipped = Array.from(skippedLangs).map(lang => `[${lang}]`).join(' : ').toUpperCase();
+                formattedSkipped.length > 0 && console.buildType(`[LOCALE] → Ignored languages ${formattedSkipped} when trying to get “${keyMap.get('key')}”`, 'warning');
+                console.buildType(`[LOCALE] → The sended key “${currentKey}” instead of “${keyMap.get('key')}” in cycle of Fallback(). When not identical then context is lost`, 'important');
+                statusSended = true;
+              }
             }
           }
         }
@@ -183,7 +186,7 @@ function uLang(keyMap) {
     }
   }
 
-  return textUnPacker(localisedString);
+  return localisedString.unpackText();
 }
 
 window.nkLocale = {
@@ -255,22 +258,23 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
 
   function update () {
     key_elements.each(function () {
+      let sourceKey = $(this).attr('data-key-source');
       let dataKey = $(this).attr('data-key');
       let altKey = $(this).attr('alt-key');
       let eventLessKey = $(this).attr('eventLess-tooltip-key');
       let imageKey = $(this).attr('data-key-image');
       let cutKey = $(this).attr('data-keyCutter');
       let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
-      let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : key, cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : key);
+      let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
       let interpolatedLocale = eval('`' + getLocale + '`');
 
-      if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : ''}`); return };
+      if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
 
       if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META' ? $(this).html(interpolatedLocale) : $(this).attr('content', interpolatedLocale);
       if (altKey) $(this).attr('alt', interpolatedLocale);
       if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
       if (imageKey) {
-        $(this).attr('src', nkLocale.get(sourceName ? `${imageKey}>${sourceName}` : key));
+        $(this).attr('src', nkLocale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
         let folder = imageKey.replace('.src', '');
         console.log(folder);
         nkLocale.get(`check:${folder}.shift`) ? $(this).css('--shift', nkLocale.get(`${folder}.shift`)) : $(this).css('--shift', '');

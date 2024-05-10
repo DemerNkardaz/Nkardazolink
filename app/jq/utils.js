@@ -34,17 +34,26 @@ async function replaceTextLinkToTag (text) {
 }
 window.replaceTextLinkToTag = replaceTextLinkToTag;
 
-window.unpackArrayToStrings = function (text) {
+function unpackArrayToStrings(text) {
 	if (Array.isArray(text)) {
 		return text.join('\n');
 	} else {
 		return text;
 	}
 }
+String.prototype.unpackArray = function() {
+  return this;
+};
+Array.prototype.unpackArray = function() {
+  return unpackArrayToStrings(this);
+}
 
 function ideographicsSpaceToCJKV(text) {
 		const regex = /([\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])\s+([\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu;
 		return text.replace(regex, '$1\u3000$2');
+}
+String.prototype.ideoSpaceToCJKV = function() {
+  return ideographicsSpaceToCJKV(this);
 }
 
 
@@ -68,7 +77,13 @@ const diacritics = {
 
 //setDiacritic('place-macron', 'sub', 0.25);
 /* ------------------------ DIACRITICS ------------------------ */
-
+String.prototype.removeCJK = function() {
+  return this.replace(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]|[\u3000-\u303F]/gu, '');
+}
+String.prototype.removeQuotes = function() {
+  const quetesArray = ['“', '”', '‘', '’', '«', '»', '„', '»', '‹', '›', '「', '」', '『', '』', '〝', '〞', '〟', '﹄', '﹃', '﹁', '﹂', '\'', '\"'];
+  return this.replace(new RegExp(`[${quetesArray.join('')}]`, 'gu'), '');
+}
 window.setDiacritic = function (type, pos, margins) {
   if (typeof type !== 'string') {
     type.margins ? margins = type.margins : margins = margins;
@@ -100,7 +115,7 @@ window.setDiacritic = function (type, pos, margins) {
   }
 };
 
-window.diacriticReplaces = function(text) {
+function diacriticReplaces(text) {
   const diacriticRegex = /\(\⁛(.*?)\⁛\)/g;
   const matches = Array.from(text.matchAll(diacriticRegex), match => match[1]);
   if (matches === null || matches.length === 0 || matches[0] === null || matches === undefined) {
@@ -130,10 +145,11 @@ window.diacriticReplaces = function(text) {
   
   //return text.replace(diacriticRegex, '2');
 };
+String.prototype.diacritics = function () {
+  return diacriticReplaces(this);
+}
 
-
-
-window.transcriptReplacement = function (text) {
+function transcriptReplacement (text) {
   return text
     .replace(/\″(.*?)\←(.*?)\″/g, function (match, p1, p2) {
       return `<ruby>${p1}<rt>${p2}</rt></ruby>`;
@@ -151,18 +167,25 @@ window.transcriptReplacement = function (text) {
       return `<rt>${p1}</rt>`;
     });
 }
+String.prototype.transcripts = function () {
+  return transcriptReplacement(this);
+}
 
-window.defaultReplacement = function (text) {
+function defaultReplacement(text) {
 	return text
 		.replace(/\/n/g, '<br>')
     .replace(/\/t/g, '&Tab;')
+}
+
+String.prototype.defReplace = function () {
+  return defaultReplacement(this);
 }
 
 const diacriticLibrary = {
   
 }
 
-window.textUnPacker = function (text) {
+function textUnPacker(text) {/*
   let unpacked = transcriptReplacement(
 		defaultReplacement(
 			ideographicsSpaceToCJKV(
@@ -170,10 +193,16 @@ window.textUnPacker = function (text) {
 			)
 		)
   );
-  unpacked = diacriticReplaces(unpacked);
+  unpacked = diacriticReplaces(unpacked);*/
+  let unpacked = text.unpackArray().ideoSpaceToCJKV().defReplace().transcripts().diacritics();
 	return unpacked;
 }
-
+String.prototype.unpackText = function () {
+  return textUnPacker(this);
+}
+Array.prototype.unpackText = function () {
+  return textUnPacker(this);
+}
 window.checkKeyDowned = function () {
 	document.addEventListener("keydown", function(event) {
 		console.log(event.which);

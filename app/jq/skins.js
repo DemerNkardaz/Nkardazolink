@@ -1,11 +1,13 @@
 let skin = (nkSettings.get('skin') !== null) ? `app/style/skins/${nkSettings.get('skin')}.css` : 'app/style/skins/byakujou.css';
 $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 
-window.returnCurrentSkin = function (type) {
+window.CheckSkin = function (type) {
   const preference = nkSettings.get('skin');
   const skinName = availableSkins[preference] ? (type === 'url' ? availableSkins[preference].url : availableSkins[preference].name) : 'Byakujou';
   if (type === 'loc') return `Skins.${skinName}`;
-  if (type !== 'loc') return skinName;
+  if (type === 'run') return nkLocale.get(`Skins.${skinName}`);
+  if (type === 'emoji') return `${availableSkins[preference].emoji}&ensp;${nkLocale.get(`Skins.${skinName}`)}`;
+  if (type !== 'loc' || type === 'emoji') return skinName;
 };
 
 window.setSkin = function (skin) {
@@ -72,7 +74,7 @@ window.setSkin = function (skin) {
   });
   onSetSkin.then(function () {
     $(document).trigger('setSkin');
-    console.buildType(`[NK_SKIN] → Skin set to: “${returnCurrentSkin()}” : Locale key “${returnCurrentSkin('loc')}”`, 'info');
+    console.buildType(`[NK_SKIN] → Skin set to: “${CheckSkin()}” : Locale key “${CheckSkin('loc')}”`, 'info');
   });
 };
 

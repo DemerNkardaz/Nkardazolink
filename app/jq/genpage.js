@@ -216,7 +216,7 @@ const pageBuild = new Promise(function (resolve, reject) {
           } else if (anUrlParameter.mode === 'tree') {
 
           } else if (anUrlParameter.mode === 'license') {
-            header = `<div data-test="Text">${nkLocale.get('Text>licenseJSON')}</div>`;
+            header = `<div data-key="Text" data-key-source="licenseJSON">${nkLocale.get('Text>licenseJSON')}</div>`;
 
             footer = `<div>
               ${nkLocale.get('Nkardaz.copyright', '&copy;')}

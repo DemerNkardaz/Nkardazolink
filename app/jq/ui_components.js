@@ -352,7 +352,7 @@ class tooltip_element extends HTMLElement {
     super();
     const component = `
     <div class="tl-arrow" ${tooltip_pos ? `data-parent-tooltip-pos="${tooltip_pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
-    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? textUnPacker(tooltip) : `<tooltip-preview ${extractAttributes(tooltip)}>${tooltip.innerHTML}</tooltip-preview>`}</div>
+    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? tooltip.unpackText() : `<tooltip-preview ${extractAttributes(tooltip)}>${tooltip.innerHTML}</tooltip-preview>`}</div>
     `;
     (tooltip_classes ? $(this).addClass(tooltip_classes) : '');
     $(this).attr({ 'role': 'tooltip', 'id': id ? id : null, 'data-meta-anchor': tooltip_meta ? tooltip_meta : null });
@@ -500,7 +500,7 @@ window.nkUI = {
       const loadmarker_style = (nkSettings.get('lang') === 'ja' || nkSettings.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
       $(document).on('setSkin', function () { 
-        const skinName = returnCurrentSkin('url');
+        const skinName = CheckSkin('url');
         skinName === 'aogurogetsu' ? preloader_logo.attr('src', 'resources/svg/hangetsu.svg') : preloader_logo.attr('src', 'resources/svg/NkardazKamon.svg');
       });
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {

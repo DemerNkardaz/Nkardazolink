@@ -9,7 +9,7 @@ window.isMobileDevice = function () {
 
 
 window.console.buildType = function (message, type) {
-  let styles = 'font-size: 12px; padding-inline: 5px; width: 100%; height: 24px; display: inline-flex; align-items: center; justify-content: start;';
+  let styles = 'font-size: 12px; padding-inline: 5px; width: 100%; min-height: 24px; display: inline-flex; align-items: center; justify-content: start;';
   let marker;
   switch (type) {
     case 'error': styles += 'color: #ff3f3f; background-color: #ffdada;'; marker = '🚫'; break;
