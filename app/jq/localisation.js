@@ -274,6 +274,9 @@ window.nkLocale = {
     }
     if (keyMap.get('mode') !== '0' && keyMap.get('raw') !== true) return eval('`' + result + '`');
     return result;
+  },
+  entity: function (key) {
+    
   }
 }
 
@@ -301,31 +304,82 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
 
   function update () {
     key_elements.each(function () {
-      let sourceKey = $(this).attr('data-key-source');
-      let dataKey = $(this).attr('data-key');
-      let altKey = $(this).attr('alt-key');
-      let eventLessKey = $(this).attr('eventLess-tooltip-key');
-      let imageKey = $(this).attr('data-key-image');
-      let cutKey = $(this).attr('data-key-cutter');
-      let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
-      let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
-      let interpolatedLocale = eval('`' + getLocale + '`');
+      if (!$(this).closestParent('[data-entity]').length && !$(this).attr('data-entity-given')) {
+        let sourceKey = $(this).attr('data-key-source');
+        let dataKey = $(this).attr('data-key');
+        let altKey = $(this).attr('alt-key');
+        let eventLessKey = $(this).attr('eventLess-tooltip-key');
+        let imageKey = $(this).attr('data-key-image');
+        let cutKey = $(this).attr('data-key-cutter');
+        let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
+        let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
+        let interpolatedLocale = eval('`' + getLocale + '`');
 
-      if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
+        if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
 
-      if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META' ? $(this).html(interpolatedLocale) : $(this).attr('content', interpolatedLocale);
-      if (altKey) $(this).attr('alt', interpolatedLocale);
-      if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
-      if (imageKey) {
-        $(this).attr('src', nkLocale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
-        let folder = imageKey.replace('.src', '');
-        console.log(folder);
-        nkLocale.get(`check:${folder}.shift`) ? $(this).css('--shift', nkLocale.get(`${folder}.shift`)) : $(this).css('--shift', '');
-        nkLocale.get(`check:${folder}.opacity`) ? $(this).css('--imgOpacity', nkLocale.get(`${folder}.opacity`)) : $(this).css('--imgOpacity', '');
-        nkLocale.get(`check:${folder}.h`) ? $(this).closest('.Preview_tooltip-imgWrapper').css('--h', nkLocale.get(`${folder}.h`)) : $(this).closest('.Preview_tooltip-imgWrapper').css('--h', '');
-        nkLocale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nkLocale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
+        if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META' ? $(this).html(interpolatedLocale) : $(this).attr('content', interpolatedLocale);
+        if (altKey) $(this).attr('alt', interpolatedLocale);
+        if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
+        if (imageKey) {
+          $(this).attr('src', nkLocale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
+          let folder = imageKey.replace('.src', '');
+          console.log(folder);
+          nkLocale.get(`check:${folder}.shift`) ? $(this).css('--shift', nkLocale.get(`${folder}.shift`)) : $(this).css('--shift', '');
+          nkLocale.get(`check:${folder}.opacity`) ? $(this).css('--imgOpacity', nkLocale.get(`${folder}.opacity`)) : $(this).css('--imgOpacity', '');
+          nkLocale.get(`check:${folder}.h`) ? $(this).closest('.Preview_tooltip-imgWrapper').css('--h', nkLocale.get(`${folder}.h`)) : $(this).closest('.Preview_tooltip-imgWrapper').css('--h', '');
+          nkLocale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nkLocale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
+        }
+      } else {
+        let entity = $(this).closestParent('[data-entity]');
+        if ($(this).attr('data-entity-given')) {
+          entity = $(this);
+        }
+        let entityProp = entity.attr('data-entity');
+        let entityType = entity.attr('data-entity-type');
+        let entityCategory = entity.attr('data-entity-category');
+        let localeSource = `${entityType}Item`;
+        localeSource = eval(localeSource);
+        if (localeSource) {
+          $.each(localeSource.root, function (_, category) {
+            if (entityCategory === category.category) {
+              $.each(category.items, function (_, item) {
+                if (entityProp === item.entity_prop) {
+                  let collectDataKeys = entity.find('[data-key]');
+                  collectDataKeys.each(function () {
+                    let key = $(this).attr('data-key');
+                    let value = item[key];
+                    let found = false;
+                    for (let lang in item[key]) {
+                      if (item[key].hasOwnProperty(lang) && lang === nkSettings.get('lang')) {
+                        value = item[key][lang];
+                        found = true;
+                        break;
+                      }
+                    }
+                    if (!found) {
+                      for (let lang in item[key]) {
+                        if (supportedLanguages.includes(lang)) {
+                          value = item[key][lang];
+                          found = true;
+                          break;
+                        }
+                      }
+                    }
+                    if (!found) {
+                      console.buildType(`[ITEMS] → Not found any key in ${JSON.stringify(item[key])}`, 'error');
+                    }
+                    value = value.unpackText();
+                    let interpolate = eval('`' + value + '`');
+                    $(this).html(interpolate);
+                  });
+                }
+              });
+            }
+          });
+        } else {
+          console.buildType(`[ITEMS] → ${entityType}Item source not found for ${entityType}`, 'error');
+        }
       }
-      
     });
   }; 
 

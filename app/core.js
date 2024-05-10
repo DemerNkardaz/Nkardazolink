@@ -52,6 +52,28 @@ $.fn.timedClass = function (className, end, start) { $(this).addClass(className)
 
 $.fn.timedClassEvent = function (eventType, className, end, start) { $(this).on(eventType, function () { $(this).timedClass(className, end, start); }) }
 
+
+$.fn.closestParent = function(selector) {
+    var $elements = collectTargets(this);
+    var $closestParent = $();
+    
+    $elements.each(function() {
+        var $element = $(this);
+        var $parent = $element.parent();
+        
+        while ($parent.length) {
+            if ($parent.is(selector)) {
+                $closestParent = $parent;
+                return false;
+            }
+            $parent = $parent.parent();
+        }
+    });
+    
+    return $closestParent;
+};
+
+
 window.clearStorage = function () { localStorage.clear(); };
 function storageOperations(key, type, value) {
   if (key.includes('.')) {
@@ -357,6 +379,16 @@ window.pageTriggerCallback = function (callback) {
     return `${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`;
   }
 };
+window.contentLoadCallback = function (callback) {
+  let variable = `${anUrlParameter.mode && anUrlParameter.select ? `${anUrlParameter.mode}${anUrlParameter.select}Item` : (anUrlParameter.mode ? `${anUrlParameter.mode}Item` : 'defaultItem')}`;
+  if (anUrlParameter.mode) {
+    $(document).on(`${variable}_loaded`, function () {
+      callback();
+    });
+  } else {
+    callback();
+  }
+}
 
 
 window.exportStorageData = function() {

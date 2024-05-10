@@ -200,9 +200,9 @@ const pageBuild = new Promise(function (resolve, reject) {
       const pageConfig = new Promise(function (resolveCFG, rejectCFG) {
         try {
           if (anUrlParameter.mode === 'kamon') {
+            main = `<div data-entity="ent_clan_matsudaira_mon_maru_ni_mittsuaoi" data-entity-type="kamon" data-entity-category="JA"><span data-key="transcript_second">fff</span></div>`;
 
             $(document).on('kamonItem_loaded', function () {
-
             });
 
           } else if (anUrlParameter.mode === 'banners') {
@@ -323,14 +323,13 @@ const pageBuild = new Promise(function (resolve, reject) {
 
 pageBuild.then(function () {
   console.buildType(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`, 'info');
-  nkLocale.langUpdate();
-  $(document).on('')
-  switch (anUrlParameter.mode) {
-    case 'license':
-      $(document).on('licenseJSON_loaded', function () { nkLocale.langUpdate({ target: { selector: '[data-test]', attrib: 'data-test' }, source: licenseJSON }); });
-      break;
-  }
+  
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
+
+    return new Promise(function (resolve) { try { setTimeout(() => { nkLocale.langUpdate(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
+      console.buildType(`[GENPAGE] → Content Loaded and updated”`, 'important');
+    });
+      
 });
 
 //logCurrentTrigger();

@@ -157,8 +157,8 @@ function transcriptReplacement (text) {
     .replace(/\—{(.*?)\}—/g, function (match, p1) {
       return `<ruby class='ruby_bottom'>${p1}</ruby>`;
     })
-    .replace(/([^$])\{\.(.*?)\.\}/g, function (match, p1, p2) {
-      return `${p1}<ruby>${p2}</ruby>`;
+    .replace(/\{\.(.*?)\.\}/g, function (match, p1) {
+      return `<ruby>${p1}</ruby>`;
     })
     .replace(/\(\.(.*?)\:(.*?)\.\)/g, function (match, p1, p2) {
       return `${p1}<rt>${p2}</rt>`;
