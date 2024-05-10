@@ -140,24 +140,24 @@ function uLang(keyMap) {
     if (!keyFound) {
       const skippedLangs = new Set();
       let statusSended = false;
-      function fallback(skippedLangs) {
+      function fallback(skippedLangs, currentKey) {
         for (let lang in sourceLink) {
           if (sourceLink.hasOwnProperty(lang) && !skippedLangs.has(lang)) {
-            if (sourceLink[lang].hasOwnProperty(k)) {
-              localisedString = sourceLink[lang][k];
+            if (sourceLink[lang].hasOwnProperty(currentKey)) {
+              localisedString = sourceLink[lang][currentKey];
               keyFound = true;
               break;
             } else {
               let formattedSkipped = Array.from(skippedLangs).map(lang => `[${lang}]`).join(' : ').toUpperCase();
               formattedSkipped.length > 0 && console.buildType(`[LOCALE] → Ignored languages ${formattedSkipped} when trying to get “${keyMap.get('key')}”`, 'warning');
               skippedLangs.add(lang);
-              fallback(skippedLangs);
-              statusSended !== true  && console.buildType(`[LOCALE] → The sended key “${k}” instead of “${keyMap.get('key')}” in cycle of Fallback(). When not identical then context is lost`, 'important'), statusSended = true;
+              fallback(skippedLangs, currentKey);
+              statusSended !== true  && console.buildType(`[LOCALE] → The sended key “${currentKey}” instead of “${keyMap.get('key')}” in cycle of Fallback(). When not identical then context is lost`, 'important'), statusSended = true;
             }
           }
         }
       }
-      fallback(skippedLangs);
+      fallback(skippedLangs, k);
       
       if (!keyFound) {
         return null;

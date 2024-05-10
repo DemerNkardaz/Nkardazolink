@@ -223,10 +223,10 @@
     "Anime_Heike-monogatari": "Peropicnic artist, “Heike-monogatari” Anime",
     "Hachiman-jin_Tooltip": "Hachiman, The God of War",
 
-    "Byakujou": "“Byakujou”${fromLang('Byakujou', 'ja')}",
-    "Aoguro-no Getsu": "“Aoguro-no Getsu”${fromLang('Aoguro-no Getsu', 'ja')}",
-    "Sekiban": "“Sekiban”${fromLang('Sekiban', 'ja')}",
-    "Azumatsuyu": "“Azumatsuyu”${fromLang('Azumatsuyu', 'ja')}",
+    "Byakujou": "“Byakujou”${nkLocale.get('ja:Skins.Byakujou')}",
+    "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
+    "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
+    "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}",
 
     "CurrentSkin": "Current view: ${nkLocale.get(returnCurrentSkin())}",
 
