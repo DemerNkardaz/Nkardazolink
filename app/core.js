@@ -410,6 +410,26 @@ window.exportStorageData = function() {
     a.click();
 }
 
+window.unpackElementObject = function (obj) {
+  const uniqId = `object-${Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 10)}`;
+  $('body').append(`<div id="${uniqId}"></div>`);
+  $(`#${uniqId}`).hide();
+  $(`#${uniqId}`).append(obj);
+  return `<div data-object-id="${uniqId}"><div></div></div>`;
+}
+
+window.unpackedHandler = function () {
+  let anchorObjects = $('[data-object-id]');
+  anchorObjects.each(function () {
+    let ownId = $(this).attr('data-object-id');
+    let tempId = $(`#${ownId}`);
+    if (tempId) {
+      $(this).replaceWith(tempId);
+      tempId.contents().unwrap();
+    }
+  });
+}
+
 /*
 document.addEventListener('DOMContentLoaded', function() {
     var elementsWithTabindex = document.querySelectorAll('[tabindex]');

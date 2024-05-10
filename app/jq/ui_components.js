@@ -412,9 +412,9 @@ customElements.define('tooltip-img', tooltip_img);
 window.tooltip_img = tooltip_img;
 
 class dropdown_element extends HTMLElement {
-  constructor({ content, id } = {}) {
+  constructor({ content, id, hide } = {}) {
     super();
-    if (!$(this).length) {
+    //if (!$(this).length) {
       const component = `
       <div class="dropdown-content">
         ${content ? content : ''}
@@ -422,10 +422,10 @@ class dropdown_element extends HTMLElement {
       `;
       $(this).attr({
         'data-dropid': id ? id : null,
-        'hidden': null
+        'hidden': (typeof hide === 'undefined' || hide) ? 'hidden' : null
       });
       $(this).html(component)
-    }
+    //}
   }
 }
 

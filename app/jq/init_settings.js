@@ -22,8 +22,8 @@ if (nkSettings.get('save_selected_item') === 'true') {
 //? APPLYING SKIN
 const skinLoad = new Promise(function (resolve) {
   try {
-    pageTriggerCallback(function () {
-      nkSettings.get('change_skin_by_time') === 'true' ? setSkinByTime() : setSkin(nkSettings.get('skin'));
+    $(document).on('page_fully_builded', function () {
+      nkSettings.get('change_skin_by_time') === 'true' ? setSkinByTime() : (nkSettings.get('skin') ? setSkin(nkSettings.get('skin')) : setSkin('byakujou'));
       resolve();
     });
   } catch (err) { console.error(err); }

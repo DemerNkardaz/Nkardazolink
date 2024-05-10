@@ -250,13 +250,13 @@ const pageBuild = new Promise(function (resolve, reject) {
               <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent" >
                 <div class="links_Grid" data-tooltip-key="Tess" data-tooltip-pos="left">
-                  <anchor-contentLinks/>
+                  ${unpackElementObject( createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }) )}
                 </div>
               </div>
               <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent">
                 <div class="links_Grid">
-                <anchor-socialLinks/>
+                  ${unpackElementObject( createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }) )}
                 </div
               </div>
             </div>
@@ -273,9 +273,10 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="trackTime">00:00 / 00:00</div>
                 <div class="trackProgress"></div>
               </div>
-              ${nkUI.dropdown({ content: `${nkLocale.get('MusicCredits')}`, id: 'musicCredits', hide: false })}
+              ${unpackElementObject( new dropdown_element({content: `${nkLocale.get('MusicCredits')}`, id: 'MusicCredits', hide: false}) )}
             </span>` : ''}`;
           }
+          
           nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
           nk.siteHeader.html(header);
           nk.siteMainContainer.html(main);
@@ -287,34 +288,6 @@ const pageBuild = new Promise(function (resolve, reject) {
 
       pageConfig.then(() => {
         console.buildType('[GENPAGE] → Configuration is set & loaded', 'info');
-      
-        function generateContent() {
-          if (anUrlParameter.mode === 'kamon') {
-
-          } else if (anUrlParameter.mode === 'banners') {
-
-          } else if (anUrlParameter.mode === 'clans') {
-
-          } else if (anUrlParameter.mode === 'cv') {
-
-          } else if (anUrlParameter.mode === 'landing') {
-
-          } else if (anUrlParameter.mode === 'tree') {
-
-          } else if (anUrlParameter.mode === 'license') {
-
-          } else if (anUrlParameter.mode === 'pattern') {
-
-          } else if (anUrlParameter.mode === 'reader') {
-
-          } else {
-      
-            nk.siteMainContainer.find('anchor-contentLinks').replaceWith(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }));
-            nk.siteMainContainer.find('anchor-socialLinks').replaceWith(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }));
-            //nk.siteMainContainer.prepend(generateLinks({linkClass : 'long-thin', source : dataBlocks.linktree.links.content}));
-
-          };
-        }; generateContent();
         resolve();
       });
     });
@@ -322,14 +295,16 @@ const pageBuild = new Promise(function (resolve, reject) {
 });
 
 pageBuild.then(function () {
+  unpackedHandler();
   console.buildType(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`, 'info');
   
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
 
     return new Promise(function (resolve) { try { setTimeout(() => { nkLocale.langUpdate(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
       console.buildType(`[GENPAGE] → Content Loaded and updated”`, 'important');
+      $(document).trigger('page_fully_builded');
     });
-      
+    
 });
 
 //logCurrentTrigger();
