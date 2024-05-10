@@ -77,7 +77,7 @@
       "Anime_Naruto_Tooltip": "Аниме «Наруто»",
       "Anime_BlackClover_Tooltip": "Аниме «Черный Клевер»",
       "Anime_Heike-monogatari": "Автор Peropicnic, аниме «Повесть о доме Тайра»",
-      "Hachiman-jin_Tooltip": "<div>Хатиман, синтоистский бог войны<br>${ nkLocale.get( { mode: 'templates', key: 'linkIcon', placements: [{ 'link': 'https://masakaru.ru/byt-prostyx-yaponcev/religija/hatiman-jap-sintoistskij-bog-vojny.html'}, { 'img': 'https://masakaru.ru/wp-content/uploads/2023/06/cropped-bez-nazvanija-32x32.png' }, { 'text': 'Хатиман — MASAKA' }]} ) }</div>"
+      "Hachiman-jin_Tooltip": "Хатиман, синтоистский бог войны"
     },
 
     "Skins": {
