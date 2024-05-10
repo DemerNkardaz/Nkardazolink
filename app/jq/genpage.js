@@ -201,7 +201,7 @@ const pageBuild = new Promise(function (resolve, reject) {
         try {
           if (anUrlParameter.mode === 'kamon') {
 
-            $(document).on('kamon_loaded', function () {
+            $(document).on('kamonItem_loaded', function () {
 
             });
 
@@ -216,11 +216,14 @@ const pageBuild = new Promise(function (resolve, reject) {
           } else if (anUrlParameter.mode === 'tree') {
 
           } else if (anUrlParameter.mode === 'license') {
-            header = `<div data-key="Text" data-key-source="licenseJSON">${nkLocale.get('Text>licenseJSON')}</div>`;
+            header = ``;
 
-            footer = `<div>
-              ${nkLocale.get('Nkardaz.copyright', '&copy;')}
-            </div><div data-key="Nkardaz.copyright" data-keyCutter="&copy;"></div>`;
+            main = `<div class="licensePages lh-3">
+              <div data-key="Title" data-key-source="licenseJSON">${nkLocale.get('Title>licenseJSON')}</div>
+              <div data-key="Text" data-key-source="licenseJSON">${nkLocale.get('Text>licenseJSON')}</div>
+              </div>`;
+
+            footer = `<span data-key="Nkardaz.copyright" data-key-cutter="&ensp;|"></span>`;
 
           } else if (anUrlParameter.mode === 'pattern') {
 
@@ -260,8 +263,8 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             footer = `
-            <span class="copyright"><span data-key="Nkardaz.copyright">${nkLocale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nkLocale.get('Skins.Current')}</span></span>
-            <span class="ambientControls ms-auto me-3">
+            <span class="copyright"><span data-key="Nkardaz.copyright">${nkLocale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nkLocale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
+            `<span class="ambientControls ms-auto me-3">
               <button nk-music="pause/play"><span class="material-icons">pause</span></button>
               <button nk-music="random"><span class="material-icons">shuffle</span></button>
               <button nk-music="credits" data-drop_target="musicCredits"><span class="material-icons">attribution</span></button>
@@ -271,7 +274,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="trackProgress"></div>
               </div>
               ${nkUI.dropdown({ content: `${nkLocale.get('MusicCredits')}`, id: 'musicCredits', hide: false })}
-            </span>`;
+            </span>` : ''}`;
           }
           nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
           nk.siteHeader.html(header);

@@ -344,7 +344,7 @@ window.setTabIndex = function() {
 
 window.languageLoaded = function (callback) {
   $(document).on('languageJSON_loaded', function () {
-    $(document).on('licenseJSON_loaded', function () { callback(); });
+    anUrlParameter.mode === 'license' && $(document).on('licenseJSON_loaded', function () { callback(); }) || callback();
   });
 };
 

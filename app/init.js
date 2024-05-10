@@ -116,7 +116,7 @@ waitFor('title', () => {
 
 DataExtend([
   { type: 'data',  source: 'app/data/locale.json', as: 'languageJSON' },
-  { type: 'data',  source: 'app/data/license.json', as: 'licenseJSON' },
+  anUrlParameter.mode === 'license' && { type: 'data',  source: 'app/data/license.json', as: 'licenseJSON' },
 ]);
 window.languageJSON = metaData['languageJSON'];
 window.licenseJSON = metaData['licenseJSON'];

@@ -17,10 +17,11 @@
 @import './coresets/tooltip.css';
 @import './coresets/scrollbars.css';
 @import './coresets/loading.css';
-@import './coresets/body.css';
+@import './coresets/body.css' layer(root);
 @import './coresets/inputs.css';
 @import './coresets/items.css';
 @import './coresets/lang.css';
 @import './help_classes/help_compiled.css' layer(extra);
 
 @import './coresets/mode_generic.css' layer(element);
+@import './coresets/mode_license.css' layer(element);

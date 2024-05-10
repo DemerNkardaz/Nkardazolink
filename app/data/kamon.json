@@ -1,0 +1,15 @@
+{
+  "default_img_path": "resources/svg",
+  "root": [
+    {
+      "category": "JP",
+      "img_folder": "/japan/kamon/",
+      "items": []
+    },
+    {
+      "category": "ZH",
+      "img_folder": "/china/crests/",
+      "items": []
+    }
+  ]
+}

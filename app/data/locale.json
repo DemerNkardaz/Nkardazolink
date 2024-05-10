@@ -1,6 +1,6 @@
 {
   "templates": {
-
+    "linkIcon": "<a class=\"inline-link-icon\" href=\"$(place_link)\" target=\"_blank\"><img class=\"me-2\" width=\"20px\" alt=\"\" src=\"$(place_img)\">$(place_text)</a>"
   },
   "common": {
     "RU": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'LangEl.temp', placements: [{ '0': 'Русский'}, { '1': nkLocale.get('LangEl.Russia') }]} ) }</span>",
@@ -77,7 +77,7 @@
       "Anime_Naruto_Tooltip": "Аниме «Наруто»",
       "Anime_BlackClover_Tooltip": "Аниме «Черный Клевер»",
       "Anime_Heike-monogatari": "Автор Peropicnic, аниме «Повесть о доме Тайра»",
-      "Hachiman-jin_Tooltip": "Хатиман, синтоистский бог войны"
+      "Hachiman-jin_Tooltip": "<div>Хатиман, синтоистский бог войны<br>${ nkLocale.get( { mode: 'templates', key: 'linkIcon', placements: [{ 'link': 'https://masakaru.ru/byt-prostyx-yaponcev/religija/hatiman-jap-sintoistskij-bog-vojny.html'}, { 'img': 'https://masakaru.ru/wp-content/uploads/2023/06/cropped-bez-nazvanija-32x32.png' }, { 'text': 'Хатиман — MASAKA' }]} ) }</div>"
     },
 
     "Skins": {

@@ -6,7 +6,8 @@ const cutsLibrary = [
   ['⁆', '&harr;'], ['⁇', '&crarr;'], ['⁈', '&lceil;'], ['⁉', '&rceil;'], ['⁊', '&lfloor;'], ['⁋', '&rfloor;'], ['⁌', '&loz;'],
   ['⁍', '&spades;'], ['⁎', '&clubs;'], ['⁏', '&hearts;'], ['⁐', '&diams;'], ['⁑', '&quot;'], ['⁒', '&#39;'], ['⁓', '&copy;'],
   ['⁔', '&reg;'], ['⁕', '&trade;'], ['⁖', '&pound;'], ['⁗', '&#36;'], ['⁘', '&euro;'], ['⁙', '&yen;'], ['⁚', '&sect;'],
-  ['⁛', '&dagger;'], ['⁜', '&Dagger;'], ['⁝', '&para;'], ['⁞', '&quot;']
+  ['⁛', '&dagger;'], ['⁜', '&Dagger;'], ['⁝', '&para;'], ['⁞', '&quot;'],
+  [' ', '&emsp;'], [' ', '&emsp13;'], [' ', '&ensp;'], [' ', '&nbsp;'],
 ];
 
 
@@ -113,7 +114,7 @@ function uLang(keyMap) {
     const sourceName = keyMap.get('source');
     if (sourceName && window.hasOwnProperty(sourceName)) {
       sourceLink = window[sourceName];
-      sourceLang = (keyMap.get('mode') !== null && (supportedLanguages.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common')) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
+      sourceLang = (keyMap.get('mode') !== null && (supportedLanguages.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
       if (!sourceLang) {
         for (let lang in sourceLink) {
           if (sourceLink.hasOwnProperty(lang)) {
@@ -305,7 +306,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
       let altKey = $(this).attr('alt-key');
       let eventLessKey = $(this).attr('eventLess-tooltip-key');
       let imageKey = $(this).attr('data-key-image');
-      let cutKey = $(this).attr('data-keyCutter');
+      let cutKey = $(this).attr('data-key-cutter');
       let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
       let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
       let interpolatedLocale = eval('`' + getLocale + '`');

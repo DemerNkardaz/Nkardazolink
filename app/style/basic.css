@@ -144,6 +144,13 @@ char-name {
     font-weight: 800;
   }
 }
+
+.inline-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: start;
+  text-decoration: none;
+}
 /*
 .diacritic_upper {
   position: relative;
