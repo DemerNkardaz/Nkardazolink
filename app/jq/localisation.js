@@ -9,6 +9,24 @@ const cutsLibrary = [
   ['⁛', '&dagger;'], ['⁜', '&Dagger;'], ['⁝', '&para;'], ['⁞', '&quot;']
 ];
 
+
+languageLoaded(function () {
+  $('meta, title').each(function () {
+    let key = $(this).attr('data-key');
+    let newKey;
+    if (!key) return;
+    if (anUrlParameter.mode && anUrlParameter.select) {
+      newKey = key.replace('default', anUrlParameter.mode.toLowerCase() + anUrlParameter.select.toLowerCase());
+      nkLocale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
+    } else if (anUrlParameter.mode) {
+      newKey = key.replace('default', anUrlParameter.mode.toLowerCase());
+      nkLocale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
+    } else {
+      return;
+    }
+  })
+});
+
 /*
 window.loi = {
   "ru": {
@@ -18,7 +36,7 @@ window.loi = {
 }
 ! sample of call nkLocale.get({mode: 'ru', key: 'based', placements: [{ '0': `${nkLocale.get('ru:from>loi')}` }, { '150': 5+5 }], source: 'loi'});
 */
-
+/*
 function uLang(keyMap) {
   const nestedKeys = keyMap.get('key').split('.');
   let sourceLink, sourceLang, localisedString;
@@ -62,8 +80,86 @@ function uLang(keyMap) {
       }
       
       if (!keyFound) {
-        //console.buildType(`Key '${k}' not found in ${keyMap.get('source')}`, 'error');
-        //return `“${k}”&nbsp;${NoAv}`;
+        return null;
+      }
+    }
+  }
+
+  if (keyMap.get('placement') !== null) {
+    const placeholder = keyMap.get('placement_counter') !== null ? `$(place_${keyMap.get('placement_counter')})` : '$(place)';
+    localisedString = localisedString.replace(placeholder, keyMap.get('placement'));
+  }
+
+  if ('placements' in keyMap || keyMap.has('placements')) {
+    const placements = keyMap.get('placements');
+    for (let i = 0; i < placements.length; i++) {
+      const placement = placements[i];
+      for (let j = 0; j < Object.keys(placement).length; j++) {
+        const key = Object.keys(placement)[j];
+        const value = Object.values(placement)[j];
+        const placeholder = `$(place_${key})`;
+        localisedString = localisedString.replace(placeholder, value);
+      }
+    }
+  }
+
+  return textUnPacker(localisedString);
+}*/
+function uLang(keyMap) {
+  const nestedKeys = keyMap.get('key').split('.');
+  let sourceLink, sourceLang, localisedString;
+
+  ((keyMap) => {
+    const sourceName = keyMap.get('source');
+    if (sourceName && window.hasOwnProperty(sourceName)) {
+      sourceLink = window[sourceName];
+      sourceLang = (keyMap.get('mode') !== null && (supportedLanguages.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common')) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
+      if (!sourceLang) {
+        for (let lang in sourceLink) {
+          if (sourceLink.hasOwnProperty(lang)) {
+            if (sourceLink[lang].hasOwnProperty(nestedKeys[0])) {
+              sourceLang = sourceLink[lang];
+              break;
+            }
+          }
+        }
+      }
+    } else {
+      console.buildType(`Variable ${sourceName} not found in global scope`, 'error');
+    }
+  })(keyMap);
+    
+  localisedString = sourceLang;
+  for (let i = 0; i < nestedKeys.length; i++) {
+    const k = nestedKeys[i];
+    let keyFound = false;
+    if (localisedString.hasOwnProperty(k)) {
+      localisedString = localisedString[k];
+      keyFound = true;
+    }
+    if (!keyFound) {
+      const skippedLangs = new Set();
+      let statusSended = false;
+      function fallback(skippedLangs) {
+        for (let lang in sourceLink) {
+          if (sourceLink.hasOwnProperty(lang) && !skippedLangs.has(lang)) {
+            if (sourceLink[lang].hasOwnProperty(k)) {
+              localisedString = sourceLink[lang][k];
+              keyFound = true;
+              break;
+            } else {
+              let formattedSkipped = Array.from(skippedLangs).map(lang => `[${lang}]`).join(' : ').toUpperCase();
+              formattedSkipped.length > 0 && console.buildType(`[LOCALE] → Ignored languages ${formattedSkipped} when trying to get “${keyMap.get('key')}”`, 'warning');
+              skippedLangs.add(lang);
+              fallback(skippedLangs);
+              statusSended !== true  && console.buildType(`[LOCALE] → The sended key “${k}” instead of “${keyMap.get('key')}” in cycle of Fallback(). When not identical then context is lost`, 'important'), statusSended = true;
+            }
+          }
+        }
+      }
+      fallback(skippedLangs);
+      
+      if (!keyFound) {
         return null;
       }
     }
@@ -125,7 +221,7 @@ window.nkLocale = {
 
     result = cut ? cutter(uLang(keyMap)) : uLang(keyMap);
     if (result === null && keyMap.get('mode') !== 'check') {
-      console.buildType(`Key “${keyMap.get('key')}” not found in ${keyMap.get('source')}`, 'error');
+      console.buildType(`[LOCALE] → Key “${keyMap.get('key')}” not found in “${keyMap.get('source')}”`, 'error');
       return `${key}&nbsp;${NoAv}`;
     } else if (result === null && keyMap.get('mode') === 'check') {
       return;
@@ -170,7 +266,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
 
       if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : ''}`); return };
 
-      if ((dataKey || key) && !eventLessKey) $(this).html(interpolatedLocale);
+      if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META' ? $(this).html(interpolatedLocale) : $(this).attr('content', interpolatedLocale);
       if (altKey) $(this).attr('alt', interpolatedLocale);
       if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
       if (imageKey) {

@@ -2,21 +2,18 @@
 import './core.js';
 import './jq/jquery_core.js';
 import './js/vars.js';
-
-
+import './jq/utils.js';
 
 //? ------------------------------- MAIN INITIALISATION -------------------------------
 import './rules/rules.js';
 import './jq/selectors.js';
 import './jq/skins.js';
-import './jq/ui_diacrit.js';
 import './jq/ui_tags.js';
 import './jq/ui_components.js';
 import './init.js';
 
-import './jq/bind_shortcuts.js';
 isMobileDevice() !== true && import('./jq/tooltips.js'), import('./howler_init.js');
-import './jq/utils.js';
+import './jq/bind_shortcuts.js';
 import './jq/localisation.js';
 import './jq/genpage.js';
 
