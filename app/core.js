@@ -427,7 +427,6 @@ window.exportStorageData = function() {
 
 window.unpackElementObject = function (obj) {
   const uniqId = randomId('object');
-  console.log(uniqId);
   $('body').append(`<div id="${uniqId}"></div>`);
   $(`#${uniqId}`).hide();
   $(`#${uniqId}`).append(obj);

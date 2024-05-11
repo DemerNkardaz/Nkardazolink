@@ -239,7 +239,8 @@ const pageBuild = new Promise(function (resolve, reject) {
               </span>
               ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
             </div>
-            <div>Теставые букавы<span>${nkLocale.get('test')}</span><br/><span data-key="C.test"></span>${nkLocale.get('C.test')}
+            <div>Теставые букавы<span>${nkLocale.get('test')}</span><br/><span data-key="C.test"></span>${nkLocale.get('C.test')}<br>
+              ${repoStatus.join('<br>')}
             </div>
             <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nkLocale.get('testqu')}<br>
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
@@ -300,7 +301,7 @@ pageBuild.then(function () {
   $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
 
     return new Promise(function (resolve) { try { setTimeout(() => { nkLocale.langUpdate(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
-      console.buildType(`[GENPAGE] → Content Loaded and updated”`, 'important');
+      console.buildType(`[GENPAGE] → Content Loaded and updated`, 'important');
       $(document).trigger('page_fully_builded');
     });
     
