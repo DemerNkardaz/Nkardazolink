@@ -1,6 +1,5 @@
 let skin = (nkSettings.get('skin') !== null) ? `app/style/skins/${nkSettings.get('skin')}.css` : 'app/style/skins/byakujou.css';
 $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
-
 window.CheckSkin = function (type) {
   const preference = nkSettings.get('skin');
   const skinName = availableSkins[preference] ? (type === 'url' ? availableSkins[preference].url : availableSkins[preference].name) : 'Byakujou';
@@ -20,7 +19,8 @@ window.setSkin = function (skin) {
           $Setting('skin').save(skin).then((result) => {
             const prev_skin = result.valueBefore;
             const new_skin = result.valueNew;
-            $('#skinloader').attr('href', `app/style/skins/${new_skin}.css`);
+            const appliedSkin = $('#skinloader').attr('href');
+            !appliedSkin.includes(new_skin) && $('#skinloader').attr('href', `app/style/skins/${new_skin}.css`);
 
             if (anUrlParameter.mode === 'kamon') { 
 
@@ -114,4 +114,45 @@ window.setSkinByTime = function (isReturn) {
   } else {
     return skin
   }
+};
+
+function skinPreload() {
+  let skin = nkSettings.get('change_skin_by_time') === 'true' ? setSkinByTime(true) : nkSettings.get('skin');
+  $('#skinloader').attr('href', `app/style/skins/${skin}.css`);
+}; skinPreload();
+
+window.setLogoBySkin = function () {
+  let logo;
+  const skin = CheckSkin('url');
+  if (skin === 'azumatsuyu') {
+    logo = 'resources/svg/NkardazKamon.svg';
+  } else if (skin === 'byakujou') {
+    logo = 'resources/svg/NkardazKamon.svg';
+  } else if (skin === 'sekiban') {
+    logo = 'resources/svg/NkardazKamon.svg';
+  } else if (skin === 'aogurogetsu') {
+    logo = 'resources/svg/hangetsu.svg';
+  } else if (skin === 'akatsukikurai') {
+    logo = 'resources/svg/NkardazKamon.svg';
+  }
+  return logo;
+};
+
+window.setLogoByTime = function () {
+  const now = new Date();
+  const hour = now.getHours();
+  let logo;
+  if (hour >= 7 && hour < 12) {
+    logo = 'resources/svg/NkardazKamon.svg';
+  } else if (hour >= 12 && hour < 18) {
+    logo = 'resources/svg/NkardazKamon.svg';
+  } else if (hour >= 18 && hour < 22) {
+    logo = 'resources/svg/NkardazKamon.svg';
+  } else if (hour >= 22 || hour < 4) {
+    logo = 'resources/svg/hangetsu.svg';
+  } else {
+    logo = 'resources/svg/NkardazKamon.svg';
+  }
+
+  return logo;
 };

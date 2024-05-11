@@ -200,7 +200,7 @@ const pageBuild = new Promise(function (resolve, reject) {
       const pageConfig = new Promise(function (resolveCFG, rejectCFG) {
         try {
           if (anUrlParameter.mode === 'kamon') {
-            main = `<div data-entity="ent_clan_matsudaira_mon_maru_ni_mittsuaoi" data-entity-type="kamon" data-entity-category="JA"><span data-key="transcript_second">fff</span></div>`;
+            main = `<div data-entity="ent_clan_matsudaira_mon_maru_ni_mittsuaoi" data-entity-class="kamon" data-entity-category="JA"><span data-key="transcript_second">fff</span></div>`;
 
             $(document).on('kamonItem_loaded', function () {
             });

@@ -1,0 +1,193 @@
+item-prop {
+  --background: #FFFFFFB3;
+  --rarity_color: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
+  --rarity_color_clan: linear-gradient(90deg, #8f8f8f50, #d1d1d150, transparent);
+  --selection_anim: selected_pulse_shadow;
+  --image: url('../resources/svg/japan/Torii_small.svg');
+
+  position: relative;
+  background: var(--background);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px var(--shadow_22a29);
+  overflow: hidden;
+  transition: all 0.1s ease-in-out;
+  outline: 2px solid transparent;
+  cursor: pointer;
+  z-index: 1;
+  & img::before {
+    display: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  &:hover, &:focus {
+    outline-color: white;
+  }
+
+  &.selected {
+    outline-color: white;
+    animation: var(--selection_anim) 5s ease infinite;
+  }
+
+  & .item_image_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .item_title {
+    align-items: center;
+    font-weight: 800;
+  }
+
+  & .item_title_additional {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-weight: 500;
+  }
+
+  & .item_text {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  & .item_image {
+    display: flex;
+    filter: drop-shadow(0px 1px 1px var(--shadow_00a95));
+  }
+
+    & .item_icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  &[PROP_Class="kamon"], &[PROP_Class="banners"], &[PROP_Class="pattern"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 128px;
+    height: 170px;
+    user-select: none;
+
+    &::before {
+      width: 100%;
+      height: 140px;
+      border-radius: 0 0 35px 0;
+      top: 0;
+      filter: invert(1);
+      background: var(--rarity_color);
+      background-position: 50% 2px;
+      mix-blend-mode: overlay;
+      opacity: 0.2;
+    }
+
+    &:hover, &:focus {
+      scale: 1.12;
+    }
+
+    &:active {
+      scale: 1.05;
+    }
+
+
+    & .item_image_wrapper {
+      width: 100%;
+      height: 140px;
+    }
+
+    & .item_title {
+      position: absolute;
+      display: flex;
+      bottom: 2.95px;
+      justify-content: center;
+    }
+  }
+  
+  &[PROP_Class="kamon"] {
+    & .item_image {
+      width: 105px;
+      object-fit: contain;
+    }
+  }
+
+  &[PROP_Class="clans"] {
+    display: grid;
+    grid-template-columns: 360px 625px;
+    grid-template-rows: 27% 1fr;
+    gap: 0px 20px;
+    width: 1024px;
+    height: 190px;
+
+    &::before {
+            width: 640px;
+              bottom: 0;
+      background: var(--rarity_color_clan);
+    }
+
+    &:hover, &:focus {
+      scale: 1.03;
+    }
+
+    &:active {
+      scale: 1.01;
+    }
+
+
+    & .item_image_wrapper {
+      height: inherit;
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+
+    & .item_title {
+      display: inline-grid;
+      grid-auto-columns: 32px 65% 25%;
+      grid-auto-flow: column;
+      column-gap: 10px;
+      font-size: 1.35rem;
+      grid-column: 2;
+      grid-row: 1;
+      justify-content: start;
+    }
+
+    & .item_image {
+      align-self: center;
+      height: 170px;
+      width: 350px;
+      object-fit: cover;
+      margin: 0 0 0 10px;
+      border-radius: 10px;
+    }
+  }
+
+
+
+}
+
+
+
+
+
+@keyframes selected_pulse_shadow {
+  0% {
+    box-shadow: 5px 0 15px #8c8c8c, -5px -0 15px #8c8c8c;
+  }
+
+  50%,
+  85% {
+    box-shadow: 5px 0 15px #8c8c8c90, -5px -0 15px #8c8c8c90;
+  }
+
+  100% {
+    box-shadow: 5px 0 15px #8c8c8c, -5px -0 15px #8c8c8c;
+  }
+}

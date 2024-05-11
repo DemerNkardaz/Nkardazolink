@@ -335,7 +335,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
           entity = $(this);
         }
         let entityProp = entity.attr('data-entity');
-        let entityType = entity.attr('data-entity-type');
+        let entityType = entity.attr('data-entity-class');
         let entityCategory = entity.attr('data-entity-category');
         let localeSource = `${entityType}Item`;
         localeSource = eval(localeSource);
