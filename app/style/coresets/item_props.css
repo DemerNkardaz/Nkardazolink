@@ -56,6 +56,7 @@ item-prop {
   cursor: pointer;
   z-index: 1;
 
+
   & img::before {
     display: none;
   }
@@ -115,6 +116,11 @@ item-prop {
     filter: drop-shadow(0px 1px 1px var(--shadow_00a95));
   }
 
+  & .item-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
 
 
   &[data-prop-class="kamon"] {
@@ -165,11 +171,6 @@ item-prop {
     }
   }
 
-  & .item-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-  }
 
 
   &[data-prop-class="clans"] {
@@ -228,7 +229,9 @@ item-prop {
 
 
 
-
+  &[data-gallery-visible="hidden"] {
+    display: none;
+  }
   
 }
 

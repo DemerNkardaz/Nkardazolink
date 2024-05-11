@@ -64,7 +64,282 @@
             "en": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[The Crest of The Japan Imperial family]≈}—"],
             "ja": ["{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}"]
           }
+        },
+
+
+
+        {
+          "entity_prop": "ent_maru_ni_mittsu_aoi.clan_matsudaira",
+          "image": "Mon_of_clan_Matsudaira",
+          "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
+          "clan_names": { "ru": "Мацудайра", "en": "Matsudaira", "ja": "松平", "zh": "松平", "ko": "상파리", "vi": "Matsudaira"},
+          "status": 1,
+          "search_tags": [ "Мацудайра", "Matsudaira", "Япония", "Japan", "Три листа мальвы в кругу", "Благородный дом" ],
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Три листа мальвы в кругу]≈}—"],
+            "en": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Three Leaves of Mallow]≈}—"],
+            "ja": ["{.(.丸:まる.)(.に:.)(.三つ:.)(.葵:あおい.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[Фамильный герб рода самураев «Мацудайра»]≈}—"],
+            "en": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[The crest of samurai clan “Matsudaira”]≈}—"],
+            "ja": ["{.(.松平:まつだいら.)(.氏:し.)(.の:.)(.家紋:かもん.)、(.侍:さむらい.).}"]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
+        },
+        {
+          "entity_prop": "ent_kiku_no_gomon.tennou_lineage",
+          "image": "Mon_of_Emperor",
+          "names": { "ru": "Хризантемовый императорский герб", "en": "Chrysanthemum Imperial Crest of Tennō", "ja": "菊の天皇紋章", "zh": "菊天皇的紋章", "ko": "크리산테미안의 국가장식", "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"},
+          "clan_names": {"ru": "Тэнно(⁛macron_0.255,-0.5⁛)", "en": "Tenno(⁛macron_0.255,-0.5⁛)", "ja": "天皇", "ko": "天皇", "kr": "황제", "vi": "Hoàng đế"},
+          "status": 0,
+          "search_tags": ["Император", "Emperor", "Хризантемовый императорский герб", "Chrysanthemum", "Тэнно", "Tenno", "Japan", "Япония", "Благородный дом", "Императосркая семья"],
+          "kanji_first": "菊の御紋",
+          "kanji_second": "日本皇室の紋章",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Императорский герб хризантемы]≈}—"],
+            "en": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Chrysanthemum Imperial Crest]≈}—"],
+            "ja": ["{.(.菊:きく.)(.の:.)(.御紋:ごもん.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[Герб императорской семьи Японии]≈}—"],
+            "en": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[The Crest of The Japan Imperial family]≈}—"],
+            "ja": ["{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}"]
+          }
+        },
+
+
+
+        {
+          "entity_prop": "ent_maru_ni_mittsu_aoi.clan_matsudaira",
+          "image": "Mon_of_clan_Matsudaira",
+          "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
+          "clan_names": { "ru": "Мацудайра", "en": "Matsudaira", "ja": "松平", "zh": "松平", "ko": "상파리", "vi": "Matsudaira"},
+          "status": 3,
+          "search_tags": [ "Мацудайра", "Matsudaira", "Япония", "Japan", "Три листа мальвы в кругу", "Благородный дом" ],
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Три листа мальвы в кругу]≈}—"],
+            "en": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Three Leaves of Mallow]≈}—"],
+            "ja": ["{.(.丸:まる.)(.に:.)(.三つ:.)(.葵:あおい.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[Фамильный герб рода самураев «Мацудайра»]≈}—"],
+            "en": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[The crest of samurai clan “Matsudaira”]≈}—"],
+            "ja": ["{.(.松平:まつだいら.)(.氏:し.)(.の:.)(.家紋:かもん.)、(.侍:さむらい.).}"]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
+        },
+        {
+          "entity_prop": "ent_kiku_no_gomon.tennou_lineage",
+          "image": "Mon_of_Emperor",
+          "names": { "ru": "Хризантемовый императорский герб", "en": "Chrysanthemum Imperial Crest of Tennō", "ja": "菊の天皇紋章", "zh": "菊天皇的紋章", "ko": "크리산테미안의 국가장식", "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"},
+          "clan_names": {"ru": "Тэнно(⁛macron_0.255,-0.5⁛)", "en": "Tenno(⁛macron_0.255,-0.5⁛)", "ja": "天皇", "ko": "天皇", "kr": "황제", "vi": "Hoàng đế"},
+          "status": 2,
+          "search_tags": ["Император", "Emperor", "Хризантемовый императорский герб", "Chrysanthemum", "Тэнно", "Tenno", "Japan", "Япония", "Благородный дом", "Императосркая семья"],
+          "kanji_first": "菊の御紋",
+          "kanji_second": "日本皇室の紋章",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Императорский герб хризантемы]≈}—"],
+            "en": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Chrysanthemum Imperial Crest]≈}—"],
+            "ja": ["{.(.菊:きく.)(.の:.)(.御紋:ごもん.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[Герб императорской семьи Японии]≈}—"],
+            "en": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[The Crest of The Japan Imperial family]≈}—"],
+            "ja": ["{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}"]
+          }
+        },
+
+
+
+
+
+
+        {
+          "entity_prop": "ent_maru_ni_mittsu_aoi.clan_matsudaira",
+          "image": "Mon_of_clan_Matsudaira",
+          "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
+          "clan_names": { "ru": "Мацудайра", "en": "Matsudaira", "ja": "松平", "zh": "松平", "ko": "상파리", "vi": "Matsudaira"},
+          "status": 7,
+          "search_tags": [ "Мацудайра", "Matsudaira", "Япония", "Japan", "Три листа мальвы в кругу", "Благородный дом" ],
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Три листа мальвы в кругу]≈}—"],
+            "en": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Three Leaves of Mallow]≈}—"],
+            "ja": ["{.(.丸:まる.)(.に:.)(.三つ:.)(.葵:あおい.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[Фамильный герб рода самураев «Мацудайра»]≈}—"],
+            "en": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[The crest of samurai clan “Matsudaira”]≈}—"],
+            "ja": ["{.(.松平:まつだいら.)(.氏:し.)(.の:.)(.家紋:かもん.)、(.侍:さむらい.).}"]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
+        },
+        {
+          "entity_prop": "ent_kiku_no_gomon.tennou_lineage",
+          "image": "Mon_of_Emperor",
+          "names": { "ru": "Хризантемовый императорский герб", "en": "Chrysanthemum Imperial Crest of Tennō", "ja": "菊の天皇紋章", "zh": "菊天皇的紋章", "ko": "크리산테미안의 국가장식", "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"},
+          "clan_names": {"ru": "Тэнно(⁛macron_0.255,-0.5⁛)", "en": "Tenno(⁛macron_0.255,-0.5⁛)", "ja": "天皇", "ko": "天皇", "kr": "황제", "vi": "Hoàng đế"},
+          "status": 4,
+          "search_tags": ["Император", "Emperor", "Хризантемовый императорский герб", "Chrysanthemum", "Тэнно", "Tenno", "Japan", "Япония", "Благородный дом", "Императосркая семья"],
+          "kanji_first": "菊の御紋",
+          "kanji_second": "日本皇室の紋章",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Императорский герб хризантемы]≈}—"],
+            "en": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Chrysanthemum Imperial Crest]≈}—"],
+            "ja": ["{.(.菊:きく.)(.の:.)(.御紋:ごもん.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[Герб императорской семьи Японии]≈}—"],
+            "en": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[The Crest of The Japan Imperial family]≈}—"],
+            "ja": ["{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}"]
+          }
+        },
+
+
+
+
+
+
+
+
+
+
+
+        {
+          "entity_prop": "ent_maru_ni_mittsu_aoi.clan_matsudaira",
+          "image": "Mon_of_clan_Matsudaira",
+          "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
+          "clan_names": { "ru": "Мацудайра", "en": "Matsudaira", "ja": "松平", "zh": "松平", "ko": "상파리", "vi": "Matsudaira"},
+          "status": 9,
+          "search_tags": [ "Мацудайра", "Matsudaira", "Япония", "Japan", "Три листа мальвы в кругу", "Благородный дом" ],
+          "kanji_first": "丸に三つ葵",
+          "kanji_second": "松平家の家紋、侍",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Три листа мальвы в кругу]≈}—"],
+            "en": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Three Leaves of Mallow]≈}—"],
+            "ja": ["{.(.丸:まる.)(.に:.)(.三つ:.)(.葵:あおい.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[Фамильный герб рода самураев «Мацудайра»]≈}—"],
+            "en": ["—{{.(.松平:Matsudaira.)(.氏:Shi.)(.の:No.)(.家紋:Kamon.)、(.:.)(.侍:Samurai.).}≈[The crest of samurai clan “Matsudaira”]≈}—"],
+            "ja": ["{.(.松平:まつだいら.)(.氏:し.)(.の:.)(.家紋:かもん.)、(.侍:さむらい.).}"]
+          },
+          "description": 
+          {
+            "ru": 
+              [
+                "Какой-то текст про герб рода Мацудайра\n"
+              ],
+            "en":
+              [
+                "Some text about the clan Matsudaira\n"
+              ],
+            "jp":
+              [
+                "松平の家紋の説明\n"
+              ]
+          }
+        },
+        {
+          "entity_prop": "ent_kiku_no_gomon.tennou_lineage",
+          "image": "Mon_of_Emperor",
+          "names": { "ru": "Хризантемовый императорский герб", "en": "Chrysanthemum Imperial Crest of Tennō", "ja": "菊の天皇紋章", "zh": "菊天皇的紋章", "ko": "크리산테미안의 국가장식", "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"},
+          "clan_names": {"ru": "Тэнно(⁛macron_0.255,-0.5⁛)", "en": "Tenno(⁛macron_0.255,-0.5⁛)", "ja": "天皇", "ko": "天皇", "kr": "황제", "vi": "Hoàng đế"},
+          "status": 8,
+          "search_tags": ["Император", "Emperor", "Хризантемовый императорский герб", "Chrysanthemum", "Тэнно", "Tenno", "Japan", "Япония", "Благородный дом", "Императосркая семья"],
+          "kanji_first": "菊の御紋",
+          "kanji_second": "日本皇室の紋章",
+          "transcript_first": 
+          {
+            "ru": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Императорский герб хризантемы]≈}—"],
+            "en": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Chrysanthemum Imperial Crest]≈}—"],
+            "ja": ["{.(.菊:きく.)(.の:.)(.御紋:ごもん.).}"]
+          },
+          "transcript_second":
+          {
+            "ru": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[Герб императорской семьи Японии]≈}—"],
+            "en": ["—{{.(.日本:Nihon.)(.皇室:Kōshitsu.)(.の:No.)(.紋章:Monshō.).}≈[The Crest of The Japan Imperial family]≈}—"],
+            "ja": ["{.(.日本:にほん.)(.皇室:こうしつ.)(.の:.)(.紋章:もんしょう.).}"]
+          }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ]
     },
     {

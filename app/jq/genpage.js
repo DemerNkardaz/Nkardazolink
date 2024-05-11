@@ -202,6 +202,11 @@ const pageBuild = new Promise(function (resolve, reject) {
       const pageConfig = new Promise(function (resolveCFG, rejectCFG) {
         try {
           if (anUrlParameter.mode === 'kamon') {
+
+            header = `
+            <input nk-prop-search="kamon" type="text" placeholder="Поиск знака…">
+            `;
+
             main = `
             ${unpackElementObject(item_prop_array(kamonItem))}
             <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div>`;
