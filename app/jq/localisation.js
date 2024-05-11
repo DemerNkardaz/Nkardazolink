@@ -11,7 +11,7 @@ const cutsLibrary = [
 ];
 
 
-languageLoaded(function () {
+$(document).on('full_data_loaded', function () {
   $('meta, title').each(function () {
     let key = $(this).attr('data-key');
     let newKey;
@@ -275,8 +275,26 @@ window.nkLocale = {
     if (keyMap.get('mode') !== '0' && keyMap.get('raw') !== true) return eval('`' + result + '`');
     return result;
   },
-  entity: function (key) {
-    
+  entity: function (source) {
+    let value;
+    let found = false;
+    for (let lang in source) {
+      if (source.hasOwnProperty(lang) && lang === nkSettings.get('lang')) {
+        value = source[lang];
+        found = true;
+        break;
+      } else {
+        for (let i = 0; i < supportedLanguages.length; i++) {
+          if (lang === supportedLanguages[i]) {
+            value = source[lang];
+            found = true;
+            break;
+          }
+        }
+      }
+    }
+
+    return found ? value : null;
   }
 }
 
@@ -335,8 +353,8 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
           entity = $(this);
         }
         let entityProp = entity.attr('data-entity');
-        let entityType = entity.attr('data-entity-class');
-        let entityCategory = entity.attr('data-entity-category');
+        let entityType = entity.attr('data-prop-class');
+        let entityCategory = entity.attr('data-prop-category');
         let localeSource = `${entityType}Item`;
         localeSource = eval(localeSource);
         if (localeSource) {

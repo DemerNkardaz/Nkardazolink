@@ -203,8 +203,57 @@ window.observeOn = function (type, element, callback, timeout, context) {
   observer.observe(element, { attributes: true });
 }
 
-let lastLoaded = null;
 
+window.DataExtend = function (dataArray, isPromise) {
+  if (isPromise) {
+    return new Promise((resolve, reject) => {
+      const loadedData = [];
+      if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
+        $.getJSON(dataArray.source)
+          .done(function (json) {
+            if (typeof dataArray.as !== 'undefined') {
+              window[dataArray.as] = json;
+              loadedData.push({ as: data.as, source: data.source });
+            }
+            resolve(loadedData);
+          })
+          .fail(function (jqxhr, textStatus, error) {
+            reject(error);
+          });
+      } else {
+        const promises = dataArray.map(data => DataExtend(data));
+        Promise.all(promises)
+          .then(() => resolve(loadedData))
+          .catch(error => reject(error));
+      }
+    });
+  } else {
+    if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
+      $.getJSON(dataArray.source, function (json) {
+        if (typeof dataArray.as !== 'undefined') {
+          window[dataArray.as] = json;
+        }
+    
+      }).done(function () {
+        $(document).trigger(`${dataArray.as}_loaded`);
+        console.buildType(`[DATA_IN] → “${dataArray.as}” : loaded with “${dataArray.source}”`, 'success');
+
+      });
+    } else {
+      dataArray.forEach(function (data) {
+        DataExtend(data, callback);
+      })
+    }
+  }
+}
+
+
+
+
+
+
+let lastLoaded = null;
+/*
 window.DataExtend = async function (dataArray, callback, index = 0) {
   if (index >= dataArray.length) {
     if (typeof callback === 'function') {
@@ -225,9 +274,9 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
       const jsonData = await response.json();
       if (typeof as !== 'undefined') {
         window[as] = jsonData;
-        $(document).trigger(`${as}_loaded`);
-        await DataExtend(dataArray, callback, index + 1);
         console.buildType(`[DATA_IN] → “${as}” : loaded with “${source}”`, 'success');
+        await DataExtend(dataArray, callback, index + 1);
+        $(document).trigger(`${as}_loaded`);
         return;
       }
     } catch (error) {
@@ -292,7 +341,7 @@ window.DataExtend = async function (dataArray, callback, index = 0) {
   });
 
   await DataExtend(dataArray, callback, index + 1);
-}
+}*/
 
 window.waitFor = function(selector, callback) {
   const targetElement = document.querySelector(selector);
@@ -378,12 +427,6 @@ window.setTabIndex = function() {
 
     return uniqueIndex;
 }
-
-window.languageLoaded = function (callback) {
-  $(document).on('languageJSON_loaded', function () {
-    anUrlParameter.mode === 'license' && $(document).on('licenseJSON_loaded', function () { callback(); }) || callback();
-  });
-};
 
 window.pageTriggerCallback = function (callback) {
   if (typeof callback === 'function') {

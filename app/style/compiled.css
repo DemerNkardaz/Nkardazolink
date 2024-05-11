@@ -19,7 +19,6 @@
 @import './coresets/loading.css';
 @import './coresets/body.css' layer(root);
 @import './coresets/inputs.css';
-@import './coresets/items.css';
 @import './coresets/lang.css';
 @import './help_classes/help_compiled.css' layer(extra);
 

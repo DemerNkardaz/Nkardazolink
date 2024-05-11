@@ -11,6 +11,7 @@ import './jq/selectors.js';
 import './jq/skins.js';
 import './jq/ui_tags.js';
 import './jq/ui_components.js';
+import './jq/item_prop.js';
 import './init.js';
 
 import './jq/bind_shortcuts.js';

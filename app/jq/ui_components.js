@@ -3,25 +3,26 @@ class item_prop extends HTMLElement {
     super();
     const component = `
       ${PROP.image ? `
-        <div class="item_image_wrapper">
-          <picture class="item_image_picture">
-            ${PROP.image.label ? `<div class="item_image_label">${PROP.image.label}</div>` : ''}
+        <div class="item-image-wrapper">
+          <picture class="item-image__picture">
+            ${PROP.image.label ? `<div class="item-image__label">${PROP.image.label}</div>` : ''}
             ${PROP.image.types ? PROP.image.types.split(', ').map(type => `<source srcset="${type === 'svg' ? PROP.image.src.replace('_thumb.png', '.svg') : PROP.image.src.replace(/\.\w+$/, `.${type}`)}" type="image/${type}">`).join('') : ''}
 
-            <img class="item_image" src="${PROP.image.src}" loading="lazy" alt="${PROP.title.text ? PROP.title.text : ''}">
+            <img class="item-image__element" src="${PROP.image.src}" loading="lazy" alt="${PROP.title.text ? PROP.title.text : ''}">
           </picture>
         </div>
       ` : ''}
-      ${PROP.title ? `<div class="item_title">${PROP.icon ? `<img class="item_icon" src="${PROP.icon }" alt="Title icon">` : ''}<div class="item-title__text" ${PROP.title.key ? `data-k2ey="${PROP.title.key}"` : ''}>${PROP.title.text}</div>${PROP.title.second ? `<div class="item_title_additional">${PROP.title.second}</div>` : ''}</div>` : ''}
-      ${PROP.description && PROP.class === 'clans' ? `<div class="item_text" ${PROP.description.key ? `data-ke2y="${PROP.description.key}"` : ''}>${PROP.description.text}</div>` : ''}
+      ${PROP.title ? `<div class="item-title">${PROP.icon ? `<img class="item-icon" src="${PROP.icon }" alt="Title icon">` : ''}<div class="item-title__text" ${PROP.title.key ? `data-key="${PROP.title.key}"` : ''}>${PROP.title.text}</div>${PROP.title.second ? `<div class="item-title__additional">${PROP.title.second}</div>` : ''}</div>` : ''}
+      ${PROP.description && PROP.class === 'clans' ? `<div class="item-description" ${PROP.description.key ? `data-key="${PROP.description.key}"` : ''}>${PROP.description.text}</div>` : ''}
     `;
 
     $(this).attr({
       'data-entity': (PROP.entity ? PROP.entity : null),
       'data-prop-class': (PROP.class ? PROP.class : null),
+      'data-prop-category': PROP.category || null,
       'data-rarity': (PROP.rarity ? PROP.rarity : null),
-      'data-entity-category': (PROP.category ? PROP.caterogy : null),
       'data-image-multiextension': (PROP.multiextension ? PROP.multiextension : null),
+      'data-gallery-visible': 'visible',
       'tabindex': -1,
       'draggable': 'true',
     });
@@ -30,8 +31,6 @@ class item_prop extends HTMLElement {
   }
   
   connectedCallback() {
-    const PROP_Class = $(this).attr('PROP_Class');
-    $(this).addClass(['kamon', 'banners', 'clans', 'pattern'].includes(PROP_Class) ? PROP_Class : 'default');
   }
   
   render() {
@@ -101,7 +100,7 @@ class settings_check extends HTMLElement {
 
 customElements.define('settings-check', settings_check);
 /*
-$(document).on('languageJSON_loaded', function () {
+$(document).on('full_data_loaded', function () {
   nk.siteMainContainer.prepend(
     new settings_check({
       label: languageJSON[]['save_search_result'],
@@ -120,7 +119,6 @@ $(document).on('languageJSON_loaded', function () {
 
 
 window.item_create = function () {
-  $('main').empty();
   var single = true
   var image = 'resources/svg/NkardazKamon.svg'
   var image2 = 'external/Ghost_of_Tsushima.jpg'
@@ -131,9 +129,12 @@ window.item_create = function () {
 
   var item = new item_prop({
     PROP: {
+      entity: 'ent_maru_ni_mittsu_aoi.clan_matsudaira',
       class: 'kamon',
-      image: { src: 'resources/svg/NkardazKamon.svg' },
-      title: { text: "Камон", key: "nkardaz_kamon" }
+      category: 'JA',
+      rarity: 'legendary',
+      image: { src: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira.svg' },
+      title: { text: "Камон", key: "clan_names" }
     }
   });
   $('main').prepend(item);
@@ -141,14 +142,14 @@ window.item_create = function () {
     PROP: {
       class: 'clans',
       image: { src: 'external/Ghost_of_Tsushima.jpg' },
-      title: { text: "Сакаи", key: "sakai", second: '酒井氏' },
-      description: { text: 'Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.', key: 'sakai_description' },
-      //icon: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@48px.png',
+      title: { text: "Сакаи", second: '酒井氏' },
+      description: { text: 'Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.' },
+      icon: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@48px.png',
     }
   });
   $('main').prepend(item2);
 
-}; setTimeout(item_create, 1000);
+};// $(document).on('full_data_loaded', function () { setTimeout(item_create, 1000); });
 
 
 

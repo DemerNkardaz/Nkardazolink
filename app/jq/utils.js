@@ -126,7 +126,7 @@ function diacriticReplaces(text) {
 
   let type = `place-${splitMatches[0][0].split(',')[0]}`;
   let pos = splitMatches[0][0].split(',')[1] || null;
-  let margins = splitMatches[0][1] ? splitMatches[0][1].split(',').map(item => parseInt(item.trim(), 10)) : null;
+  let margins = splitMatches[0][1] ? splitMatches[0][1].split(',').map(item => parseFloat(item.trim())) : null;
 
   if (margins !== null && margins.length === 1) {
     margins = margins[0];

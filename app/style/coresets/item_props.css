@@ -1,44 +1,49 @@
 :root {
-  --rarity_color_black: linear-gradient(-25deg, #282828, #626262);
-  --rarity_color_god: linear-gradient(-25deg, #ebebeb, #bebebe);
+  --rarity_color_mythical: linear-gradient(-25deg, #282828, #626262);
+  --rarity_color_divine: linear-gradient(-25deg, #ebebeb, #bebebe);
   --rarity_color_legendary: linear-gradient(-25deg, #4bc6d1, #51859a);
-  --rarity_color_red: linear-gradient(-25deg, #d14b4b, #9a5151);
-  --rarity_color_gold: linear-gradient(-25deg, #d1934b, #9a7251);
-  --rarity_color_highnoble: linear-gradient(-25deg, #d0cd69, #8d9566);
+  --rarity_color_great: linear-gradient(-25deg, #d14b4b, #9a5151);
+  --rarity_color_grand: linear-gradient(-25deg, #d1934b, #9a7251);
+  --rarity_color_elite: linear-gradient(-25deg, #d0cd69, #8d9566);
   --rarity_color_venerable: linear-gradient(-25deg, #d069a7, #95667d);
   --rarity_color_normal: linear-gradient(-25deg, #69a0d0, #668495);
-  --rarity_color_uncommon: linear-gradient(-25deg, #96d069, #769566);
-  --rarity_color_common: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
+  --rarity_color_common: linear-gradient(-25deg, #96d069, #769566);
+  --rarity_color_inferior: linear-gradient(-25deg, #d1d1d1, #8f8f8f);
 
-  --rarity_color_clan_black: linear-gradient(90deg, #28282850, #62626250, transparent);
-  --rarity_color_clan_god: linear-gradient(90deg, #bebebe50, #ebebeb50, transparent);
+  --rarity_color_clan_mythical: linear-gradient(90deg, #28282850, #62626250, transparent);
+  --rarity_color_clan_divine: linear-gradient(90deg, #bebebe50, #ebebeb50, transparent);
   --rarity_color_clan_legendary: linear-gradient(90deg, #51859a50, #4bc6d150, transparent);
-  --rarity_color_clan_red: linear-gradient(90deg, #9a515150, #d14b4b50, transparent);
-  --rarity_color_clan_gold: linear-gradient(90deg, #9a725150, #d1934b50, transparent);
-  --rarity_color_clan_highnoble: linear-gradient(90deg, #8d956650, #d0cd6950, transparent);
+  --rarity_color_clan_great: linear-gradient(90deg, #9a515150, #d14b4b50, transparent);
+  --rarity_color_clan_grand: linear-gradient(90deg, #9a725150, #d1934b50, transparent);
+  --rarity_color_clan_elite: linear-gradient(90deg, #8d956650, #d0cd6950, transparent);
   --rarity_color_clan_venerable: linear-gradient(90deg, #95667d50, #d069a750, transparent);
   --rarity_color_clan_normal: linear-gradient(90deg, #66849550, #69a0d050, transparent);
-  --rarity_color_clan_uncommon: linear-gradient(90deg, #76956650, #96d06950, transparent);
-  --rarity_color_clan_common: linear-gradient(90deg, #8f8f8f50, #d1d1d150, transparent);
+  --rarity_color_clan_common: linear-gradient(90deg, #76956650, #96d06950, transparent);
+  --rarity_color_clan_inferior: linear-gradient(90deg, #8f8f8f50, #d1d1d150, transparent);
 }
 
 item-prop {
   --background: #FFFFFFB3;
-  --rarity_color: var(--rarity_color_common);
-  --rarity_color_clan: var(--rarity_color_clan_common);
+  --rarity_color: var(--rarity_color_inferior);
+  --rarity_color_clan: var(--rarity_color_clan_inferior);
   --selection_anim: selected_pulse_shadow;
   --image: url('../../../resources/svg/japan/Torii_small.svg');
 
-  &[data-rarity="common"] {--rarity_color: var(--rarity_color_common);--rarity_color_clan: var(--rarity_color_clan_common);--selection_anim: selected_pulse_shadow_common;}
-  &[data-rarity="uncommon"] {--rarity_color: var(--rarity_color_uncommon);--rarity_color_clan: var(--rarity_color_clan_uncommon);--selection_anim: selected_pulse_shadow_uncommon;}
+  &[data-rarity="inferior"] {--rarity_color: var(--rarity_color_inferior);--rarity_color_clan: var(--rarity_color_clan_inferior);--selection_anim: selected_pulse_shadow;}
+  &[data-rarity="common"] {--rarity_color: var(--rarity_color_common);--rarity_color_clan: var(--rarity_color_clan_common);--selection_anim: selected_pulse_shadow_uncommon;}
   &[data-rarity="normal"] {--rarity_color: var(--rarity_color_normal);--rarity_color_clan: var(--rarity_color_clan_normal);--selection_anim: selected_pulse_shadow_normal;}
   &[data-rarity="venerable"] {--rarity_color: var(--rarity_color_venerable);--rarity_color_clan: var(--rarity_color_clan_venerable);--selection_anim: selected_pulse_shadow_venerable;}
-  &[data-rarity="highnoble"] {--rarity_color: var(--rarity_color_highnoble);--rarity_color_clan: var(--rarity_color_clan_highnoble);--selection_anim: selected_pulse_shadow_highnoble;}
-  &[data-rarity="gold"] {--rarity_color: var(--rarity_color_gold);--rarity_color_clan: var(--rarity_color_clan_gold);--selection_anim: selected_pulse_shadow_gold;}
-  &[data-rarity="red"] {--rarity_color: var(--rarity_color_red);--rarity_color_clan: var(--rarity_color_clan_red);--selection_anim: selected_pulse_shadow_red;}
+  &[data-rarity="elite"] {--rarity_color: var(--rarity_color_elite);--rarity_color_clan: var(--rarity_color_clan_elite);--selection_anim: selected_pulse_shadow_highnoble;}
+  &[data-rarity="grand"] {--rarity_color: var(--rarity_color_grand);--rarity_color_clan: var(--rarity_color_clan_grand);--selection_anim: selected_pulse_shadow_gold;}
+  &[data-rarity="great"] {--rarity_color: var(--rarity_color_great);--rarity_color_clan: var(--rarity_color_clan_great);--selection_anim: selected_pulse_shadow_red;}
   &[data-rarity="legendary"] {--rarity_color: var(--rarity_color_legendary);--rarity_color_clan: var(--rarity_color_clan_legendary);--selection_anim: selected_pulse_shadow_legendary;}
-  &[data-rarity="god"] {--rarity_color: var(--rarity_color_god);--rarity_color_clan: var(--rarity_color_clan_god);--selection_anim: selected_pulse_shadow_god;}
-  &[data-rarity="black"] {--rarity_color: var(--rarity_color_black);--rarity_color_clan: var(--rarity_color_clan_black);--selection_anim: selected_pulse_shadow_black;}
+  &[data-rarity="divine"] {--rarity_color: var(--rarity_color_divine);--rarity_color_clan: var(--rarity_color_clan_divine);--selection_anim: selected_pulse_shadow_god;}
+  &[data-rarity="mythical"] {--rarity_color: var(--rarity_color_mythical);--rarity_color_clan: var(--rarity_color_clan_mythical);--selection_anim: selected_pulse_shadow_black;}
+
+  &[data-prop-category="ZH"] {--image: url('../../../resources/svg/china/禄_lù_or_子_zi_symbol---red.svg');}
+  &[data-prop-category="KO"] {--image: url('../../../resources/svg/korea/Imperial_Seal_of_the_Korean_Empire.svg');}
+  &[data-prop-category="VI"] {--image: url('../../../resources/svg/viet/');}
+
 
   position: relative;
 
@@ -80,31 +85,32 @@ item-prop {
     animation: var(--selection_anim) 5s ease infinite;
   }
 
-  & .item_image_wrapper {
+  & .item-image-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  & .item_title {
+  & .item-title {
     width: 100%;
     align-items: center;
     font-weight: 800;
   }
 
-  & .item_title_additional {
+  & .item-title__additional {
     display: flex;
     align-items: center;
     justify-content: end;
+    margin-inline-end: 12px;
     font-weight: 500;
   }
 
-  & .item_text {
+  & .item-description {
     grid-column: 2;
     grid-row: 2;
   }
 
-  & .item_image {
+  & .item-image__element {
     display: flex;
     filter: drop-shadow(0px 1px 1px var(--shadow_00a95));
   }
@@ -142,24 +148,24 @@ item-prop {
 
     &:active {transform: scale(1.05);}
 
-    & .item_image_wrapper {
+    & .item-image-wrapper {
       width: 100%;
       height: 140px;
     }
 
-    & .item_title {
+    & .item-title {
       position: absolute;
       display: flex;
       bottom: 2.95px;
       justify-content: center;
     }
-    & .item_image {
+    & .item-image__element {
       width: 105px;
       object-fit: contain;
     }
   }
 
-  & .item_icon {
+  & .item-icon {
     width: 32px;
     height: 32px;
     object-fit: contain;
@@ -190,23 +196,27 @@ item-prop {
     }
     &:active {transform: scale(1.01);}
 
-    & .item_image_wrapper {
+    & .item-image-wrapper {
       height: inherit;
       grid-column: 1;
       grid-row: 1 / span 2;
     }
 
-    & .item_title {
+    & .item-title {
       display: inline-grid;
-      grid-auto-columns: 32px 65% 25%;
+      grid-auto-columns: auto 1fr;
       grid-auto-flow: column;
       column-gap: 10px;
       font-size: 1.35rem;
       grid-column: 2;
       grid-row: 1;
       justify-content: start;
+
+      &:has(.item-icon){
+        grid-auto-columns: 32px auto 1fr;
+      }
     }
-    & .item_image {
+    & .item-image__element {
       align-self: center;
       height: 170px;
       width: 350px;

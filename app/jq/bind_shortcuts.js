@@ -121,7 +121,7 @@ $(document).on('click', '[data-language_selector]', function () {
 /* ------------------- SELECTS ------------------- */
 
 if (nkSettings.get('save_selected_item') !== 'true') {
-  languageLoaded(function () {
+  $(document).on('full_data_loaded', function () {
     $('item-prop').eq(0).click();
   });
 }

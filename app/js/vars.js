@@ -1,3 +1,7 @@
+//window.languageJSON = {};
+//window.licenseJSON = {};
+//window.kamonItem = {};
+
 window.nkPreferences = {
   banner: {
     asanoha: {

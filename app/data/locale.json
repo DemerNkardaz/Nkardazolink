@@ -145,8 +145,55 @@
       "current_banner": "Текущий орнамент",
       "skins": "${CheckSkin('emoji').removeCJK().removeQuotes()}",
       "ambience_off": "Отключить фоновую музыку"
+    },
+
+
+    "kamon": {
+      "rarities": {
+        "inferior": "Низшие",
+        "common": "Обычные",
+        "normal": "Влиятельные",
+        "venerable": "Почтенные",
+        "elite": "Элита",
+        "grand": "Благородные",
+        "great": "Великие",
+        "legendary": "Легендарные",
+        "divine": "Божественные",
+        "mythical": "Мифические",
+
+        "museiryoku": "Мусэйрёку",
+        "koshizoku": "Косидзоку",
+        "hirazoku": "Хирадзоку",
+
+        "igenshi": "Игэн-си",
+        "seimon": "Сэймон",
+        "monbatsu": "Момбацу",
+
+        "daimon": "Даймон",
+        "daitenshi": "Дайтэнси",
+        "jinshi": "Дзинси",
+
+        "shinwashi": "Синва-си"
+      },
+      "rarity_descriptions": {
+        "museiryoku": "Кланы с низким статусом.",
+        "koshizoku": "Небогатые и небольшие кланы.",
+        "hirazoku": "Кланы среднего или высокого статуса.",
+
+        "igenshi": "Кланы почтенного статуса.",
+        "seimon": "Влиятельные рода.",
+        "monbatsu": "Знатные рода высокого статуса, нередко правители регионов",
+
+        "daimon": "Великие рода, правящие большими территориями.",
+        "daitenshi": "Легендарнейшие из родов, когда-либо бывших в мире.",
+        "jinshi": "Божественные рода.",
+
+        "shinwashi": ""
+      }
     }
   },
+
+
   "en": {
     "DemerNkardaz": "Demer Nkardaz",
     "Nkardaz": {
@@ -169,8 +216,9 @@
       }
     },
     "NihonshotoDesc": "The eastern archipelago of Rising Sun, home of Yamato",
+    
     "Languages": {
-      "temp": "Language “$(place_0)”<br>$(place_1)",
+      "template": "Language “$(place_0)”<br>$(place_1)",
       "Russia": "Russia",
       "UK/USA": "UK/USA",
       "Japan": "Japan",
@@ -237,6 +285,24 @@
     "OCKhertahiron": "Hertahiron - Original Character (Persona)"
   },
   "ja": {
+
+    "kamon": {
+      "rarities": {
+        "museiryoku": "無勢力",
+        "koshizoku": "小氏族",
+        "hirazoku": "平族",
+
+        "igenshi": "威厳氏",
+        "seimon": "勢門",
+        "monbatsu": "門閥",
+
+        "daimon": "大門",
+        "daitenshi": "大天氏",
+        "jinshi": "神氏",
+
+        "shinwashi": "神話氏"
+      }
+    },
     "DemerNkardaz": "デメル・ナカルダズ",
     "Nkardaz": {
       "name": "デマル・ナカルダス",

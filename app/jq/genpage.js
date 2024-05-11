@@ -70,7 +70,7 @@ const pageBuild = new Promise(function (resolve, reject) {
     console.error(`An error occured during ${str}: ${err}`);
   }
   try {
-    languageLoaded(function () {
+    $(document).on('full_data_loaded', function () {
       const dataBlocks = {
         default: {
           links: {
@@ -193,6 +193,8 @@ const pageBuild = new Promise(function (resolve, reject) {
               anUrlParameter.mode === 'landing' ? 'landing' :
                 anUrlParameter.mode === 'reader' ? 'reader' :
                   ['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode) ? 'gallery' : null;
+      nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
+      
       let header;
       let main;
       let footer;
@@ -200,10 +202,9 @@ const pageBuild = new Promise(function (resolve, reject) {
       const pageConfig = new Promise(function (resolveCFG, rejectCFG) {
         try {
           if (anUrlParameter.mode === 'kamon') {
-            main = `<div data-entity="ent_clan_matsudaira_mon_maru_ni_mittsuaoi" data-entity-class="kamon" data-entity-category="JA"><span data-key="transcript_second">fff</span></div>`;
-
-            $(document).on('kamonItem_loaded', function () {
-            });
+            main = `
+            ${unpackElementObject(item_prop_array(kamonItem))}
+            <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div>`;
 
           } else if (anUrlParameter.mode === 'banners') {
 
@@ -247,24 +248,24 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             main =
-            `<div class="links_Wrapper">
+              `<div class="links_Wrapper">
               <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent" >
                 <div class="links_Grid" data-tooltip-key="Tess" data-tooltip-pos="left">
-                  ${unpackElementObject( createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }) )}
+                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }))}
                 </div>
               </div>
               <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent">
                 <div class="links_Grid">
-                  ${unpackElementObject( createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }) )}
+                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }))}
                 </div
               </div>
             </div>`;
 
             footer = `
             <span class="copyright"><span data-key="Nkardaz.copyright">${nkLocale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nkLocale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
-            `<span class="ambientControls ms-auto me-3">
+                `<span class="ambientControls ms-auto me-3">
               <button nk-music="pause/play"><span class="material-icons">pause</span></button>
               <button nk-music="random"><span class="material-icons">shuffle</span></button>
               <button nk-music="credits" data-drop_target="musicCredits"><span class="material-icons">attribution</span></button>
@@ -273,20 +274,19 @@ const pageBuild = new Promise(function (resolve, reject) {
                 <div class="trackTime">00:00 / 00:00</div>
                 <div class="trackProgress"></div>
               </div>
-              ${unpackElementObject( new dropdown_element({content: `${nkLocale.get('MusicCredits')}`, id: 'MusicCredits', hide: false}) )}
+              ${unpackElementObject(new dropdown_element({ content: `${nkLocale.get('MusicCredits')}`, id: 'MusicCredits', hide: false }))}
             </span>` : ''}`;
           }
           
-          nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
-          nk.siteHeader.html(header);
-          nk.siteMainContainer.html(main);
-          nk.footerContainer.html(footer);
-
+            
+            
           resolveCFG();
         } catch (err) { anErrorOnBuild(err, 'page config'); rejectCFG(err); }
       });
-
       pageConfig.then(() => {
+        nk.siteHeader.html(header);
+        nk.siteMainContainer.html(main);
+        nk.footerContainer.html(footer);
         console.buildType('[GENPAGE] → Configuration is set & loaded', 'info');
         resolve();
       });

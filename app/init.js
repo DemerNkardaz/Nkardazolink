@@ -114,24 +114,27 @@ waitFor('title', () => {
   }
 });
 
-DataExtend([
-  { type: 'data',  source: 'app/data/locale.json', as: 'languageJSON' },
-  anUrlParameter.mode === 'license' && { type: 'data',  source: 'app/data/license.json', as: 'licenseJSON' },
-]);
-window.languageJSON = metaData['languageJSON'];
-window.licenseJSON = metaData['licenseJSON'];
 
+let dataArray = [];
+dataArray.push({ type: 'data',  source: 'app/data/locale.json', as: 'languageJSON'  });
+dataArray.push({ type: 'data',  source: 'app/data/license.json', as: 'licenseJSON'  });
+anUrlParameter.mode && dataArray.push({ type: 'data',  source: `app/data/${anUrlParameter.mode}.json`, as: `${anUrlParameter.mode}Item`  });
+console.log(dataArray);
+let dataTimer;
+DataExtend(dataArray, true).then((loadedData) => {
+  const loadingPromise = new Promise((resolve, reject) => {
+    try {
+      loadedData.forEach(({ as, source }) => {
+        console.buildType(`[DATA_IN] → “${as}” : loaded with “${source}”`, 'success');
+        clearTimeout(dataTimer);
+        setTimeout(() => { $(document).trigger(`${as}_loaded`); }, 50);
+      });
+      dataTimer = setTimeout(() => { resolve() }, 1000);
+    } catch (err) { console.error(err); reject(err); }
+  });
 
-
-if (anUrlParameter.mode !== '' || anUrlParameter.mode !== null) {
-  var mode = anUrlParameter.mode;
-  if (availableModes.includes(mode) && mode !== 'license') {
-    DataExtend([
-      { type: 'data', source: `app/data/${mode}.json`, as: `${mode}Item` }
-    ]);
-  } else {
-    DataExtend([
-      { type: 'data', source: 'app/data/portfolio.json', as: 'portfolioJSON' },
-    ]);
-  }
-}
+  loadingPromise.then(() => {
+    console.buildType(`[DATA_IN] → All of data JSON was loaded`, 'success');
+    $(document).trigger('full_data_loaded');
+  })
+})
