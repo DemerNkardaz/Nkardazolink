@@ -220,7 +220,7 @@ if (isMobileDevice() !== true) {
       //  return;
       //}
 
-      const uniqId = 'tooltip-' + Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000);
+      const uniqId = randomId('tooltip', 'weak');
 
       if (role !== undefined && role === 'preview') {
         let previewParams = {};

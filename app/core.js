@@ -7,6 +7,21 @@ window.isMobileDevice = function () {
   return chk;
 }
 
+window.randomId = function (prefix, mode) {
+  prefix = prefix ? `${prefix}-` : '';
+  let latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let latinLenght = latin.length;
+  function genWords(counter) { let rand = ''; counter = counter ? counter : 10; for (let i = 0; i < counter; i++) { rand += latin.charAt(Math.floor(Math.random() * latinLenght)); } return rand; }
+  let math1 = Math.random().toString(36).replace(/[.,]/g, '');
+  let math2 = Math.floor(Math.random() * 1000);
+  let math3 = mode === 'weak' ? Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000) : null;
+  let date = mode === 'weak' ? new Date().getMilliseconds() : new Date().getTime() * new Date().getMilliseconds()
+  let result;
+  if (mode === 'weak') { result = `${prefix}W${math3}-${genWords(5)}-${date}`; return result };
+  result = `${prefix}D-${math1}-${math2}-${genWords()}-${genWords()}-${date}`;
+  return result;
+}
+
 
 window.console.buildType = function (message, type) {
   let styles = 'font-size: 12px; padding-inline: 5px; width: 100%; min-height: 24px; display: inline-flex; align-items: center; justify-content: start;';
@@ -411,7 +426,8 @@ window.exportStorageData = function() {
 }
 
 window.unpackElementObject = function (obj) {
-  const uniqId = `object-${Math.random().toString(36).replace(/[.,]/g, '') + Math.floor(Math.random() * 1000) + Math.floor(Math.random() * 10)}`;
+  const uniqId = randomId('object');
+  console.log(uniqId);
   $('body').append(`<div id="${uniqId}"></div>`);
   $(`#${uniqId}`).hide();
   $(`#${uniqId}`).append(obj);

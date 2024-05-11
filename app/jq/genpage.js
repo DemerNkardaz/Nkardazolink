@@ -245,8 +245,8 @@ const pageBuild = new Promise(function (resolve, reject) {
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
             `;
 
-            main = `
-            <div class="links_Wrapper">
+            main =
+            `<div class="links_Wrapper">
               <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vert-border-alpha-0 links_Grid_Parent" >
                 <div class="links_Grid" data-tooltip-key="Tess" data-tooltip-pos="left">
@@ -259,8 +259,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                   ${unpackElementObject( createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }) )}
                 </div
               </div>
-            </div>
-            `;
+            </div>`;
 
             footer = `
             <span class="copyright"><span data-key="Nkardaz.copyright">${nkLocale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nkLocale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
