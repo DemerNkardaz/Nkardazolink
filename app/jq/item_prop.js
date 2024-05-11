@@ -73,6 +73,45 @@ function responseSearchTags(entity, source) {
     });
   });
 }
+window.map_of_descendants = {};
+window.descedationMap = function (source) {
+  let map = {};
+
+  $.each(source.root, function (_, category) {
+    $.each(category.items, function (_, item) {
+      if (item.descending) {
+        let descendings = item.descending;
+
+        // Проходимся по массиву descending
+        descendings.reduce(function(previous, current, index) {
+          if (!previous[current]) {
+            previous[current] = {};
+          }
+          if (index !== descendings.length - 1) {
+            previous[current][descendings[index + 1]] = {};
+          }
+          return previous[current];
+        }, map);
+      }
+    });
+  });
+
+  return map;
+}
+$(document).on('full_data_loaded', function () {
+  anUrlParameter.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(kamonItem));
+});
+
+window.downloadDATA = function (varToDownload) {
+  let file = new Blob([JSON.stringify(varToDownload, null, 2)], { type: 'application/json' });
+
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(file);
+  a.download = `${varToDownload}.json`;
+  a.click();
+}
+
+
 
 
 $(document).on('input', '[nk-prop-search]', function () {
@@ -84,7 +123,7 @@ $(document).on('input', '[nk-prop-search]', function () {
       itemProps.each(function () {
         let status = $(this).attr('data-rarity');
         if (!value.includes('-')) {
-        let rarityValue = value.substring(5).trim().split('-');
+          let rarityValue = value.substring(5).trim().split('-');
           if (statuses[parseInt(rarityValue)] === status) {
             $(this).attr('data-gallery-visible', 'visible');
           } else {
@@ -100,6 +139,55 @@ $(document).on('input', '[nk-prop-search]', function () {
           }
         }
       });
+    } else if (value.startsWith('eg:>:')) {
+      const correctedValue = value.replace('eg:>: ', '').trim().split(' > ');
+      const clan = correctedValue.pop();
+      //console.log(clan);
+      itemProps.each(function () {
+        let tagsSource = `${$(this).attr('data-prop-class')}Item`;
+        tagsSource = eval(tagsSource);
+
+
+        let entity = $(this).attr('data-entity');
+        function processDescendants(obj) {
+          for (let entity_key in obj) {
+            if (obj.hasOwnProperty(entity_key)) {
+              if (typeof obj[entity_key] === 'object') {
+                processDescendants(obj[entity_key]); // Рекурсивно вызываем эту же функцию для вложенных объектов
+              }
+              $.each(tagsSource.root, function (_, category) {
+                $.each(category.items, function (_, item) {
+                  if (entity === item.entity_prop) {
+                    if (Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(clan.toLowerCase()))) {
+                      $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
+                      if (entity_key.includes(item.entity_prop)) {
+                        function recursiveChilden(nestObj) {
+                          let nestedObj = nestObj[item.entity_prop];
+                          for (let nestedKey in nestedObj) {
+                            if (nestedObj.hasOwnProperty(nestedKey)) {
+                              console.log(nestedKey);
+                              $(`[data-entity="${nestedKey}"]`).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nesting': 'true' });
+                              recursiveChilden(nestedObj[nestedKey]);
+                            } else {
+                              $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nesting', 'false');
+                            }
+                          }
+                        }
+                        recursiveChilden(obj[entity_key]);
+                      } 
+                    } else {
+                      $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nesting') !== 'true' && $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
+                    }
+                  }
+                });
+              });
+            }
+          }
+        }
+        processDescendants(map_of_descendants.kamon);
+        
+      });
+
     } else {
       itemProps.each(function () {
         let tagsSource = `${$(this).attr('data-prop-class')}Item`;
@@ -115,7 +203,6 @@ $(document).on('input', '[nk-prop-search]', function () {
                 item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
                 item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'))
                 ) {
-                itemProps.attr('data-gallery-visible', 'hidden');
                 $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
               } else {
                 $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
@@ -129,3 +216,5 @@ $(document).on('input', '[nk-prop-search]', function () {
     itemProps.attr('data-gallery-visible', 'visible');
   }
 });
+
+
