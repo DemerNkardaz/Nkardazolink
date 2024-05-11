@@ -161,19 +161,8 @@ $(document).on('input', '[nk-prop-search]', function () {
                     if (Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(clan.toLowerCase()))) {
                       $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
                       if (entity_key.includes(item.entity_prop)) {
-                        function recursiveChilden(nestObj) {
-                          let nestedObj = nestObj[item.entity_prop];
-                          for (let nestedKey in nestedObj) {
-                            if (nestedObj.hasOwnProperty(nestedKey)) {
-                              console.log(nestedKey);
-                              $(`[data-entity="${nestedKey}"]`).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nesting': 'true' });
-                              recursiveChilden(nestedObj[nestedKey]);
-                            } else {
-                              $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nesting', 'false');
-                            }
-                          }
-                        }
-                        recursiveChilden(obj[entity_key]);
+                        //! Need recursive function to show all children from map_of_descendants.kamon from current item.entity_prop name as a key of current founded entity
+
                       } 
                     } else {
                       $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nesting') !== 'true' && $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
