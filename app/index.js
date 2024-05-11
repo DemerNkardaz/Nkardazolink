@@ -3,6 +3,7 @@ import './core.js';
 import './jq/jquery_core.js';
 import './js/vars.js';
 import './jq/utils.js';
+import './jq/reporequests.js';
 
 //? ------------------------------- MAIN INITIALISATION -------------------------------
 import './rules/rules.js';
