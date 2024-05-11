@@ -305,7 +305,7 @@ $(document).on('click', '[nk-music="random"]', function () {
   randomAmbient();
 })
 
-$(document).on('click', '.trackProgress', function (e) {
+$(document).on('click', '.track-info__player-progress', function (e) {
   var offset = $(this).offset();
   var clickX = e.pageX - offset.left;
   var trackWidth = $(this).width();
@@ -313,8 +313,8 @@ $(document).on('click', '.trackProgress', function (e) {
   var currentTime = (percent / 100) * ambient.duration();
   ambient.seek(currentTime);
 
-  $('.trackTime').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
-  $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
+  $('.track-info__time').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
+  $('.track-info__player-progress').css('--progress', `${ambientTrackProgress()}%`);
 });
 /* ------------------- MUSIC CONTOLS ------------------- */
 
@@ -361,7 +361,7 @@ function bornLightbox(array) {
 
 /* ------------------- OTHER BINDS ------------------- */
 
-$(document).on('click', '.personBannerWrapper, .personAvatar', function () { $(this).timedClass('clicked', 200) });
+$(document).on('click', '.person-banner-wrapper, .person-avatar', function () { $(this).timedClass('clicked', 200) });
 
 
 /* ------------------- OTHER BINDS ------------------- */

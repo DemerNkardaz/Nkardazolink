@@ -3,7 +3,7 @@
   color: var(--text_a4);
 }
 
-.ambientControls {
+.ambient-music-controls {
   position: relative;
   display: flex;
   align-items: center;
@@ -11,7 +11,7 @@
   gap: 5px;
 
 
-  & .trackInfo {
+  & .ambient-music-controls__track_info {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 15px 3px;
@@ -24,17 +24,17 @@
     font-size: 0.8rem;
     color: var(--text_8d);
 
-    & :is(.trackTitle, .trackTime) {
+    & :is(.track-info__title, .track-info__time) {
       height: 15px;
       line-height: 0.85em;
     }
 
-    & .trackTime {
+    & .track-info__time {
       justify-self: end;
       text-align: end;
     }
 
-    & .trackProgress {
+    & .track-info__player-progress {
       --progress: 50%;
       position: relative;
       grid-column: 1 / span 2;
@@ -109,8 +109,8 @@
 
 
 
-[container="root"][actived="default"] {
-  .links_Wrapper {
+.root-container[data-active-interface="default"] {
+  .link-plates-section {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -134,7 +134,7 @@
     }
 
 
-    & .links_Header {
+    & .link-plates-section__header {
       width: 100%;
       height: 40px;
       padding-inline: 175px;
@@ -161,11 +161,11 @@
       }
     }
 
-    & .links_Grid_Parent {
+    & .link-plates-section__grid-wrapper {
       padding-block: 10px;
     }
 
-    & .links_Grid {
+    & .link-plates-section__grid {
       position: relative;
       width: 1260px;
       overflow: hidden;
@@ -176,14 +176,14 @@
       gap: 0px 5px;
     }
 
-    & .links_Grid_Parent:nth-child(2) {
+    & .link-plates-section__grid-wrapper:nth-child(2) {
       height: 420px;
       overflow-x: hidden;
       overflow-y: auto;
     }
   }
 
-  & .personBannerWrapper {
+  & .person-banner-wrapper {
     position: absolute;
     width: 100%;
     height: 160px;
@@ -196,13 +196,13 @@
       filter: brightness(115%);
       cursor: pointer;
     }
-    &:hover .personBanner {
+    &:hover .person-banner {
       background-size: 125%;
     }
-    &.clicked .personBanner {
+    &.clicked .person-banner {
       background-size: 135%;
     }
-    & .personBanner {
+    & .person-banner {
       position: relative;
       width: 100%;
       height: 100%;
@@ -215,7 +215,7 @@
   }
 
 
-  & .personAvatar {
+  & .person-avatar {
     position: relative;
     width: 128px;
     height: 128px;
@@ -229,7 +229,7 @@
     padding: 4px;
     background: var(--avatar_background_gradient);
 
-    & .avatarWrapper {
+    & .person-avatar__image-wrapper {
       position: relative;
       width: 100%;
       height: 100%;
@@ -251,7 +251,7 @@
       }
     }
 
-    & .avatarHalo {
+    & .person-avatar__image__halo {
       position: absolute;
       inset: 0;
       mix-blend-mode: screen;
@@ -260,7 +260,7 @@
       pointer-events: none;
     }
 
-    &.clicked .avatarWrapper {
+    &.clicked .person-avatar__image-wrapper {
       filter: brightness(120%);
 
       & img {

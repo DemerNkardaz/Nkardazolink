@@ -343,8 +343,8 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
           let folder = imageKey.replace('.src', '');
           console.log(folder);
           nkLocale.get(`check:${folder}.shift`) ? $(this).css('--shift', nkLocale.get(`${folder}.shift`)) : $(this).css('--shift', '');
-          nkLocale.get(`check:${folder}.opacity`) ? $(this).css('--imgOpacity', nkLocale.get(`${folder}.opacity`)) : $(this).css('--imgOpacity', '');
-          nkLocale.get(`check:${folder}.h`) ? $(this).closest('.Preview_tooltip-imgWrapper').css('--h', nkLocale.get(`${folder}.h`)) : $(this).closest('.Preview_tooltip-imgWrapper').css('--h', '');
+          nkLocale.get(`check:${folder}.opacity`) ? $(this).css('--image-opacity', nkLocale.get(`${folder}.opacity`)) : $(this).css('--image-opacity', '');
+          nkLocale.get(`check:${folder}.h`) ? $(this).closest('.tooltip--previews__image-wrapper').css('--h', nkLocale.get(`${folder}.h`)) : $(this).closest('.tooltip--previews__image-wrapper').css('--h', '');
           nkLocale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nkLocale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
         }
       } else {

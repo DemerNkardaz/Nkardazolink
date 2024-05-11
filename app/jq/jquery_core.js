@@ -42,15 +42,6 @@ $.fn.insertFrom = function(from, element) {
   });
 };
 
-/* -------------------------------- SAMPLE OF USE -------------------------------- */
-/*
-cloneTo('index', '#personBlock', '#site-header').then(function($clonedElement) {
-  $clonedElement.children().remove();
-});
-*/
-/* -------------------------------- SAMPLE OF USE -------------------------------- */
-
-
 window.replaceWithClone = function(from, element, target) {
   var deferred = $.Deferred();
 
@@ -83,20 +74,6 @@ $.fn.refillWith = function(from, element, callback, aftercall) {
     return replaceWithClone(from, element, self);
   }
 };
-
-/* -------------------------------- SAMPLE OF USE -------------------------------- */
-/*
-$('#site-header').refillWith('index', '#personBlock', function() {
-  $('body').insertFrom('preloader', '#preloader').then(function ($clonedElement) {
-    $clonedElement.hide().fadeIn('fast');
-    $('body').prepend($clonedElement);
-    showLoadPercentage();
-  });
-}, function() {
-  initPreloader();
-});
-*/
-/* -------------------------------- SAMPLE OF USE -------------------------------- */
 
 
 window.reInitScripts = function () {

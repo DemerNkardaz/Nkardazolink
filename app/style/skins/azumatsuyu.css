@@ -19,15 +19,15 @@
   --suouDark: #471722;
 }
 
-[container="root"][actived="default"] {
+.root-container[data-active-interface="default"] {
   background: var(--kihada60);
   color: var(--suou);
-  & .links_Wrapper {
+  & .link-plates-section {
     & hr {
       border-top-color: var(--suouDark);
     }
   }
-  & #site-header {
+  & .root-container__header-block__inner-grid-section {
     position: relative;
     background: var(--miruiroToAikobucha);
     color: var(--suouLight);
@@ -61,14 +61,14 @@
       z-index: -2;
     }
   }
-  & .personBannerBorder {
+  & .person-banner-border {
     height: 136px;
     --wrap_border_color: var(--momoiro);
     --wrap_border_inset: 12px;
     --wrap_border_radius: 10px;
     filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
   }
-  & .personBannerWrapper {
+  & .person-banner-wrapper {
     width: 100%;
     --corner_radius: 35px;
     --border_width: 5px;
@@ -77,7 +77,7 @@
     --shape: var(--shape_tlbr);
     --border: var(--border_tlbr);
     z-index: -1;
-    & .personBanner {
+    & .person-banner {
       border-radius: 0;
       z-index: -1;
       &.azumatsuyu {
@@ -87,7 +87,7 @@
       }
     }
   }
-  & .personAvatar {
+  & .person-avatar {
     width: 256px;
     height: 140px;
     display: flex;
@@ -99,7 +99,7 @@
     box-shadow: 0 2px 10px var(--shadow_22a64);
     backdrop-filter: blur(2px);
   }
-  & .avatarWrapper {
+  & .person-avatar__image-wrapper {
     width: 180px;
     height: 128px;
     border-radius: 0;
@@ -118,12 +118,12 @@
   & .copyright {
     color: var(--suou);
   }
-  & .ambientControls {
-    & .trackInfo {
+  & .ambient-music-controls {
+    & .ambient-music-controls__track_info {
       color: var(--suou);
       text-shadow: 0 1px 5px var(--momoiro);
 
-      & .trackProgress {
+      & .track-info__player-progress {
         &::before {
           background: var(--suou);
         }
@@ -142,7 +142,7 @@
 }
 
 
-link-block[link_class="default"] {  
+link-block[data-link-class="default"] {  
   filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29));
   &.inactive {
     filter: drop-shadow(0 0 2px var(--shadow_22a64)) drop-shadow(0 5px 5px var(--shadow_22a29)) grayscale(1);
@@ -151,10 +151,10 @@ link-block[link_class="default"] {
     }
   }
 
-  &::part(link-title), &::part(link-subscript) {
+  &::part(link-plate__title), &::part(link-plate__subscription) {
     color: var(--suouDark);
   }
-  &:hover::part(link-title), &:hover::part(link-subscript), &:focus::part(link-title), &:focus::part(link-subscript) {
+  &:hover::part(link-plate__title), &:hover::part(link-plate__subscription), &:focus::part(link-plate__title), &:focus::part(link-plate__subscription) {
     color: var(--momoiro);
   }
 
@@ -162,11 +162,11 @@ link-block[link_class="default"] {
     background: var(--momolight);
     z-index: -1;
   }
-  &::part(link-image) {
+  &::part(link-plate__avatar) {
     background: var(--momolight);
     border-radius: 10px;
   }
-  &::part(link-wrapper) {
+  &::part(link-plate-wrapper) {
     --corner_radius: 20px;
     --border_color: var(--momoiro);
     --border_width: 2px;
@@ -190,7 +190,7 @@ link-block[link_class="default"] {
   &:hover::part(link-type-image), &:focus::part(link-type-image) {
     filter: brightness(500%) sepia(100%) saturate(300%) drop-shadow(0px 0.75px 1px var(--shadow_22a29)) hue-rotate(-40deg);
   }
-  &::part(link-icon-image) {
+  &::part(link-plate__icon-image) {
     opacity: 0.25;
     filter: brightness(150%) sepia(100%) saturate(300%) hue-rotate(-80deg);
   }

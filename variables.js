@@ -1,6 +1,6 @@
 window.$root_container = $('[container="root"]');
-window.$site_header = $('[container="siteHeader"]');
-window.$site_hwr = $('[container="siteHeader"] > [container="headWrapper"]');
+window.$site_header = $('.root-container__header-block');
+window.$site_hwr = $('.root-container__header-block > [container="headWrapper"]');
 window.$site_main = $('[container="siteMain"]');
 window.$site_footer = $('[container="siteFooter"]');
 

@@ -1847,7 +1847,7 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
 }
 
 
-[container="siteHeader"] {
+.root-container__header-block {
   position: relative;
   width: 384px;
   grid-row: 1 / span 2;
@@ -1873,7 +1873,7 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   justify-content: center;
 }
 
-#site-header {
+.root-container__header-block__inner-grid-section {
   width: 100%;
   height: 100%;
   display: flex;
@@ -1885,7 +1885,7 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   z-index: 1;
 }
 
-[container="root"][actived="gallery"] > [container="siteHeader"] {
+[container="root"][actived="gallery"] > .root-container__header-block {
   width: 100%;
   grid-row: auto;
   grid-column: 1 / span 2;
@@ -1911,7 +1911,7 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   background: var(--background_light_mode_gallery);
 }
 
-[container="root"][actived="cv"]>[container="siteHeader"],
+[container="root"][actived="cv"]>.root-container__header-block,
 [container="root"][actived="cv"]>[container="siteMain"],
 [container="root"][actived="cv"]>[container="siteFooter"] {
   width: 100%;
@@ -1926,7 +1926,7 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
 /* cСДЕЛАТЬ ПОД СИВИ ТРИ БЛОКА ПЛАВАЮЩИХ — О СЕБЕ, СИВИ И НАВЫКИ */
 
 
-[container="root"][actived="license"]>[container="siteHeader"],
+[container="root"][actived="license"]>.root-container__header-block,
 [container="root"][actived="license"]>[container="siteMain"],
 [container="root"][actived="license"]>[container="siteFooter"] {
   width: 100%;

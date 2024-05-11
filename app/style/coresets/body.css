@@ -1,6 +1,6 @@
 /* ------------------------ INITIAL SETTINGS ------------------------ */
 
-[container="root"] {
+.root-container {
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -22,17 +22,17 @@
   }
 
 
-  &[actived="gallery"] {
+  &[data-active-interface="gallery"] {
     grid-template-columns: 70% 30%;
     grid-template-rows: 100px auto;
   }
 
-  &[actived="cv"] {
+  &[data-active-interface="cv"] {
     grid-template-columns: 20% 60% 20%;
     grid-template-rows: auto;
   }
 
-  &[actived="license"] {
+  &[data-active-interface="license"] {
     width: 1850px;
     height: 900px;
     border-radius: 25px;
@@ -51,7 +51,7 @@
     }
   }
 
-  &[actived="linktree"] {
+  &[data-active-interface="linktree"] {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,17 +62,17 @@
 
 
 /*
-[container="root"][actived="gallery"] {
+.root-container[data-active-interface="gallery"] {
   grid-template-columns: 70% 30%;
   grid-template-rows: 100px auto;
 }
 
-[container="root"][actived="cv"] {
+.root-container[data-active-interface="cv"] {
   grid-template-columns: 20% 60% 20%;
   grid-template-rows: auto;
 }
 
-[container="root"][actived="license"] {
+.root-container[data-active-interface="license"] {
   width: 1850px;
   height: 900px;
   border-radius: 25px;
@@ -81,14 +81,14 @@
   grid-template-rows: 95% 5%;
 }
 
-[container="root"][actived="linktree"] {
+.root-container[data-active-interface="linktree"] {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
 }
 
-[container="root"][actived="license"]::before {
+.root-container[data-active-interface="license"]::before {
   content: '';
   position: absolute;
   width: 1700px;
@@ -99,7 +99,7 @@
 
 */
 
-[container="siteHeader"] {
+.root-container__header-block {
   position: relative;
   width: 384px;
   grid-row: 1 / span 2;
@@ -107,8 +107,8 @@
   transition: all 0.3s ease-out;
 }
 
-[container="siteMain"],
-[container="siteFooter"] {
+.root-container__main-block,
+.root-container__footer-block {
   position: relative;
   width: 100%;
   grid-column: 2;
@@ -119,11 +119,11 @@
   transition: all 0.3s ease-out;
 }
 
-[container="siteFooter"] {
+.root-container__footer-block {
   padding-left: 25px;
 }
 
-[container="siteMain"] {
+.root-container__main-block {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,7 +131,7 @@
   transition: all 0.3s ease-out;
 }
 
-#site-header {
+.root-container__header-block__inner-grid-section {
   position: relative;
   width: 100%;
   height: 100%;
@@ -145,7 +145,7 @@
   transition: all 0.3s ease-out;
 }
 
-[container="root"][actived="default"] #site-header {
+.root-container[data-active-interface="default"] .root-container__header-block__inner-grid-section{
   grid-template-columns: 1fr;
   grid-template-rows: 160px 90px auto;
   place-items: center;
@@ -155,36 +155,36 @@
 
 
 
-[container="root"][actived="gallery"]>[container="siteHeader"] {
+.root-container[data-active-interface="gallery"]>.root-container__header-block {
   width: 100%;
   grid-row: auto;
   grid-column: 1 / span 2;
 }
 
-[container="root"][actived="gallery"]>[container="siteMain"] {
+.root-container[data-active-interface="gallery"]>.root-container__main-block {
   grid-column: auto;
   grid-row: 2;
 }
 
-[container="root"][actived="gallery"]>[container="gallery_viewer"] {
+.root-container[data-active-interface="gallery"]>[container="gallery_viewer"] {
   grid-column: auto;
   grid-row: 2 / span 2;
 }
 
-[container="root"][actived="gallery"]>[container="siteFooter"] {
+.root-container[data-active-interface="gallery"]>.root-container__footer-block {
   grid-column: 1;
   grid-row: 3;
   height: 90px;
 }
 
 
-[container="root"][actived="gallery"]>[container="siteMain"] {
+.root-container[data-active-interface="gallery"]>.root-container__main-block {
   align-items: start;
   justify-content: start;
   padding: 28px 0px 25px 35px;
 }
 
-[container="root"][actived="gallery"] #site-header {
+.root-container[data-active-interface="gallery"] .root-container__header-block__inner-grid-section {
   height: 100px;
   flex-direction: row;
   justify-content: start;
@@ -193,35 +193,35 @@
   background: var(--bg_ffaf0);
 }
 
-[container="root"][actived="cv"]>[container="siteHeader"],
-[container="root"][actived="cv"]>[container="siteMain"],
-[container="root"][actived="cv"]>[container="siteFooter"] {
+.root-container[data-active-interface="cv"]>.root-container__header-block,
+.root-container[data-active-interface="cv"]>.root-container__main-block,
+.root-container[data-active-interface="cv"]>.root-container__footer-block {
   width: 100%;
   grid-row: auto;
   grid-column: auto;
 }
 
-[container="root"][actived="cv"] #site-header {
+.root-container[data-active-interface="cv"] .root-container__header-block__inner-grid-section {
   width: 100%;
 }
 
 /* cСДЕЛАТЬ ПОД СИВИ ТРИ БЛОКА ПЛАВАЮЩИХ — О СЕБЕ, СИВИ И НАВЫКИ */
 
 
-[container="root"][actived="license"]>[container="siteHeader"],
-[container="root"][actived="license"]>[container="siteMain"],
-[container="root"][actived="license"]>[container="siteFooter"] {
+.root-container[data-active-interface="license"]>.root-container__header-block,
+.root-container[data-active-interface="license"]>.root-container__main-block,
+.root-container[data-active-interface="license"]>.root-container__footer-block {
   width: 100%;
   grid-row: auto;
   grid-column: auto;
   background: none;
 }
 
-[container="root"][actived="license"]>[container="siteHeader"] {
+.root-container[data-active-interface="license"]>.root-container__header-block {
   grid-column: 2;
   grid-row: 1;
 }
-[container="root"][actived="license"]>[container="siteMain"] {
+.root-container[data-active-interface="license"]>.root-container__main-block {
   grid-column: 1;
   grid-row: 1;
 
@@ -232,12 +232,12 @@
   gap: 25px;
   padding: 20px 25px 0px 25px;
 }
-[container="root"][actived="license"]>[container="siteFooter"] {
+.root-container[data-active-interface="license"]>.root-container__footer-block {
   grid-column: 1 / span 2;
   grid-row: 2;
 }
 
-[container="root"][actived="license"]>[container="siteFooter"] {
+.root-container[data-active-interface="license"]>.root-container__footer-block {
   width: 100%;
   grid-row: auto;
   grid-column: 1 / span 2;
@@ -246,11 +246,11 @@
   user-select: none;
 }
 /*
-[container="root"][actived="license"]>[container="siteFooter"]::before {
+.root-container[data-active-interface="license"]>.root-container__footer-block::before {
   content: '©\2002';
 }*/
 
-[container="root"][actived="license"] #site-header {
+.root-container[data-active-interface="license"] .root-container__header-block__inner-grid-section{
   width: 100%;
   background: none;
   box-shadow: none;

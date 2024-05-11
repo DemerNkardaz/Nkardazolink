@@ -157,8 +157,8 @@ class tooltip_element extends HTMLElement {
   constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, tooltip_meta, id } = {}) {
     super();
     const component = `
-    <div class="tl-arrow" ${tooltip_pos ? `data-parent-tooltip-pos="${tooltip_pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
-    <div class="tl-content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? tooltip.unpackText() : `<tooltip-preview ${extractAttributes(tooltip)}>${tooltip.innerHTML}</tooltip-preview>`}</div>
+    <div class="tooltip__arrow" ${tooltip_pos ? `data-parent-tooltip-pos="${tooltip_pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
+    <div class="tooltip__content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? tooltip.unpackText() : `<tooltip-preview ${extractAttributes(tooltip)}>${tooltip.innerHTML}</tooltip-preview>`}</div>
     `;
     (tooltip_classes ? $(this).addClass(tooltip_classes) : '');
     $(this).attr({ 'role': 'tooltip', 'id': id ? id : null, 'data-meta-anchor': tooltip_meta ? tooltip_meta : null });
@@ -168,7 +168,7 @@ class tooltip_element extends HTMLElement {
   connectedCallback() {
     const $this = $(this);
     if ($this.find('tooltip-preview').length) {
-      $this.addClass('tl-preview');
+      $this.addClass('tooltip--previews-owner');
     }
   }
 }
@@ -180,11 +180,11 @@ class tooltip_preview extends HTMLElement {
   constructor({ image, content, subscript, link } = {}) {
     super();
     const component = `${link ? `<a href="${link.src}" ${link.target ? `target="${link.target}"` : ''}>` : ''}
-    ${image ? `<div class="Preview_tooltip-imgWrapper" ${image.h ? `style="--h: ${image.h}px;"` : ''}><img class="Preview_tooltip-img" src="${image.src}" alt="preview" loading="eager" style="${image.shift ? `--shift: ${image.shift};` : ''} ${image.opacity ? `--imgOpacity: ${image.opacity};` : ''}" ${image.blur ? `data-blur="${image.blur}"` : ''} ${image.key ? `data-key-image="${image.key}"` : ''}><span class="Preview_tooltip-imgFull material-icons">fullscreen</span></div>` : ''}
-    <div class="Preview_tooltip-content vert-border-alpha-0" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
-    ${subscript && subscript.text ? `<div class="Preview_tooltip-subscript" data-key="${subscript.key}">${subscript.text}</div>` : ''}
+    ${image ? `<div class="tooltip--previews__image-wrapper" ${image.h ? `style="--h: ${image.h}px;"` : ''}><img class="tooltip--previews__image" src="${image.src}" alt="preview" loading="eager" style="${image.shift ? `--shift: ${image.shift};` : ''} ${image.opacity ? `--image-opacity: ${image.opacity};` : ''}" ${image.blur ? `data-blur="${image.blur}"` : ''} ${image.key ? `data-key-image="${image.key}"` : ''}><button class="tooltip--previews__image__button-toggle-fullres-wrapper material-icons">fullscreen</button></div>` : ''}
+    <div class="tooltip--previews__content vertical-border-blur" ${content && content.key ? `data-key="${content.key}"` : ''}>${content && content.text ? content.text : ''}</div>
+    ${subscript && subscript.text ? `<div class="tooltip--previews__subscription" data-key="${subscript.key}">${subscript.text}</div>` : ''}
     ${link ? `</a>` : ''}`;
-    $(this).addClass('Preview_tooltip');
+    $(this).addClass('tooltip--previews');
     image && image.blur ? $(this).attr('data-blur', image.blur) : '';
     !this.innerHTML.length ? this.innerHTML = component : '';
   }
@@ -195,7 +195,7 @@ window.tooltip_preview = tooltip_preview;
 class tooltip_img extends HTMLElement {
   constructor(image) {
     super();
-    const component = `<div class="tooltip-img-opened"><img src="${image ? image.src : image}" alt="${image.alt ? image.alt : ''}" loading="eager"></div>`;
+    const component = `<div class="tooltip-fullres-image__content"><img src="${image ? image.src : image}" alt="${image.alt ? image.alt : ''}" loading="eager"></div>`;
     image && image.classes ? $(this).addClass(image.classes) : '';
     !this.innerHTML.length ? this.innerHTML = component : '';
   }
@@ -335,7 +335,7 @@ window.nkUI = {
   },
 
   tooltipInfo: {
-    header: function (text, logo) {return `<div class="tooltip-h1"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
+    header: function (text, logo) {return `<div class="tooltip--previews__header-primary"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
     quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${typeof key === 'object' ? key.key : key}" ${typeof key === 'object' ? `data-meta-tooltip="${key.meta}"` : ''} ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
   },
   tooltipEventLess: function (text, key, pos) {
@@ -373,15 +373,15 @@ class link_block extends HTMLElement {
       constructor += `</span>`;
       return constructor;
     }
-    const component = `<div class="linkWrapper ${nkSettings.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? `plate_chinese` : ''}" part="link-wrapper">
-    <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link ${LINK_Class}">
-      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `data-tooltip-key="${Tooltip.key}" data-tooltip-pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-image" class="link-image">` : ''} 
-      ${LINK_Class === 'long-thin' ? `<div part="link-title-wrapper" class="link-title-wrapper"><div part="link-title-wrapper-inner" class="link-title-wrapper-inner plate_chinese">` : ''}<h3 part="link-title" class="link-title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
+    const component = `<div class="link-plate-wrapper${nkSettings.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
+    <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link-plate ${LINK_Class}">
+      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `data-tooltip-key="${Tooltip.key}" data-tooltip-pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''} 
+      ${LINK_Class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
-      <span part="link-subscript" class="link-subscript" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
+      <span part="link-plate__subscription" class="link-plate__subscription" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
       ${LINK_Types ? returnTypes() : (LINK_Subscript ? LINK_Subscript : '')}</span>
       ${LINK_Class === 'long-thin' ? `</div></div>` : ''}
-      ${LINK_Icon ? `<div part="link-icon" class="link-icon"><img alt="Icon" src="${LINK_Icon.image}" part="link-icon-image"></div>` : ''}
+      ${LINK_Icon ? `<div part="link-plate__icon" class="link-plate__icon"><img alt="Icon" src="${LINK_Icon.image}" part="link-plate__icon-image"></div>` : ''}
     </a></div>
     `
 
@@ -397,7 +397,7 @@ class link_block extends HTMLElement {
       :host(.inactive:hover) {
         filter: grayscale(0%);
       }
-      ::part(link-wrapper), .linkWrapper {
+      ::part(link-plate-wrapper), .link-plate-wrapper {
         ${LINK_Class == 'long-thin' ? `
         border-radius: 50px;
         transition: all 0.15s ease;
@@ -472,8 +472,8 @@ class link_block extends HTMLElement {
       h1, h2, h3, h4, h5, h6 {
         margin: 0;
       }
-      .linkWrapper:focus-within,
-      .linkWrapper:hover {
+      .link-plate-wrapper:focus-within,
+      .link-plate-wrapper:hover {
         ${LINK_Class == 'long-thin' ? `
         transform: scale(1.1);
         `: `
@@ -509,7 +509,7 @@ class link_block extends HTMLElement {
         }
       }
 
-      .linkWrapper:active {
+      .link-plate-wrapper:active {
         ${LINK_Class == 'long-thin' ? `
         transform: scale(1.01);
         `: `
@@ -517,7 +517,7 @@ class link_block extends HTMLElement {
         `}
       }
 
-      ::part(link-image), .link-image {
+      ::part(link-plate__avatar), .link-plate__avatar {
         position: relative;
         grid-column: 1;
         grid-row: 1 / span 3;
@@ -535,14 +535,14 @@ class link_block extends HTMLElement {
         object-fit: cover;
       }
 
-      ::part(link-title-wrapper), .link-title-wrapper {
+      ::part(link-plate__title-wrapper), .link-plate__title-wrapper {
         width: 700px;
         height: 42px;
         filter: ${Shadow ? Shadow : `drop-shadow(-5px 0 3px var(--shadow_22a64))`};
         transition: all 0.3s ease;
       }
 
-      ::part(link-title-wrapper-inner), .link-title-wrapper-inner {
+      ::part(link-plate__title-wrapper-inner), .link-plate__title-wrapper-inner {
         --corner_radius: 7px;
         display: grid;
         grid-template-columns: 200px 121px 1fr 1fr;
@@ -551,11 +551,11 @@ class link_block extends HTMLElement {
         background: var(--white);
         transition: all 0.3s ease;
       }
-      .link:hover .link-title-wrapper {
+      .link:hover .link-plate__title-wrapper {
         animation: golden_shadow 5s infinite ease;
       }
 
-      ::part(link-title), .link-title {
+      ::part(link-plate__title), .link-plate__title {
         position: relative;
         display: flex;
         height: 42px;
@@ -585,7 +585,7 @@ class link_block extends HTMLElement {
         filter: invert(0.8);
       }
 
-      ::part(link-subscript), .link-subscript {
+      ::part(link-plate__subscription), .link-plate__subscription {
         position: relative;
         display: flex;
         inset: 0;
@@ -601,7 +601,7 @@ class link_block extends HTMLElement {
         `}
       }
 
-      ::part(link-icon), .link-icon {
+      ::part(link-plate__icon), .link-plate__icon {
         position: absolute;
         display: flex;
         align-items: center;
@@ -621,7 +621,7 @@ class link_block extends HTMLElement {
         ${LINK_Icon.w ? `width: ${LINK_Icon.w}px;` : 'width: 70px;'}
         `}
       }
-      ::part(link-icon img), .link-icon img {
+      ::part(link-plate__icon img), .link-plate__icon img {
         width: 100%;
         height: 100%;
         ${LINK_Class == 'long-thin' ? `
@@ -673,8 +673,8 @@ class link_block extends HTMLElement {
 
     </style>`
     $(this).attr({
-      'LINK_Class': LINK_Class
-    }).addClass(`${Class ? Class : 'm-3'}`);
+      'data-link-class': LINK_Class
+    }).addClass(`link-plate__host${Class ? ` ${Class}` : ' m-3'}`);
     
 
     const concatenated = component + styles;

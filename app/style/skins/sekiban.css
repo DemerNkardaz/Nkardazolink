@@ -9,7 +9,7 @@
 }
 
 
-[container="root"][actived="default"] {
+.root-container[data-active-interface="default"] {
   background: var(--oudoiro60);
   color: var(--text_efcba6);
 
@@ -17,12 +17,12 @@
     color: var(--kogecha);
   }
 
-  & .ambientControls {
-    & .trackInfo {
+  & .ambient-music-controls {
+    & .ambient-music-controls__track_info {
       color: var(--kogecha);
       text-shadow: 0 1px 5px var(--oudoiro);
 
-      & .trackProgress {
+      & .track-info__player-progress {
         &::before {
           background: var(--kogecha);
         }
@@ -40,11 +40,11 @@
   }
 
 
-  & #site-header {
+  & .root-container__header-block__inner-grid-section {
     background: var(--kogecha70);
   }
 
-  & .personBannerWrapper {
+  & .person-banner-wrapper {
     width: 95%;
     margin-block-start: 9px;
     --corner_radius: 25px;
@@ -52,19 +52,19 @@
     --wrap_border_color: transparent;
     --border_color: var(--kogechaLight);
     z-index: -1;
-    & .personBanner {
+    & .person-banner {
       border-radius: 0;
       z-index: -1;
     }
   }
 
-  & .personAvatar {
+  & .person-avatar {
     border-radius: 0;
     padding: 5px;
     background: var(--kogechaLight);
   }
 
-  & .links_Wrapper {
+  & .link-plates-section {
     & :is(h1, h2, h3, h4, h5, h6) {
       color: var(--kogecha);
     }
@@ -75,22 +75,22 @@
 
 }
 
-link-block[link_class="default"] {
-  &::part(link-title), &::part(link-subscript) {
+link-block[data-link-class="default"] {
+  &::part(link-plate__title), &::part(link-plate__subscription) {
     color: var(--text_efcba6);
   }
-  &:hover::part(link-title), &:hover::part(link-subscript), &:focus::part(link-title), &:focus::part(link-subscript) {
+  &:hover::part(link-plate__title), &:hover::part(link-plate__subscription), &:focus::part(link-plate__title), &:focus::part(link-plate__subscription) {
     color: var(--color_gold_hover);
   }
 
-  &::part(link), &::part(link-image), &::part(link-wrapper) {
+  &::part(link), &::part(link-plate__avatar), &::part(link-plate-wrapper) {
     border-radius: 0;
   }
 
   &::part(link) {
     background: var(--kogecha);
   }
-  &::part(link-image) {
+  &::part(link-plate__avatar) {
     background: var(--kogechaLight);
   }
 
@@ -108,7 +108,7 @@ link-block[link_class="default"] {
   &:hover::part(link-type-image), &:focus::part(link-type-image) {
     filter: brightness(450%) sepia(100%) saturate(300%) drop-shadow(0px 0.75px 1px var(--shadow_22a86));
   }
-  &::part(link-icon-image) {
+  &::part(link-plate__icon-image) {
     opacity: 1;
     filter: brightness(150%) sepia(100%) saturate(300%);
   }

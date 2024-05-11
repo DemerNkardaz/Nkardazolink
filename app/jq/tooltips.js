@@ -98,7 +98,7 @@ if (isMobileDevice() !== true) {
                   
                 console.log(`[TOOLTIP] → Tooltip ${tooltipId} has been duplicated`);
                 if (!$(this).find('.meta-duplicate-alert').length) {
-                  $(this).find('.tl-content').filter(function () {
+                  $(this).find('.tooltip__content').filter(function () {
                     if ($(this).text().trim().length > 0 && $(this).children().length === 0) {
                       $(this).prepend(message);
                     } else if ($(this).text().trim().length > 0 && $(this).children().length > 0) {
@@ -135,25 +135,25 @@ if (isMobileDevice() !== true) {
       const ownerId = $(owner).attr('data-tooltip-id');
       const targetPromise = new Promise((resolve, reject) => {
         try {
-          target.on('mousedown', function () { if (!$(this).hasClass('tl-highlight') && !$(this).attr('data-prevent_close')) { $(this).addClass('tl-highlight') } });
-          //target.on('mousemove', function () { if ($(this).hasClass('tl-highlight')) { $(this).removeClass('tl-highlight') } });
+          target.on('mousedown', function () { if (!$(this).hasClass('tooltip--highlight') && !$(this).attr('data-prevent-auto-close')) { $(this).addClass('tooltip--highlight') } });
+          //target.on('mousemove', function () { if ($(this).hasClass('tooltip--highlight')) { $(this).removeClass('tooltip--highlight') } });
           target.on('click', function (e) {
-            if ($(this).hasClass('tl-highlight')) { $(this).removeClass('tl-highlight') }
-            if (!$(e.target).closest('.tl-close').length && ($(this).attr('data-prevent_close') === null || $(this).attr('data-prevent_close') === 'false' || $(this).attr('data-prevent_close') === undefined)) {
-              $(this).attr('data-prevent_close', 'true').addClass('tl-pinned tl-highlight');
-              setTimeout(() => $(this).removeClass('tl-highlight'), 100);
+            if ($(this).hasClass('tooltip--highlight')) { $(this).removeClass('tooltip--highlight') }
+            if (!$(e.target).closest('.tooltip__button-close').length && ($(this).attr('data-prevent-auto-close') === null || $(this).attr('data-prevent-auto-close') === 'false' || $(this).attr('data-prevent-auto-close') === undefined)) {
+              $(this).attr('data-prevent-auto-close', 'true').addClass('tooltip--pinned tooltip--highlight');
+              setTimeout(() => $(this).removeClass('tooltip--highlight'), 100);
             }
-            if (!$(this).find('.tl-close').length) {
-              $(this).append('<div class="tl-close">close</div>');
+            if (!$(this).find('.tooltip__button-close').length) {
+              $(this).append('<button class="tooltip__button-close">close</button>');
             }
           });
           target.on('mouseenter', function () {
             $(this).css('opacity', 1);
-            (!$(this).find('.tl-close').length && !$(this).find('tooltip-preview').length) ? $(this).append('<div class="tl-close">close</div>') : null;
+            (!$(this).find('.tooltip__button-close').length && !$(this).find('tooltip-preview').length) ? $(this).append('<button class="tooltip__button-close">close</button>') : null;
             clearTimeout(timers_array[ownerId]);
           });
           target.on('mouseleave', function () {
-            if ($(this).attr('data-prevent_close') !== 'true') {
+            if ($(this).attr('data-prevent-auto-close') !== 'true') {
               const timer = setTimeout(() => {
                 const onProgress = new Promise((resolve) => { $(this).css('opacity', 0); resolve(); });
                 onProgress.then(() => { setTimeout(() => $(this).remove(), 320); });
@@ -169,7 +169,7 @@ if (isMobileDevice() !== true) {
       });
 
       targetPromise.then(() => {
-        target.on('click', '.tl-close', function () {
+        target.on('click', '.tooltip__button-close', function () {
           $(this).parent().css('opacity', 0);
           setTimeout(() => {
             $(this).parent().remove();
@@ -210,7 +210,7 @@ if (isMobileDevice() !== true) {
       let tooltip, previewEntity;
 
       if ($(`#${$(target).attr('data-tooltip-id')}`).length) {
-        $(`#${$(target).attr('data-tooltip-id')}`).removeAttr('data-prevent_close');
+        $(`#${$(target).attr('data-tooltip-id')}`).removeAttr('data-prevent-auto-close');
         clearTimeout(timers_array[$(target).attr('data-tooltip-id')]);
         return;
       }
@@ -263,9 +263,9 @@ if (isMobileDevice() !== true) {
           $(target).attr({ 'data-tooltip-id': uniqId, 'aria-describedby': uniqId });
           $('body').append(tooltip);
           calcTooltipPos(uniqId, pos, target);
-          $(`#${uniqId}`).addClass('show');
+          $(`#${uniqId}`).addClass('tooltip--pointer-events-enabled');
           $(`#${uniqId}`).css('opacity', 1);
-          //(role === 'preview') && $(`#${uniqId}`).find('.tl-content').html(previewEntity || 'No entity assigned');
+          //(role === 'preview') && $(`#${uniqId}`).find('.tooltip__content').html(previewEntity || 'No entity assigned');
 
           resolve();
         } catch (error) {
@@ -326,7 +326,7 @@ if (isMobileDevice() !== true) {
       const parentOffset = parent.getBoundingClientRect();
       const tooltipWidth = tooltip.offsetWidth;
       const tooltipHeight = tooltip.offsetHeight;
-      const children = $(tooltip).children('.tl-arrow');
+      const children = $(tooltip).children('.tooltip__arrow');
       const tooltipFullres = $(tooltip).children('tooltip-img');
       let calc_pos;
 
@@ -404,42 +404,42 @@ if (isMobileDevice() !== true) {
         if (ownerPos === 'top' && children.attr('data-parent-tooltip-pos') !== 'top' && calc_pos.top > (tooltip.offsetHeight)) {
           calc_pos = defCalcs.top;
           children.attr('data-parent-tooltip-pos', 'top');
-          tooltipFullres.attr('class', 'view-side-top');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--top');
         }
         if (ownerPos === 'bottom' && children.attr('data-parent-tooltip-pos') !== 'bottom' && calc_pos.top > (tooltip.offsetHeight)) {
           calc_pos = defCalcs.bottom;
           children.attr('data-parent-tooltip-pos', 'bottom');
-          tooltipFullres.attr('class', 'view-side-bottom');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--bottom');
         }
         if (ownerPos === 'left' && children.attr('data-parent-tooltip-pos') !== 'left' && calc_pos.left < (tooltip.offsetWidth * tooltipWidth)) {
           calc_pos = defCalcs.left;
           children.attr('data-parent-tooltip-pos', 'left');
-          tooltipFullres.attr('class', 'view-side-left');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--left');
         }
         if (ownerPos === 'right' && children.attr('data-parent-tooltip-pos') !== 'right' && calc_pos.left < (tooltip.offsetWidth * tooltipWidth)) {
           calc_pos = defCalcs.right;
           children.attr('data-parent-tooltip-pos', 'right');
-          tooltipFullres.attr('class', 'view-side-right');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--right');
         }
         if (ownerPos === 'top-start' && children.attr('data-parent-tooltip-pos') !== 'top-start' && calc_pos.top > (tooltip.offsetHeight)) {
           defCalcs.top.left = parentOffset.left;
           children.attr('data-parent-tooltip-pos', 'top-start');
-          tooltipFullres.attr('class', 'view-side-top');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--top');
         }
         if (ownerPos === 'top-end' && children.attr('data-parent-tooltip-pos') !== 'top-end' && calc_pos.top > (tooltip.offsetHeight)) {
           defCalcs.top.left = parentOffset.left + parent.offsetWidth - tooltipWidth;
           children.attr('data-parent-tooltip-pos', 'top-end');
-          tooltipFullres.attr('class', 'view-side-top');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--top');
         }
         if (ownerPos === 'bottom-start' && children.attr('data-parent-tooltip-pos') !== 'bottom-start' && calc_pos.top > (tooltip.offsetHeight)) {
           defCalcs.bottom.left = parentOffset.left;
           children.attr('data-parent-tooltip-pos', 'bottom-start');
-          tooltipFullres.attr('class', 'view-side-bottom');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--bottom');
         }
         if (ownerPos === 'bottom-end' && children.attr('data-parent-tooltip-pos') !== 'bottom-end' && calc_pos.top > (tooltip.offsetHeight)) {
           defCalcs.bottom.left = parentOffset.left + parent.offsetWidth - tooltipWidth;
           children.attr('data-parent-tooltip-pos', 'bottom-end');
-          tooltipFullres.attr('class', 'view-side-bottom');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--bottom');
         }
       }
       if (calc_pos) {
@@ -449,19 +449,19 @@ if (isMobileDevice() !== true) {
         if (calc_pos.top < 5) {
           calc_pos = defCalcs.bottom;
           children.attr('data-parent-tooltip-pos', 'bottom');
-          tooltipFullres.attr('class', 'view-side-bottom');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--bottom');
         } else if ((tooltipBottomPos + 15) > window.innerHeight) {
           calc_pos = defCalcs.top;
           children.attr('data-parent-tooltip-pos', 'top');
-          tooltipFullres.attr('class', 'view-side-top');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--top');
         } else if (calc_pos.left < 5) {
           calc_pos = defCalcs.right;
           children.attr('data-parent-tooltip-pos', 'right');
-          tooltipFullres.attr('class', 'view-side-right');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--right');
         } else if ((tooltipRightPos + 15) > window.innerWidth) {
           calc_pos = defCalcs.left;
           children.attr('data-parent-tooltip-pos', 'left');
-          tooltipFullres.attr('class', 'view-side-left');
+          tooltipFullres.attr('class', 'tooltip-fullres-image-viewside--left');
         }
       }
 
@@ -480,7 +480,7 @@ if (isMobileDevice() !== true) {
         const tooltipId = $(tooltip).attr('id');
         let target = tooltipParents.toArray().find(parent => parent.getAttribute('data-tooltip-id') === tooltipId);
         if (target) {
-          const pos = $(tooltip).children('.tl-arrow').attr('data-parent-tooltip-pos') || 'left';
+          const pos = $(tooltip).children('.tooltip__arrow').attr('data-parent-tooltip-pos') || 'left';
           calcTooltipPos(tooltipId, pos, target);
         }
       });
@@ -528,10 +528,10 @@ if (isMobileDevice() !== true) {
 
 
   //? BIND SHORTCUS
-  $(document).on('click', '.Preview_tooltip-imgFull', function () {
+  $(document).on('click', '.tooltip--previews__image__button-toggle-fullres-wrapper', function () {
     const tooltip = $(this).closest('tooltip-element');
-    const imageAlt = $(this).siblings('.Preview_tooltip-img').attr('alt');
-    let imageSource = $(this).siblings('.Preview_tooltip-img').attr('src');
+    const imageAlt = $(this).siblings('.tooltip--previews__image').attr('alt');
+    let imageSource = $(this).siblings('.tooltip--previews__image').attr('src');
     imageSource = imageSource.replace('_thumb', '');
     if (tooltip.find('tooltip-img').find('img').attr('src') !== imageSource) {
       tooltip.append(new tooltip_img({ src: imageSource, alt: imageAlt })); $(this).text('fullscreen_exit'); return;

@@ -186,14 +186,14 @@ const pageBuild = new Promise(function (resolve, reject) {
         }
       }
 
-      const actived_type =
+      const activate_interface_type =
         anUrlParameter.mode === 'cv' ? 'cv' :
           anUrlParameter.mode === 'tree' ? 'linktree' :
             anUrlParameter.mode === 'license' ? 'license' :
               anUrlParameter.mode === 'landing' ? 'landing' :
                 anUrlParameter.mode === 'reader' ? 'reader' :
                   ['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode) ? 'gallery' : null;
-      nk.rootContainer.attr('actived', actived_type ? actived_type : 'default');
+      nk.rootContainer.attr('data-active-interface', activate_interface_type ? activate_interface_type : 'default');
       
       let header;
       let main;
@@ -237,13 +237,13 @@ const pageBuild = new Promise(function (resolve, reject) {
 
           } else {
             header = `
-            ${nkSettings.get('skin') === "azumatsuyu" ? `<div class="personBannerBorder azumatsuyu wrap_border"></div>` : ''}
-            <div class="personBannerWrapper ${(nkSettings.get('skin') === "sekiban" || nkSettings.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="personBanner ${nkSettings.get('skin')}" style="--banner: url(${nkPreferences.banner[nkSettings.get('current_banner')].url});" data-banner="${nkSettings.get('current_banner')}"></div></div>
-            <div class="personAvatar">
-              <span class="avatarWrapper ${nkSettings.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
-                <img src="resources/cherepkhed32_thumb.png" alt="${nkLocale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">
+            ${nkSettings.get('skin') === "azumatsuyu" ? `<div class="person-banner-border azumatsuyu wrap_border"></div>` : ''}
+            <div class="person-banner-wrapper ${(nkSettings.get('skin') === "sekiban" || nkSettings.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nkSettings.get('skin')}" style="--banner: url(${nkPreferences.banner[nkSettings.get('current_banner')].url});" data-banner="${nkSettings.get('current_banner')}"></div></div>
+            <div class="person-avatar">
+              <span class="person-avatar__image-wrapper ${nkSettings.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
+                <img class="person-avatar__image" src="resources/cherepkhed32_thumb.png" alt="${nkLocale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">
               </span>
-              ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">` : ''}
+              ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">` : ''}
             </div>
             <div>Теставые букавы<span>${nkLocale.get('test')}</span><br/><span data-key="C.test"></span>${nkLocale.get('C.test')}<br>
               ${repoStatus.join('<br>')}
@@ -253,31 +253,31 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             main =
-              `<div class="links_Wrapper">
-              <h2 class="links_Header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
-              <div class="vert-border-alpha-0 links_Grid_Parent" >
-                <div class="links_Grid" data-tooltip-key="Tess" data-tooltip-pos="left">
+              `<section class="link-plates-section">
+              <h2 class="link-plates-section__header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
+              <div class="vertical-border-blur link-plates-section__grid-wrapper" >
+                <div class="link-plates-section__grid" data-tooltip-key="Tess" data-tooltip-pos="left">
                   ${unpackElementObject(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }))}
                 </div>
               </div>
-              <h2 class="links_Header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
-              <div class="vert-border-alpha-0 links_Grid_Parent">
-                <div class="links_Grid">
+              <h2 class="link-plates-section__header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
+              <div class="vertical-border-blur link-plates-section__grid-wrapper">
+                <div class="link-plates-section__grid">
                   ${unpackElementObject(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }))}
                 </div
               </div>
-            </div>`;
+            </section>`;
 
             footer = `
             <span class="copyright"><span data-key="Nkardaz.copyright">${nkLocale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nkLocale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
-                `<span class="ambientControls ms-auto me-3">
+                `<span class="ambient-music-controls ms-auto me-3">
               <button nk-music="pause/play"><span class="material-icons">pause</span></button>
               <button nk-music="random"><span class="material-icons">shuffle</span></button>
               <button nk-music="credits" data-drop_target="musicCredits"><span class="material-icons">attribution</span></button>
-              <div class="trackInfo ms-2">
-                <div class="trackTitle">Track — none</div>
-                <div class="trackTime">00:00 / 00:00</div>
-                <div class="trackProgress"></div>
+              <div class="ambient-music-controls__track_info ms-2">
+                <div class="track-info__title">Track — none</div>
+                <div class="track-info__time">00:00 / 00:00</div>
+                <div class="track-info__player-progress"></div>
               </div>
               ${unpackElementObject(new dropdown_element({ content: `${nkLocale.get('MusicCredits')}`, id: 'MusicCredits', hide: false }))}
             </span>` : ''}`;

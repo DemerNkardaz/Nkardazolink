@@ -119,7 +119,6 @@ let dataArray = [];
 dataArray.push({ type: 'data',  source: 'app/data/locale.json', as: 'languageJSON'  });
 dataArray.push({ type: 'data',  source: 'app/data/license.json', as: 'licenseJSON'  });
 anUrlParameter.mode && dataArray.push({ type: 'data',  source: `app/data/${anUrlParameter.mode}.json`, as: `${anUrlParameter.mode}Item`  });
-console.log(dataArray);
 let dataTimer;
 DataExtend(dataArray, true).then((loadedData) => {
   const loadingPromise = new Promise((resolve, reject) => {
@@ -127,9 +126,8 @@ DataExtend(dataArray, true).then((loadedData) => {
       loadedData.forEach(({ as, source }) => {
         console.buildType(`[DATA_IN] → “${as}” : loaded with “${source}”`, 'success');
         clearTimeout(dataTimer);
-        setTimeout(() => { $(document).trigger(`${as}_loaded`); }, 50);
       });
-      dataTimer = setTimeout(() => { resolve() }, 1000);
+      dataTimer = setTimeout(() => { resolve() }, 1500);
     } catch (err) { console.error(err); reject(err); }
   });
 

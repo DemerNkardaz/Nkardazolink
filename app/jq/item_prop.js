@@ -11,6 +11,68 @@ const statuses = {
   9: 'mythical',
 };
 
+function getRarityOrder(rarity) {
+  for (const key in statuses) {
+    if (statuses[key] === rarity) {
+      return parseInt(key);
+    }
+  }
+  return -1;
+}
+
+
+$.fn.sortItems= function (type, switcher) {
+  const elements = $(this);
+
+  elements.sort((a, b) => {
+    if (type === 'rarity') {
+      const rarityA = a.getAttribute('data-rarity');
+      const rarityB = b.getAttribute('data-rarity');
+
+      const orderA = getRarityOrder(rarityA);
+      const orderB = getRarityOrder(rarityB);
+
+      if (orderA < orderB) { return switcher === true ? -1 : 1; }
+      if (orderA > orderB) { return switcher === true ? 1 : -1; }
+
+      const nameA = $(a).find('.item-title__text').text().toLowerCase() || $(a).text().toLowerCase();
+      const nameB = $(b).find('.item-title__text').text().toLowerCase() || $(b).text().toLowerCase();
+
+      if (nameA > nameB) { return 1; }
+      if (nameA < nameB) { return -1; }
+      return 0;
+    } else if (type === 'name') {
+      const nameA = $(a).find('.item-title__text').text().toLowerCase() || $(a).text().toLowerCase();
+      const nameB = $(b).find('.item-title__text').text().toLowerCase() || $(b).text().toLowerCase();
+
+      if (nameA < nameB) { return switcher === true ? 1 : -1; }
+      if (nameA > nameB) { return switcher === true ? -1 : 1; }
+
+      return 0;
+    }
+  });
+
+  elements.each(function() {
+    $(this).appendTo($(this).parent());
+  });
+}
+
+window.sortItems = function (itemsArray) {
+
+  itemsArray.sort((a, b) => {
+    const rarityA = a.getAttribute('data-rarity');
+    const rarityB = b.getAttribute('data-rarity');
+
+    const orderA = getRarityOrder(rarityA);
+    const orderB = getRarityOrder(rarityB);
+
+
+    if (orderA < orderB) { return 1; }
+    if (orderA > orderB) { return -1; }
+    return 0;
+  });
+}
+
 window.item_prop_array = function (source) {
 
   const dataType = source.data_type;
@@ -40,27 +102,7 @@ window.item_prop_array = function (source) {
   });
   
 
-  function getRarityOrder(rarity) {
-    for (const key in statuses) {
-      if (statuses[key] === rarity) {
-        return parseInt(key);
-      }
-    }
-    return -1;
-  }
-
-  itemsArray.sort((a, b) => {
-    const rarityA = a.getAttribute('data-rarity');
-    const rarityB = b.getAttribute('data-rarity');
-
-    const orderA = getRarityOrder(rarityA);
-    const orderB = getRarityOrder(rarityB);
-
-
-    if (orderA < orderB) { return 1; }
-    if (orderA > orderB) { return -1; }
-    return 0;
-  });
+  sortItems(itemsArray);
   return itemsArray;
 }
 
@@ -116,7 +158,8 @@ window.downloadDATA = function (varToDownload) {
 
 $(document).on('input', '[nk-prop-search]', function () {
   let bar = $(this);
-  const itemProps = $('item-prop');
+  let itemProps = $(`[data-prop-class="${bar.attr('nk-prop-search')}"]`);
+  
   if (bar.val().length > 0) {
     let value = bar.val();
     if (value.startsWith('eg:s:') && /\d/.test(value)) {
@@ -163,7 +206,7 @@ $(document).on('input', '[nk-prop-search]', function () {
                       if (entity_key.includes(item.entity_prop)) {
                         //! Need recursive function to show all children from map_of_descendants.kamon from current item.entity_prop name as a key of current founded entity
 
-                      } 
+                      }
                     } else {
                       $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nesting') !== 'true' && $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
                     }
@@ -191,7 +234,7 @@ $(document).on('input', '[nk-prop-search]', function () {
                 Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
                 item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
                 item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'))
-                ) {
+              ) {
                 $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
               } else {
                 $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');

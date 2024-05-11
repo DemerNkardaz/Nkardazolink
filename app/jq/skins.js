@@ -29,14 +29,14 @@ window.setSkin = function (skin) {
               //* DEFAULT MODE SKIN OPERATIONS
               //! REMOVING OPERATIONS FOR SKINS
               if (prev_skin === 'sekiban' && new_skin !== 'sekiban') { //! REMOVE “SEKIBAN”
-                $('.personBannerWrapper').removeClass('plate_chinese');
+                $('.person-banner-wrapper').removeClass('plate_chinese');
               } else if (prev_skin === 'aogurogetsu' && new_skin !== 'aogurogetsu') { //! REMOVE “AOGUROGETSU”
-                $('.personAvatar').find('.avatarHalo').remove();
+                $('.person-avatar').find('.person-avatar__image__halo').remove();
               } else if (prev_skin === 'azumatsuyu' && new_skin !== 'azumatsuyu') { //! REMOVE “AZUMATSUYU”
-                new_skin !== 'sekiban' && $('.personBannerWrapper').removeClass('plate_chinese');
-                $('.avatarWrapper').removeClass('plate_chinese');
+                new_skin !== 'sekiban' && $('.person-banner-wrapper').removeClass('plate_chinese');
+                $('.person-avatar__image-wrapper').removeClass('plate_chinese');
                 $('link-block').each(function () {
-                  $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').removeClass('plate_chinese');
+                  $(this).attr('data-link-class') === 'default' && $(this.shadowRoot).find('.link-plate-wrapper').removeClass('plate_chinese');
                 });
               } else if (prev_skin === 'byakujou' && new_skin !== 'byakujou') { //! REMOVE “BYAKUJOU”
 
@@ -46,15 +46,15 @@ window.setSkin = function (skin) {
 
               //? SETTING OPERATIONS FOR SKINS
               if (new_skin === 'sekiban' && prev_skin !== 'sekiban') { //? SEKIN “SEKIBAN”
-                $('.personBannerWrapper').addClass('plate_chinese');
+                $('.person-banner-wrapper').addClass('plate_chinese');
               } else if (new_skin === 'aogurogetsu' && prev_skin !== 'aogurogetsu') { //? SEKIN “AOGUROGETSU”
-                $('.personAvatar').append(`<img src="external/avatarHalo.gif" alt="" class="avatarHalo" loading="lazy">`);
+                $('.person-avatar').append(`<img src="external/person-avatar__image__halo.gif" alt="" class="person-avatar__image__halo" loading="lazy">`);
               } else if (new_skin === 'azumatsuyu' && prev_skin !== 'azumatsuyu') { //? SEKIN “AZUMATSUYU”
-                $('.personBannerWrapper, .avatarWrapper').addClass('plate_chinese');
+                $('.person-banner-wrapper, .person-avatar__image-wrapper').addClass('plate_chinese');
                 $('link-block').each(function () {
-                  $(this).attr('link_class') === 'default' && $(this.shadowRoot).find('.linkWrapper').addClass('plate_chinese');
+                  $(this).attr('data-link-class') === 'default' && $(this.shadowRoot).find('.link-plate-wrapper').addClass('plate_chinese');
                 });
-                !$('.personBannerBorder').length ? $('<div class="personBannerBorder azumatsuyu wrap_border"></div>').insertBefore('.personBannerWrapper') : '';
+                !$('.person-banner-border').length ? $('<div class="person-banner-border azumatsuyu wrap_border"></div>').insertBefore('.person-banner-wrapper') : '';
               } else if (new_skin === 'byakujou' && prev_skin !== 'byakujou') { //? SEKIN “BYAKUJOU”
 
               } else if (new_skin === 'akatsukikurai' && prev_skin !== 'akatsukikurai') { //? SEKIN “AKATSUKIKURAI”
@@ -62,7 +62,7 @@ window.setSkin = function (skin) {
               };
             };
 
-            $('.personBanner, body').each(function () { $(this).removeClass(prev_skin).addClass(new_skin); });
+            $('.person-banner, body').each(function () { $(this).removeClass(prev_skin).addClass(new_skin); });
             $('[data-key="Skins.Current"]').hide('slow', function () {
               setTimeout(function () { $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current')).show('slow'); }, 200);
             })

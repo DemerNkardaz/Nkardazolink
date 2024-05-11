@@ -16,16 +16,16 @@ if (isMobileDevice() !== true) {
         ambient.stop();
         ambient = new Howl({ src: [playlist[randomTrack]], volume: 0.1 });
         ambient.play();
-        $('.trackTitle').text(ambientCurrentTrack());
+        $('.track-info__title').text(ambientCurrentTrack());
       }
     });
     ambient.on('load', function () {
-      $('.trackTitle').text(ambientCurrentTrack());
-      $('.trackTime').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
-      $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
+      $('.track-info__title').text(ambientCurrentTrack());
+      $('.track-info__time').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
+      $('.track-info__player-progress').css('--progress', `${ambientTrackProgress()}%`);
       setInterval(function () {
-        $('.trackTime').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
-        $('.trackProgress').css('--progress', `${ambientTrackProgress()}%`);
+        $('.track-info__time').text(`${ambientTrackTime('current')} / ${ambientTrackTime()}`);
+        $('.track-info__player-progress').css('--progress', `${ambientTrackProgress()}%`);
       }, 1000);
     });
     ambient.play();
@@ -67,7 +67,7 @@ if (isMobileDevice() !== true) {
       ambient.stop();
       ambient = new Howl({ src: [playlist[randomTrack]], volume: 0.1 });
       ambient.play();
-      $('.trackTitle').text(window.ambientCurrentTrack());
+      $('.track-info__title').text(window.ambientCurrentTrack());
     }
   });
 

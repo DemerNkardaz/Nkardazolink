@@ -107,7 +107,7 @@ window.setDiacritic = function (type, pos, margins) {
   margin.left = margins && margins.left ? margins.left : (margins && !margins.top ? margins : null);
   margin.top = margins && margins.top ? margins.top : null;
 
-  const base = `<span class="diacritic ${type} ${pos ? pos : ''}" style="${margin.left !== null ? `--mleft: -${margin.left}em; ` : ''}${margin.top !== null ? `--top: ${margin.top}px;` : ''}">${symbol}</span>`;
+  const base = `<span class="diacritic-symbol-decorator" style="${margin.left !== null ? `--mleft: -${margin.left}em; ` : ''}${margin.top !== null ? `--top: ${margin.top}px;` : ''}">${symbol}</span>`;
   if (typePlace === 'place') {
     return base;
   } else {

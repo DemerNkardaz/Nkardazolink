@@ -145,7 +145,7 @@ char-name {
   }
 }
 
-.inline-link-icon {
+.inline-link-plate__icon {
   display: inline-flex;
   align-items: center;
   justify-content: start;
