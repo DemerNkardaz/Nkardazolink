@@ -40,18 +40,37 @@ class item_prop extends HTMLElement {
 customElements.define('item-prop', item_prop);
 window.item_prop = item_prop;
 
-class item_viewer_body extends HTMLElement {
-  constructor() {
+class inventory_info_panel extends HTMLElement {
+  constructor({ PANEL } = {}) {
     super();
-    const component = `ffff`
-    const styles = ``
+    const component = `
+    <div class="inventory-info-panel">
+      <div class="inventory-info-panel__banner">
+        <h2 class="inventory-info-panel__title"${PANEL && PANEL.title.key ? ` data-key="${PANEL.title.key}"` : ''}>${PANEL && PANEL.title.text ? PANEL.title.text : ''}</h2>
+        <div class="inventory-info-panel__title_transcription"></div>
+      </div>
+      <div class="inventory-info-panel__item_viewer">
+        <img src="${PANEL && PANEL.image ? PANEL.image : ''}" alt="${PANEL && PANEL.name ? PANEL.name : ''}" class="inventory-info-panel__item_viewer__image">
+        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK[0][1]}"` : ''}>${PANEL && PANEL.CJK ? PANEL.CJK[0][0] : ''}</span>
+        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px"${PANEL && PANEL.CJK[1] ? ` data-key="${PANEL.CJK[1][1]}"` : ''}>${PANEL && PANEL.CJK[1] ? PANEL.CJK[1][0] : ''}</span>
+        <div class="inventory-info-panel__item_viewer__extras bottom_6px left_3px">${PANEL && PANEL.extras ? PANEL.extras : ''}</div>
+      </div>
+      <div class="inventory-info-panel__content">
+        <div class="inventory-info-panel__clan_title">
+          <img src="resources/svg/break_decorator_left.svg" alt="" class="inventory-info-panel__break_decorator">
+          <b class="inventory-info-panel__clan_title_text"${PANEL && PANEL.title.clan_key ? ` data-key="${PANEL.title.clan_key}"` : ''}">${PANEL && PANEL.title.clan ? PANEL.title.clan : ''}</b>
+          <img src="resources/svg/break_decorator_left.svg" alt="" class="inventory-info-panel__break_decorator rotate-180">
+        </div>
+        <div class="inventory-info-panel__description" ${PANEL && PANEL.description.key ? ` data-key="${PANEL.description.key}"` : ''}>${PANEL && PANEL.description.text ? PANEL.description.text : ''}</div>
+      </div>
+    </div>`;
 
     $(this).attr({
-      'container': 'gallery_viewer'
-    })
+      'data-inventory': PANEL && PANEL.inventory ? PANEL.inventory : 'kamon',
+      'data-entity-given': PANEL && PANEL.entity ? PANEL.entity : null,
+    });
 
-    var concatenated = component + styles;
-    this.innerHTML = concatenated;
+    this.innerHTML = component;
   }
   connectedCallback() {
     $(this).attr('role', 'complementary');
@@ -59,11 +78,11 @@ class item_viewer_body extends HTMLElement {
   
 }
 
-customElements.define('item-viewer-body', item_viewer_body);
+customElements.define('inventory-information-panel', inventory_info_panel);
 
 
 window.gallery_viewer_container = function () {
-  var viewer = new item_viewer_body();
+  var viewer = new inventory_info_panel();
   if (['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode)) {
     nk.siteMainContainer.after(viewer);
   }
