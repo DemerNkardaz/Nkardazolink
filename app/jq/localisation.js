@@ -322,7 +322,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
 
   function update () {
     key_elements.each(function () {
-      if (!$(this).closestParent('[data-entity]').length && !$(this).attr('data-entity-given')) {
+      if (!$(this).closestParent('[data-entity]').length && !$(this).closestParent('[data-entity-given]').length) {
         let sourceKey = $(this).attr('data-key-source');
         let dataKey = $(this).attr('data-key');
         let altKey = $(this).attr('alt-key');
@@ -348,11 +348,13 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
           nkLocale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nkLocale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
         }
       } else {
-        let entity = $(this).closestParent('[data-entity]');
-        if ($(this).attr('data-entity-given')) {
-          entity = $(this);
-        }
+        let entity = $(this).closestParent('[data-entity]')
         let entityProp = entity.attr('data-entity');
+
+        if ($(this).closestParent('[data-entity-given]').length) {
+          entity = $(this).closestParent('[data-entity-given]');
+          entityProp = entity.attr('data-entity-given');
+        }
         let entityType = entity.attr('data-prop-class');
         let entityCategory = entity.attr('data-prop-category');
         let localeSource = `${entityType}Item`;

@@ -51,8 +51,8 @@ class inventory_info_panel extends HTMLElement {
       </div>
       <div class="inventory-info-panel__item_viewer">
         <img src="${PANEL && PANEL.image ? PANEL.image : ''}" alt="${PANEL && PANEL.name ? PANEL.name : ''}" class="inventory-info-panel__item_viewer__image">
-        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK[0][1]}"` : ''}>${PANEL && PANEL.CJK ? PANEL.CJK[0][0] : ''}</span>
-        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px"${PANEL && PANEL.CJK[1] ? ` data-key="${PANEL.CJK[1][1]}"` : ''}>${PANEL && PANEL.CJK[1] ? PANEL.CJK[1][0] : ''}</span>
+        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK.key}"` : ''}></span>
+        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px"${PANEL && PANEL.CJK.key2 ? ` data-key="${PANEL.CJK.key2}"` : ''}></span>
         <div class="inventory-info-panel__item_viewer__extras bottom_6px left_3px">${PANEL && PANEL.extras ? PANEL.extras : ''}</div>
       </div>
       <div class="inventory-info-panel__content">
@@ -68,6 +68,9 @@ class inventory_info_panel extends HTMLElement {
     $(this).attr({
       'data-inventory': PANEL && PANEL.inventory ? PANEL.inventory : 'kamon',
       'data-entity-given': PANEL && PANEL.entity ? PANEL.entity : null,
+      'data-prop-class': PANEL && PANEL.prop_class ? PANEL.prop_class : null,
+      'data-prop-category': PANEL && PANEL.category ? PANEL.category : null,
+      'data-rarity': PANEL && PANEL.rarity ? PANEL.rarity : null
     });
 
     this.innerHTML = component;
@@ -79,16 +82,7 @@ class inventory_info_panel extends HTMLElement {
 }
 
 customElements.define('inventory-information-panel', inventory_info_panel);
-
-
-window.gallery_viewer_container = function () {
-  var viewer = new inventory_info_panel();
-  if (['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode)) {
-    nk.siteMainContainer.after(viewer);
-  }
-}; gallery_viewer_container();
-
-
+window.inventory_info_panel = inventory_info_panel;
 
 class settings_check extends HTMLElement {
   constructor({ label, label_key, setting } = {}) {

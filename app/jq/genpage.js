@@ -202,6 +202,19 @@ const pageBuild = new Promise(function (resolve, reject) {
       const pageConfig = new Promise(function (resolveCFG, rejectCFG) {
         try {
           if (anUrlParameter.mode === 'kamon') {
+            nk.siteMainContainer.after(
+              new inventory_info_panel({
+                PANEL: {
+                  entity: 'ent_maru_ni_mittsu_aoi.clan_matsudaira',
+                  name : 'kamon',
+                  title: { text: 'Default', key: 'names', clan: 'Clan', clan_key: 'clan_names' },
+                  description: { text: 'Default', key: 'description' },
+                  CJK: { key: 'kanji_first', key_2: 'kanji_second' },
+                  image: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira.svg',
+                  prop_class: 'kamon', category: 'JA', rarity: 'inferior',
+                }
+              })
+            );
 
             header = `
             <input nk-prop-search="kamon" type="text" placeholder="Поиск знака…">

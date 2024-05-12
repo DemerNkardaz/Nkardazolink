@@ -14,8 +14,8 @@
           "status": 5,
           "search_tags": [ "Мацудайра", "Matsudaira", "Япония", "Japan", "Нихонсимагуни", "Nihonshimaguni", "Три листа мальвы в кругу", "Благородный дом", "Noble Family" ],
           "descending": [ "ent_kiku_no_gomon.tennou_lineage", "ent_sasarindou.clan_minamoto", "ent_maru_ni_mittsu_aoi.clan_matsudaira" ],
-          "kanji_first": "丸に三つ葵",
-          "kanji_second": "松平家の家紋、侍",
+          "kanji_first": { "ja": "丸に三つ葵"},
+          "kanji_second": { "ja": "松平家の家紋、侍"},
           "transcript_first": 
           {
             "ru": ["—{{.(.丸:Maru.)(.に:Ni.)(.三つ:Mittsu.)(.葵:Aoi.).}≈[Три листа мальвы в кругу]≈}—"],
