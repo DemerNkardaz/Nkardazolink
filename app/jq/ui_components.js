@@ -51,8 +51,8 @@ class inventory_info_panel extends HTMLElement {
       </div>
       <div class="inventory-info-panel__item_viewer">
         <img src="${PANEL && PANEL.image ? PANEL.image : ''}" alt="${PANEL && PANEL.name ? PANEL.name : ''}" class="inventory-info-panel__item_viewer__image">
-        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK.key}"` : ''}></span>
-        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px"${PANEL && PANEL.CJK.key2 ? ` data-key="${PANEL.CJK.key2}"` : ''}></span>
+        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK.first_key}"` : ''}></span>
+        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK.second_key}"` : ''}></span>
         <div class="inventory-info-panel__item_viewer__extras bottom_6px left_3px">${PANEL && PANEL.extras ? PANEL.extras : ''}</div>
       </div>
       <div class="inventory-info-panel__content">

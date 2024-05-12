@@ -369,11 +369,17 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
                     let key = $(this).attr('data-key');
                     let value = item[key];
                     let found = false;
-                    for (let lang in item[key]) {
-                      if (item[key].hasOwnProperty(lang) && lang === nkSettings.get('lang')) {
-                        value = item[key][lang];
-                        found = true;
-                        break;
+                    if (typeof item[key] === 'string' || Array.isArray(item[key])) {
+                      value = item[key];
+                      found = true;
+                    }
+                    if (!found) {
+                      for (let lang in item[key]) {
+                        if (item[key].hasOwnProperty(lang) && lang === nkSettings.get('lang')) {
+                          value = item[key][lang];
+                          found = true;
+                          break;
+                        }
                       }
                     }
                     if (!found) {

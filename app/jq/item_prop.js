@@ -66,9 +66,15 @@ window.sortItems = function (itemsArray) {
     const orderA = getRarityOrder(rarityA);
     const orderB = getRarityOrder(rarityB);
 
-
+    
     if (orderA < orderB) { return 1; }
     if (orderA > orderB) { return -1; }
+
+    const nameA = $(a).find('.item-title__text').text().toLowerCase() || $(a).text().toLowerCase();
+    const nameB = $(b).find('.item-title__text').text().toLowerCase() || $(b).text().toLowerCase();
+    
+    if (nameA > nameB) { return 1; }
+    if (nameA < nameB) { return -1; }
     return 0;
   });
 }

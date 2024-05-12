@@ -209,7 +209,7 @@ const pageBuild = new Promise(function (resolve, reject) {
                   name : 'kamon',
                   title: { text: 'Default', key: 'names', clan: 'Clan', clan_key: 'clan_names' },
                   description: { text: 'Default', key: 'description' },
-                  CJK: { key: 'kanji_first', key_2: 'kanji_second' },
+                  CJK: { first_key: 'kanji_first', second_key: 'kanji_second' },
                   image: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira.svg',
                   prop_class: 'kamon', category: 'JA', rarity: 'inferior',
                 }
