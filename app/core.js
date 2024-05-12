@@ -39,13 +39,28 @@ window.console.buildType = function (message, type) {
 
 
 window.extractAttributes = function(element) {
-    var attributesString = Array.from(element.attributes)
-        .map(attr => `${attr.name}="${attr.value}"`)
+    var attributesMap = new Map();
+    
+    // Проверка на дублирующиеся атрибуты
+    Array.from(element.attributes).forEach(attr => {
+        attributesMap.set(attr.name, attr.value);
+    });
+    
+    // Проверка на дублирующиеся атрибуты в dataset
+    Object.keys(element.dataset).forEach(key => {
+        // Преобразование camelCase в kebab-case
+        const kebabKey = key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        // Убедимся, что атрибут не был уже добавлен
+        if (!attributesMap.has(kebabKey)) {
+            attributesMap.set(kebabKey, element.dataset[key]);
+        }
+    });
+    
+    var attributesString = Array.from(attributesMap)
+        .map(([name, value]) => `${name}="${value}"`)
         .join(" ");
-    var datasetString = Object.keys(element.dataset)
-        .map(key => `data-${key}="${element.dataset[key]}"`)
-        .join(" ");
-    return `${attributesString} ${datasetString}`;
+        
+    return attributesString;
 }
 
 

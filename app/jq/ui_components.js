@@ -59,7 +59,7 @@ class item_viewer_body extends HTMLElement {
   
 }
 
-customElements.define('item-viewer_body', item_viewer_body);
+customElements.define('item-viewer-body', item_viewer_body);
 
 
 window.gallery_viewer_container = function () {

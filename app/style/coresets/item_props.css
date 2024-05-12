@@ -56,9 +56,13 @@ item-prop {
   cursor: pointer;
   z-index: 1;
 
-
-  & img::before {
-    display: none;
+  & img {
+    user-select: none;
+    pointer-events: none;
+    
+    &::before {
+      display: none;
+    }
   }
 
   &::before {

@@ -208,8 +208,12 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             main = `
-            ${unpackElementObject(item_prop_array(kamonItem))}
-            <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div>`;
+            <div data-drop-site="kamon" data-drop-sort="true" style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px;">${unpackElementObject(item_prop_array(kamonItem))}</div>
+            <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div><div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px; border: 1px solid #000; padding-top: 8px; height: 400px; width: 100%;" data-drop-site="kamon"></div>`;
+            
+            
+            footer = `
+            `;
 
           } else if (anUrlParameter.mode === 'banners') {
 

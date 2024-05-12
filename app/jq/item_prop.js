@@ -250,3 +250,49 @@ $(document).on('input', '[nk-prop-search]', function () {
 });
 
 
+//? ---------------- DRAG AND DROP EVENTS ---------------- ?//
+
+let inWindow = true;
+
+$(document).on('dragover', function (e) {
+  let windowHeight = $(window).height();
+  let y = e.originalEvent.clientY;
+  
+  if (y < 50 || y > (windowHeight - 50)) {
+    inWindow = false;
+    console.log('out of window');
+  } else {
+    inWindow = true;
+    console.log('in window');
+  }
+  e.preventDefault();
+});
+
+$(document).on('dragstart', 'item-prop', function (e) {
+  if (inWindow === false) {
+    e.originalEvent.dataTransfer.setData('text', $(e.target).find('.item-title__text').text());
+  } else {
+    e.originalEvent.dataTransfer.setData('text', e.target.getAttribute('data-entity'));
+  }
+});
+
+$(document).on('dragend', 'item-prop', function (e) {
+  if (inWindow === false) {
+    e.originalEvent.dataTransfer.getData('text', $(e.target).find('.item-title__text').text());
+  } else {
+    e.originalEvent.dataTransfer.getData('text', e.target.getAttribute('data-entity'));
+  }
+});
+
+
+$(document).on('dragover', '[data-drop-site]', function (e) {
+  e.preventDefault();
+});
+
+$(document).on('drop', '[data-drop-site]', function (e) {
+  e.dataTransfer = e.originalEvent.dataTransfer;
+  let data = e.dataTransfer.getData('text');
+  console.log(data);
+  
+  e.preventDefault();
+});
