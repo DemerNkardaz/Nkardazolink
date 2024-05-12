@@ -205,7 +205,7 @@ const pageBuild = new Promise(function (resolve, reject) {
             nk.siteMainContainer.after(
               new inventory_info_panel({
                 PANEL: {
-                  entity: 'ent_maru_ni_mittsu_aoi.clan_matsudaira',
+                  entity: 'ent_maru-ni-mitsu-aoi.clan_matsudaira',
                   name : 'kamon',
                   title: { text: 'Default', key: 'names', clan: 'Clan', clan_key: 'clan_names' },
                   description: { text: 'Default', key: 'description' },
