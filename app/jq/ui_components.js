@@ -330,7 +330,7 @@ window.nkUI = {
           }, 1000);
         }
       });
-      enable_percent !== false && setTimeout(showLoadPercentage, 1000);
+      enable_percent !== false && setTimeout(showLoadPercentage, 500);
     });
   },
 

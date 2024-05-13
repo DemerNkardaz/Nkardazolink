@@ -59,7 +59,7 @@ var metaData = {
     }
   }
 }
-
+/*
 
 window.showLoadPercentage = function () {
   $(document).trigger('loading_precentage_initialized');
@@ -96,6 +96,104 @@ window.showLoadPercentage = function () {
       tImg.src = img[i].src;
   }
 }
+*/
+
+
+
+window.showLoadPercentage = function () {
+  $(document).trigger('loading_precentage_initialized');
+  let img = document.images,
+      c = 0,
+      tot = img.length;
+  let percentElement = document.querySelector('.loadmarker-percent');
+  let percentBar = document.querySelector('.progress-value');
+  let currentPercentage = 0;
+  let intervalDuration = Math.round(Math.random() * (8 - 10) + 10);
+  let roundedPercentage;
+
+  let updateInvervalDuration = setInterval(function () {
+    intervalDuration = Math.round(Math.random() * (8 - 10) + 10);
+  }, 10);
+
+  function fillFakePercentage() {
+    let fakePerc = Math.round(Math.random() * (20 - 50) + 37);
+    let increment = Math.random() * (0.32 - 1) + 1;
+    let updateIncrement = setInterval(function () {
+      increment = Math.random() * (0.32 - 1) + 1;
+    }, 10);
+    let interval = setInterval(function () {
+      if (currentPercentage < fakePerc) {
+        currentPercentage += increment;
+        roundedPercentage = Math.round(currentPercentage);
+        percentElement.textContent = roundedPercentage;
+        percentBar.style.setProperty('--progress', `${roundedPercentage}%`);
+      } else {
+        clearInterval(interval);
+        clearInterval(updateIncrement);
+      }
+    }, intervalDuration);
+  }
+  fillFakePercentage();
+
+  function randomAddition() {
+    let maxPercent = 50;
+    let increment = Math.random() * (0 - 1) + 1;
+    let updateIncrement = setInterval(function () {
+      increment = Math.random() * (0 - 1) + 1;
+    }, 10);
+    let randomAddInverval = setInterval(function () {
+      if (currentPercentage < maxPercent) {
+        currentPercentage += increment;
+        roundedPercentage = Math.round(currentPercentage);
+        percentElement.textContent = roundedPercentage;
+        percentBar.style.setProperty('--progress', `${roundedPercentage}%`);
+      } else {
+        clearInterval(randomAddInverval);
+        clearInterval(updateIncrement);
+      }
+    }, 50);
+  }
+
+  randomAddition();
+
+
+
+  setTimeout(function () {
+
+    function imgLoaded() {
+      c += 1;
+      let perc = ((100 / tot * c) << 0);
+
+      let increment = Math.random() * (0.75 - 1) + 1;
+      let updateIncrement = setInterval(function () {
+        increment = Math.random() * (0.75 - 1) + 1;
+      }, 10);
+      let interval = setInterval(function () {
+        if (currentPercentage < perc) {
+          currentPercentage += increment;
+          roundedPercentage = Math.round(currentPercentage);
+          percentElement.textContent = roundedPercentage;
+          percentBar.style.setProperty('--progress', `${roundedPercentage}%`);
+          roundedPercentage > 95 && clearInterval(updateInvervalDuration);
+        } else {
+          clearInterval(interval);
+          clearInterval(updateIncrement);
+        }
+      }, intervalDuration);
+
+      if (c === tot) return;
+    }
+
+    for (let i = 0; i < tot; i++) {
+      let tImg = new Image();
+      tImg.onload = imgLoaded;
+      tImg.onerror = imgLoaded;
+      tImg.src = img[i].src;
+    }
+    
+  }, 2200);
+}
+
 
 
 
@@ -127,7 +225,7 @@ DataExtend(dataArray, true).then((loadedData) => {
         console.buildType(`[DATA_IN] → “${as}” : loaded with “${source}”`, 'success');
         clearTimeout(dataTimer);
       });
-      dataTimer = setTimeout(() => { resolve() }, 1500);
+      dataTimer = setTimeout(() => { resolve() }, 2000);
     } catch (err) { console.error(err); reject(err); }
   });
 
