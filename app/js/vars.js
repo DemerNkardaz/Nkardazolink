@@ -62,7 +62,7 @@ TREE IS A LINKTREE
 
 nk.settingConfig = new Map([
   ["save_search_result", (nk.setting('save_search_result').load() ? nk.setting('save_search_result').load() : true)],
-  ["save_selected_item", (nk.setting('save_selected_item').load() ? nk.setting('save_selected_item').load() : false)],
+  ["save_selected_item", (nk.setting('save_selected_item').load() ? nk.setting('save_selected_item').load() : true)],
   ["turn_off_preloader", (nk.setting('turn_off_preloader').load() ? nk.setting('turn_off_preloader').load() : false)],
   ["ambience_off", (nk.setting('ambience_off').load() ? nk.setting('ambience_off').load() : false)],
   // Skin Settings

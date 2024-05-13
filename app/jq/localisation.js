@@ -1,4 +1,4 @@
-const cutsLibrary = [
+const CUTS_LIBRARY = [
   ['©', '&copy;'], ['®', '&reg;'], ['TM', '&trade;'], ['£', '&pound;'], ['$', '&#36;'], ['€', '&euro;'], ['¥', '&yen;'],
   ['§', '&sect;'], ['†', '&dagger;'], ['‡', '&Dagger;'], ['¶', '&para;'], ['"', '&quot;'], ["'", '&#39;'], ['×', '&times;'],
   ['÷', '&divide;'], ['±', '&plusmn;'], ['¬', '&not;'], ['%', '&#37;'], ['>', '&gt;'], ['<', '&lt;'], ['~', '&#126;'],
@@ -175,7 +175,7 @@ function uLang(keyMap) {
 window.nk.locale = {
   get: function (key, cut) {
     function cutter(str) {
-      cutsLibrary.forEach(pair => {
+      CUTS_LIBRARY.forEach(pair => {
         const [original, replacement] = pair;
         const regex = new RegExp(replacement);
         str = str.replace(regex, original);

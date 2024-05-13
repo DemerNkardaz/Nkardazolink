@@ -19,6 +19,33 @@ if (nk.settingConfig.get('save_selected_item') === true) {
   });
 }
 
+
+
+$(document).on('page_fully_builded', function () {
+  if (nk.settingConfig.get('save_search_result') === true) {
+    let bar = $('[nk-prop-search]');
+    const ITEM_TYPE = bar.attr('nk-prop-search');
+    if (nk.store(`searchResults.${ITEM_TYPE}`).load() && bar) {
+      bar.val(nk.store(`searchResults.${ITEM_TYPE}`).load());
+      $('[nk-prop-search]').trigger('input');
+    }
+  }
+
+  if (nk.settingConfig.get('save_selected_item') === true) {
+    let items = $('item-prop');
+    const ITEM_TYPE = items.attr('data-prop-class');
+    $(`item-prop[data-entity="${nk.store(`selectedItems.${ITEM_TYPE}`).load()}"]`).trigger('click');
+  }
+});
+
+
+
+
+
+
+
+
+
 //? APPLYING SKIN
 const SKIN_LOADING = new Promise(function (resolve) {
   try {

@@ -394,7 +394,7 @@ window.waitFor = function(selector, callback) {
 
   let timeoutId = setTimeout(() => {
     observer.disconnect();
-    console.buildType(`[OBSERVER] → Obeserver “WaitFor” has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`, 'warning');
+    console.buildType(`[OBSERVER] → Observer “WaitFor” has been disconnected due to inactivity. →${selector.toUpperCase()}← is not responding`, 'warning');
   }, 2000);
 
   const observer = new MutationObserver((mutationsList, observer) => {

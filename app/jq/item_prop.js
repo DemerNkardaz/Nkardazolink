@@ -151,15 +151,28 @@ window.downloadDATA = function (varToDownload) {
   a.click();
 }
 
-
-
-
 $(document).on('input', '[nk-prop-search]', function () {
   let bar = $(this);
   let itemProps = $(`[data-prop-class="${bar.attr('nk-prop-search')}"]`);
+  const ITEM_TYPE = bar.attr('nk-prop-search');
+  let waiting;
+  let value = bar.val();
+
+  if (nk.settingConfig.get('save_search_result') === true) {
+    clearTimeout(waiting);
+    waiting = setTimeout(() => {
+      nk.store(`searchResults.${ITEM_TYPE}`).save(value);
+      console.log(`searchResults.${ITEM_TYPE}`, value);
+    }, 1000);
+  }
+
   
-  if (bar.val().length > 0) {
-    let value = bar.val();
+
+
+  if (value.length > 0) {
+
+
+    
     if (value.startsWith('eg:s:') && /\d/.test(value)) {
       itemProps.each(function () {
         let status = $(this).attr('data-rarity');
@@ -252,24 +265,11 @@ $(document).on('input', '[nk-prop-search]', function () {
 //? ---------------- CLICK EVENTS ---------------- ?//
 
 $(document).on('click', 'item-prop', function () {
-  var item = $(this).attr('item-prop');
-  var entity = $(this).attr('PROP_ENTITY');
-  $(this).reapplyClass('selected', 'item-prop');
-
-
-  if (nk.settingConfig.get('save_selected_item') === true) {
-    if (entity) {
-      if (item === 'kamon') {
-        nk.store('selectedItems.kamon', entity).save();
-      } else if (item === 'banners') {
-        nk.store('selectedItems.banners', entity).save();;
-      } else if (item === 'clans') {
-        nk.store('selectedItems.clans', entity).save();;
-      } else if (item === 'pattern') {
-        nk.store('selectedItems.pattern', entity).save();;
-      }
-    }
-  }
+  let item = $(this);
+  const ENTITY = item.attr('data-entity');
+  const PROP_CLASS = item.attr('data-prop-class');
+  item.reapplyClass('selected', 'item-prop');
+  if (nk.settingConfig.get('save_selected_item') === true) { nk.store(`selectedItems.${PROP_CLASS}`).save(ENTITY); }
 });
 
 
@@ -308,7 +308,7 @@ $(document).on('drop', '[data-drop-site]', function (e) {
   let draggedItem = $('item-prop.dragged');
   if (draggedItem.length > 0) {
     let dataEntity = draggedItem.attr('data-entity');
-    $(draggedItem).reapplyClass('selected', 'item-prop');
+    $(draggedItem).trigger('click');
     console.log(dataEntity);
   }
 });
