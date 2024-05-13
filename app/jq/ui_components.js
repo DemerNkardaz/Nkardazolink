@@ -350,7 +350,7 @@ window.nkUI = {
   tooltipEventLess: function (text, key, pos) {
     let fromData = null;
     if (key.includes('/')) { fromData = key.split('/')[1]; key = key.split('/')[0]; }
-    return `<span ${fromData === 'data' ? `data-key="${key}"` : ''} class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nkLocale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;
+    return `<span ${fromData === 'data' ? `data-key="${key}"` : ''} class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nk.locale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;
   }
 }
 

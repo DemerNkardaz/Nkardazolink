@@ -224,20 +224,20 @@ if (isMobileDevice() !== true) {
 
       if (role !== undefined && role === 'preview') {
         let previewParams = {};
-        if (nkLocale.get(`check:${key}.preview.image.src`)) {
-          previewParams.image = { src: nkLocale.get(`${key}.preview.image.src`) };
+        if (nk.locale.get(`check:${key}.preview.image.src`)) {
+          previewParams.image = { src: nk.locale.get(`${key}.preview.image.src`) };
           previewParams.image.key = `${key}.preview.image.src`
         }
-        nkLocale.get(`check:${key}.preview.image.shift`) ? (previewParams.image.shift = nkLocale.get(`${key}.preview.image.shift`)) : null;
-        nkLocale.get(`check:${key}.preview.image.blur`) ? (previewParams.image.blur = nkLocale.get(`${key}.preview.image.blur`)) : null;
-        nkLocale.get(`check:${key}.preview.image.opacity`) ? (previewParams.image.opacity = nkLocale.get(`${key}.preview.image.opacity`)) : null;
-        nkLocale.get(`check:${key}.preview.image.h`) ? (previewParams.image.h = nkLocale.get(`${key}.preview.image.h`)) : null;
-        nkLocale.get(`check:${key}.preview.content`) ? (previewParams.content = {
-          text: nkLocale.get(`check:${key}.preview.content`),
+        nk.locale.get(`check:${key}.preview.image.shift`) ? (previewParams.image.shift = nk.locale.get(`${key}.preview.image.shift`)) : null;
+        nk.locale.get(`check:${key}.preview.image.blur`) ? (previewParams.image.blur = nk.locale.get(`${key}.preview.image.blur`)) : null;
+        nk.locale.get(`check:${key}.preview.image.opacity`) ? (previewParams.image.opacity = nk.locale.get(`${key}.preview.image.opacity`)) : null;
+        nk.locale.get(`check:${key}.preview.image.h`) ? (previewParams.image.h = nk.locale.get(`${key}.preview.image.h`)) : null;
+        nk.locale.get(`check:${key}.preview.content`) ? (previewParams.content = {
+          text: nk.locale.get(`check:${key}.preview.content`),
           key: `${key}.preview.content`
         }) : null;
-        nkLocale.get(`check:${key}.preview.subscript`) ? (previewParams.subscript = {
-          text: nkLocale.get(`check:${key}.preview.subscript`),
+        nk.locale.get(`check:${key}.preview.subscript`) ? (previewParams.subscript = {
+          text: nk.locale.get(`check:${key}.preview.subscript`),
           key: `${key}.preview.subscript`
         }) : null;
         href && (previewParams.link = {
@@ -252,8 +252,8 @@ if (isMobileDevice() !== true) {
         });
       } else {
         tooltip = new tooltip_element({
-          tooltip: nkLocale.get(key) ? nkLocale.get(key) : key,
-          tooltip_key: nkLocale.get(`${key}`) ? key : null,
+          tooltip: nk.locale.get(key) ? nk.locale.get(key) : key,
+          tooltip_key: nk.locale.get(`${key}`) ? key : null,
           tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
         });
       }

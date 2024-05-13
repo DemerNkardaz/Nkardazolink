@@ -4,8 +4,8 @@ nk.skins.check = function (type) {
   const preference = nk.settingConfig.get('skin');
   const skinName = nk.skins.themes[preference] ? (type === 'url' ? nk.skins.themes[preference].url : nk.skins.themes[preference].name) : 'Byakujou';
   if (type === 'loc') return `Skins.${skinName}`;
-  if (type === 'run') return nkLocale.get(`Skins.${skinName}`);
-  if (type === 'emoji') return `${nk.skins.themes[preference].emoji}&ensp;${nkLocale.get(`Skins.${skinName}`)}`;
+  if (type === 'run') return nk.locale.get(`Skins.${skinName}`);
+  if (type === 'emoji') return `${nk.skins.themes[preference].emoji}&ensp;${nk.locale.get(`Skins.${skinName}`)}`;
   if (type !== 'loc' || type === 'emoji') return skinName;
 };
 
@@ -66,7 +66,7 @@ nk.skins.set = function (skin) {
 
               $('.person-banner, body').each(function () { $(this).removeClass(previousSkin).addClass(newSkin); });
               $('[data-key="Skins.Current"]').hide('slow', function () {
-                setTimeout(function () { $('[data-key="Skins.Current"]').html(nkLocale.get('Skins.Current')).show('slow'); }, 200);
+                setTimeout(function () { $('[data-key="Skins.Current"]').html(nk.locale.get('Skins.Current')).show('slow'); }, 200);
               })
             });
           }

@@ -96,7 +96,7 @@ window.nkUI.itemPropArray = function (source) {
             class: 'kamon',
             category: category.category,
             rarity: statuses[item.status],
-            title: { text: nkLocale.entity(item.clan_names), key: "clan_names" },
+            title: { text: nk.locale.entity(item.clan_names), key: "clan_names" },
             image: { src: `${imageFolder}${item.image}${thumb}` },
             multiextension: item.multiextension ? item.multiextension : null,
           }
@@ -139,7 +139,7 @@ window.descedationMap = function (source) {
   return map;
 }
 $(document).on('full_data_loaded', function () {
-  nk.url.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(kamonItem));
+  nk.url.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(nk.items.kamon));
 });
 
 window.downloadDATA = function (varToDownload) {
@@ -185,7 +185,7 @@ $(document).on('input', '[nk-prop-search]', function () {
       const clan = correctedValue.pop();
       //console.log(clan);
       itemProps.each(function () {
-        let tagsSource = `${$(this).attr('data-prop-class')}Item`;
+        let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
         tagsSource = eval(tagsSource);
 
 
@@ -220,7 +220,7 @@ $(document).on('input', '[nk-prop-search]', function () {
 
     } else {
       itemProps.each(function () {
-        let tagsSource = `${$(this).attr('data-prop-class')}Item`;
+        let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
         tagsSource = eval(tagsSource);
         let entity = $(this).attr('data-entity');
         $.each(tagsSource.root, function (_, category) {

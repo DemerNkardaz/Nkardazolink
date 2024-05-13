@@ -1,5 +1,7 @@
 window.nk = {};
 nk.skins = {};
+nk.locale = {};
+nk.items = {};
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
 window.parseUrlParameter = function (name) {
@@ -232,8 +234,18 @@ window.DataExtend = function (dataArray, isPromise) {
         $.getJSON(dataArray.source)
           .done(function (json) {
             if (typeof dataArray.as !== 'undefined') {
-              window[dataArray.as] = json;
-              loadedData.push({ as: data.as, source: data.source });
+              if (typeof dataArray.to !== 'undefined') {
+                const nestedProperties = dataArray.to.split('.');
+                let nestingWindow = window;
+                for (const property of nestedProperties) {
+                  if (!nestingWindow[property]) { nestingWindow[property] = {}; } nestingWindow = nestingWindow[property];
+                }
+                nestingWindow[dataArray.as] = json;
+                console.log(nestingWindow);
+              } else {
+                window[dataArray.as] = json;
+              }
+              loadedData.push({ as: data.as, source: data.source, to: data.to });
             }
             resolve(loadedData);
           })
@@ -251,12 +263,21 @@ window.DataExtend = function (dataArray, isPromise) {
     if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
       $.getJSON(dataArray.source, function (json) {
         if (typeof dataArray.as !== 'undefined') {
-          window[dataArray.as] = json;
+          if (typeof dataArray.to !== 'undefined') {
+            const nestedProperties = dataArray.to.split('.');
+            let nestingWindow = window;
+            for (const property of nestedProperties) {
+              if (!nestingWindow[property]) { nestingWindow[property] = {}; } nestingWindow = nestingWindow[property];
+            }
+            nestingWindow[dataArray.as] = json;
+          } else {
+            window[dataArray.as] = json;
+          }
         }
     
       }).done(function () {
         $(document).trigger(`${dataArray.as}_loaded`);
-        console.buildType(`[DATA_IN] → “${dataArray.as}” : loaded with “${dataArray.source}”`, 'success');
+        console.buildType(`[DATA_IN] → “${dataArray.as}” : loaded with “${dataArray.source}”${dataArray.to ? ` : → “${dataArray.to}”` : ''}`, 'success');
 
       });
     } else {
@@ -458,7 +479,7 @@ window.pageTriggerCallback = function (callback) {
   }
 };
 window.contentLoadCallback = function (callback) {
-  let variable = `${nk.url.mode && nk.url.select ? `${nk.url.mode}${nk.url.select}Item` : (nk.url.mode ? `${nk.url.mode}Item` : 'defaultItem')}`;
+  let variable = `${nk.url.mode && nk.url.select ? `${nk.url.mode}${nk.url.select}` : (nk.url.mode ? `${nk.url.mode}` : 'default')}`;
   if (nk.url.mode) {
     $(document).on(`${variable}_loaded`, function () {
       callback();

@@ -18,10 +18,10 @@ $(document).on('full_data_loaded', function () {
     if (!key) return;
     if (nk.url.mode && nk.url.select) {
       newKey = key.replace('default', nk.url.mode.toLowerCase() + nk.url.select.toLowerCase());
-      nkLocale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
+      nk.locale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
     } else if (nk.url.mode) {
       newKey = key.replace('default', nk.url.mode.toLowerCase());
-      nkLocale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
+      nk.locale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
     } else {
       return;
     }
@@ -31,26 +31,45 @@ $(document).on('full_data_loaded', function () {
 function uLang(keyMap) {
   const nestedKeys = keyMap.get('key').split('.');
   let sourceLink, sourceLang, localisedString;
+  let sourceName = keyMap.get('source');
+  if (sourceName && sourceName.includes('.')) {
+      const nestedSource = sourceName.split('.');
+      let currentSource = window;
+      for (let i = 0; i < nestedSource.length; i++) {
+          const prop = nestedSource[i];
+          if (currentSource.hasOwnProperty(prop)) {
+              currentSource = currentSource[prop];
+          } else {
+              console.buildType(`Property ${prop} not found in ${sourceName}`, 'error');
+              return null;
+          }
+      }
+    sourceLink = currentSource;
+  } else {
+    sourceLink = window[sourceName];
+  }
 
-  ((keyMap) => {
-    const sourceName = keyMap.get('source');
-    if (sourceName && window.hasOwnProperty(sourceName)) {
-      sourceLink = window[sourceName];
-      sourceLang = (keyMap.get('mode') !== null && (nk.langs.supported.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nk.settingConfig.get('lang')];
-      if (!sourceLang) {
-        for (let lang in sourceLink) {
-          if (sourceLink.hasOwnProperty(lang)) {
-            if (sourceLink[lang].hasOwnProperty(nestedKeys[0])) {
-              sourceLang = sourceLink[lang];
-              break;
-            }
+  if (sourceLink === undefined || sourceLink === null) {
+    sourceLink = nk.locale[sourceName];
+  }
+
+
+  if (sourceName) {
+    sourceLang = (keyMap.get('mode') !== null && (nk.langs.supported.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nk.settingConfig.get('lang')];
+    if (!sourceLang) {
+      for (let lang in sourceLink) {
+        if (sourceLink.hasOwnProperty(lang)) {
+          if (sourceLink[lang].hasOwnProperty(nestedKeys[0])) {
+            sourceLang = sourceLink[lang];
+            break;
           }
         }
       }
-    } else {
-      console.buildType(`Variable ${sourceName} not found in global scope`, 'error');
     }
-  })(keyMap);
+  } else {
+    console.buildType(`Variable ${sourceName} not found in global scope`, 'error');
+  }
+
     
   localisedString = sourceLang;
   for (let i = 0; i < nestedKeys.length; i++) {
@@ -153,7 +172,7 @@ function uLang(keyMap) {
   return keyMap.get('raw') === true ? localisedString : localisedString.unpackText();
 }
 
-window.nkLocale = {
+window.nk.locale = {
   get: function (key, cut) {
     function cutter(str) {
       cutsLibrary.forEach(pair => {
@@ -220,7 +239,7 @@ window.nkLocale = {
   }
 }
 
-window.nkLocale.langUpdate = function ({ target, source } = {}) {
+window.nk.locale.update = function ({ target, source } = {}) {
   let sourceName;
   let keyElements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
   $('*').filter(function () {
@@ -241,7 +260,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
         let imageKey = $(this).attr('data-key-image');
         let cutKey = $(this).attr('data-key-cutter');
         let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
-        let getLocale = cutKey ? nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nkLocale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
+        let getLocale = cutKey ? nk.locale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nk.locale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
         let interpolatedLocale = eval('`' + getLocale + '`');
 
         if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
@@ -250,13 +269,13 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
         if (altKey) $(this).attr('alt', interpolatedLocale);
         if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
         if (imageKey) {
-          $(this).attr('src', nkLocale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
+          $(this).attr('src', nk.locale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
           let folder = imageKey.replace('.src', '');
           console.log(folder);
-          nkLocale.get(`check:${folder}.shift`) ? $(this).css('--shift', nkLocale.get(`${folder}.shift`)) : $(this).css('--shift', '');
-          nkLocale.get(`check:${folder}.opacity`) ? $(this).css('--image-opacity', nkLocale.get(`${folder}.opacity`)) : $(this).css('--image-opacity', '');
-          nkLocale.get(`check:${folder}.h`) ? $(this).closest('.tooltip--previews__image-wrapper').css('--h', nkLocale.get(`${folder}.h`)) : $(this).closest('.tooltip--previews__image-wrapper').css('--h', '');
-          nkLocale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nkLocale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
+          nk.locale.get(`check:${folder}.shift`) ? $(this).css('--shift', nk.locale.get(`${folder}.shift`)) : $(this).css('--shift', '');
+          nk.locale.get(`check:${folder}.opacity`) ? $(this).css('--image-opacity', nk.locale.get(`${folder}.opacity`)) : $(this).css('--image-opacity', '');
+          nk.locale.get(`check:${folder}.h`) ? $(this).closest('.tooltip--previews__image-wrapper').css('--h', nk.locale.get(`${folder}.h`)) : $(this).closest('.tooltip--previews__image-wrapper').css('--h', '');
+          nk.locale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nk.locale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
         }
       } else {
         let entity = $(this).closestParent('[data-entity]')
@@ -268,7 +287,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
         }
         let entityType = entity.attr('data-prop-class');
         let entityCategory = entity.attr('data-prop-category');
-        let localeSource = `${entityType}Item`;
+        let localeSource = `nk.items.${entityType}`;
         localeSource = eval(localeSource);
         if (localeSource) {
           $.each(localeSource.root, function (_, category) {
@@ -314,7 +333,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
             }
           });
         } else {
-          console.buildType(`[ITEMS] → ${entityType}Item source not found for ${entityType}`, 'error');
+          console.buildType(`[ITEMS] → nk.items.${entityType} source not found for ${entityType}`, 'error');
         }
       }
     });
@@ -340,7 +359,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
 };
 
 
-window.nkLocale.switch = function (lang) {
+window.nk.locale.switch = function (lang) {
   const switchPromise = new Promise((resolve, reject) => {
     try {
       const language = lang.toLowerCase();
@@ -358,18 +377,18 @@ window.nkLocale.switch = function (lang) {
   });
 
   switchPromise.then(function () {
-    nkLocale.langUpdate();
+    nk.locale.update();
   }).catch(function (error) {
     console.error('Language switch failed:', error);
   });
 }
 
 
-window.cyclic_language = function () {
+nk.locale.cyclicSwitch = function () {
   let index = 0;
 
   setInterval(function () {
-    nkLocale.switch(nk.langs.supported[index]);
+    nk.locale.switch(nk.langs.supported[index]);
     index = (index + 1) % nk.langs.supported.length;
   }, 1000);
 }

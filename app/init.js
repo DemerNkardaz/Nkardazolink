@@ -114,11 +114,11 @@ waitFor('title', () => {
   }
 });
 
-
 let dataArray = [];
-dataArray.push({ type: 'data',  source: 'app/data/locale.json', as: 'languageJSON'  });
-dataArray.push({ type: 'data',  source: 'app/data/license.json', as: 'licenseJSON'  });
-nk.url.mode && dataArray.push({ type: 'data',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}Item`  });
+dataArray.push({ to: 'nk.locale', source: 'app/data/miscellaneous.json', as: 'miscellaneous'  });
+dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json', as: 'languageJSON'  });
+nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON'  });
+nk.url.mode && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
 let dataTimer;
 DataExtend(dataArray, true).then((loadedData) => {
   const loadingPromise = new Promise((resolve, reject) => {

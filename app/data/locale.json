@@ -3,14 +3,14 @@
     "linkIcon": "<a class=\"inline-link-icon\" href=\"$(place_link)\" target=\"_blank\"><img class=\"me-2\" width=\"20px\" alt=\"\" src=\"$(place_img)\">$(place_text)</a>"
   },
   "common": {
-    "RU": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': 'Русский'}, { '1': nkLocale.get('Languages.Russia') }]} ) }</span>",
-    "EN": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': 'English'}, { '1': nkLocale.get('Languages.UK/USA') }]} ) }</span>",
-    "JA": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': '日本語'}, { '1': nkLocale.get('Languages.Japan') }]} ) }</span>",
-    "ZH": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': '简体中文'}, { '1': nkLocale.get('Languages.China') }]} ) }</span>",
-    "KO": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': '한국어'}, { '1': nkLocale.get('Languages.Korea') }]} ) }</span>",
-    "VI": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': 'Tiếng Việt'}, { '1': nkLocale.get('Languages.Vietnam') }]} ) }</span>",
-    "MO": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': 'Молдовеняскэ'}, { '1': nkLocale.get('Languages.Moldova') }]} ) }</span>",
-    "RO": "<span class=\"lang-tooltip\">${ nkLocale.get( { key: 'Languages.template', placements: [{ '0': 'Română'}, { '1': nkLocale.get('Languages.Romania') }]} ) }</span>",
+    "RU": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': 'Русский'}, { '1': nk.locale.get('Languages.Russia') }]} ) }</span>",
+    "EN": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': 'English'}, { '1': nk.locale.get('Languages.UK/USA') }]} ) }</span>",
+    "JA": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': '日本語'}, { '1': nk.locale.get('Languages.Japan') }]} ) }</span>",
+    "ZH": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': '简体中文'}, { '1': nk.locale.get('Languages.China') }]} ) }</span>",
+    "KO": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': '한국어'}, { '1': nk.locale.get('Languages.Korea') }]} ) }</span>",
+    "VI": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': 'Tiếng Việt'}, { '1': nk.locale.get('Languages.Vietnam') }]} ) }</span>",
+    "MO": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': 'Молдовеняскэ'}, { '1': nk.locale.get('Languages.Moldova') }]} ) }</span>",
+    "RO": "<span class=\"lang-tooltip\">${ nk.locale.get( { key: 'Languages.template', placements: [{ '0': 'Română'}, { '1': nk.locale.get('Languages.Romania') }]} ) }</span>",
     "Meta_Pereferences": {
       "meta": {
         "url": {
@@ -37,7 +37,7 @@
     "Nkardaz": {
       "name": "Демер Нкардаз",
       "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
-      "copyright": "&copy;&nbsp;${nkLocale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
+      "copyright": "&copy;&nbsp;${nk.locale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
     },
     "Languages": {
       "template": "Язык «$(place_0)»<br>$(place_1)",
@@ -69,13 +69,13 @@
     "Tess": [
       "Тесс",
       "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">",
-      "${nkLocale.get('Nkardaz.name')}",
-      "${nkLocale.get('test')}"
+      "${nk.locale.get('Nkardaz.name')}",
+      "${nk.locale.get('test')}"
     ],
     "C": {
       "test": [
         "Тест",
-        "${nkLocale.get(\"links.Ficbook\")}"
+        "${nk.locale.get(\"links.Ficbook\")}"
       ]
     },
     "links": {
@@ -99,11 +99,11 @@
     },
     "Skins": {
       "Current": "Текущий вид: ${nk.skins.check('run')}",
-      "Byakujou": "«Бякудзё»${nkLocale.get('ja:Skins.Byakujou')}",
-      "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
-      "Akatsuki-no Kurai": "«Акацўки-но Курай»${nkLocale.get('ja:Skins.Akatsuki-no Kurai')}",
-      "Sekiban": "«Сэкибан»${nkLocale.get('ja:Skins.Sekiban')}",
-      "Azumatsuyu": "«Адзумацую»${nkLocale.get('ja:Skins.Azumatsuyu')}"
+      "Byakujou": "«Бякудзё»${nk.locale.get('ja:Skins.Byakujou')}",
+      "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nk.locale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Akatsuki-no Kurai": "«Акацўки-но Курай»${nk.locale.get('ja:Skins.Akatsuki-no Kurai')}",
+      "Sekiban": "«Сэкибан»${nk.locale.get('ja:Skins.Sekiban')}",
+      "Azumatsuyu": "«Адзумацую»${nk.locale.get('ja:Skins.Azumatsuyu')}"
     },
     "console": "КОНСОЛЬ : Системный программный интерфейс",
     "test": [
@@ -199,7 +199,7 @@
     "Nkardaz": {
       "name": "Demer Nkardaz",
       "fursona": "Khertahiron — Original Character (Person)",
-      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${nkLocale.get('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
+      "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${nk.locale.get('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
     },
     "prevtest": {
       "preview": {
@@ -248,12 +248,12 @@
       "Hachiman-jin_Tooltip": "<span>The Hachiman, The Shinto(⁛macron⁛) god of war</span>"
     },
     "Skins": {
-      "Current": "Сurrent view: ${nkLocale.get(nk.skins.check('loc'))}",
-      "Byakujou": "“Byakujo(⁛macron_0.255⁛)”${nkLocale.get('ja:Skins.Byakujou')}",
-      "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
-      "Akatsuki-no Kurai": "“Akatsuki-no Kurai”${nkLocale.get('ja:Skins.Akatsuki-no Kurai')}",
-      "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
-      "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}"
+      "Current": "Сurrent view: ${nk.locale.get(nk.skins.check('loc'))}",
+      "Byakujou": "“Byakujo(⁛macron_0.255⁛)”${nk.locale.get('ja:Skins.Byakujou')}",
+      "Aoguro-no Getsu": "“Aoguro-no Getsu”${nk.locale.get('ja:Skins.Aoguro-no Getsu')}",
+      "Akatsuki-no Kurai": "“Akatsuki-no Kurai”${nk.locale.get('ja:Skins.Akatsuki-no Kurai')}",
+      "Sekiban": "“Sekiban”${nk.locale.get('ja:Skins.Sekiban')}",
+      "Azumatsuyu": "“Azumatsuyu”${nk.locale.get('ja:Skins.Azumatsuyu')}"
     },
     "ContentLinks": "Content",
     "SocialLinks": "Socialus",
@@ -272,11 +272,11 @@
     "Anime_BlackClover_Tooltip": "“Black Clover” Anime",
     "Anime_Heike-monogatari": "Peropicnic artist, “Heike-monogatari” Anime",
     "Hachiman-jin_Tooltip": "Hachiman, The God of War",
-    "Byakujou": "“Byakujou”${nkLocale.get('ja:Skins.Byakujou')}",
-    "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
-    "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
-    "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}",
-    "CurrentSkin": "Current view: ${nkLocale.get(nk.skins.check())}",
+    "Byakujou": "“Byakujou”${nk.locale.get('ja:Skins.Byakujou')}",
+    "Aoguro-no Getsu": "“Aoguro-no Getsu”${nk.locale.get('ja:Skins.Aoguro-no Getsu')}",
+    "Sekiban": "“Sekiban”${nk.locale.get('ja:Skins.Sekiban')}",
+    "Azumatsuyu": "“Azumatsuyu”${nk.locale.get('ja:Skins.Azumatsuyu')}",
+    "CurrentSkin": "Current view: ${nk.locale.get(nk.skins.check())}",
     "console": "CONSOLE : System user interface",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
     "save_search_result": "Save search input",
@@ -307,10 +307,10 @@
     "Nkardaz": {
       "name": "デマル・ナカルダス",
       "fursona": "ケルタヒロヌ、原キャラ（化身）",
-      "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${nkLocale.get('Nkardaz.name')}・全著作権所有｜"
+      "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${nk.locale.get('Nkardaz.name')}・全著作権所有｜"
     },
     "Skins": {
-      "Current": "現在の眺め：${nkLocale.get(nk.skins.check('loc'))}",
+      "Current": "現在の眺め：${nk.locale.get(nk.skins.check('loc'))}",
       "Byakujou": "「白城」",
       "Aoguro-no Getsu": "「青黒月」",
       "Akatsuki-no Kurai": "「暁の暗い」",
