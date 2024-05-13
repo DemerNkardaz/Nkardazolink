@@ -60,14 +60,14 @@ TREE IS A LINKTREE
 */
 
 
-window.nkSettings = new Map([
-  ["save_search_result", (nk.setting('save_search_result').load() ? nk.setting('save_search_result').load() : 'true')],
-  ["save_selected_item", (nk.setting('save_selected_item').load() ? nk.setting('save_selected_item').load() : 'false')],
-  ["turn_off_preloader", (nk.setting('turn_off_preloader').load() ? nk.setting('turn_off_preloader').load() : 'false')],
-  ["ambience_off", (nk.setting('ambience_off').load() ? nk.setting('ambience_off').load() : 'false')],
+nk.settingConfig = new Map([
+  ["save_search_result", (nk.setting('save_search_result').load() ? nk.setting('save_search_result').load() : true)],
+  ["save_selected_item", (nk.setting('save_selected_item').load() ? nk.setting('save_selected_item').load() : false)],
+  ["turn_off_preloader", (nk.setting('turn_off_preloader').load() ? nk.setting('turn_off_preloader').load() : false)],
+  ["ambience_off", (nk.setting('ambience_off').load() ? nk.setting('ambience_off').load() : false)],
   // Skin Settings
   ["skin", (nk.setting('skin').load() ? nk.setting('skin').load() : 'byakujou')],
-  ["change_skin_by_time", (nk.setting('change_skin_by_time').load() ? nk.setting('change_skin_by_time').load() : 'false')],
+  ["change_skin_by_time", (nk.setting('change_skin_by_time').load() ? nk.setting('change_skin_by_time').load() : false)],
   // Other customizations
   ["current_banner", (nk.setting('current_banner').load() ? nk.setting('current_banner').load() : 'asanoha')],
   // Lang
@@ -75,7 +75,7 @@ window.nkSettings = new Map([
 ]);
 
 
-if (nkSettings.get('save_search_result') === 'true') {
+if (nk.settingConfig.get('save_search_result') === true) {
   window.latestSearches = {
     "kamon": (nk.store('latestSearches.kamon').load() ? nk.store('latestSearches.kamon').load() : null),
     "banners": (nk.store('latestSearches.banners').load() ? nk.store('latestSearches.banners').load() : null),
@@ -88,7 +88,7 @@ if (nkSettings.get('save_search_result') === 'true') {
   };
 };
 
-if (nkSettings.get('save_selected_item') === 'true') {
+if (nk.settingConfig.get('save_selected_item') === true) {
   window.selectedItems = {
     "kamon": (nk.store('selectedItems.kamon').load() ? nk.store('selectedItems.kamon').load() : null),
     "banners": (nk.store('selectedItems.banners').load() ? nk.store('selectedItems.banners').load() : null),
@@ -105,5 +105,5 @@ if (nkSettings.get('save_selected_item') === 'true') {
 
 
 
-(nk.url.lang && nk.langs.supported.includes(nk.url.lang)) && nkSettings.set('lang', nk.url.lang);
+(nk.url.lang && nk.langs.supported.includes(nk.url.lang)) && nk.settingConfig.set('lang', nk.url.lang);
 

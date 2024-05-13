@@ -144,13 +144,13 @@ nk.store = function (key) {
 }
 nk.setting = function (key) {
   let methods = {};
-  methods.save = function (value, offNKSettings) {
+  methods.save = function (value, offConfigurate) {
     const previousSetting = storageOperations(`savedSettings.${key}`, 'load') || null;
-    const previousMap = nkSettings.get(key) || null;
+    const previousMap = nk.settingConfig.get(key) || null;
     const savePromise = new Promise((resolve, reject) => {
       try {
         storageOperations(`savedSettings.${key}`, 'set', typeof value === 'string' ? value : JSON.stringify(value));
-        offNKSettings !== true && nkSettings.set(key, value);
+        offConfigurate !== true && nk.settingConfig.set(key, value);
         resolve();
       } catch (err) {
         reject(err);
@@ -158,7 +158,7 @@ nk.setting = function (key) {
     });
 
     savePromise.then(function () {
-      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${nk.setting(key).load()}”`, 'info');
+      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nk.settingConfig.get(key)}” & Store “${previousSetting} → ${nk.setting(key).load()}”`, 'info');
     }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
 
     return new Promise((resolve) => {
@@ -168,13 +168,16 @@ nk.setting = function (key) {
     });
   };
   methods.load = function (promise) {
-    const result = storageOperations(`savedSettings.${key}`, 'load');
+    let result = storageOperations(`savedSettings.${key}`, 'load');
+
+    if (typeof result === 'string') { try { result = JSON.parse(result) } catch (err) {} };
+
     return promise === true ? Promise.resolve(result) : result;
   };
 
   methods.remove = function () {
     const previousSetting = storageOperations(`savedSettings.${key}`, 'load') || null;
-    const previousMap = nkSettings.get(key) || null;
+    const previousMap = nk.settingConfig.get(key) || null;
     const removePromise = new Promise((resolve, reject) => {
       try {
         storageOperations(`savedSettings.${key}`, 'remove');
@@ -185,7 +188,7 @@ nk.setting = function (key) {
     });
 
     removePromise.then(function () {
-      console.buildType(`[SETTING] → Removed setting: ${key} = “${previousSetting}” : Map “${previousMap} → ${nkSettings.get(key)}”`, 'important');
+      console.buildType(`[SETTING] → Removed setting: ${key} = “${previousSetting}” : Map “${previousMap} → ${nk.settingConfig.get(key)}”`, 'important');
     }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
     return new Promise((resolve) => {
       const valueBefore = previousSetting !== null ? previousSetting : previousMap;

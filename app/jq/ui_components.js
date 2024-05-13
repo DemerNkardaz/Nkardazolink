@@ -276,7 +276,7 @@ window.nkUI = {
     let gArray = [];
     for (let key in nk.langs.list) {
       const language = nk.langs.list[key];
-      const isSelected = nkSettings.get('lang') === key;
+      const isSelected = nk.settingConfig.get('lang') === key;
       let component;
       const emoji = `<span class="ms-auto emoji_font">${language.emoji}</span>`;
       if (variant === 'row') {
@@ -294,7 +294,7 @@ window.nkUI = {
   },
 
   preLoader: async function ({ target, hiding_role, enable_percent, stopTimer } = {}) {
-    const logo = nkSettings.get('change_skin_by_time') === 'true' ? setLogoByTime() : setLogoBySkin();
+    const logo = nk.settingConfig.get('change_skin_by_time') === true ? nk.skins.logo().dayTime() : nk.skins.logo().onSkin();
     const component = `
     <page-preloader id="preloader" hiding_role="${hiding_role && hiding_role === 'noscroll' ? 'noscroll' : 'hide'}">
       <div class="preloader-logo" part="preloader-logo"> 
@@ -304,7 +304,7 @@ window.nkUI = {
       </div>
       <div class="preloader-progress" part="preloader-progress">
         <div class="progress-value" part="progress-value"></div>
-        <p style="width: 160px"><span class="progress-label">${loadingText[nkSettings.get('lang')]}</span><br>
+        <p style="width: 160px"><span class="progress-label">${loadingText[nk.settingConfig.get('lang')]}</span><br>
           <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
         </p>
       </div>
@@ -316,15 +316,11 @@ window.nkUI = {
       const siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       const siblings = $(preloader).siblings(':not(#preloader)');
 
-      const loadmarker_style = (nkSettings.get('lang') === 'ja' || nkSettings.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      const loadmarker_style = (nk.settingConfig.get('lang') === 'ja' || nk.settingConfig.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
-      //$(document).on('setSkin', function () { 
-      //  const skinName = CheckSkin('url');
-      //  skinName === 'aogurogetsu' ? preloader_logo.attr('src', 'resources/svg/hangetsu.svg') : preloader_logo.attr('src', 'resources/svg/NkardazKamon.svg');
-      //});
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         preloader.find('br').nextAll().remove();
-        preloader.find('.progress-label').html(`${executingText[nkSettings.get('lang')]}<span class="${loadmarker_style}"></span>`);
+        preloader.find('.progress-label').html(`${executingText[nk.settingConfig.get('lang')]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {
           setTimeout(() => {
             siblings.removeClass(siblingClass);
@@ -386,7 +382,7 @@ class link_block extends HTMLElement {
       constructor += `</span>`;
       return constructor;
     }
-    const component = `<div class="link-plate-wrapper${nkSettings.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
+    const component = `<div class="link-plate-wrapper${nk.settingConfig.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
     <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link-plate ${LINK_Class}">
       ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `data-tooltip-key="${Tooltip.key}" data-tooltip-pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''} 
       ${LINK_Class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
@@ -766,7 +762,7 @@ window.ui_components = {
         </div>
         <div class="preloader-progress">
           <div id="preloader-progress" class="progress_bar progress-value" value="0"></div>
-          <p style="width: 160px"><span class="progress-label">${loadingText[nkSettings.get('lang')]}</span><br>
+          <p style="width: 160px"><span class="progress-label">${loadingText[nk.settingConfig.get('lang')]}</span><br>
             <span class="loadmarker-slashes"></span><span>&ensp;:&ensp;</span><span class="loadmarker-percent">0</span>
           </p>
         </div>
@@ -774,14 +770,14 @@ window.ui_components = {
     );
     $('body').prepend(component).promise().done(() => {
       var preloader = $('#preloader');
-      var loadmarker_style = (nkSettings.get('lang') === 'ja' || nkSettings.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      var loadmarker_style = (nk.settingConfig.get('lang') === 'ja' || nk.settingConfig.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       var siblings = preloader.siblings(':not(#preloader)');
       var siblingClass = (siblingType === 'noscroll') ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       siblings.addClass(siblingClass);
 
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         preloader.find('br').nextAll().remove();
-        preloader.find('.progress-label').html(`${executingText[nkSettings.get('lang')]}<span class="${loadmarker_style}"></span>`);
+        preloader.find('.progress-label').html(`${executingText[nk.settingConfig.get('lang')]}<span class="${loadmarker_style}"></span>`);
         if (!stopTimer) {
           setTimeout(() => {
             siblings.removeClass(siblingClass);
@@ -862,7 +858,7 @@ class console_run extends HTMLElement {
   constructor() {
     super();
     const component = `
-    <header class="cmd_header forceDrag"><span data-key="console">${languageJSON[nkSettings.get('lang')]['console']}</span><span class="close">close</span></header>
+    <header class="cmd_header forceDrag"><span data-key="console">${languageJSON[nk.settingConfig.get('lang')]['console']}</span><span class="close">close</span></header>
     <section class="cmd_input"><span class="cmd_line"><label>PROMPT : ></label><textarea spellcheck="false" type="text" rows="1"></textarea></span></section>
     <footer class="cmd_footer"></footer>
     `;

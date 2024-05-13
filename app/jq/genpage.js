@@ -254,13 +254,13 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
 
           } else {
             header = `
-            ${nkSettings.get('skin') === "azumatsuyu" ? `<div class="person-banner-border azumatsuyu wrap_border"></div>` : ''}
-            <div class="person-banner-wrapper ${(nkSettings.get('skin') === "sekiban" || nkSettings.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nkSettings.get('skin')}" style="--banner: url(${nkPreferences.banner[nkSettings.get('current_banner')].url});" data-banner="${nkSettings.get('current_banner')}"></div></div>
+            ${nk.settingConfig.get('skin') === "azumatsuyu" ? `<div class="person-banner-border azumatsuyu wrap_border"></div>` : ''}
+            <div class="person-banner-wrapper ${(nk.settingConfig.get('skin') === "sekiban" || nk.settingConfig.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nk.settingConfig.get('skin')}" style="--banner: url(${nkPreferences.banner[nk.settingConfig.get('current_banner')].url});" data-banner="${nk.settingConfig.get('current_banner')}"></div></div>
             <div class="person-avatar">
-              <span class="person-avatar__image-wrapper ${nkSettings.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
+              <span class="person-avatar__image-wrapper ${nk.settingConfig.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
                 <img class="person-avatar__image" src="resources/cherepkhed32_thumb.png" alt="${nkLocale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">
               </span>
-              ${nkSettings.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">` : ''}
+              ${nk.settingConfig.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">` : ''}
             </div>
             <div>Теставые букавы<span>${nkLocale.get('test')}</span><br/><span data-key="C.test"></span>${nkLocale.get('C.test')}<br>
               ${repoStatus.join('<br>')}

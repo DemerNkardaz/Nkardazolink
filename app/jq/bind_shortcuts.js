@@ -1,7 +1,7 @@
 $(document).on('click', '[nk-page]', function (e) {
   e.preventDefault();
   var page = $(this).attr('nk-page');
-  if (nkSettings.get('turn_off_preloader') !== 'true') {
+  if (nk.settingConfig.get('turn_off_preloader') !== true) {
     ui_components.preloader('noscroll', () => {
       $('#preloader').css('opacity', 0).transition({ opacity: 1}, 300);
       setTimeout(function () {
@@ -97,7 +97,7 @@ $(document).on('click', '[data-language_selector]', function () {
 
 /* ------------------- SELECTS ------------------- */
 
-if (nkSettings.get('save_selected_item') !== 'true') {
+if (nk.settingConfig.get('save_selected_item') !== true) {
   $(document).on('full_data_loaded', function () {
     $('item-prop').eq(0).click();
   });

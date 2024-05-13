@@ -98,7 +98,7 @@
       "Hachiman-jin_Tooltip": "Хатиман, синтоистский бог войны"
     },
     "Skins": {
-      "Current": "Текущий вид: ${CheckSkin('run')}",
+      "Current": "Текущий вид: ${nk.skins.check('run')}",
       "Byakujou": "«Бякудзё»${nkLocale.get('ja:Skins.Byakujou')}",
       "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
       "Akatsuki-no Kurai": "«Акацўки-но Курай»${nkLocale.get('ja:Skins.Akatsuki-no Kurai')}",
@@ -143,7 +143,7 @@
       "turn_off_preloader": "Отключить анимацию предзагрузки",
       "change_skin_by_time": "Смена вида по времени суток",
       "current_banner": "Текущий орнамент",
-      "skins": "${CheckSkin('emoji').removeCJK().removeQuotes()}",
+      "skins": "${nk.skins.check('emoji').removeCJK().removeQuotes()}",
       "ambience_off": "Отключить фоновую музыку"
     },
 
@@ -248,7 +248,7 @@
       "Hachiman-jin_Tooltip": "<span>The Hachiman, The Shinto(⁛macron⁛) god of war</span>"
     },
     "Skins": {
-      "Current": "Сurrent view: ${nkLocale.get(CheckSkin('loc'))}",
+      "Current": "Сurrent view: ${nkLocale.get(nk.skins.check('loc'))}",
       "Byakujou": "“Byakujo(⁛macron_0.255⁛)”${nkLocale.get('ja:Skins.Byakujou')}",
       "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
       "Akatsuki-no Kurai": "“Akatsuki-no Kurai”${nkLocale.get('ja:Skins.Akatsuki-no Kurai')}",
@@ -276,7 +276,7 @@
     "Aoguro-no Getsu": "“Aoguro-no Getsu”${nkLocale.get('ja:Skins.Aoguro-no Getsu')}",
     "Sekiban": "“Sekiban”${nkLocale.get('ja:Skins.Sekiban')}",
     "Azumatsuyu": "“Azumatsuyu”${nkLocale.get('ja:Skins.Azumatsuyu')}",
-    "CurrentSkin": "Current view: ${nkLocale.get(CheckSkin())}",
+    "CurrentSkin": "Current view: ${nkLocale.get(nk.skins.check())}",
     "console": "CONSOLE : System user interface",
     "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
     "save_search_result": "Save search input",
@@ -310,7 +310,7 @@
       "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${nkLocale.get('Nkardaz.name')}・全著作権所有｜"
     },
     "Skins": {
-      "Current": "現在の眺め：${nkLocale.get(CheckSkin('loc'))}",
+      "Current": "現在の眺め：${nkLocale.get(nk.skins.check('loc'))}",
       "Byakujou": "「白城」",
       "Aoguro-no Getsu": "「青黒月」",
       "Akatsuki-no Kurai": "「暁の暗い」",

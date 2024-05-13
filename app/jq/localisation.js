@@ -36,7 +36,7 @@ function uLang(keyMap) {
     const sourceName = keyMap.get('source');
     if (sourceName && window.hasOwnProperty(sourceName)) {
       sourceLink = window[sourceName];
-      sourceLang = (keyMap.get('mode') !== null && (nk.langs.supported.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
+      sourceLang = (keyMap.get('mode') !== null && (nk.langs.supported.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nk.settingConfig.get('lang')];
       if (!sourceLang) {
         for (let lang in sourceLink) {
           if (sourceLink.hasOwnProperty(lang)) {
@@ -201,7 +201,7 @@ window.nkLocale = {
     let value;
     let found = false;
     for (let lang in source) {
-      if (source.hasOwnProperty(lang) && lang === nkSettings.get('lang')) {
+      if (source.hasOwnProperty(lang) && lang === nk.settingConfig.get('lang')) {
         value = source[lang];
         found = true;
         break;
@@ -286,7 +286,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
                     }
                     if (!found) {
                       for (let lang in item[key]) {
-                        if (item[key].hasOwnProperty(lang) && lang === nkSettings.get('lang')) {
+                        if (item[key].hasOwnProperty(lang) && lang === nk.settingConfig.get('lang')) {
                           value = item[key][lang];
                           found = true;
                           break;
@@ -336,7 +336,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
     }
   });
 
-  sourcePromise.then(() => { update(); $('html').attr('lang', nkSettings.get('lang')) });
+  sourcePromise.then(() => { update(); $('html').attr('lang', nk.settingConfig.get('lang')) });
 };
 
 
@@ -349,7 +349,7 @@ window.nkLocale.switch = function (lang) {
         return;
       }
       nk.setting('lang').save(language);
-      nkSettings.set('lang', language);
+      nk.settingConfig.set('lang', language);
       resolve();
     } catch (err) {
       console.error('Error while switching language:', err);

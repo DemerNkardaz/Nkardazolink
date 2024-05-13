@@ -257,7 +257,7 @@ $(document).on('click', 'item-prop', function () {
   $(this).reapplyClass('selected', 'item-prop');
 
 
-  if (nkSettings.get('save_selected_item') === 'true') {
+  if (nk.settingConfig.get('save_selected_item') === true) {
     if (entity) {
       if (item === 'kamon') {
         nk.store('selectedItems.kamon', entity).save();

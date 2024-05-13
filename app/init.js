@@ -1,7 +1,7 @@
 (nk.url.mode && !availableModes.includes(nk.url.mode)) ||
 ((nk.url.mode === 'cv') && (!nk.url.select || !availableSelects.includes(nk.url.select))) ? redirect.origin() : null;
 
-nkSettings.get('lang') ? $('html').attr('lang', nkSettings.get('lang')) : $('html').attr('lang', 'ru');
+nk.settingConfig.get('lang') ? $('html').attr('lang', nk.settingConfig.get('lang')) : $('html').attr('lang', 'ru');
 
 window.loadingText = {
   en: 'Loading content',
@@ -100,7 +100,7 @@ window.showLoadPercentage = function () {
 
 
 
-if (nkSettings.get('turn_off_preloader') !== 'true') {
+if (nk.settingConfig.get('turn_off_preloader') !== true) {
   nkUI.preLoader({
     hiding_role: 'hide',
   });
@@ -110,7 +110,7 @@ if (nkSettings.get('turn_off_preloader') !== 'true') {
 waitFor('title', () => {
   var title = document.querySelector('title');
   if (title) {
-    title.textContent = (metaData['title'][nk.url.mode] && metaData['title'][nk.url.mode][nk.url.select]) ? metaData['title'][nk.url.mode][nk.url.select][nkSettings.get('lang')] : (metaData['title'][nk.url.mode] ? metaData['title'][nk.url.mode][nkSettings.get('lang')] : metaData['title']['common'][nkSettings.get('lang')]);
+    title.textContent = (metaData['title'][nk.url.mode] && metaData['title'][nk.url.mode][nk.url.select]) ? metaData['title'][nk.url.mode][nk.url.select][nk.settingConfig.get('lang')] : (metaData['title'][nk.url.mode] ? metaData['title'][nk.url.mode][nk.settingConfig.get('lang')] : metaData['title']['common'][nk.settingConfig.get('lang')]);
   }
 });
 
