@@ -172,7 +172,7 @@ tooltip-element {
   }
 }
 
-.eventLess-Tooltip {
+.tooltip--event-less {
   &::after {
     filter: drop-shadow(0 5px 5px var(--shadow_22a64)) drop-shadow(0 2px 1px var(--bg_00ad));
     background: var(--bg_272830);

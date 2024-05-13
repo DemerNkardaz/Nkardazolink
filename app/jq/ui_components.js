@@ -131,41 +131,6 @@ $(document).on('full_data_loaded', function () {
 });*/
 
 
-window.item_create = function () {
-  var single = true
-  var image = 'resources/svg/NkardazKamon.svg'
-  var image2 = 'external/Ghost_of_Tsushima.jpg'
-  var PROP_ENTITY = 'entity_test'
-  var item_rarity = 'gold'
-  var item_status = '5'
-  var item_group = 'JP'
-
-  var item = new ItemProp({
-    PROP: {
-      entity: 'ent_maru_ni_mittsu_aoi.clan_matsudaira',
-      class: 'kamon',
-      category: 'JA',
-      rarity: 'legendary',
-      image: { src: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira.svg' },
-      title: { text: "Камон", key: "clan_names" }
-    }
-  });
-  $('main').prepend(item);
-  var item2 = new ItemProp({
-    PROP: {
-      class: 'clans',
-      image: { src: 'external/Ghost_of_Tsushima.jpg' },
-      title: { text: "Сакаи", second: '酒井氏' },
-      description: { text: 'Клан Сакаи знаменит защитой острова Цусима от монгольского вторжения.' },
-      icon: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@48px.png',
-    }
-  });
-  $('main').prepend(item2);
-
-};// $(document).on('full_data_loaded', function () { setTimeout(item_create, 1000); });
-
-
-
 class TooltipElement extends HTMLElement {
   constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, tooltip_meta, id } = {}) {
     super();
@@ -311,15 +276,14 @@ $.extend(nk.ui, {
 
     $(target ? target : 'body').prepend(component).promise().done(() => {
       const preloader = $('#preloader');
-      const preloader_logo = preloader.find('.preloader-logo-image');
       const siblingClass = hiding_role === 'noscroll' ? 'noscroll-for-preloader' : 'hidden-for-preloader';
       const siblings = $(preloader).siblings(':not(#preloader)');
 
-      const loadmarker_style = (nk.settingConfig.get('lang') === 'ja' || nk.settingConfig.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
+      const loadmarkerStyle = (nk.settingConfig.get('lang') === 'ja' || nk.settingConfig.get('lang') === 'zh') ? 'loadmarker-dots ja' : 'loadmarker-dots';
       siblings.addClass(siblingClass);
       observeOn('style:--progress:100%', $('.progress-value')[0], function () {
         preloader.find('br').nextAll().remove();
-        preloader.find('.progress-label').html(`${executingText[nk.settingConfig.get('lang')]}<span class="${loadmarker_style}"></span>`);
+        preloader.find('.progress-label').html(`${executingText[nk.settingConfig.get('lang')]}<span class="${loadmarkerStyle}"></span>`);
         if (!stopTimer) {
           setTimeout(() => {
             siblings.removeClass(siblingClass);
@@ -349,7 +313,7 @@ $.extend(nk.ui, {
   tooltipEventLess: function (text, key, pos) {
     let fromData = null;
     if (key.includes('/')) { fromData = key.split('/')[1]; key = key.split('/')[0]; }
-    return `<span ${fromData === 'data' ? `data-key="${key}"` : ''} class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nk.locale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;
+    return `<span ${fromData === 'data' ? `data-key="${key}"` : ''} class="tooltip--event-less${pos ? ` tooltip-${pos}` : ''}" data-tooltip="${nk.locale.get(key)}" data-eless-tooltip-key="${key}">${text}</span>`;
   }
 });
 

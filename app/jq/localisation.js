@@ -241,11 +241,11 @@ window.nk.locale = {
 
 window.nk.locale.update = function ({ target, source } = {}) {
   let sourceName;
-  let keyElements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
+  let keyElements = target ? $(target.selector) : $('[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
   $('*').filter(function () {
     return this.shadowRoot !== null;
   }).each(function () {
-    const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
+    const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
     keyElements = keyElements.add(shadowElements);
   });
 
@@ -256,7 +256,7 @@ window.nk.locale.update = function ({ target, source } = {}) {
         let sourceKey = $(this).attr('data-key-source');
         let dataKey = $(this).attr('data-key');
         let altKey = $(this).attr('alt-key');
-        let eventLessKey = $(this).attr('eventLess-tooltip-key');
+        let eventLessKey = $(this).attr('data-eless-tooltip-key');
         let imageKey = $(this).attr('data-key-image');
         let cutKey = $(this).attr('data-key-cutter');
         let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
@@ -267,7 +267,7 @@ window.nk.locale.update = function ({ target, source } = {}) {
 
         if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META' ? $(this).html(interpolatedLocale) : $(this).attr('content', interpolatedLocale);
         if (altKey) $(this).attr('alt', interpolatedLocale);
-        if (eventLessKey) $(this).attr('eventLess-tooltip', interpolatedLocale);
+        if (eventLessKey) $(this).attr('data-tooltip', interpolatedLocale);
         if (imageKey) {
           $(this).attr('src', nk.locale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
           let folder = imageKey.replace('.src', '');

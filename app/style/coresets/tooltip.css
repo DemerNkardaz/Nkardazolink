@@ -443,7 +443,7 @@
 }
 
 
-.eventLess-Tooltip {
+.tooltip--event-less {
   --tl-mw: 100px;
   --tl-w: 100%;
   --tl-xw: 384px;
@@ -451,7 +451,7 @@
   z-index: 1;
 
   &::after {
-    content: attr(eventLess-tooltip);
+    content: attr(data-tooltip);
     width: clamp(var(--tl-w), var(--tl-mw), var(--tl-xw));
     user-select: none;
     pointer-events: none;
@@ -473,20 +473,20 @@
     transition: all 0.3s ease;
     z-index: 1080;
   }
-  &.tl-bottom {
+  &.tooltip-bottom {
     &::after {
       bottom: auto;
       top: calc(100% + 5px);
     }
   }
-  &.tl-right {
+  &.tooltip-right {
     &::after {
       left: auto;
       right: 50%;
       transform: translateX(50%);
     }
   }
-  &.tl-left {
+  &.tooltip-left {
     &::after {
       left: 50%;
       transform: translateX(-50%);
