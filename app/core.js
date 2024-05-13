@@ -1,4 +1,5 @@
 window.nk = {};
+nk.ui = {};
 nk.skins = {};
 nk.locale = {};
 nk.items = {};

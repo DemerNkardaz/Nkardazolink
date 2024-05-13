@@ -12,7 +12,7 @@ function generateLinks({ linkClass, source } = {}) {
     if (linkClass) {
       link.LINK_Class = linkClass ? linkClass : 'default';
     };
-    lArray.push(new link_block(link));
+    lArray.push(new nk.ui.LinkBlock(link));
   };
   return lArray;
 };
@@ -26,7 +26,7 @@ window.createObject = {
       if (linkClass) {
         link.LINK_Class = linkClass ? linkClass : 'default';
       };
-      lArray.push(new link_block(link));
+      lArray.push(new nk.ui.LinkBlock(link));
     };
     return lArray;
   },
@@ -203,7 +203,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
         try {
           if (nk.url.mode === 'kamon') {
             nk.siteMainContainer.after(
-              new inventory_info_panel({
+              new nk.ui.InventoryInfoPanel({
                 PANEL: {
                   entity: 'ent_maru-ni-mitsu-aoi.clan_matsudaira',
                   name : 'kamon',
@@ -221,7 +221,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             `;
 
             main = `
-            <div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px;">${unpackElementObject(nkUI.itemPropArray(nk.items.kamon))}</div>
+            <div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px;">${unpackElementObject(nk.ui.itemPropArray(nk.items.kamon))}</div>
             <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div><div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px; border: 1px solid #000; padding-top: 8px; height: 400px; width: 100%;" data-drop-site="kamon"></div>`;
             
             
@@ -265,7 +265,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             <div>Теставые букавы<span>${nk.locale.get('test')}</span><br/><span data-key="C.test"></span>${nk.locale.get('C.test')}<br>
               ${repoStatus.join('<br>')}
             </div>
-            <div class="lang-optionOwner">${nkUI.langList('row')}</div>${nk.locale.get('testqu')}<br>
+            <div class="lang-optionOwner">${nk.ui.langList('row')}</div>${nk.locale.get('testqu')}<br>
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
             `;
 
@@ -296,7 +296,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
                 <div class="track-info__time">00:00 / 00:00</div>
                 <div class="track-info__player-progress"></div>
               </div>
-              ${unpackElementObject(new dropdown_element({ content: `${nk.locale.get('MusicCredits')}`, id: 'MusicCredits', hide: false }))}
+              ${unpackElementObject(new nk.ui.DropdownElement({ content: `${nk.locale.get('MusicCredits')}`, id: 'MusicCredits', hide: false }))}
             </span>` : ''}`;
           }
           

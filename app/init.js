@@ -102,9 +102,6 @@ window.showLoadPercentage = function () {
 
 window.showLoadPercentage = function () {
   $(document).trigger('loading_precentage_initialized');
-  let img = document.images,
-      c = 0,
-      tot = img.length;
   let percentElement = document.querySelector('.loadmarker-percent');
   let percentBar = document.querySelector('.progress-value');
   let currentPercentage = 0;
@@ -159,7 +156,7 @@ window.showLoadPercentage = function () {
 
 
   setTimeout(function () {
-
+    let img = document.images, c = 0, tot = img.length;
     function imgLoaded() {
       c += 1;
       let perc = ((100 / tot * c) << 0);
@@ -198,11 +195,7 @@ window.showLoadPercentage = function () {
 
 
 
-if (nk.settingConfig.get('turn_off_preloader') !== true) {
-  nkUI.preLoader({
-    hiding_role: 'hide',
-  });
-};
+if (nk.settingConfig.get('turn_off_preloader') !== true) { nk.ui.preLoader({ hiding_role: 'hide', }); };
 
 
 waitFor('title', () => {

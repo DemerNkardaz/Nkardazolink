@@ -244,14 +244,14 @@ if (isMobileDevice() !== true) {
           src: href,
           target: hrefTarget || '_blank'
         });
-        previewEntity = new tooltip_preview(previewParams);
-        tooltip = new tooltip_element({
+        previewEntity = new nk.ui.TooltipPreviews(previewParams);
+        tooltip = new nk.ui.TooltipElement({
           tooltip: previewEntity,
           tooltip_role: 'preview',
           tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
         });
       } else {
-        tooltip = new tooltip_element({
+        tooltip = new nk.ui.TooltipElement({
           tooltip: nk.locale.get(key) ? nk.locale.get(key) : key,
           tooltip_key: nk.locale.get(`${key}`) ? key : null,
           tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
@@ -534,7 +534,7 @@ if (isMobileDevice() !== true) {
     let imageSource = $(this).siblings('.tooltip--previews__image').attr('src');
     imageSource = imageSource.replace('_thumb', '');
     if (tooltip.find('tooltip-img').find('img').attr('src') !== imageSource) {
-      tooltip.append(new tooltip_img({ src: imageSource, alt: imageAlt })); $(this).text('fullscreen_exit'); return;
+      tooltip.append(new nk.ui.TooltipImage({ src: imageSource, alt: imageAlt })); $(this).text('fullscreen_exit'); return;
     } else {
       tooltip.children('tooltip-img').hide('fast'); setTimeout(() => { tooltip.children('tooltip-img').remove(); }, 500); $(this).text('fullscreen');
     }

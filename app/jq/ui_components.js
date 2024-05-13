@@ -40,7 +40,7 @@ class ItemProp extends HTMLElement {
 customElements.define('item-prop', ItemProp);
 window.ItemProp = ItemProp;
 
-class inventory_info_panel extends HTMLElement {
+class InventoryInfoPanel extends HTMLElement {
   constructor({ PANEL } = {}) {
     super();
     const component = `
@@ -81,8 +81,8 @@ class inventory_info_panel extends HTMLElement {
   
 }
 
-customElements.define('inventory-information-panel', inventory_info_panel);
-window.inventory_info_panel = inventory_info_panel;
+customElements.define('inventory-information-panel', InventoryInfoPanel);
+nk.ui.InventoryInfoPanel = InventoryInfoPanel;
 
 class settings_check extends HTMLElement {
   constructor({ label, label_key, setting } = {}) {
@@ -166,7 +166,7 @@ window.item_create = function () {
 
 
 
-class tooltip_element extends HTMLElement {
+class TooltipElement extends HTMLElement {
   constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, tooltip_meta, id } = {}) {
     super();
     const component = `
@@ -186,10 +186,10 @@ class tooltip_element extends HTMLElement {
   }
 }
 
-customElements.define('tooltip-element', tooltip_element);
-window.tooltip_element = tooltip_element;
+customElements.define('tooltip-element', TooltipElement);
+nk.ui.TooltipElement = TooltipElement;
 
-class tooltip_preview extends HTMLElement {
+class TooltipPreviews extends HTMLElement {
   constructor({ image, content, subscript, link } = {}) {
     super();
     const component = `${link ? `<a href="${link.src}" ${link.target ? `target="${link.target}"` : ''}>` : ''}
@@ -202,10 +202,10 @@ class tooltip_preview extends HTMLElement {
     !this.innerHTML.length ? this.innerHTML = component : '';
   }
 }
-customElements.define('tooltip-preview', tooltip_preview);
-window.tooltip_preview = tooltip_preview;
+customElements.define('tooltip-preview', TooltipPreviews);
+nk.ui.TooltipPreviews = TooltipPreviews;
 
-class tooltip_img extends HTMLElement {
+class TooltipImage extends HTMLElement {
   constructor(image) {
     super();
     const component = `<div class="tooltip-fullres-image__content"><img src="${image ? image.src : image}" alt="${image.alt ? image.alt : ''}" loading="eager"></div>`;
@@ -227,10 +227,10 @@ class tooltip_img extends HTMLElement {
     }
   }
 }
-customElements.define('tooltip-img', tooltip_img);
-window.tooltip_img = tooltip_img;
+customElements.define('tooltip-img', TooltipImage);
+nk.ui.TooltipImage = TooltipImage;
 
-class dropdown_element extends HTMLElement {
+class DropdownElement extends HTMLElement {
   constructor({ content, id, hide } = {}) {
     super();
     //if (!$(this).length) {
@@ -248,12 +248,11 @@ class dropdown_element extends HTMLElement {
   }
 }
 
-customElements.define('drop-down', dropdown_element);
-window.dropdown_element = dropdown_element;
+customElements.define('drop-down', DropdownElement);
+nk.ui.DropdownElement = DropdownElement;
 
-
-window.nkUI = {
-  constructor: function ({template, from} = {}) {
+$.extend(nk.ui, {
+  constructor: function ({ template, from } = {}) {
     if (!template || !from) {
       console.error('Необходимо указать шаблон и источник данных');
       return;
@@ -344,7 +343,7 @@ window.nkUI = {
   },
 
   tooltipInfo: {
-    header: function (text, logo) {return `<div class="tooltip--previews__header-primary"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`;},
+    header: function (text, logo) { return `<div class="tooltip--previews__header-primary"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`; },
     quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${typeof key === 'object' ? key.key : key}" ${typeof key === 'object' ? `data-meta-tooltip="${key.meta}"` : ''} ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
   },
   tooltipEventLess: function (text, key, pos) {
@@ -352,7 +351,7 @@ window.nkUI = {
     if (key.includes('/')) { fromData = key.split('/')[1]; key = key.split('/')[0]; }
     return `<span ${fromData === 'data' ? `data-key="${key}"` : ''} class="eventLess-Tooltip ${pos ? `tl-${pos}` : ''}" eventLess-tooltip="${nk.locale.get(key)}" eventLess-tooltip-key="${key}">${text}</span>`;
   }
-}
+});
 
 
 class load_kamon extends HTMLElement { };
@@ -362,7 +361,7 @@ class page_preloader extends HTMLElement { };
 customElements.define('page-preloader', page_preloader);
 
 
-class link_block extends HTMLElement {
+class LinkBlock extends HTMLElement {
   constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow, Class, Tooltip, Shadow } = {}) {
     super();
     const types = {
@@ -694,10 +693,10 @@ class link_block extends HTMLElement {
   }
 }
 
-customElements.define('link-block', link_block);
-window.link_block = link_block;
+customElements.define('link-block', LinkBlock);
+nk.ui.LinkBlock = LinkBlock;
 
-var linkblic = new link_block({
+var linkblic = new nk.ui.LinkBlock({
   LINK_Class: 'long-thin',
   LINK_Title: 'Книга Фанфиков',
   LINK_Source: 'https://nkardazolink.com/',
@@ -721,7 +720,7 @@ var linkblic = new link_block({
   }
 });
 $('#testwrapper').prepend(linkblic);
-var linkblic2 = new link_block({
+var linkblic2 = new nk.ui.LinkBlock({
   LINK_Class: 'default',
   LINK_Title: 'Наэда Китэцуги',
   LINK_Title_Key: 'Naeda_Kitetsugi',
@@ -804,7 +803,7 @@ window.ui_components = {
 }
 
 
-class light_box extends HTMLElement {
+class LightBox extends HTMLElement {
   constructor({ Image, Controls } = {}) {
     super();
     const component = `
@@ -845,8 +844,8 @@ class light_box extends HTMLElement {
   }
 }
 
-customElements.define('light-box', light_box);
-window.nkUI.light_box = light_box;
+customElements.define('light-box', LightBox);
+nk.ui.LightBox = LightBox;
 
 
 /* Object.values(window.ui_components).forEach(component => component()); */
@@ -854,11 +853,11 @@ window.nkUI.light_box = light_box;
 
 
 
-class console_run extends HTMLElement {
+class ConsoleRun extends HTMLElement {
   constructor() {
     super();
     const component = `
-    <header class="cmd_header forceDrag"><span data-key="console">${languageJSON[nk.settingConfig.get('lang')]['console']}</span><span class="close">close</span></header>
+    <header class="cmd_header forceDrag"><span data-key="console">${nk.locale.get('console')}</span><span class="close">close</span></header>
     <section class="cmd_input"><span class="cmd_line"><label>PROMPT : ></label><textarea spellcheck="false" type="text" rows="1"></textarea></span></section>
     <footer class="cmd_footer"></footer>
     `;
@@ -878,11 +877,11 @@ class console_run extends HTMLElement {
   }
 }
 
-customElements.define('run-cmd', console_run);
-window.consoleElement = console_run;
+customElements.define('run-cmd', ConsoleRun);
+nk.ui.ConsoleRun = ConsoleRun;
 
 
-class modal_window extends HTMLDialogElement {
+class ModalWindow extends HTMLDialogElement {
   constructor() {
     super();
     const component = ``;
@@ -894,4 +893,4 @@ class modal_window extends HTMLDialogElement {
   }
 }
 
-customElements.define('modal-window', modal_window, { extends: 'dialog' });
+customElements.define('modal-window', ModalWindow, { extends: 'dialog' });

@@ -79,7 +79,7 @@ window.sortItems = function (itemsArray) {
   });
 }
 
-window.nkUI.itemPropArray = function (source) {
+nk.ui.itemPropArray = function (source) {
 
   const dataType = source.data_type;
   const thumb = '_thumb.png';

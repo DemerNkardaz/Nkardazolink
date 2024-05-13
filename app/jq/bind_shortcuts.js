@@ -148,7 +148,7 @@ $(document).on('mouseleave', '.foot-note', function () {
 
 $(document).on('keydown', function (e) {
   if (e.ctrlKey && e.which === 192) {
-    var cmd = new consoleElement();
+    var cmd = new nk.ui.ConsoleRun();
     $('body').append(cmd);
     return false;
   }
@@ -306,7 +306,7 @@ function bornLightbox(array) {
     $.each(portfolioJSON.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (category === cat && item.entity_prop === ent) {
-          boxEntity = new nkUI.lightbox({
+          boxEntity = new nk.ui.lightbox({
             Image: {
               src: item.img.src ? item.img.src : '',
               alt: item.img.alt ? item.img.alt : '',
