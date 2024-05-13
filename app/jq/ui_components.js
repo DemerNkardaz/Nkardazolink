@@ -736,7 +736,7 @@ var linkblic2 = new link_block({
   },
   LINK_Image: 'https://leonardo.osnova.io/3c89e2c2-a2e8-5256-9f0c-096a75d34923/-/scale_crop/200x200/-/format/webp/',
   LINK_Icon: {
-    image: 'external/vk_logo.svg',
+    image: 'external/VK_logo.svg',
     pos: {
       right: -15,
       bottom: -20
