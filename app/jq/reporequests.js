@@ -2,7 +2,7 @@ $(document).on('miscellaneous_loaded', function () {
   window.repoStatus = [];
   window.repositoryInfo = function (type) {
     $.ajax({
-      url: '../repository-info.json',
+      url: localHostIP ? '../repository-info.json' : 'https://demernkardaz.github.io/Nkardazolink/repository-info.json',
       dataType: 'json',
       success: function (data) {
 
