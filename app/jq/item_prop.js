@@ -266,10 +266,10 @@ $(document).on('input', '[nk-prop-search]', function () {
 
 $(document).on('click', 'item-prop', function () {
   let item = $(this);
-  const ENTITY = item.attr('data-entity');
-  const PROP_CLASS = item.attr('data-prop-class');
+  const entity = item.attr('data-entity');
+  const propClass = item.attr('data-prop-class');
   item.reapplyClass('selected', 'item-prop');
-  if (nk.settingConfig.get('save_selected_item') === true) { nk.store(`selectedItems.${PROP_CLASS}`).save(ENTITY); }
+  if (nk.settingConfig.get('save_selected_item') === true) { nk.store(`selectedItems.${propClass}`).save(entity); }
 });
 
 
