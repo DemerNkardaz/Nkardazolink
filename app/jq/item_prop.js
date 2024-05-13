@@ -79,7 +79,7 @@ window.sortItems = function (itemsArray) {
   });
 }
 
-window.item_prop_array = function (source) {
+window.nkUI.itemPropArray = function (source) {
 
   const dataType = source.data_type;
   const thumb = '_thumb.png';
@@ -102,7 +102,7 @@ window.item_prop_array = function (source) {
           }
         }
       }
-      let itemEntity = new item_prop(itemData);
+      let itemEntity = new ItemProp(itemData);
       itemsArray.push(itemEntity);
     });
   });
@@ -113,14 +113,6 @@ window.item_prop_array = function (source) {
 }
 
 
-function responseSearchTags(entity, source) {
-  const dataType = source.data_type;
-  $.each(source.root, function (_, category) {
-    $.each(category.items, function (_, item) {
-
-    });
-  });
-}
 window.map_of_descendants = {};
 window.descedationMap = function (source) {
   let map = {};
@@ -147,7 +139,7 @@ window.descedationMap = function (source) {
   return map;
 }
 $(document).on('full_data_loaded', function () {
-  anUrlParameter.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(kamonItem));
+  nk.url.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(kamonItem));
 });
 
 window.downloadDATA = function (varToDownload) {
@@ -256,38 +248,54 @@ $(document).on('input', '[nk-prop-search]', function () {
 });
 
 
+
+//? ---------------- CLICK EVENTS ---------------- ?//
+
+$(document).on('click', 'item-prop', function () {
+  var item = $(this).attr('item-prop');
+  var entity = $(this).attr('PROP_ENTITY');
+  $(this).reapplyClass('selected', 'item-prop');
+
+
+  if (nkSettings.get('save_selected_item') === 'true') {
+    if (entity) {
+      if (item === 'kamon') {
+        nk.store('selectedItems.kamon', entity).save();
+      } else if (item === 'banners') {
+        nk.store('selectedItems.banners', entity).save();;
+      } else if (item === 'clans') {
+        nk.store('selectedItems.clans', entity).save();;
+      } else if (item === 'pattern') {
+        nk.store('selectedItems.pattern', entity).save();;
+      }
+    }
+  }
+});
+
+
+
 //? ---------------- DRAG AND DROP EVENTS ---------------- ?//
 
 let inWindow = true;
-
 $(document).on('dragover', function (e) {
   let windowHeight = $(window).height();
   let y = e.originalEvent.clientY;
   
   if (y < 50 || y > (windowHeight - 50)) {
     inWindow = false;
-    console.log('out of window');
   } else {
     inWindow = true;
-    console.log('in window');
   }
   e.preventDefault();
 });
 
 $(document).on('dragstart', 'item-prop', function (e) {
-  if (inWindow === false) {
-    e.originalEvent.dataTransfer.setData('text', $(e.target).find('.item-title__text').text());
-  } else {
-    e.originalEvent.dataTransfer.setData('text', e.target.getAttribute('data-entity'));
-  }
+  $(this).addClass('dragged');
+  e.originalEvent.dataTransfer.setData('text', $(e.target).find('.item-title__text').text());
 });
 
 $(document).on('dragend', 'item-prop', function (e) {
-  if (inWindow === false) {
-    e.originalEvent.dataTransfer.getData('text', $(e.target).find('.item-title__text').text());
-  } else {
-    e.originalEvent.dataTransfer.getData('text', e.target.getAttribute('data-entity'));
-  }
+  $(this).removeClass('dragged');
 });
 
 
@@ -296,9 +304,11 @@ $(document).on('dragover', '[data-drop-site]', function (e) {
 });
 
 $(document).on('drop', '[data-drop-site]', function (e) {
-  e.dataTransfer = e.originalEvent.dataTransfer;
-  let data = e.dataTransfer.getData('text');
-  console.log(data);
-  
   e.preventDefault();
+  let draggedItem = $('item-prop.dragged');
+  if (draggedItem.length > 0) {
+    let dataEntity = draggedItem.attr('data-entity');
+    $(draggedItem).reapplyClass('selected', 'item-prop');
+    console.log(dataEntity);
+  }
 });

@@ -1,4 +1,11 @@
+window.nk = {};
+nk.skins = {};
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
+
+window.parseUrlParameter = function (name) {
+  return new URLSearchParams(window.location.search).get(name)?.toLowerCase();
+};
+
 
 window.isMobileDevice = function () {
   let chk = false;
@@ -38,25 +45,20 @@ window.console.buildType = function (message, type) {
 };
 
 
-window.extractAttributes = function(element) {
-    var attributesMap = new Map();
-    
-    // Проверка на дублирующиеся атрибуты
+nk.extractAttributes = function(element) {
+    let attributesMap = new Map();
     Array.from(element.attributes).forEach(attr => {
         attributesMap.set(attr.name, attr.value);
     });
     
-    // Проверка на дублирующиеся атрибуты в dataset
     Object.keys(element.dataset).forEach(key => {
-        // Преобразование camelCase в kebab-case
         const kebabKey = key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-        // Убедимся, что атрибут не был уже добавлен
         if (!attributesMap.has(kebabKey)) {
             attributesMap.set(kebabKey, element.dataset[key]);
         }
     });
     
-    var attributesString = Array.from(attributesMap)
+    let attributesString = Array.from(attributesMap)
         .map(([name, value]) => `${name}="${value}"`)
         .join(" ");
         
@@ -64,7 +66,7 @@ window.extractAttributes = function(element) {
 }
 
 
-window.collectTargets = function (target) {
+nk.collectTargets = function (target) {
   let targetsCollection = $(target);
   $('*').filter(function () {
     return this.shadowRoot !== null;
@@ -84,7 +86,7 @@ $.fn.timedClassEvent = function (eventType, className, end, start) { $(this).on(
 
 
 $.fn.closestParent = function(selector) {
-    var $elements = collectTargets(this);
+    var $elements = nk.collectTargets(this);
     var $closestParent = $();
     
     $elements.each(function() {
@@ -124,7 +126,7 @@ function storageOperations(key, type, value) {
     }
   }
 };
-window.$Store = function (key) {
+nk.store = function (key) {
   let methods = {};
   methods.load = function (promise) {
     const result = storageOperations(key, 'load');
@@ -140,7 +142,7 @@ window.$Store = function (key) {
   };
   return methods;
 }
-window.$Setting = function (key) {
+nk.setting = function (key) {
   let methods = {};
   methods.save = function (value, offNKSettings) {
     const previousSetting = storageOperations(`savedSettings.${key}`, 'load') || null;
@@ -156,7 +158,7 @@ window.$Setting = function (key) {
     });
 
     savePromise.then(function () {
-      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${$Setting(key).load()}”`, 'info');
+      console.buildType(`[SETTING] → Changed setting: ${key} = from “${previousSetting}” to “${value}” : Map “${previousMap} → ${nkSettings.get(key)}” & Store “${previousSetting} → ${nk.setting(key).load()}”`, 'info');
     }).catch(function (err) { console.buildType(`[SETTING] → ${err}`, 'error') });
 
     return new Promise((resolve) => {
@@ -445,16 +447,16 @@ window.setTabIndex = function() {
 
 window.pageTriggerCallback = function (callback) {
   if (typeof callback === 'function') {
-    $(document).on(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
+    $(document).on(`${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select + '_page_loaded' : (nk.url.mode ? nk.url.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
       callback();
     });
   } else if (typeof callback === 'string' && callback === 'return') {
-    return `${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`;
+    return `${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select + '_page_loaded' : (nk.url.mode ? nk.url.mode + '_page_loaded' : 'default_page_loaded')}`;
   }
 };
 window.contentLoadCallback = function (callback) {
-  let variable = `${anUrlParameter.mode && anUrlParameter.select ? `${anUrlParameter.mode}${anUrlParameter.select}Item` : (anUrlParameter.mode ? `${anUrlParameter.mode}Item` : 'defaultItem')}`;
-  if (anUrlParameter.mode) {
+  let variable = `${nk.url.mode && nk.url.select ? `${nk.url.mode}${nk.url.select}Item` : (nk.url.mode ? `${nk.url.mode}Item` : 'defaultItem')}`;
+  if (nk.url.mode) {
     $(document).on(`${variable}_loaded`, function () {
       callback();
     });

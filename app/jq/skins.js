@@ -2,10 +2,10 @@ let skin = (nkSettings.get('skin') !== null) ? `app/style/skins/${nkSettings.get
 $('head').append(`<link rel="stylesheet" href="${skin}" id="skinloader">`);
 window.CheckSkin = function (type) {
   const preference = nkSettings.get('skin');
-  const skinName = availableSkins[preference] ? (type === 'url' ? availableSkins[preference].url : availableSkins[preference].name) : 'Byakujou';
+  const skinName = nk.skins.themes[preference] ? (type === 'url' ? nk.skins.themes[preference].url : nk.skins.themes[preference].name) : 'Byakujou';
   if (type === 'loc') return `Skins.${skinName}`;
   if (type === 'run') return nkLocale.get(`Skins.${skinName}`);
-  if (type === 'emoji') return `${availableSkins[preference].emoji}&ensp;${nkLocale.get(`Skins.${skinName}`)}`;
+  if (type === 'emoji') return `${nk.skins.themes[preference].emoji}&ensp;${nkLocale.get(`Skins.${skinName}`)}`;
   if (type !== 'loc' || type === 'emoji') return skinName;
 };
 
@@ -13,16 +13,16 @@ window.setSkin = function (skin) {
   skin = skin.toLowerCase();
   const onSetSkin = new Promise(function (resolve, reject) {
     try {
-      if (skin && window.availableSkins[skin]) {
+      if (skin && nk.skins.themes[skin]) {
         
         if (nkSettings.get('skin') !== skin) {
-          $Setting('skin').save(skin).then((result) => {
+          nk.setting('skin').save(skin).then((result) => {
             const prev_skin = result.valueBefore;
             const new_skin = result.valueNew;
             const appliedSkin = $('#skinloader').attr('href');
             !appliedSkin.includes(new_skin) && $('#skinloader').attr('href', `app/style/skins/${new_skin}.css`);
 
-            if (anUrlParameter.mode === 'kamon') { 
+            if (nk.url.mode === 'kamon') { 
 
 
             } else {
@@ -48,7 +48,7 @@ window.setSkin = function (skin) {
               if (new_skin === 'sekiban' && prev_skin !== 'sekiban') { //? SEKIN “SEKIBAN”
                 $('.person-banner-wrapper').addClass('plate_chinese');
               } else if (new_skin === 'aogurogetsu' && prev_skin !== 'aogurogetsu') { //? SEKIN “AOGUROGETSU”
-                $('.person-avatar').append(`<img src="external/person-avatar__image__halo.gif" alt="" class="person-avatar__image__halo" loading="lazy">`);
+                $('.person-avatar').append(`<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">`);
               } else if (new_skin === 'azumatsuyu' && prev_skin !== 'azumatsuyu') { //? SEKIN “AZUMATSUYU”
                 $('.person-banner-wrapper, .person-avatar__image-wrapper').addClass('plate_chinese');
                 $('link-block').each(function () {
@@ -82,10 +82,10 @@ window.setSkin = function (skin) {
 window.repeatableSkins = function () {
   let currentSkinIndex = 0;
   setInterval(() => {
-    const skinKeys = Object.keys(window.availableSkins);
+    const skinKeys = Object.keys(nk.skins.themes);
     const skinCount = skinKeys.length;
     const currentSkinKey = skinKeys[currentSkinIndex];
-    const currentSkin = window.availableSkins[currentSkinKey].url;
+    const currentSkin = nk.skins.themes[currentSkinKey].url;
     setSkin(currentSkinKey);
     currentSkinIndex = (currentSkinIndex + 1) % skinCount;
   }, 1000);

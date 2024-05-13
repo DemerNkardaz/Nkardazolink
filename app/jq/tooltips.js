@@ -6,7 +6,7 @@ if (isMobileDevice() !== true) {
     'observe': true,
   };
 
-  if ($Setting('enableTooltips').load() === 'false') privateConfig['enabled'] = false;
+  if (nk.setting('enableTooltips').load() === 'false') privateConfig['enabled'] = false;
 
   window.nkTooltips = {};
   nkTooltips.opts = function (config) {
@@ -14,7 +14,7 @@ if (isMobileDevice() !== true) {
       privateConfig[key] = config[key];
       if (key === 'enabled') {
         if (config[key] === false) {
-          $Setting('enableTooltips').save(false);
+          nk.setting('enableTooltips').save(false);
         }
       }
     }
@@ -25,9 +25,9 @@ if (isMobileDevice() !== true) {
 
 
   pageTriggerCallback(function () {
-    let tooltipParents = collectTargets('[data-tooltip-key]');
-    let tooltipParentsIdes = collectTargets('[data-tooltip-id]');
-    let tooltipMetaAnchors = collectTargets('[data-meta-tooltip]');
+    let tooltipParents = nk.collectTargets('[data-tooltip-key]');
+    let tooltipParentsIdes = nk.collectTargets('[data-tooltip-id]');
+    let tooltipMetaAnchors = nk.collectTargets('[data-meta-tooltip]');
     let timers_array = {};
     let offsetInterval;
     let detectedTooltips = false;
@@ -35,9 +35,9 @@ if (isMobileDevice() !== true) {
     const tooltipObserver = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
         if (mutation.type === 'attributes' || mutation.type === 'childList') {
-          const newTooltipParents = collectTargets('[data-tooltip-key]');
-          const newTooltipParentsIdes = collectTargets('[data-tooltip-id]');
-          const newTooltipMetaAnchors = collectTargets('[data-meta-tooltip]');
+          const newTooltipParents = nk.collectTargets('[data-tooltip-key]');
+          const newTooltipParentsIdes = nk.collectTargets('[data-tooltip-id]');
+          const newTooltipMetaAnchors = nk.collectTargets('[data-meta-tooltip]');
 
           if (!areCollectionsEqual(tooltipParentsIdes, newTooltipParentsIdes)) {
             tooltipParentsIdes = newTooltipParentsIdes;
@@ -90,7 +90,7 @@ if (isMobileDevice() !== true) {
                 checkDuplicated.forEach((duplicated, index) => {
                   if (index !== firstDuplicateIndex) {
                     duplicate = duplicated;
-                    message += `<br><span class="fs--1 em lh-1">&lt;${duplicate.nodeName} ${extractAttributes(duplicate).toUpperCase().replace(`DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"`, `<span style="color: red; font-weight: 800">DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"</span>`)}&gt;${duplicate.innerHTML}&lt;/${duplicate.nodeName}&gt;</span>`;
+                    message += `<br><span class="fs--1 em lh-1">&lt;${duplicate.nodeName} ${nk.extractAttributes(duplicate).toUpperCase().replace(`DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"`, `<span style="color: red; font-weight: 800">DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"</span>`)}&gt;${duplicate.innerHTML}&lt;/${duplicate.nodeName}&gt;</span>`;
                   }
                 });
                 message += `</span>`

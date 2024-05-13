@@ -6,14 +6,14 @@ $(document).on('input', '[nk-search-bar]', function () {
   if (nkSettings.get('save_search_result') === 'true') {
     if (this_bar.attr('nk-search-bar')) {
       if (this_bar.val().length > 0) {
-        $Store(`latestSearches.${searchBarType}`, this_bar.val()).save();
+        nk.store(`latestSearches.${searchBarType}`, this_bar.val()).save();
       } else {
-        $Store(`latestSearches.${searchBarType}`).remove();
+        nk.store(`latestSearches.${searchBarType}`).remove();
       }
     }
   } else {
-    if ($Store(`latestSearches.${searchBarType}`).load()) {
-      $Store(`latestSearches.${searchBarType}`).remove();
+    if (nk.store(`latestSearches.${searchBarType}`).load()) {
+      nk.store(`latestSearches.${searchBarType}`).remove();
     }
   }
 

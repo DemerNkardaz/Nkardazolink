@@ -11,6 +11,24 @@ window.nkPreferences = {
   }
 }
 
+nk.url = {
+  mode: (parseUrlParameter('mode') ? parseUrlParameter('mode') : null),
+  select: (parseUrlParameter('select') ? parseUrlParameter('select') : null),
+  lang: (parseUrlParameter('lang') ? parseUrlParameter('lang') : null)
+}
+nk.langs = {};
+nk.langs.list = {
+  ru: { emoji: '🇷🇺', name: 'Русский' },
+  en: { emoji: '🇬🇧', name: 'English' },
+  ja: { emoji: '🇯🇵', name: '日本語' },
+  zh: { emoji: '🇨🇳', name: '简体中文' },
+  ko: { emoji: '🇰🇷', name: '한국어' },
+  vi: { emoji: '🇻🇳', name: 'Tiếng Việt' },
+  mo: { emoji: '🇲🇩', name: 'Молдовеняскэ' },
+  ro: { emoji: '🇷🇴', name: 'Română' },
+};
+nk.langs.supported = Object.keys(nk.langs.list);
+
 
 window.languagesList = {
   ru: { emoji: '🇷🇺', name: 'Русский' },
@@ -22,12 +40,11 @@ window.languagesList = {
   mo: { emoji: '🇲🇩', name: 'Молдовеняскэ' },
   ro: { emoji: '🇷🇴', name: 'Română' },
 };
-window.supportedLanguages = Object.keys(window.languagesList);
-window.navigatorLanguage = supportedLanguages.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
+window.navigatorLanguage = nk.langs.supported.includes(navigator.language.toLowerCase()) ? navigator.language.toLowerCase() : 'en';
 
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
-window.availableSkins = {
+nk.skins.themes = {
   azumatsuyu:     {name: 'Azumatsuyu',        url: 'azumatsuyu',    emoji: '🌸'},
   byakujou:       {name: 'Byakujou',          url: 'byakujou',      emoji: '🏯'},
   sekiban:        {name: 'Sekiban',           url: 'sekiban',       emoji: '⛩️'},
@@ -44,54 +61,49 @@ TREE IS A LINKTREE
 
 
 window.nkSettings = new Map([
-  ["save_search_result", ($Setting('save_search_result').load() ? $Setting('save_search_result').load() : 'true')],
-  ["save_selected_item", ($Setting('save_selected_item').load() ? $Setting('save_selected_item').load() : 'false')],
-  ["turn_off_preloader", ($Setting('turn_off_preloader').load() ? $Setting('turn_off_preloader').load() : 'false')],
-  ["ambience_off", ($Setting('ambience_off').load() ? $Setting('ambience_off').load() : 'false')],
+  ["save_search_result", (nk.setting('save_search_result').load() ? nk.setting('save_search_result').load() : 'true')],
+  ["save_selected_item", (nk.setting('save_selected_item').load() ? nk.setting('save_selected_item').load() : 'false')],
+  ["turn_off_preloader", (nk.setting('turn_off_preloader').load() ? nk.setting('turn_off_preloader').load() : 'false')],
+  ["ambience_off", (nk.setting('ambience_off').load() ? nk.setting('ambience_off').load() : 'false')],
   // Skin Settings
-  ["skin", ($Setting('skin').load() ? $Setting('skin').load() : 'byakujou')],
-  ["change_skin_by_time", ($Setting('change_skin_by_time').load() ? $Setting('change_skin_by_time').load() : 'false')],
+  ["skin", (nk.setting('skin').load() ? nk.setting('skin').load() : 'byakujou')],
+  ["change_skin_by_time", (nk.setting('change_skin_by_time').load() ? nk.setting('change_skin_by_time').load() : 'false')],
   // Other customizations
-  ["current_banner", ($Setting('current_banner').load() ? $Setting('current_banner').load() : 'asanoha')],
+  ["current_banner", (nk.setting('current_banner').load() ? nk.setting('current_banner').load() : 'asanoha')],
   // Lang
-  ["lang", ($Setting('lang').load() ? $Setting('lang').load() : navigatorLanguage)],
+  ["lang", (nk.setting('lang').load() ? nk.setting('lang').load() : navigatorLanguage)],
 ]);
 
 
 if (nkSettings.get('save_search_result') === 'true') {
   window.latestSearches = {
-    "kamon": ($Store('latestSearches.kamon').load() ? $Store('latestSearches.kamon').load() : null),
-    "banners": ($Store('latestSearches.banners').load() ? $Store('latestSearches.banners').load() : null),
-    "clans": ($Store('latestSearches.clans').load() ? $Store('latestSearches.clans').load() : null),
-    "pattern": ($Store('latestSearches.pattern').load() ? $Store('latestSearches.pattern').load() : null),
+    "kamon": (nk.store('latestSearches.kamon').load() ? nk.store('latestSearches.kamon').load() : null),
+    "banners": (nk.store('latestSearches.banners').load() ? nk.store('latestSearches.banners').load() : null),
+    "clans": (nk.store('latestSearches.clans').load() ? nk.store('latestSearches.clans').load() : null),
+    "pattern": (nk.store('latestSearches.pattern').load() ? nk.store('latestSearches.pattern').load() : null),
   };
 } else {
-  if (window.latestSearches !== null || $Store('latestSearches').load()) {
-    $Store('latestSearches').remove();
+  if (window.latestSearches !== null || nk.store('latestSearches').load()) {
+    nk.store('latestSearches').remove();
   };
 };
 
 if (nkSettings.get('save_selected_item') === 'true') {
   window.selectedItems = {
-    "kamon": ($Store('selectedItems.kamon').load() ? $Store('selectedItems.kamon').load() : null),
-    "banners": ($Store('selectedItems.banners').load() ? $Store('selectedItems.banners').load() : null),
-    "clans": ($Store('selectedItems.clans').load() ? $Store('selectedItems.clans') : null),
-    "pattern": ($Store('selectedItems.pattern').load() ? $Store('selectedItems.pattern').load() : null),
+    "kamon": (nk.store('selectedItems.kamon').load() ? nk.store('selectedItems.kamon').load() : null),
+    "banners": (nk.store('selectedItems.banners').load() ? nk.store('selectedItems.banners').load() : null),
+    "clans": (nk.store('selectedItems.clans').load() ? nk.store('selectedItems.clans') : null),
+    "pattern": (nk.store('selectedItems.pattern').load() ? nk.store('selectedItems.pattern').load() : null),
   };
 } else {
-  if (window.selectedItems !== null || $Store('selectedItems').load()) {
-    $Store('selectedItems').remove();
+  if (window.selectedItems !== null || nk.store('selectedItems').load()) {
+    nk.store('selectedItems').remove();
   };
 };
 
-window.parseUrlParameter = function (name) {
-  return new URLSearchParams(window.location.search).get(name)?.toLowerCase();
-};
 
-window.anUrlParameter = {
-  mode: (parseUrlParameter('mode') ? parseUrlParameter('mode') : null),
-  select: (parseUrlParameter('select') ? parseUrlParameter('select') : null),
-  lang: (parseUrlParameter('lang') ? parseUrlParameter('lang') : null)
-};
-(anUrlParameter.lang && supportedLanguages.includes(anUrlParameter.lang)) && nkSettings.set('lang', anUrlParameter.lang);
+
+
+
+(nk.url.lang && nk.langs.supported.includes(nk.url.lang)) && nkSettings.set('lang', nk.url.lang);
 

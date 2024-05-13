@@ -1,5 +1,5 @@
-(anUrlParameter.mode && !availableModes.includes(anUrlParameter.mode)) ||
-((anUrlParameter.mode === 'cv') && (!anUrlParameter.select || !availableSelects.includes(anUrlParameter.select))) ? redirect.origin() : null;
+(nk.url.mode && !availableModes.includes(nk.url.mode)) ||
+((nk.url.mode === 'cv') && (!nk.url.select || !availableSelects.includes(nk.url.select))) ? redirect.origin() : null;
 
 nkSettings.get('lang') ? $('html').attr('lang', nkSettings.get('lang')) : $('html').attr('lang', 'ru');
 
@@ -110,7 +110,7 @@ if (nkSettings.get('turn_off_preloader') !== 'true') {
 waitFor('title', () => {
   var title = document.querySelector('title');
   if (title) {
-    title.textContent = (metaData['title'][anUrlParameter.mode] && metaData['title'][anUrlParameter.mode][anUrlParameter.select]) ? metaData['title'][anUrlParameter.mode][anUrlParameter.select][nkSettings.get('lang')] : (metaData['title'][anUrlParameter.mode] ? metaData['title'][anUrlParameter.mode][nkSettings.get('lang')] : metaData['title']['common'][nkSettings.get('lang')]);
+    title.textContent = (metaData['title'][nk.url.mode] && metaData['title'][nk.url.mode][nk.url.select]) ? metaData['title'][nk.url.mode][nk.url.select][nkSettings.get('lang')] : (metaData['title'][nk.url.mode] ? metaData['title'][nk.url.mode][nkSettings.get('lang')] : metaData['title']['common'][nkSettings.get('lang')]);
   }
 });
 
@@ -118,7 +118,7 @@ waitFor('title', () => {
 let dataArray = [];
 dataArray.push({ type: 'data',  source: 'app/data/locale.json', as: 'languageJSON'  });
 dataArray.push({ type: 'data',  source: 'app/data/license.json', as: 'licenseJSON'  });
-anUrlParameter.mode && dataArray.push({ type: 'data',  source: `app/data/${anUrlParameter.mode}.json`, as: `${anUrlParameter.mode}Item`  });
+nk.url.mode && dataArray.push({ type: 'data',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}Item`  });
 let dataTimer;
 DataExtend(dataArray, true).then((loadedData) => {
   const loadingPromise = new Promise((resolve, reject) => {

@@ -13,34 +13,11 @@ $(document).on('click', '[nk-page]', function (e) {
   }
 })
 
-$(document).on('click', 'item-prop', function () {
-  var item = $(this).attr('item-prop');
-  var entity = $(this).attr('PROP_ENTITY');
-
-  $('item-prop').removeClass('selected');
-  $(this).addClass('selected');
-
-
-  if (nkSettings.get('save_selected_item') === 'true') {
-    if (entity) {
-      if (item === 'kamon') {
-        $Store('selectedItems.kamon', entity).save();
-      } else if (item === 'banners') {
-        $Store('selectedItems.banners', entity).save();;
-      } else if (item === 'clans') {
-        $Store('selectedItems.clans', entity).save();;
-      } else if (item === 'pattern') {
-        $Store('selectedItems.pattern', entity).save();;
-      }
-    }
-  }
-});
-
 $(document).on('click', '[nk-skin]', function () { 
   var skin = $(this).attr('nk-skin');
   var link = $('#skinLoader');
   link.attr('href', `app/style/skins/${skin}.css`);
-  $Setting('skin', skin).save();
+  nk.setting('skin', skin).save();
   $(this).reapplyClass('active', '[nk-skin]');
 });
 
@@ -49,7 +26,7 @@ $(document).on('click', '[nk-banner]', function () {
   var target = $('[nk-banner="target"]');
   if (banner && banner !== 'target') {
     target.addClass(banner);
-    $Setting('current_banner', banner).save();
+    nk.setting('current_banner', banner).save();
     $(this).reapplyClass('active', '[nk-banner]');
   }
 });
@@ -197,20 +174,20 @@ $(document).on('click', 'run-cmd .cmd_input', function (e) {
 });
 
 function clearOldCommand () {
-  var storedCommands = JSON.parse($Store('latestCommands').load());
+  var storedCommands = JSON.parse(nk.store('latestCommands').load());
   var limit_commands = 40;
   if (storedCommands.length > limit_commands) {
     storedCommands = storedCommands.slice(storedCommands.length - limit_commands);
-    $Store('latestCommands', JSON.stringify(storedCommands)).save();
+    nk.store('latestCommands', JSON.stringify(storedCommands)).save();
   }
 }
 
 window.clrcm = function () {
-  $Store('latestCommands').remove();
+  nk.store('latestCommands').remove();
   return 'Latest commands cleared'
 };
 window.shwcm = function () {
-  return $Store('latestCommands').load().replace('[', '').replace(']', '').replace(/"/g, '');
+  return nk.store('latestCommands').load().replace('[', '').replace(']', '').replace(/"/g, '');
 };
 window.helpcmd = function () {
   return (`<div>
@@ -236,9 +213,9 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     const inputValue = $(this).val();
     $(`<span class="console_send"><span>${inputValue}</span></span>`).insertBefore($(`#${getParentCMDID}`).find('.cmd_line'));
 
-    let existingCommands = JSON.parse($Store('latestCommands').load()) || [];
+    let existingCommands = JSON.parse(nk.store('latestCommands').load()) || [];
     inputValue.length > 0 ? existingCommands = [...existingCommands, inputValue] : '';
-    $Store('latestCommands', JSON.stringify(existingCommands)).save();
+    nk.store('latestCommands', JSON.stringify(existingCommands)).save();
     clearOldCommand();
     try {
       if (inputValue in CMD_COMMANDS_LIBRARY) {
@@ -261,7 +238,7 @@ $(document).on('keydown', 'run-cmd .cmd_line textarea', function (e) {
     $(this).val('').trigger('input');
     $(InputCMDField).animate({ scrollTop: $(InputCMDField).height() }, 0);
   }
-  let storedCommands = JSON.parse($Store('latestCommands').load());
+  let storedCommands = JSON.parse(nk.store('latestCommands').load());
   if ((e.ctrlKey && e.which === 38)) {
     if (storedCommands.length > 1) {
       const currentIndex = storedCommands.indexOf($(this).val());

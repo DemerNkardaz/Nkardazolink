@@ -1,6 +1,6 @@
 function logCurrentTrigger() {
-  $(document).on(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
-    console.log(`Current trigger: ${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select : (anUrlParameter.mode ? anUrlParameter.mode : 'default')}`);
+  $(document).on(`${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select + '_page_loaded' : (nk.url.mode ? nk.url.mode + '_page_loaded' : 'default_page_loaded')}`, function () {
+    console.log(`Current trigger: ${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select : (nk.url.mode ? nk.url.mode : 'default')}`);
   });
 };
 
@@ -36,7 +36,7 @@ window.createObject = {
       let image_default = data.default_img_path;
       let image_folder = image_default + category.img_folder;
       $.each(category.items, function (_, item) {
-        let itemEntity = new item_prop({
+        let itemEntity = new ItemProp({
           PROP_Class: entClass ? entClass : 'kamon',
           PROP_ENTITY: item.entity_prop,
           PROP_Rarity: item.rarity,
@@ -65,13 +65,13 @@ window.createObject = {
   }
 };
 
-const pageBuild = new Promise(function (resolve, reject) {
+const PAGE_BUILD = new Promise(function (resolve, reject) {
   function anErrorOnBuild(err, str) {
     console.error(`An error occured during ${str}: ${err}`);
   }
   try {
     $(document).on('full_data_loaded', function () {
-      const dataBlocks = {
+      const DATA_BLOCKS = {
         default: {
           links: {
             content: {
@@ -186,22 +186,22 @@ const pageBuild = new Promise(function (resolve, reject) {
         }
       }
 
-      const activate_interface_type =
-        anUrlParameter.mode === 'cv' ? 'cv' :
-          anUrlParameter.mode === 'tree' ? 'linktree' :
-            anUrlParameter.mode === 'license' ? 'license' :
-              anUrlParameter.mode === 'landing' ? 'landing' :
-                anUrlParameter.mode === 'reader' ? 'reader' :
-                  ['kamon', 'pattern', 'banners', 'clans'].includes(anUrlParameter.mode) ? 'gallery' : null;
-      nk.rootContainer.attr('data-active-interface', activate_interface_type ? activate_interface_type : 'default');
+      const ACTIVATE_INTERFACE_TYPE =
+        nk.url.mode === 'cv' ? 'cv' :
+          nk.url.mode === 'tree' ? 'linktree' :
+            nk.url.mode === 'license' ? 'license' :
+              nk.url.mode === 'landing' ? 'landing' :
+                nk.url.mode === 'reader' ? 'reader' :
+                  ['kamon', 'pattern', 'banners', 'clans'].includes(nk.url.mode) ? 'gallery' : null;
+      nk.rootContainer.attr('data-active-interface', ACTIVATE_INTERFACE_TYPE ? ACTIVATE_INTERFACE_TYPE : 'default');
       
       let header;
       let main;
       let footer;
 
-      const pageConfig = new Promise(function (resolveCFG, rejectCFG) {
+      const PAGE_CONFIG = new Promise(function (resolveCFG, rejectCFG) {
         try {
-          if (anUrlParameter.mode === 'kamon') {
+          if (nk.url.mode === 'kamon') {
             nk.siteMainContainer.after(
               new inventory_info_panel({
                 PANEL: {
@@ -221,24 +221,24 @@ const pageBuild = new Promise(function (resolve, reject) {
             `;
 
             main = `
-            <div data-drop-site="kamon" data-drop-sort="true" style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px;">${unpackElementObject(item_prop_array(kamonItem))}</div>
+            <div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px;">${unpackElementObject(nkUI.itemPropArray(kamonItem))}</div>
             <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div><div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px; border: 1px solid #000; padding-top: 8px; height: 400px; width: 100%;" data-drop-site="kamon"></div>`;
             
             
             footer = `
             `;
 
-          } else if (anUrlParameter.mode === 'banners') {
+          } else if (nk.url.mode === 'banners') {
 
-          } else if (anUrlParameter.mode === 'clans') {
+          } else if (nk.url.mode === 'clans') {
 
-          } else if (anUrlParameter.mode === 'cv') {
+          } else if (nk.url.mode === 'cv') {
 
-          } else if (anUrlParameter.mode === 'landing') {
+          } else if (nk.url.mode === 'landing') {
 
-          } else if (anUrlParameter.mode === 'tree') {
+          } else if (nk.url.mode === 'tree') {
 
-          } else if (anUrlParameter.mode === 'license') {
+          } else if (nk.url.mode === 'license') {
             header = ``;
 
             main = `<div class="licensePages lh-3">
@@ -248,9 +248,9 @@ const pageBuild = new Promise(function (resolve, reject) {
 
             footer = `<span data-key="Nkardaz.copyright" data-key-cutter="&ensp;|"></span>`;
 
-          } else if (anUrlParameter.mode === 'pattern') {
+          } else if (nk.url.mode === 'pattern') {
 
-          } else if (anUrlParameter.mode === 'reader') {
+          } else if (nk.url.mode === 'reader') {
 
           } else {
             header = `
@@ -274,13 +274,13 @@ const pageBuild = new Promise(function (resolve, reject) {
               <h2 class="link-plates-section__header"><hr><span data-key="links.ContentLinks">${nkLocale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper" >
                 <div class="link-plates-section__grid" data-tooltip-key="Tess" data-tooltip-pos="left">
-                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.content }))}
+                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.content }))}
                 </div>
               </div>
               <h2 class="link-plates-section__header"><hr><span data-key="links.SocialLinks">${nkLocale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper">
                 <div class="link-plates-section__grid">
-                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: dataBlocks.default.links.social }))}
+                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.social }))}
                 </div
               </div>
             </section>`;
@@ -305,7 +305,7 @@ const pageBuild = new Promise(function (resolve, reject) {
           resolveCFG();
         } catch (err) { anErrorOnBuild(err, 'page config'); rejectCFG(err); }
       });
-      pageConfig.then(() => {
+      PAGE_CONFIG.then(() => {
         nk.siteHeader.html(header);
         nk.siteMainContainer.html(main);
         nk.footerContainer.html(footer);
@@ -316,11 +316,11 @@ const pageBuild = new Promise(function (resolve, reject) {
   } catch (err) { anErrorOnBuild(err, 'page build'); reject(err); }
 });
 
-pageBuild.then(function () {
+PAGE_BUILD.then(function () {
   unpackedHandler();
   console.buildType(`[GENPAGE] → Page Builded and Loaded. Current mode trigger: “${pageTriggerCallback('return')}”`, 'info');
   
-  $(document).trigger(`${anUrlParameter.mode && anUrlParameter.select ? anUrlParameter.mode + anUrlParameter.select + '_page_loaded' : (anUrlParameter.mode ? anUrlParameter.mode + '_page_loaded' : 'default_page_loaded')}`);
+  $(document).trigger(`${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select + '_page_loaded' : (nk.url.mode ? nk.url.mode + '_page_loaded' : 'default_page_loaded')}`);
 
     return new Promise(function (resolve) { try { setTimeout(() => { nkLocale.langUpdate(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
       console.buildType(`[GENPAGE] → Content Loaded and updated`, 'important');

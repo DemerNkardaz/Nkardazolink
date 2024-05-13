@@ -10,7 +10,7 @@ if (nkSettings.get('save_selected_item') === 'true') {
       var entity = $(this).attr('entity');
       if (entity) {
         var storageKey = `selectedItems.${entity}`;
-        var storedValue = $Store(storageKey).load();
+        var storedValue = nk.store(storageKey).load();
         if (storedValue) {
           $(this).addClass('selected');
         }
@@ -28,6 +28,6 @@ const skinLoad = new Promise(function (resolve) {
     });
   } catch (err) { console.error(err); }
 }).then(function () {
-  nkSettings.get('change_skin_by_time') === 'true' ? console.buildType(`[NK_SKIN] → Skin “${availableSkins[nkSettings.get('skin')].name}” assigned based on “Daytime” Preference`, 'success') :
-    console.buildType(`[NK_SKIN] → Skin “${availableSkins[nkSettings.get('skin')].name}” assigned based on User Preference`, 'success');
+  nkSettings.get('change_skin_by_time') === 'true' ? console.buildType(`[NK_SKIN] → Skin “${nk.skins.themes[nkSettings.get('skin')].name}” assigned based on “Daytime” Preference`, 'success') :
+    console.buildType(`[NK_SKIN] → Skin “${nk.skins.themes[nkSettings.get('skin')].name}” assigned based on User Preference`, 'success');
 });

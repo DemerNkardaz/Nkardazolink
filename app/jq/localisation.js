@@ -16,11 +16,11 @@ $(document).on('full_data_loaded', function () {
     let key = $(this).attr('data-key');
     let newKey;
     if (!key) return;
-    if (anUrlParameter.mode && anUrlParameter.select) {
-      newKey = key.replace('default', anUrlParameter.mode.toLowerCase() + anUrlParameter.select.toLowerCase());
+    if (nk.url.mode && nk.url.select) {
+      newKey = key.replace('default', nk.url.mode.toLowerCase() + nk.url.select.toLowerCase());
       nkLocale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
-    } else if (anUrlParameter.mode) {
-      newKey = key.replace('default', anUrlParameter.mode.toLowerCase());
+    } else if (nk.url.mode) {
+      newKey = key.replace('default', nk.url.mode.toLowerCase());
       nkLocale.get(`check:${newKey}`) ? $(this).attr('data-key', newKey) : null;
     } else {
       return;
@@ -28,16 +28,6 @@ $(document).on('full_data_loaded', function () {
   })
 });
 
-/*
-window.loi = {
-  "ru": {
-    "based": "Этот текст имеет $(place_0), а ещё это $(place_150)",
-    "from": "Angular JS",
-  }
-}
-! sample of call nkLocale.get({mode: 'ru', key: 'based', placements: [{ '0': `${nkLocale.get('ru:from>loi')}` }, { '150': 5+5 }], source: 'loi'});
-*/
-/*
 function uLang(keyMap) {
   const nestedKeys = keyMap.get('key').split('.');
   let sourceLink, sourceLang, localisedString;
@@ -46,75 +36,7 @@ function uLang(keyMap) {
     const sourceName = keyMap.get('source');
     if (sourceName && window.hasOwnProperty(sourceName)) {
       sourceLink = window[sourceName];
-      sourceLang = (keyMap.get('mode') !== null && (supportedLanguages.includes(keyMap.get('mode') || keyMap.get('mode') === 'common'))) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
-      if (!sourceLang) {
-        for (let lang in sourceLink) {
-          if (sourceLink.hasOwnProperty(lang)) {
-            if (sourceLink[lang].hasOwnProperty(nestedKeys[0])) {
-              sourceLang = sourceLink[lang];
-              break;
-            }
-          }
-        }
-      }
-    } else {
-      console.buildType(`Variable ${sourceName} not found in global scope`, 'error');
-    }
-  })(keyMap);
-    
-  localisedString = sourceLang;
-  for (let i = 0; i < nestedKeys.length; i++) {
-    const k = nestedKeys[i];
-    if (localisedString.hasOwnProperty(k)) {
-      localisedString = localisedString[k];
-    } else {
-      let keyFound = false;
-      
-      for (let lang in sourceLink) {
-        if (sourceLink.hasOwnProperty(lang)) {
-          if (sourceLink[lang].hasOwnProperty(k)) {
-            localisedString = sourceLink[lang][k];
-            keyFound = true;
-            break;
-          }
-        }
-      }
-      
-      if (!keyFound) {
-        return null;
-      }
-    }
-  }
-
-  if (keyMap.get('placement') !== null) {
-    const placeholder = keyMap.get('placement_counter') !== null ? `$(place_${keyMap.get('placement_counter')})` : '$(place)';
-    localisedString = localisedString.replace(placeholder, keyMap.get('placement'));
-  }
-
-  if ('placements' in keyMap || keyMap.has('placements')) {
-    const placements = keyMap.get('placements');
-    for (let i = 0; i < placements.length; i++) {
-      const placement = placements[i];
-      for (let j = 0; j < Object.keys(placement).length; j++) {
-        const key = Object.keys(placement)[j];
-        const value = Object.values(placement)[j];
-        const placeholder = `$(place_${key})`;
-        localisedString = localisedString.replace(placeholder, value);
-      }
-    }
-  }
-
-  return textUnPacker(localisedString);
-}*/
-function uLang(keyMap) {
-  const nestedKeys = keyMap.get('key').split('.');
-  let sourceLink, sourceLang, localisedString;
-
-  ((keyMap) => {
-    const sourceName = keyMap.get('source');
-    if (sourceName && window.hasOwnProperty(sourceName)) {
-      sourceLink = window[sourceName];
-      sourceLang = (keyMap.get('mode') !== null && (supportedLanguages.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
+      sourceLang = (keyMap.get('mode') !== null && (nk.langs.supported.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nkSettings.get('lang')];
       if (!sourceLang) {
         for (let lang in sourceLink) {
           if (sourceLink.hasOwnProperty(lang)) {
@@ -284,8 +206,8 @@ window.nkLocale = {
         found = true;
         break;
       } else {
-        for (let i = 0; i < supportedLanguages.length; i++) {
-          if (lang === supportedLanguages[i]) {
+        for (let i = 0; i < nk.langs.supported.length; i++) {
+          if (lang === nk.langs.supported[i]) {
             value = source[lang];
             found = true;
             break;
@@ -298,30 +220,19 @@ window.nkLocale = {
   }
 }
 
-window.updateItemsLanguage = function () {
-  let item_props = $('item-prop');
-
-  item_props.each(function () {
-    if ($(this).attr('prop_class') === 'kamon') {
-      let shadowRoot = this.shadowRoot;
-      $(shadowRoot).find('.item_title_text').html("тест");
-    }
-  });
-}
-
 window.nkLocale.langUpdate = function ({ target, source } = {}) {
   let sourceName;
-  let key_elements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
+  let keyElements = target ? $(target.selector) : $('[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
   $('*').filter(function () {
     return this.shadowRoot !== null;
   }).each(function () {
     const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key], [eventLess-tooltip-key], [data-key-image]');
-    key_elements = key_elements.add(shadowElements);
+    keyElements = keyElements.add(shadowElements);
   });
 
 
   function update () {
-    key_elements.each(function () {
+    keyElements.each(function () {
       if (!$(this).closestParent('[data-entity]').length && !$(this).closestParent('[data-entity-given]').length) {
         let sourceKey = $(this).attr('data-key-source');
         let dataKey = $(this).attr('data-key');
@@ -384,7 +295,7 @@ window.nkLocale.langUpdate = function ({ target, source } = {}) {
                     }
                     if (!found) {
                       for (let lang in item[key]) {
-                        if (supportedLanguages.includes(lang)) {
+                        if (nk.langs.supported.includes(lang)) {
                           value = item[key][lang];
                           found = true;
                           break;
@@ -433,11 +344,11 @@ window.nkLocale.switch = function (lang) {
   const switchPromise = new Promise((resolve, reject) => {
     try {
       const language = lang.toLowerCase();
-      if (!supportedLanguages.includes(language)) {
+      if (!nk.langs.supported.includes(language)) {
         reject(new Error(`Language “${language}” is not supported.`));
         return;
       }
-      $Setting('lang').save(language);
+      nk.setting('lang').save(language);
       nkSettings.set('lang', language);
       resolve();
     } catch (err) {
@@ -458,7 +369,7 @@ window.cyclic_language = function () {
   let index = 0;
 
   setInterval(function () {
-    nkLocale.switch(supportedLanguages[index]);
-    index = (index + 1) % supportedLanguages.length;
+    nkLocale.switch(nk.langs.supported[index]);
+    index = (index + 1) % nk.langs.supported.length;
   }, 1000);
 }
