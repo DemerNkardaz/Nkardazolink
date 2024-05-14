@@ -530,6 +530,19 @@ window.unpackedHandler = function () {
   });
 }
 
+
+
+window.downloadDATA = function (varToDownload) {
+  let varName = Object.keys(window).find(key => window[key] === varToDownload);
+  let file = new Blob([JSON.stringify(varToDownload, null, 2)], { type: 'application/json' });
+
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(file);
+  a.download = `${varName}.json`;
+  a.click();
+}
+
+
 /*
 document.addEventListener('DOMContentLoaded', function() {
     var elementsWithTabindex = document.querySelectorAll('[tabindex]');

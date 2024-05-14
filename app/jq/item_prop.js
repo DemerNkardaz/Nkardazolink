@@ -112,67 +112,62 @@ nk.ui.itemPropArray = function (source) {
   return itemsArray;
 }
 
-
 window.map_of_descendants = {};
+
 window.descedationMap = function (source) {
   let map = {};
+  function processCategory(category) {
+    if (category.items) {
+      $.each(category.items, function (_, item) {
+        if (item.descending && Array.isArray(item.descending)) {
+          const descendants = item.descending;
+          let currentLevel = map;
+
+          descendants.forEach((desc, index) => {
+            if (index === descendants.length - 1) {
+              currentLevel[desc] = {};
+            } else {
+              currentLevel[desc] = currentLevel[desc] || {};
+              currentLevel = currentLevel[desc];
+            }
+          });
+        }
+      });
+    }
+  }
 
   $.each(source.root, function (_, category) {
-    $.each(category.items, function (_, item) {
-      if (item.descending) {
-        let descendings = item.descending;
-
-        // Проходимся по массиву descending
-        descendings.reduce(function(previous, current, index) {
-          if (!previous[current]) {
-            previous[current] = {};
-          }
-          if (index !== descendings.length - 1) {
-            previous[current][descendings[index + 1]] = {};
-          }
-          return previous[current];
-        }, map);
-      }
-    });
+    processCategory(category);
   });
 
   return map;
-}
+};
+
 $(document).on('full_data_loaded', function () {
   nk.url.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(nk.items.kamon));
 });
 
-window.downloadDATA = function (varToDownload) {
-  let file = new Blob([JSON.stringify(varToDownload, null, 2)], { type: 'application/json' });
 
-  let a = document.createElement('a');
-  a.href = URL.createObjectURL(file);
-  a.download = `${varToDownload}.json`;
-  a.click();
+const COUNTRIES_KEYS = {
+  JA: ['日本', '日本国', 'にほん', 'Nihon', 'Нихон', 'にっぽん', 'ニホン', 'Nippon', 'Ниппон', 'Japan', 'Япония', '일본', 'Nhật Bản', '日本島国', 'にほんしまぐに', 'Нихонсимагуни', 'Nihonshimaguni'],
+  ZH: ['中國', '中国', 'ㄓㄨㄥㄍㄨㄛˊ', 'Zhōngguó', 'Zhongguo', 'ちゅうごく', 'Chūgoku', 'Chuugoku', 'Chugoku', 'China', 'Китай']
 }
 
+let waitingForSave;
 $(document).on('input', '[nk-prop-search]', function () {
-  let bar = $(this);
-  let itemProps = $(`[data-prop-class="${bar.attr('nk-prop-search')}"]`);
+  const bar = $(this);
+  const itemProps = $(`[data-prop-class="${bar.attr('nk-prop-search')}"]`);
   const ITEM_TYPE = bar.attr('nk-prop-search');
-  let waiting;
   let value = bar.val();
 
   if (nk.settingConfig.get('save_search_result') === true) {
-    clearTimeout(waiting);
-    waiting = setTimeout(() => {
+    clearTimeout(waitingForSave);
+    waitingForSave = setTimeout(() => {
       nk.store(`searchResults.${ITEM_TYPE}`).save(value);
-      console.log(`searchResults.${ITEM_TYPE}`, value);
-    }, 1000);
+    }, 500);
   }
 
-  
-
-
   if (value.length > 0) {
-
-
-    
     if (value.startsWith('eg:s:') && /\d/.test(value)) {
       itemProps.each(function () {
         let status = $(this).attr('data-rarity');
@@ -196,7 +191,6 @@ $(document).on('input', '[nk-prop-search]', function () {
     } else if (value.startsWith('eg:>:')) {
       const correctedValue = value.replace('eg:>: ', '').trim().split(' > ');
       const clan = correctedValue.pop();
-      //console.log(clan);
       itemProps.each(function () {
         let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
         tagsSource = eval(tagsSource);
@@ -229,6 +223,18 @@ $(document).on('input', '[nk-prop-search]', function () {
         }
         processDescendants(map_of_descendants.kamon);
         
+      });
+    } else if (value.startsWith(':')) {
+      const currectedValue = value.replace(':', '').toLowerCase();
+      itemProps.each(function () {
+        const propCategory = $(this).attr('data-prop-category');
+        for (let key in COUNTRIES_KEYS) {
+          const lowercaseKey = key.toLowerCase();
+          if (lowercaseKey === currectedValue || COUNTRIES_KEYS[key].some((key) => key.toLowerCase().includes(currectedValue))) {
+            const currentKey = key;
+            propCategory === currentKey ? $(this).attr('data-gallery-visible', 'visible') : $(this).attr('data-gallery-visible', 'hidden');
+          }
+        }
       });
 
     } else {
@@ -309,6 +315,5 @@ $(document).on('drop', '[data-drop-site]', function (e) {
   if (draggedItem.length > 0) {
     let dataEntity = draggedItem.attr('data-entity');
     $(draggedItem).trigger('click');
-    console.log(dataEntity);
   }
 });

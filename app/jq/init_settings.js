@@ -13,7 +13,14 @@ $(document).on('page_fully_builded', function () {
   if (nk.settingConfig.get('save_selected_item') === true) {
     const items = $('item-prop');
     const itemType = items.attr('data-prop-class');
-    $(`item-prop[data-entity="${nk.store(`selectedItems.${itemType}`).load()}"]`).trigger('click');
+    if (nk.store('selectedItems').load()) {
+      $(`item-prop[data-entity="${nk.store(`selectedItems.${itemType}`).load()}"]`).trigger('click');
+    } else {
+      $('item-prop').first().trigger('click');
+    }
+  } else {
+    $('item-prop').first().trigger('click');
+    nk.store('selectedItems').remove();
   }
 
   //? APPLYING SKIN
