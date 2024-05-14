@@ -151,7 +151,8 @@ $(document).on('full_data_loaded', function () {
 
 const COUNTRIES_KEYS = {
   JA: ['日本', '日本国', 'にほん', 'Nihon', 'Нихон', 'にっぽん', 'ニホン', 'Nippon', 'Ниппон', 'Japan', 'Япония', '일본', 'Nhật Bản', '日本島国', 'にほんしまぐに', 'Нихонсимагуни', 'Nihonshimaguni'],
-  ZH: ['中國', '中国', 'ㄓㄨㄥㄍㄨㄛˊ', 'Zhōngguó', 'Zhongguo', 'ちゅうごく', 'Chūgoku', 'Chuugoku', 'Chugoku', 'China', 'Китай']
+  ZH: ['中國', '中国', 'ㄓㄨㄥㄍㄨㄛˊ', 'Zhōngguó', 'Zhongguo', 'ちゅうごく', 'Chūgoku', 'Chuugoku', 'Chugoku', 'China', 'Китай'],
+  KO: ['대한', '韓国', '한국', 'Hanguk', 'Corea', '코리아', 'Корея', 'Korea', 'コリア', '한국어', 'ハングル']
 }
 
 function recursiveChildrenJSONPath(mapobject, targets, item, markedValue, correctedValue) {
@@ -214,38 +215,37 @@ function filterDescendats(itemProps, value) {
 function filterRarities(itemProps, value) {
   itemProps.each(function () {
     let status = $(this).attr('data-rarity');
-    if (!value.includes('-')) {
+    if (value.includes('-')) {
       let rarityValue = value.substring(5).trim().split('-');
-      if (statuses[parseInt(rarityValue)] === status) {
-        $(this).attr('data-gallery-visible', 'visible');
-      } else {
-        $(this).attr('data-gallery-visible', 'hidden');
-      }
+      let visible = parseInt(rarityValue[0]) <= Object.values(statuses).indexOf(status) && Object.values(statuses).indexOf(status) <= parseInt(rarityValue[1]);
+      $(this).attr('data-gallery-visible', visible ? 'visible' : 'hidden');
+    } else if (value.includes(',')) {
+      let rarityValues = value.substring(5).trim().split(',');
+      let visible = rarityValues.some(rarity => Object.values(statuses).indexOf(status) === parseInt(rarity));
+      $(this).attr('data-gallery-visible', visible ? 'visible' : 'hidden');
     } else {
-      let rarityValue = value.substring(5).trim().split('-');
-      if (parseInt(rarityValue[0]) <= Object.values(statuses).indexOf(status) && Object.values(statuses).indexOf(status) <= parseInt(rarityValue[1])) {
-        $(this).attr('data-gallery-visible', 'visible');
-      } else {
-        $(this).attr('data-gallery-visible', 'hidden');
-      }
+      let rarityValue = value.substring(5).trim();
+      let visible = statuses[parseInt(rarityValue)] === status;
+      $(this).attr('data-gallery-visible', visible ? 'visible' : 'hidden');
     }
   });
 }
-
 
 function filterCountries(itemProps, value) {
   const correctedValue = value.replace(':', '').toLowerCase();
   itemProps.each(function () {
     const propCategory = $(this).attr('data-prop-category');
+    let visible = false;
     for (let key in COUNTRIES_KEYS) {
       const lowercaseKey = key.toLowerCase();
-      if (lowercaseKey === correctedValue || COUNTRIES_KEYS[key].some((key) => key.toLowerCase().includes(correctedValue))) {
-        const currentKey = key;
-        propCategory === currentKey ? $(this).attr('data-gallery-visible', 'visible') : $(this).attr('data-gallery-visible', 'hidden');
+      if (lowercaseKey === correctedValue || COUNTRIES_KEYS[key].some(k => k.toLowerCase().includes(correctedValue))) {
+        if (propCategory === key) { visible = true; break; }
       }
     }
+    $(this).attr('data-gallery-visible', visible ? 'visible' : 'hidden');
   });
 }
+
 
 function filterTags(itemProps, value) {
   itemProps.each(function () {
@@ -255,22 +255,18 @@ function filterTags(itemProps, value) {
     $.each(tagsSource.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (entity === item.entity_prop) {
-          if (
-            item.search_tags.some((tag) => tag.toLowerCase().includes(value.toLowerCase())) ||
-            Object.entries(item.names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
-            Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
-            item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
-            item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'))
-          ) {
-            $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
-          } else {
-            $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
-          }
+          let visible = item.search_tags.some(tag => tag.toLowerCase().includes(value.toLowerCase())) ||
+                        Object.entries(item.names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
+                        Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
+                        item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
+                        item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'));
+          $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', visible ? 'visible' : 'hidden');
         }
       });
     });
   });
 }
+
 
 let waitingForSave;
 $(document).on('input', '[nk-prop-search]', function () {
