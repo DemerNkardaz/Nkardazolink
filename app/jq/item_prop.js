@@ -301,14 +301,48 @@ $(document).on('input', '[nk-prop-search]', function () {
 
 $(document).on('click', 'item-prop', function () {
   const item = $(this);
+  const entity = item.attr('data-entity');
   const isTemplate = item.attr('data-prop-template') === 'true';
   const propClass = item.attr('data-prop-class');
   const selectedClass = 'selected';
 
-  item.reapplyClass(selectedClass, `item-prop${!isTemplate ? ':not([data-prop-template])' : '[data-prop-template]' }`);
+  item.reapplyClass(selectedClass, `item-prop${!isTemplate ? ':not([data-prop-template])' : '[data-prop-template]'}`);
 
   if (!isTemplate && nk.settingConfig.get('save_selected_item') === true) {
     nk.store(`selectedItems.${propClass}`).save(item.attr('data-entity'));
+  }
+  if (!isTemplate) {
+    let names, clan_names, image, description, CJK;
+    const language = nk.settingConfig.get('lang');
+    $.each(nk.items[propClass].root, function (_, category) {
+      $.each(category.items, function (_, item) {
+        if (entity === item.entity_prop) {
+          names = item.names[language];
+          clan_names = item.clan_names[language];
+          image = `${nk.items[propClass].default_img_path}${category.img_folder}${item.image}.png`;
+          description = item.description ? item.description[language] : null;
+          CJK = {
+            first_text: item.kanji_first ? item.kanji_first : null,
+            second_text: item.kanji_second ? item.kanji_second : null
+          }
+        }
+      });
+    });
+    const InventoryInfoPanel = $(`inventory-information-panel[data-prop-class="${propClass}"]`);
+    if (InventoryInfoPanel.length > 0) {
+      InventoryInfoPanel.replaceWith(
+        new nk.ui.InventoryInfoPanel({
+          PANEL: {
+            entity: item.attr('data-entity'),
+            title: { text: names, key: 'names', clan: clan_names, clan_key: 'clan_names' },
+            description: { text: description ? description : 'No description', key: 'description' },
+            CJK: { first_text: CJK.first_text, second_text: CJK.second_text, first_key: 'kanji_first', second_key: 'kanji_second' },
+            image: image,
+            prop_class: propClass, category: item.attr('data-prop-category'), rarity: item.attr('data-rarity'),
+          }
+        })
+      );
+    }
   }
 });
 
