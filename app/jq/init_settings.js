@@ -1,26 +1,27 @@
 $(document).on('page_fully_builded', function () {
   //? APPLYING SEARCH
-  if (nk.settingConfig.get('save_search_result') === true) {
+  {
     const bar = $('[nk-prop-search]');
     const itemType = bar.attr('nk-prop-search');
-    if (nk.store(`searchResults.${itemType}`).load() && bar) {
-      bar.val(nk.store(`searchResults.${itemType}`).load());
-      $('[nk-prop-search]').trigger('input');
+    const saveSearchResult = nk.settingConfig.get('save_search_result') === true;
+
+    if (saveSearchResult && nk.store(`searchResults.${itemType}`).load() && bar) {
+      bar.val(nk.store(`searchResults.${itemType}`).load()).trigger('input');
     }
   }
 
   //? APPLYING SELECTED ITEM
-  if (nk.settingConfig.get('save_selected_item') === true) {
+  {
     const items = $('item-prop');
     const itemType = items.attr('data-prop-class');
     if (nk.store('selectedItems').load()) {
-      $(`item-prop[data-entity="${nk.store(`selectedItems.${itemType}`).load()}"]`).trigger('click');
+      const selectedItem = nk.store(`selectedItems.${itemType}`).load()
+      const selector = selectedItem ? `item-prop[data-entity="${selectedItem}"]` : 'item-prop';
+      items.filter('[data-prop-template!="true"]').filter(selector).trigger('click');
     } else {
-      $('item-prop').first().trigger('click');
+      items.filter('[data-prop-template!="true"]').first().trigger('click');
+      nk.store('selectedItems').remove();
     }
-  } else {
-    $('item-prop').first().trigger('click');
-    nk.store('selectedItems').remove();
   }
 
   //? APPLYING SKIN

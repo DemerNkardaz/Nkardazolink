@@ -20,6 +20,7 @@ class ItemProp extends HTMLElement {
       'data-entity': (PROP.entity ? PROP.entity : null),
       'data-prop-class': (PROP.class ? PROP.class : null),
       'data-prop-category': PROP.category || null,
+      'data-prop-template': (PROP.template ? PROP.template : null),
       'data-rarity': (PROP.rarity ? PROP.rarity : null),
       'data-image-multiextension': (PROP.multiextension ? PROP.multiextension : null),
       'data-gallery-visible': 'visible',

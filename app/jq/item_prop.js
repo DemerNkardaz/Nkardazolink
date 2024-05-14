@@ -80,35 +80,47 @@ window.sortItems = function (itemsArray) {
   });
 }
 
-nk.ui.itemPropArray = function (source) {
-
+nk.ui.itemPropArray = function (source, mode) {
+  let itemsArray = [];
+  if (mode === 'template') {
+    Object.keys(statuses).forEach(status => {
+      let items = new ItemProp({
+        PROP: {
+          class: 'kamon',
+          category: 'JA',
+          rarity: statuses[status],
+          title: { text: nk.locale.get(`kamon.rarities.${statuses[status]}`), key: `kamon.rarities.${statuses[status]}` },
+          template: 'true',
+        }
+      });
+      itemsArray.push(items);
+    });
+  } else {
   const dataType = source.data_type;
   const thumb = '_thumb.png';
   let imageFolder = source.default_img_path;
-  let itemsArray = [];
   $.each(source.root, function (_, category) {
     imageFolder += category.img_folder;
     $.each(category.items, function (_, item) {
-      let itemData;
-      if (dataType === 'kamon') {
-        itemData = {
-          PROP: {
-            entity: item.entity_prop,
-            class: 'kamon',
-            category: category.category,
-            rarity: statuses[item.status],
-            title: { text: nk.locale.entity(item.clan_names), key: "clan_names" },
-            image: { src: `${imageFolder}${item.image}${thumb}` },
-            multiextension: item.multiextension ? item.multiextension : null,
+        let itemData;
+        if (dataType === 'kamon') {
+          itemData = {
+            PROP: {
+              entity: item.entity_prop,
+              class: 'kamon',
+              category: category.category,
+              rarity: statuses[item.status],
+              title: { text: nk.locale.entity(item.clan_names), key: "clan_names" },
+              image: { src: `${imageFolder}${item.image}${thumb}` },
+              multiextension: item.multiextension ? item.multiextension : null,
+            }
           }
         }
-      }
-      let itemEntity = new ItemProp(itemData);
-      itemsArray.push(itemEntity);
+        let itemEntity = new ItemProp(itemData);
+        itemsArray.push(itemEntity);
+      });
     });
-  });
-  
-
+  }
   sortItems(itemsArray);
   return itemsArray;
 }
@@ -155,62 +167,59 @@ const COUNTRIES_KEYS = {
   KO: ['대한', '韓国', '한국', 'Hanguk', 'Corea', '코리아', 'Корея', 'Korea', 'コリア', '한국어', 'ハングル']
 }
 
-function recursiveChildrenJSONPath(mapobject, targets, item, markedValue, correctedValue) {
+function recursiveChildrenJSONPath(mapobject, targets, item, value) {
+  const correctedValue = value.replace('eg:>:', '').replace('*', '').trim().toLowerCase();
+  const markedValue = value.replace('eg:>:', '').trim().toLowerCase();
   const startingKeys = $(`[data-entity="${item.entity_prop}"]`).attr('data-entity');
-  let result = jsonpath.query(mapobject, `$..['${startingKeys}']`);
-  let childrenArray = [];
+  const result = jsonpath.query(mapobject, `$..['${startingKeys}']`);
+  const childrenArray = [];
+
   function subRecusrion(keys) {
-    if (markedValue.startsWith('*')) {
-      for (let i = 0; i < keys.length; i++) {
-        childrenArray.push(Object.keys(keys[i]));
-      }
-    } else {
-      keys.forEach(key => {
-        childrenArray.push(Object.keys(key));
-        let children = Object.keys(key).map(k => key[k]);
-        if (children.length > 0) {
-          subRecusrion(children);
-        }
-      });
-    }
-  }
-  if (result.length > 0) {
-    subRecusrion(result);
-    childrenArray = childrenArray.flat();
-    targets.each(function () {
-      const entity = $(this).attr('data-entity');
-      if ((childrenArray.includes(entity) || entity === item.entity_prop) && correctedValue.length > 0)
-      { $(this).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nested': 'true' }); }
-      else { $(this).attr({ 'data-gallery-visible': 'hidden', 'data-gallery-nested': 'false' }); }
+    keys.forEach(key => {
+      childrenArray.push(Object.keys(key));
+      const children = Object.keys(key).map(k => key[k]);
+      if (!markedValue.startsWith('*') && children.length > 0) { subRecusrion(children); }
     });
   }
-};
+
+  if (result.length > 0) {
+    subRecusrion(result.flat());
+    targets.each(function () {
+      const entity = $(this).attr('data-entity');
+      const isVisible = childrenArray.flat().includes(entity) || entity === item.entity_prop;
+      $(this).attr({
+        'data-gallery-visible': isVisible && correctedValue.length > 0 ? 'visible' : 'hidden',
+        'data-gallery-nested': isVisible && correctedValue.length > 0 ? 'true' : 'false'
+      });
+    });
+  }
+}
+
 
 function filterDescendats(itemProps, value) {
-  const correctedValue = value.replace('eg:>:', '').replace('*', '').trim();
-  const markedValue = value.replace('eg:>:', '').trim();
+  const correctedValue = value.replace('eg:>:', '').replace('*', '').trim().toLowerCase();
   itemProps.each(function () {
-    let propClass = $(this).attr('data-prop-class');
-    let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
-    tagsSource = eval(tagsSource);
-    let entity = $(this).attr('data-entity');
+    const propClass = $(this).attr('data-prop-class');
+    const tagsSource = nk.items[propClass];
+    const entity = $(this).attr('data-entity');
     $.each(tagsSource.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (entity === item.entity_prop) {
-          if (item.search_tags.some((tag) => tag.toLowerCase().includes(correctedValue.toLowerCase())) || Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(correctedValue.toLowerCase()))) {
-            $(`[data-entity="${item.entity_prop}"]`).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nested': 'true' });
-            recursiveChildrenJSONPath(map_of_descendants[propClass], itemProps, item, markedValue, correctedValue);
-          } else {
-            if ($(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') !== 'true') {
-              $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
-            }
+          const containsValue = item.search_tags.some(tag => tag.toLowerCase().includes(correctedValue)) || Object.values(item.clan_names).some(name => name.toLowerCase().includes(correctedValue));
+          const isVisible = containsValue || $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') === 'true';
+          $(`[data-entity="${item.entity_prop}"]`).attr({
+            'data-gallery-visible': isVisible ? 'visible' : 'hidden',
+            'data-gallery-nested': containsValue ? 'true' : ''
+          });
+          if (containsValue) {
+            recursiveChildrenJSONPath(map_of_descendants[propClass], itemProps, item, value);
           }
         }
       });
     });
-    
   });
 }
+
 
 function filterRarities(itemProps, value) {
   itemProps.each(function () {
@@ -271,8 +280,8 @@ function filterTags(itemProps, value) {
 let waitingForSave;
 $(document).on('input', '[nk-prop-search]', function () {
   const bar = $(this);
-  const itemProps = $(`[data-prop-class="${bar.attr('nk-prop-search')}"]`);
   const ITEM_TYPE = bar.attr('nk-prop-search');
+  const itemProps = $(`[data-items-container="${ITEM_TYPE}"]`).find(`[data-prop-class="${ITEM_TYPE}"]`);
   let value = bar.val();
 
   if (nk.settingConfig.get('save_search_result') === true) {
@@ -294,12 +303,18 @@ $(document).on('input', '[nk-prop-search]', function () {
 //? ---------------- CLICK EVENTS ---------------- ?//
 
 $(document).on('click', 'item-prop', function () {
-  let item = $(this);
-  const entity = item.attr('data-entity');
+  const item = $(this);
+  const isTemplate = item.attr('data-prop-template') === 'true';
   const propClass = item.attr('data-prop-class');
-  item.reapplyClass('selected', 'item-prop');
-  if (nk.settingConfig.get('save_selected_item') === true) { nk.store(`selectedItems.${propClass}`).save(entity); }
+  const selectedClass = 'selected';
+
+  item.reapplyClass(selectedClass, `item-prop${!isTemplate ? ':not([data-prop-template])' : '[data-prop-template]' }`);
+
+  if (!isTemplate && nk.settingConfig.get('save_selected_item') === true) {
+    nk.store(`selectedItems.${propClass}`).save(item.attr('data-entity'));
+  }
 });
+
 
 
 
@@ -335,7 +350,7 @@ $(document).on('dragover', '[data-drop-site]', function (e) {
 $(document).on('drop', '[data-drop-site]', function (e) {
   e.preventDefault();
   let draggedItem = $('item-prop.dragged');
-  if (draggedItem.length > 0) {
+  if (draggedItem.length > 0 && draggedItem.attr('data-prop-template') !== 'true') {
     let dataEntity = draggedItem.attr('data-entity');
     $(draggedItem).trigger('click');
   }
