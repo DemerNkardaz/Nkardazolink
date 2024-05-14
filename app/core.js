@@ -5,6 +5,7 @@ nk.locale = {};
 nk.items = {};
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
+
 window.parseUrlParameter = function (name) {
   return new URLSearchParams(window.location.search).get(name)?.toLowerCase();
 };

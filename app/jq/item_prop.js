@@ -124,7 +124,7 @@ window.descedationMap = function (source) {
           let currentLevel = map;
 
           descendants.forEach((desc, index) => {
-            if (index === descendants.length - 1) {
+            if (index === descendants.length > 0) {
               currentLevel[desc] = {};
             } else {
               currentLevel[desc] = currentLevel[desc] || {};
@@ -189,39 +189,52 @@ $(document).on('input', '[nk-prop-search]', function () {
         }
       });
     } else if (value.startsWith('eg:>:')) {
-      const correctedValue = value.replace('eg:>: ', '').trim().split(' > ');
-      const clan = correctedValue.pop();
+      const correctedValue = value.replace('eg:>: ', '').trim();
       itemProps.each(function () {
+        let propClass = $(this).attr('data-prop-class');
         let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
         tagsSource = eval(tagsSource);
-
-
         let entity = $(this).attr('data-entity');
-        function processDescendants(obj) {
-          for (let entity_key in obj) {
-            if (obj.hasOwnProperty(entity_key)) {
-              if (typeof obj[entity_key] === 'object') {
-                processDescendants(obj[entity_key]); // Рекурсивно вызываем эту же функцию для вложенных объектов
-              }
-              $.each(tagsSource.root, function (_, category) {
-                $.each(category.items, function (_, item) {
-                  if (entity === item.entity_prop) {
-                    if (Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(clan.toLowerCase()))) {
-                      $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
-                      if (entity_key.includes(item.entity_prop)) {
-                        //! Need recursive function to show all children from map_of_descendants.kamon from current item.entity_prop name as a key of current founded entity
-
+        $.each(tagsSource.root, function (_, category) {
+          $.each(category.items, function (_, item) {
+            if (entity === item.entity_prop) {
+              if (item.search_tags.some((tag) => tag.toLowerCase().includes(correctedValue.toLowerCase()))) {
+                $(`[data-entity="${item.entity_prop}"]`).attr({'data-gallery-visible': 'visible', 'data-gallery-nested': 'true'});
+                function recursiveChildrenJSONPath(mapobject) {
+                  const startingKeys = $(`[data-entity="${item.entity_prop}"]`).attr('data-entity');
+                  let result = jsonpath.query(mapobject, `$..['${startingKeys}']`);
+                  let childrenArray = [];
+                  function subRecusrion(keys) {
+                    keys.forEach(key => {
+                      childrenArray.push(Object.keys(key));
+                      let children = Object.keys(key).map(k => key[k]);
+                      if (children.length > 0) {
+                        subRecusrion(children);
                       }
-                    } else {
-                      $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nesting') !== 'true' && $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
-                    }
+                    });
                   }
-                });
-              });
+                  if (result.length > 0) {
+                    subRecusrion(result);
+                    childrenArray = childrenArray.flat();
+                    console.log(childrenArray);
+                    itemProps.each(function () {
+                      const entity = $(this).attr('data-entity');
+                      if ((childrenArray.includes(entity) || entity === item.entity_prop) && correctedValue.length > 0)
+                      { $(this).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nested': 'true' }); }
+                      else { $(this).attr({ 'data-gallery-visible': 'hidden', 'data-gallery-nested': 'false' }); }
+                    });
+                  }
+                };
+                recursiveChildrenJSONPath(map_of_descendants[`${propClass}`]);
+
+              } else {
+                if ($(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') !== 'true') {
+                  $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
+                }
+              }
             }
-          }
-        }
-        processDescendants(map_of_descendants.kamon);
+          });
+        });
         
       });
     } else if (value.startsWith(':')) {

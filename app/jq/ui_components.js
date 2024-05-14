@@ -23,6 +23,7 @@ class ItemProp extends HTMLElement {
       'data-rarity': (PROP.rarity ? PROP.rarity : null),
       'data-image-multiextension': (PROP.multiextension ? PROP.multiextension : null),
       'data-gallery-visible': 'visible',
+      'data-gallery-nested': 'false',
       'tabindex': -1,
       'draggable': 'true',
     });
