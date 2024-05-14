@@ -64,7 +64,7 @@
         },
         {
           "entity_prop": "ent_sasarindou.clan_minamoto",
-          "image": "Mon_of_clan_Taira",
+          "image": "Mon_of_clan_Minamoto",
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Минамото", "en": "Minamoto", "ja": "源", "zh": "源", "ko": "미나모토", "vi": "Minamoto" },
           "status": 6,
@@ -76,7 +76,7 @@
           "image": "Mon_of_Emperor",
           "names": { "ru": "Хризантемовый императорский герб", "en": "Chrysanthemum Imperial Crest of Tenno(⁛macron_0.255,-0.5⁛)", "ja": "菊の天皇紋章", "zh": "菊天皇的紋章", "ko": "크리산테미안의 국가장식", "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"},
           "clan_names": {"ru": "Тэнно(⁛macron_0.255,-0.5⁛)", "en": "Tenno(⁛macron_0.255,-0.5⁛)", "ja": "天皇", "zh": "天皇", "ko": "황제", "vi": "Hoàng đế"},
-          "status": 6,
+          "status": 7,
           "search_tags": ["Император", "Emperor", "Хризантемовый императорский герб", "Chrysanthemum", "Тэнно", "Tenno", "Japan", "Япония", "Благородный дом", "Императосркая семья"],
           "kanji_first": "菊の御紋",
           "kanji_second": "日本皇室の紋章",
@@ -101,10 +101,20 @@
           "status": 4,
           "search_tags": [ "Такэда", "Takeda", "Япония", "Japan", "Нихонсимагуни", "Nihonshimaguni", "Три листа мальвы в кругу", "Благородный дом", "Noble Family" ],
           "descending": [ "ent_kiku-no-gomon.tennou_lineage", "ent_sasarindou.clan_minamoto", "ent_hishimon.clan_takeda" ]
-        }
+        },
 
 
-
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 0 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 1 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 2 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 3 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 4 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 5 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 6 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 7 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 8 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 9 },
+        { "entity_prop": "ent_template", "image": "Mon_of_clan_Taira", "names": { "ru": "Template"}, "clan_names": { "ru": "Template"}, "status": 10 }
 
       ]
     },

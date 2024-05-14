@@ -5,10 +5,11 @@ const statuses = {
   3: 'venerable',
   4: 'elite',
   5: 'grand',
-  6: 'great',
-  7: 'legendary',
-  8: 'divine',
-  9: 'mythical',
+  6: 'regal',
+  7: 'great',
+  8: 'legendary',
+  9: 'divine',
+  10: 'mythical',
 };
 
 function getRarityOrder(rarity) {
@@ -153,6 +154,124 @@ const COUNTRIES_KEYS = {
   ZH: ['中國', '中国', 'ㄓㄨㄥㄍㄨㄛˊ', 'Zhōngguó', 'Zhongguo', 'ちゅうごく', 'Chūgoku', 'Chuugoku', 'Chugoku', 'China', 'Китай']
 }
 
+function recursiveChildrenJSONPath(mapobject, targets, item, markedValue, correctedValue) {
+  const startingKeys = $(`[data-entity="${item.entity_prop}"]`).attr('data-entity');
+  let result = jsonpath.query(mapobject, `$..['${startingKeys}']`);
+  let childrenArray = [];
+  function subRecusrion(keys) {
+    if (markedValue.startsWith('*')) {
+      for (let i = 0; i < keys.length; i++) {
+        childrenArray.push(Object.keys(keys[i]));
+      }
+    } else {
+      keys.forEach(key => {
+        childrenArray.push(Object.keys(key));
+        let children = Object.keys(key).map(k => key[k]);
+        if (children.length > 0) {
+          subRecusrion(children);
+        }
+      });
+    }
+  }
+  if (result.length > 0) {
+    subRecusrion(result);
+    childrenArray = childrenArray.flat();
+    targets.each(function () {
+      const entity = $(this).attr('data-entity');
+      if ((childrenArray.includes(entity) || entity === item.entity_prop) && correctedValue.length > 0)
+      { $(this).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nested': 'true' }); }
+      else { $(this).attr({ 'data-gallery-visible': 'hidden', 'data-gallery-nested': 'false' }); }
+    });
+  }
+};
+
+function filterDescendats(itemProps, value) {
+  const correctedValue = value.replace('eg:>:', '').replace('*', '').trim();
+  const markedValue = value.replace('eg:>:', '').trim();
+  itemProps.each(function () {
+    let propClass = $(this).attr('data-prop-class');
+    let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
+    tagsSource = eval(tagsSource);
+    let entity = $(this).attr('data-entity');
+    $.each(tagsSource.root, function (_, category) {
+      $.each(category.items, function (_, item) {
+        if (entity === item.entity_prop) {
+          if (item.search_tags.some((tag) => tag.toLowerCase().includes(correctedValue.toLowerCase())) || Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(correctedValue.toLowerCase()))) {
+            $(`[data-entity="${item.entity_prop}"]`).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nested': 'true' });
+            recursiveChildrenJSONPath(map_of_descendants[propClass], itemProps, item, markedValue, correctedValue);
+          } else {
+            if ($(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') !== 'true') {
+              $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
+            }
+          }
+        }
+      });
+    });
+    
+  });
+}
+
+function filterRarities(itemProps, value) {
+  itemProps.each(function () {
+    let status = $(this).attr('data-rarity');
+    if (!value.includes('-')) {
+      let rarityValue = value.substring(5).trim().split('-');
+      if (statuses[parseInt(rarityValue)] === status) {
+        $(this).attr('data-gallery-visible', 'visible');
+      } else {
+        $(this).attr('data-gallery-visible', 'hidden');
+      }
+    } else {
+      let rarityValue = value.substring(5).trim().split('-');
+      if (parseInt(rarityValue[0]) <= Object.values(statuses).indexOf(status) && Object.values(statuses).indexOf(status) <= parseInt(rarityValue[1])) {
+        $(this).attr('data-gallery-visible', 'visible');
+      } else {
+        $(this).attr('data-gallery-visible', 'hidden');
+      }
+    }
+  });
+}
+
+
+function filterCountries(itemProps, value) {
+  const correctedValue = value.replace(':', '').toLowerCase();
+  itemProps.each(function () {
+    const propCategory = $(this).attr('data-prop-category');
+    for (let key in COUNTRIES_KEYS) {
+      const lowercaseKey = key.toLowerCase();
+      if (lowercaseKey === correctedValue || COUNTRIES_KEYS[key].some((key) => key.toLowerCase().includes(correctedValue))) {
+        const currentKey = key;
+        propCategory === currentKey ? $(this).attr('data-gallery-visible', 'visible') : $(this).attr('data-gallery-visible', 'hidden');
+      }
+    }
+  });
+}
+
+function filterTags(itemProps, value) {
+  itemProps.each(function () {
+    let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
+    tagsSource = eval(tagsSource);
+    let entity = $(this).attr('data-entity');
+    $.each(tagsSource.root, function (_, category) {
+      $.each(category.items, function (_, item) {
+        if (entity === item.entity_prop) {
+          if (
+            item.search_tags.some((tag) => tag.toLowerCase().includes(value.toLowerCase())) ||
+            Object.entries(item.names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
+            Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
+            item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
+            item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'))
+          ) {
+            $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
+          } else {
+            $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
+          }
+        }
+      });
+    });
+  });
+}
+
 let waitingForSave;
 $(document).on('input', '[nk-prop-search]', function () {
   const bar = $(this);
@@ -161,128 +280,17 @@ $(document).on('input', '[nk-prop-search]', function () {
   let value = bar.val();
 
   if (nk.settingConfig.get('save_search_result') === true) {
-    clearTimeout(waitingForSave);
-    waitingForSave = setTimeout(() => {
-      nk.store(`searchResults.${ITEM_TYPE}`).save(value);
-    }, 500);
+    clearTimeout(waitingForSave); waitingForSave = setTimeout(() => { nk.store(`searchResults.${ITEM_TYPE}`).save(value); }, 500);
   }
 
   if (value.length > 0) {
-    if (value.startsWith('eg:s:') && /\d/.test(value)) {
-      itemProps.each(function () {
-        let status = $(this).attr('data-rarity');
-        if (!value.includes('-')) {
-          let rarityValue = value.substring(5).trim().split('-');
-          if (statuses[parseInt(rarityValue)] === status) {
-            $(this).attr('data-gallery-visible', 'visible');
-          } else {
-            $(this).attr('data-gallery-visible', 'hidden');
-          }
-        } else {
-          //! This is search by range like 0-3, 2-5 etc.
-          let rarityValue = value.substring(5).trim().split('-');
-          if (parseInt(rarityValue[0]) <= Object.values(statuses).indexOf(status) && Object.values(statuses).indexOf(status) <= parseInt(rarityValue[1])) {
-            $(this).attr('data-gallery-visible', 'visible');
-          } else {
-            $(this).attr('data-gallery-visible', 'hidden');
-          }
-        }
-      });
-    } else if (value.startsWith('eg:>:')) {
-      const correctedValue = value.replace('eg:>:', '').replace('*', '').trim();
-      const markedValue = value.replace('eg:>:', '').trim();
-      itemProps.each(function () {
-        let propClass = $(this).attr('data-prop-class');
-        let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
-        tagsSource = eval(tagsSource);
-        let entity = $(this).attr('data-entity');
-        $.each(tagsSource.root, function (_, category) {
-          $.each(category.items, function (_, item) {
-            if (entity === item.entity_prop) {
-              if (item.search_tags.some((tag) => tag.toLowerCase().includes(correctedValue.toLowerCase())) || Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(correctedValue.toLowerCase()))) {
-                $(`[data-entity="${item.entity_prop}"]`).attr({'data-gallery-visible': 'visible', 'data-gallery-nested': 'true'});
-                function recursiveChildrenJSONPath(mapobject) {
-                  const startingKeys = $(`[data-entity="${item.entity_prop}"]`).attr('data-entity');
-                  let result = jsonpath.query(mapobject, `$..['${startingKeys}']`);
-                  let childrenArray = [];
-                  function subRecusrion(keys) {
-                    if (markedValue.startsWith('*')) {
-                      for (let i = 0; i < keys.length; i++) {
-                        childrenArray.push(Object.keys(keys[i]));
-                      }
-                    } else {
-                      keys.forEach(key => {
-                        childrenArray.push(Object.keys(key));
-                        let children = Object.keys(key).map(k => key[k]);
-                        if (children.length > 0) {
-                          subRecusrion(children);
-                        }
-                      });
-                    }
-                  }
-                  if (result.length > 0) {
-                    subRecusrion(result);
-                    childrenArray = childrenArray.flat();
-                    itemProps.each(function () {
-                      const entity = $(this).attr('data-entity');
-                      if ((childrenArray.includes(entity) || entity === item.entity_prop) && correctedValue.length > 0)
-                      { $(this).attr({ 'data-gallery-visible': 'visible', 'data-gallery-nested': 'true' }); }
-                      else { $(this).attr({ 'data-gallery-visible': 'hidden', 'data-gallery-nested': 'false' }); }
-                    });
-                  }
-                };
-                recursiveChildrenJSONPath(map_of_descendants[propClass]);
+    
+    if (value.startsWith('eg:s:') && /\d/.test(value)) { filterRarities(itemProps, value); }
+    else if (value.startsWith('eg:>:')) { filterDescendats(itemProps, value); }
+    else if (value.startsWith(':')) { filterCountries(itemProps, value); }
+    else { filterTags(itemProps, value); }
 
-              } else {
-                if ($(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') !== 'true') {
-                  $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
-                }
-              }
-            }
-          });
-        });
-        
-      });
-    } else if (value.startsWith(':')) {
-      const currectedValue = value.replace(':', '').toLowerCase();
-      itemProps.each(function () {
-        const propCategory = $(this).attr('data-prop-category');
-        for (let key in COUNTRIES_KEYS) {
-          const lowercaseKey = key.toLowerCase();
-          if (lowercaseKey === currectedValue || COUNTRIES_KEYS[key].some((key) => key.toLowerCase().includes(currectedValue))) {
-            const currentKey = key;
-            propCategory === currentKey ? $(this).attr('data-gallery-visible', 'visible') : $(this).attr('data-gallery-visible', 'hidden');
-          }
-        }
-      });
-
-    } else {
-      itemProps.each(function () {
-        let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
-        tagsSource = eval(tagsSource);
-        let entity = $(this).attr('data-entity');
-        $.each(tagsSource.root, function (_, category) {
-          $.each(category.items, function (_, item) {
-            if (entity === item.entity_prop) {
-              if (
-                item.search_tags.some((tag) => tag.toLowerCase().includes(value.toLowerCase())) ||
-                Object.entries(item.names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
-                Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
-                item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
-                item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'))
-              ) {
-                $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'visible');
-              } else {
-                $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', 'hidden');
-              }
-            }
-          });
-        });
-      });
-    }
-  } else {
-    itemProps.attr('data-gallery-visible', 'visible');
-  }
+  } else { itemProps.attr('data-gallery-visible', 'visible'); }
 });
 
 
