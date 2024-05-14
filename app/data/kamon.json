@@ -110,13 +110,13 @@
       "img_folder": "/china/crests/",
       "items": [
         {
-          "entity_prop": "ent_hishimon.clan_2takeda",
-          "image": "Mon_of_clan_Takeda",
-          "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
-          "clan_names": { "ru": "Такэда", "en": "Takeda", "ja": "武田", "zh": "武田", "ko": "다케다", "vi": "Takeda" },
-          "status": 4,
-          "search_tags": [ "Такэда", "Takeda", "Япония", "Japan", "Нихонсимагуни", "Nihonshimaguni", "Три листа мальвы в кругу", "Благородный дом", "Noble Family" ],
-          "descending": [ "ent_kiku-no-gomon.tennou_lineage", "ent_sasarindou.clan_minamoto", "ent_hishimon.clan_takeda" ]
+          "entity_prop": "ent_lin-mianju-yinzhang.clan_linguang",
+          "image": "Linguang_Family_Crest",
+          "names": { "ru": "Печать из лесной маски", "en": "Seal of Forest Mask", "ja": "森お面の封印", "zh": "林面具印章", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
+          "clan_names": { "ru": "Линь Гуан", "en": "Lin Guang", "ja": "林光", "zh": "林光", "ko": "다케다", "vi": "Lin Guang" },
+          "status": 2,
+          "search_tags": [ "Западный Китай", "Провинция Кань" ],
+          "descending": [ "ent_.western_feng_dynasty", "ent_lin-mianju-yinzhang.clan_linguang" ]
         }
       ]
     },

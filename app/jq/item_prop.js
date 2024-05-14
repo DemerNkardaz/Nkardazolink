@@ -97,10 +97,7 @@ nk.ui.itemPropArray = function (source, mode) {
     });
   } else {
   const dataType = source.data_type;
-  const thumb = '_thumb.png';
-  let imageFolder = source.default_img_path;
   $.each(source.root, function (_, category) {
-    imageFolder += category.img_folder;
     $.each(category.items, function (_, item) {
         let itemData;
         if (dataType === 'kamon') {
@@ -111,7 +108,7 @@ nk.ui.itemPropArray = function (source, mode) {
               category: category.category,
               rarity: statuses[item.status],
               title: { text: nk.locale.entity(item.clan_names), key: "clan_names" },
-              image: { src: `${imageFolder}${item.image}${thumb}` },
+              image: { src: `${source.default_img_path}${category.img_folder}${item.image}_thumb.png` },
               multiextension: item.multiextension ? item.multiextension : null,
             }
           }
