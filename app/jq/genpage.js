@@ -209,7 +209,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
                   name : 'kamon',
                   title: { text: 'Default', key: 'names', clan: 'Clan', clan_key: 'clan_names' },
                   description: { text: 'Default', key: 'description' },
-                  CJK: { first_key: 'kanji_first', second_key: 'kanji_second' },
+                  CJK: { first_key: 'kanji_first', second_key: 'kanji_second' , transcript_first: 'default'},
                   image: 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira.svg',
                   prop_class: 'kamon', category: 'JA', rarity: 'inferior',
                 }
@@ -222,8 +222,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
 
             main = `
             <div data-items-container="kamon" style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElementObject(nk.ui.itemPropArray(nk.items.kamon))}</div>
-            <div style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElementObject(nk.ui.itemPropArray(null, 'template'))}</div>
-            <div data-entity="ent_maru_ni_mittsu_aoi.clan_matsudaira" data-prop-class="kamon" data-prop-category="JA"><span data-key="transcript_second">fff</span></div><div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-gap: 8px; border: 1px solid #000; padding-top: 8px; height: 400px; width: 100%;" data-drop-site="kamon"></div>`;
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElementObject(nk.ui.itemPropArray(null, 'template'))}</div>`;
             
             
             footer = `

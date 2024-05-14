@@ -239,7 +239,7 @@ window.nk.locale = {
   }
 }
 
-window.nk.locale.update = function ({ target, source } = {}) {
+window.nk.locale.update = function ({ target, source, parent} = {}) {
   let sourceName;
   let keyElements = target ? $(target.selector) : $('[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
   $('*').filter(function () {
@@ -278,13 +278,15 @@ window.nk.locale.update = function ({ target, source } = {}) {
           nk.locale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nk.locale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
         }
       } else {
-        let entity = $(this).closestParent('[data-entity]')
-        let entityProp = entity.attr('data-entity');
+        let entity = $(this).closestParent('[data-entity]');
+        let entityProp =  entity.attr('data-entity');
 
         if ($(this).closestParent('[data-entity-given]').length) {
           entity = $(this).closestParent('[data-entity-given]');
           entityProp = entity.attr('data-entity-given');
         }
+
+
         let entityType = entity.attr('data-prop-class');
         let entityCategory = entity.attr('data-prop-category');
         let localeSource = `nk.items.${entityType}`;

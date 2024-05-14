@@ -49,7 +49,9 @@ class InventoryInfoPanel extends HTMLElement {
     <div class="inventory-info-panel">
       <div class="inventory-info-panel__banner">
         <h2 class="inventory-info-panel__title"${PANEL && PANEL.title.key ? ` data-key="${PANEL.title.key}"` : ''}>${PANEL && PANEL.title.text ? PANEL.title.text : ''}</h2>
-        <div class="inventory-info-panel__title_transcription"></div>
+        <div class="inventory-info-panel__title_transcription shadow-wrapper">
+          <div class="inventory-info-panel__title_transcription_inner plate_chinese" data-key="transcript_first">${PANEL && PANEL.CJK ? `${PANEL.CJK.transcript_first}` : ''}</div>
+        </div>
       </div>
       <div class="inventory-info-panel__item_viewer">
         <img src="${PANEL && PANEL.image ? PANEL.image : ''}" alt="${PANEL && PANEL.name ? PANEL.name : ''}" class="inventory-info-panel__item_viewer__image">
@@ -76,7 +78,8 @@ class InventoryInfoPanel extends HTMLElement {
       'data-entity-given': PANEL && PANEL.entity ? PANEL.entity : null,
       'data-prop-class': PANEL && PANEL.prop_class ? PANEL.prop_class : null,
       'data-prop-category': PANEL && PANEL.category ? PANEL.category : null,
-      'data-rarity': PANEL && PANEL.rarity ? PANEL.rarity : null
+      'data-rarity': PANEL && PANEL.rarity ? PANEL.rarity : null,
+      'data-drop-site': PANEL && PANEL.prop_class ? PANEL.prop_class : null
     });
 
     this.innerHTML = component;
