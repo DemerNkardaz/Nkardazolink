@@ -3,7 +3,7 @@
   --rarity_color_divine: linear-gradient(-25deg, #ebebeb, #bebebe);
   --rarity_color_legendary: linear-gradient(-25deg, #4bc6d1, #51859a);
   --rarity_color_great: linear-gradient(-25deg, #d14b4b, #9a5151);
-  --rarity_color_regal: linear-gradient(-25deg, #6b8bb1, #5c64d0 50%);
+  --rarity_color_regal: linear-gradient(-25deg, #6168d4, #4b4497);
   --rarity_color_grand: linear-gradient(-25deg, #d1934b, #9a7251);
   --rarity_color_elite: linear-gradient(-25deg, #d0cd69, #8d9566);
   --rarity_color_venerable: linear-gradient(-25deg, #d069a7, #95667d);
@@ -120,7 +120,7 @@ item-prop {
 
   & .item-image__element {
     display: flex;
-    filter: drop-shadow(0px 1px 1px var(--shadow_00a95));
+    filter: drop-shadow(0px 1px 1px var(--shadow_00a95)) drop-shadow(0px 5px 5px var(--shadow_22a64));
   }
 
   & .item-icon {
