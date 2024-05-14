@@ -189,7 +189,8 @@ $(document).on('input', '[nk-prop-search]', function () {
         }
       });
     } else if (value.startsWith('eg:>:')) {
-      const correctedValue = value.replace('eg:>: ', '').trim();
+      const correctedValue = value.replace('eg:>:', '').replace('*', '').trim();
+      const markedValue = value.replace('eg:>:', '').trim();
       itemProps.each(function () {
         let propClass = $(this).attr('data-prop-class');
         let tagsSource = `nk.items.${$(this).attr('data-prop-class')}`;
@@ -198,25 +199,30 @@ $(document).on('input', '[nk-prop-search]', function () {
         $.each(tagsSource.root, function (_, category) {
           $.each(category.items, function (_, item) {
             if (entity === item.entity_prop) {
-              if (item.search_tags.some((tag) => tag.toLowerCase().includes(correctedValue.toLowerCase()))) {
+              if (item.search_tags.some((tag) => tag.toLowerCase().includes(correctedValue.toLowerCase())) || Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(correctedValue.toLowerCase()))) {
                 $(`[data-entity="${item.entity_prop}"]`).attr({'data-gallery-visible': 'visible', 'data-gallery-nested': 'true'});
                 function recursiveChildrenJSONPath(mapobject) {
                   const startingKeys = $(`[data-entity="${item.entity_prop}"]`).attr('data-entity');
                   let result = jsonpath.query(mapobject, `$..['${startingKeys}']`);
                   let childrenArray = [];
                   function subRecusrion(keys) {
-                    keys.forEach(key => {
-                      childrenArray.push(Object.keys(key));
-                      let children = Object.keys(key).map(k => key[k]);
-                      if (children.length > 0) {
-                        subRecusrion(children);
+                    if (markedValue.startsWith('*')) {
+                      for (let i = 0; i < keys.length; i++) {
+                        childrenArray.push(Object.keys(keys[i]));
                       }
-                    });
+                    } else {
+                      keys.forEach(key => {
+                        childrenArray.push(Object.keys(key));
+                        let children = Object.keys(key).map(k => key[k]);
+                        if (children.length > 0) {
+                          subRecusrion(children);
+                        }
+                      });
+                    }
                   }
                   if (result.length > 0) {
                     subRecusrion(result);
                     childrenArray = childrenArray.flat();
-                    console.log(childrenArray);
                     itemProps.each(function () {
                       const entity = $(this).attr('data-entity');
                       if ((childrenArray.includes(entity) || entity === item.entity_prop) && correctedValue.length > 0)
@@ -225,7 +231,7 @@ $(document).on('input', '[nk-prop-search]', function () {
                     });
                   }
                 };
-                recursiveChildrenJSONPath(map_of_descendants[`${propClass}`]);
+                recursiveChildrenJSONPath(map_of_descendants[propClass]);
 
               } else {
                 if ($(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') !== 'true') {
