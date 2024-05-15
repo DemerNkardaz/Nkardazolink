@@ -55,10 +55,10 @@ class InventoryInfoPanel extends HTMLElement {
       </div>
       <div class="inventory-info-panel__item_viewer">
         <img src="${PANEL && PANEL.image ? PANEL.image : ''}" alt="${PANEL && PANEL.name ? PANEL.name : ''}" class="inventory-info-panel__item_viewer__image">
-        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK.first_key}"` : ''}>
+        <span class="inventory-info-panel__item_viewer__CJK_script topright_12px" data-key="kanji_first">
         ${PANEL.CJK.first_text ? PANEL.CJK.first_text : ''}
         </span>
-        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px"${PANEL && PANEL.CJK ? ` data-key="${PANEL.CJK.second_key}"` : ''}>
+        <span class="inventory-info-panel__item_viewer__CJK_script topleft_12px" data-key="kanji_second">
         ${PANEL.CJK.second_text ? PANEL.CJK.second_text : ''}
         </span>
         <div class="inventory-info-panel__item_viewer__extras bottom_6px left_3px">${PANEL && PANEL.extras ? PANEL.extras : ''}</div>
@@ -66,7 +66,7 @@ class InventoryInfoPanel extends HTMLElement {
       <div class="inventory-info-panel__content">
         <div class="inventory-info-panel__clan_title">
           <img src="resources/svg/break_decorator_left.svg" alt="" class="inventory-info-panel__break_decorator">
-          <b class="inventory-info-panel__clan_title_text"${PANEL && PANEL.title.clan_key ? ` data-key="${PANEL.title.clan_key}"` : ''}">${PANEL && PANEL.title.clan ? PANEL.title.clan : ''}</b>
+          <b class="inventory-info-panel__clan_title_text"${PANEL && PANEL.title.clan_key ? ` data-key="${PANEL.title.clan_key}"` : ''}>${PANEL && PANEL.title.clan ? PANEL.title.clan : ''}</b>
           <img src="resources/svg/break_decorator_left.svg" alt="" class="inventory-info-panel__break_decorator rotate-180">
         </div>
         <div class="inventory-info-panel__description" ${PANEL && PANEL.description.key ? ` data-key="${PANEL.description.key}"` : ''}>${PANEL && PANEL.description.text ? PANEL.description.text : ''}</div>

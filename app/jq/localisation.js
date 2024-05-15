@@ -289,12 +289,12 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
           collectDataKeys.each(function () {
             let key = $(this).attr('data-key');
             let found = false;
-            let path = jsonpath.query(localeSource.root, `$..items[?(@.entity_prop=='${entityProp}')]`);
-            let localisedString = path[0][key];
+            let path = jsonpath.query(localeSource.root, `$..items[?(@.entity_prop=='${entityProp}')]`)[0];
+            let localisedString = path[key];
             if (typeof localisedString === 'string' || Array.isArray(localisedString)) { found = true; }
             else {
               for (let lang in localisedString) {
-                localisedString = localisedString[nk.settingConfig.get('lang') || nk.langs.supported.includes(lang)];
+                localisedString = nk.settingConfig.get('lang') && localisedString[nk.settingConfig.get('lang')] ? localisedString[nk.settingConfig.get('lang')] : nk.langs.supported.includes(lang) && localisedString[lang];
                 found = true;
                 break;
               }

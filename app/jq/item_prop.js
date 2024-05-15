@@ -312,42 +312,34 @@ $(document).on('click', 'item-prop', function () {
 
 function openInventoryPanel(itemProp) {
   const entity = itemProp.attr('data-entity');
-  const itemCategory = itemProp.attr('data-prop-category');
-  const itemRarity = itemProp.attr('data-rarity');
   const propClass = itemProp.attr('data-prop-class');
   const language = nk.settingConfig.get('lang');
-  $.each(nk.items[propClass].root, function (_, category) {
-    $.each(category.items, function (_, item) {
-      if (entity === item.entity_prop) {
-        const InventoryInfoPanel = $(`inventory-information-panel[data-prop-class="${propClass}"]`);
-        if (InventoryInfoPanel.length > 0) {
-          InventoryInfoPanel.replaceWith(
-            new nk.ui.InventoryInfoPanel({
-              PANEL: {
-                entity: entity,
-                title: {
-                  text: item.names[language].unpackText(), key: 'names',
-                  clan: item.clan_names[language].unpackText(), clan_key: 'clan_names'
-                },
-                description: {
-                  text: item.description ? item.description[language].unpackText() : 'No description', key: item.description && 'description'
-                },
-                CJK: {
-                  first_text: item.kanji_first ? item.kanji_first.unpackText() : null,
-                  second_text: item.kanji_second ? item.kanji_second.unpackText() : null,
-                  first_key: item.kanji_first ? 'kanji_first' : null,
-                  second_key: item.kanji_second ? 'kanji_second' : null,
-                  transcript_first: item.transcript_first ? item.transcript_first[language].unpackText() : null
-                },
-                image: `${nk.items[propClass].default_img_path}${category.img_folder}${item.image}.png`,
-                prop_class: propClass, category: itemCategory, rarity: itemRarity,
-              }
-            })
-          );
-        }
-      }
-    });
-  });
+  const path = jsonpath.query(nk.items[propClass].root, `$..items[?(@.entity_prop=="${entity}")]`)[0];
+  const categoryPath = nk.items[propClass].root.find(category => category.category === itemProp.attr('data-prop-category'));
+  if (path) {
+    const InventoryInfoPanel = $(`inventory-information-panel[data-prop-class="${propClass}"]`);
+    if (InventoryInfoPanel.length > 0) {
+      InventoryInfoPanel.replaceWith(
+        new nk.ui.InventoryInfoPanel({
+          PANEL: {
+            entity: path.entity_prop,
+            title: { text: path.names[language].unpackText(), key: 'names', clan: path.clan_names[language].unpackText(), clan_key: 'clan_names' },
+            description: {
+              text: path.description && path.description[language] ? path.description[language].unpackText() : 'No description',
+              key: path.description && 'description'
+            },
+            CJK: {
+              first_text: path.kanji_first ? path.kanji_first.unpackText() : null,
+              second_text: path.kanji_second ? path.kanji_second.unpackText() : null,
+              transcript_first: path.transcript_first ? path.transcript_first[language].unpackText() : null,
+            },
+            image: `${nk.items[propClass].default_img_path}${categoryPath.img_folder}${path.image}.png`,
+            prop_class: propClass, category: categoryPath.category, rarity: statuses[path.status],
+          }
+        })
+      );
+    }
+  }
 }
 
 
