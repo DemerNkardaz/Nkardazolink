@@ -37,12 +37,12 @@ function iLang(keyMap) {
   (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..${keysArray.join('')}`));
   (localisedString.length > 0) && (localisedString = localisedString[0], found = true);
   if (found) {
-    if (typeof localisedString === 'object') { 
+    if (typeof localisedString === 'object') {
       const resultArray = [];
       const processObject = (obj) => {
         Object.entries(obj).forEach(([key, value]) => {
           if (typeof value === 'object') { const nestedResultArray = []; processObject(value); resultArray.push(nestedResultArray); }
-          else {keyMap.get('raw') === true ? resultArray.push(`${key} : ${value}`) : resultArray.push(`${value}`); }
+          else { keyMap.get('raw') === true ? resultArray.push(`${key} : ${value}`) : resultArray.push(`${value}`); }
         });
       };
       (Object.keys(localisedString).length > 0) && processObject(localisedString);
@@ -58,23 +58,13 @@ function iLang(keyMap) {
     return null;
   }
 
-  if (keyMap.get('placement') !== null) {
-    const placeholder = keyMap.get('placement_counter') !== null ? `$(place_${keyMap.get('placement_counter')})` : '$(place)';
-    localisedString = localisedString.replace(placeholder, keyMap.get('placement'));
+  if (keyMap.has('placements')) {
+    const placements = keyMap.get('placements');
+    placements.forEach(placement => {
+      Object.entries(placement).forEach(([key, value]) => { const placeholder = `$(place_${key})`; localisedString = localisedString.replace(placeholder, value); });
+    });
   }
 
-  if ('placements' in keyMap || keyMap.has('placements')) {
-    const placements = keyMap.get('placements');
-    for (let i = 0; i < placements.length; i++) {
-      const placement = placements[i];
-      for (let j = 0; j < Object.keys(placement).length; j++) {
-        const key = Object.keys(placement)[j];
-        const value = Object.values(placement)[j];
-        const placeholder = `$(place_${key})`;
-        localisedString = localisedString.replace(placeholder, value);
-      }
-    }
-  }
 
   return found ? localisedString : null;
 }
@@ -95,7 +85,6 @@ window.nk.locale = {
 
     if (typeof key === 'object') {
       keyMap.set('mode', key.mode || null).set('key', key.key || null).set('source', key.source || 'languageJSON' || null);
-      ('placement' in key) && keyMap.set('placement', key.placement || null).set('placement_counter', key.placement_counter || null);
       ('placements' in key) && keyMap.set('placements', key.placements || null);
 
     } else if (typeof key === 'string') {
@@ -105,8 +94,6 @@ window.nk.locale = {
       
       keyMap.set('mode', mode)
         .set('key', remainingKey.includes('↓') ? remainingKey.split('↓')[0].split('>')[0] : remainingKey.split('>')[0])
-        .set('placement', remainingKey.includes('↓') ? remainingKey.split('↓')[1].split('>')[0].split('$')[0] : null)
-        .set('placement_counter', remainingKey.includes('$') ? remainingKey.split('$')[1].split('>')[0] : null)
         .set('source', remainingKey.split('>')[1] || 'languageJSON' || null);
     } else {
       return console.error('[LOCALE] → Wrong type of key');
@@ -124,7 +111,6 @@ window.nk.locale = {
     let localisedString = jsonpath.query(source, `$['${language}']`);
     (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..`));
     (localisedString.length > 0) && (localisedString = localisedString[0].unpackText(), found = true, localisedString = eval('`' + localisedString + '`'));
-    console.log(localisedString);
     return found ? localisedString : null;
   }
 }
