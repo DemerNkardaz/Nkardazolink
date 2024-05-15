@@ -283,12 +283,72 @@
     "save_search_result": "Save search input",
     "save_selected_item": "Save last selected item",
     "turn_off_preloader": "Turn off preloader animation",
-    "OCKhertahiron": "Hertahiron - Original Character (Persona)"
+    "OCKhertahiron": "Hertahiron - Original Character (Persona)",
+
+    "kamon": {
+      "rarities": {
+        "inferior": "Низшие",
+        "common": "Обычные",
+        "normal": "Влиятельные",
+        "venerable": "Почтенные",
+        "elite": "Элита",
+        "grand": "Благородные",
+        "regal": "Регальные",
+        "great": "Великие",
+        "legendary": "Легендарные",
+        "divine": "Божественные",
+        "mythical": "Мифические",
+
+        "museiryoku": "Мусэйрёку",
+        "koshizoku": "Косидзоку",
+        "hirazoku": "Хирадзоку",
+
+        "igenshi": "Игэн-си",
+        "seimon": "Сэймон",
+        "monbatsu": "Момбацу",
+
+        "daimon": "Даймон",
+        "daitenshi": "Дайтэнси",
+        "jinshi": "Дзинси",
+
+        "shinwashi": "Синва-си"
+      },
+      "rarity_descriptions": {
+        "museiryoku": "Кланы с низким статусом.",
+        "koshizoku": "Небогатые и небольшие кланы.",
+        "hirazoku": "Кланы среднего или высокого статуса.",
+
+        "igenshi": "Кланы почтенного статуса.",
+        "seimon": "Влиятельные рода.",
+        "monbatsu": "Знатные рода высокого статуса, нередко правители регионов",
+
+        "daimon": "Великие рода, правящие большими территориями.",
+        "daitenshi": "Легендарнейшие из родов, когда-либо бывших в мире.",
+        "jinshi": "Божественные рода.",
+
+        "shinwashi": ""
+      }
+    }
+
   },
   "ja": {
 
     "kamon": {
       "rarities": {
+
+        "inferior": "Низшие",
+        "common": "Обычные",
+        "normal": "Влиятельные",
+        "venerable": "Почтенные",
+        "elite": "Элита",
+        "grand": "Благородные",
+        "regal": "Регальные",
+        "great": "Великие",
+        "legendary": "Легендарные",
+        "divine": "Божественные",
+        "mythical": "Мифические",
+
+
         "museiryoku": "無勢力",
         "koshizoku": "小氏族",
         "hirazoku": "平族",
@@ -344,6 +404,9 @@
         }
       }
     },
+
+
+    
     "console": "コンソール: システムユーザーインターフェイス",
     "Naeda_Kitetsugi": "菜枝 鬼鉄義",
     "Site_Title_Nkardaz": "デメル・ナカルダズ・２Ｄ・３Ｄ・ピサツレスト・ヴォーストカ",

@@ -153,9 +153,7 @@ window.descedationMap = function (source) {
   return map;
 };
 
-$(document).on('full_data_loaded', function () {
-  nk.url.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(nk.items.kamon));
-});
+$(document).on('full_data_loaded', function () { nk.url.mode === 'kamon' && (map_of_descendants.kamon = descedationMap(nk.items.kamon)); });
 
 
 const COUNTRIES_KEYS = {
@@ -356,37 +354,7 @@ function openInventoryPanel(itemProp) {
 //? ---------------- DRAG AND DROP EVENTS ---------------- ?//
 
 let inWindow = true;
-$(document).on('dragover', function (e) {
-  let windowHeight = $(window).height();
-  let y = e.originalEvent.clientY;
-  
-  if (y < 50 || y > (windowHeight - 50)) {
-    inWindow = false;
-  } else {
-    inWindow = true;
-  }
-  e.preventDefault();
-});
-
-$(document).on('dragstart', 'item-prop', function (e) {
-  $(this).addClass('dragged');
-  e.originalEvent.dataTransfer.setData('text', $(e.target).find('.item-title__text').text());
-});
-
-$(document).on('dragend', 'item-prop', function (e) {
-  $(this).removeClass('dragged');
-});
-
-
-$(document).on('dragover', '[data-drop-site]', function (e) {
-  e.preventDefault();
-});
-
-$(document).on('drop', '[data-drop-site]', function (e) {
-  e.preventDefault();
-  let draggedItem = $('item-prop.dragged');
-  if (draggedItem.length > 0 && draggedItem.attr('data-prop-template') !== 'true') {
-    let dataEntity = draggedItem.attr('data-entity');
-    $(draggedItem).trigger('click');
-  }
-});
+$(document).on('dragover', function (e) { let windowHeight = $(window).height(); let y = e.originalEvent.clientY; if (y < 50 || y > (windowHeight - 50)) { inWindow = false; } else { inWindow = true; } e.preventDefault(); });
+$(document).on('dragstart', 'item-prop', function (e) { $(this).addClass('dragged'); e.originalEvent.dataTransfer.setData('text', $(e.target).find('.item-title__text').text()); });
+$(document).on('dragend', 'item-prop', function () { $(this).removeClass('dragged'); });
+$(document).on('drop', '[data-drop-site]', function (e) { e.preventDefault(); let draggedItem = $('item-prop.dragged'); if (draggedItem.length > 0 && draggedItem.attr('data-prop-template') !== 'true') { $(draggedItem).trigger('click'); }});

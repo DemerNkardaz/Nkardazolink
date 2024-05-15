@@ -278,60 +278,28 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
           nk.locale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nk.locale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
         }
       } else {
-        let entity = $(this).closestParent('[data-entity]');
-        let entityProp =  entity.attr('data-entity');
-
-        if ($(this).closestParent('[data-entity-given]').length) {
-          entity = $(this).closestParent('[data-entity-given]');
-          entityProp = entity.attr('data-entity-given');
-        }
-
-
+        let entity = $(this).closestParent('[data-entity], [data-entity-given]');
+        let entityProp =  entity.attr('data-entity') || entity.attr('data-entity-given');
         let entityType = entity.attr('data-prop-class');
-        let entityCategory = entity.attr('data-prop-category');
+        
         let localeSource = `nk.items.${entityType}`;
         localeSource = eval(localeSource);
         if (localeSource) {
-          $.each(localeSource.root, function (_, category) {
-            if (entityCategory === category.category) {
-              $.each(category.items, function (_, item) {
-                if (entityProp === item.entity_prop) {
-                  let collectDataKeys = entity.find('[data-key]');
-                  collectDataKeys.each(function () {
-                    let key = $(this).attr('data-key');
-                    let value = item[key];
-                    let found = false;
-                    if (typeof item[key] === 'string' || Array.isArray(item[key])) {
-                      value = item[key];
-                      found = true;
-                    }
-                    if (!found) {
-                      for (let lang in item[key]) {
-                        if (item[key].hasOwnProperty(lang) && lang === nk.settingConfig.get('lang')) {
-                          value = item[key][lang];
-                          found = true;
-                          break;
-                        }
-                      }
-                    }
-                    if (!found) {
-                      for (let lang in item[key]) {
-                        if (nk.langs.supported.includes(lang)) {
-                          value = item[key][lang];
-                          found = true;
-                          break;
-                        }
-                      }
-                    }
-                    if (!found) {
-                      console.buildType(`[ITEMS] → Not found any key in ${JSON.stringify(item[key])}`, 'error');
-                    }
-                    value = value.unpackText();
-                    let interpolate = eval('`' + value + '`');
-                    $(this).html(interpolate);
-                  });
-                }
-              });
+          let collectDataKeys = entity.find('[data-key]');
+          collectDataKeys.each(function () {
+            let key = $(this).attr('data-key');
+            let found = false;
+            let path = jsonpath.query(localeSource.root, `$..items[?(@.entity_prop=='${entityProp}')]`);
+            let localisedString = path[0][key];
+            if (typeof localisedString === 'string' || Array.isArray(localisedString)) { found = true; }
+            else {
+              for (let lang in localisedString) {
+                localisedString = localisedString[nk.settingConfig.get('lang') || nk.langs.supported.includes(lang)];
+                found = true;
+                break;
+              }
+              if (!found) { console.buildType(`[ITEMS] → Not found any ${key} in ${JSON.stringify(localisedString)}`, 'error'); }
+              else { localisedString = localisedString.unpackText(); let interpolate = eval('`' + localisedString + '`'); $(this).html(interpolate); }
             }
           });
         } else {
