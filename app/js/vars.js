@@ -4,10 +4,8 @@
 
 window.nkPreferences = {
   banner: {
-    asanoha: {
-      url: '../../../resources/svg/pattern_asanoha_90deg.svg',
-      name: 'Asa-no ha',
-    }
+    asanoha: { url: '../../../resources/svg/pattern_asanoha_90deg.svg', name: 'Asa-no ha', },
+    kanprovince: { url: '../../../resources/png/china/jiangu_full_bg_golden v2_thumb.png', name: 'The Kan Province', }
   }
 }
 
@@ -59,6 +57,7 @@ KAMON & BANNERS & CLANS & PATTERN IS A GALLERIES
 TREE IS A LINKTREE
 */
 
+function randomDefaultBanner() { let randomNumber = Math.floor(Math.random() * 100); if (randomNumber <= 64) { return 'asanoha'; } else { return 'kanprovince'; } }
 
 nk.settingConfig = new Map([
   ["save_search_result", (nk.setting('save_search_result').load() ? nk.setting('save_search_result').load() : true)],
@@ -69,7 +68,7 @@ nk.settingConfig = new Map([
   ["skin", (nk.setting('skin').load() ? nk.setting('skin').load() : 'byakujou')],
   ["change_skin_by_time", (nk.setting('change_skin_by_time').load() ? nk.setting('change_skin_by_time').load() : false)],
   // Other customizations
-  ["current_banner", (nk.setting('current_banner').load() ? nk.setting('current_banner').load() : 'asanoha')],
+  ["current_banner", (nk.setting('current_banner').load() ? nk.setting('current_banner').load() : randomDefaultBanner())],
   // Lang
   ["lang", (nk.setting('lang').load() ? nk.setting('lang').load() : navigatorLanguage)],
 ]);

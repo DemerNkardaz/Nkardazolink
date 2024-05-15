@@ -217,7 +217,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             );
 
             header = `
-            <input nk-prop-search="kamon" type="text" placeholder="Поиск знака…" data-key="inputs.kamon_search">
+            <input nk-prop-search="kamon" type="text" placeholder="" data-key="inputs.kamon_search">
             `;
 
             main = `
@@ -255,7 +255,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
           } else {
             header = `
             ${nk.settingConfig.get('skin') === "azumatsuyu" ? `<div class="person-banner-border azumatsuyu wrap_border"></div>` : ''}
-            <div class="person-banner-wrapper ${(nk.settingConfig.get('skin') === "sekiban" || nk.settingConfig.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nk.settingConfig.get('skin')}" style="--banner: url(${nkPreferences.banner[nk.settingConfig.get('current_banner')].url});" data-banner="${nk.settingConfig.get('current_banner')}"></div></div>
+            <div class="person-banner-wrapper ${(nk.settingConfig.get('skin') === "sekiban" || nk.settingConfig.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nk.settingConfig.get('skin')}" style="--banner: url('${nkPreferences.banner[nk.settingConfig.get('current_banner')].url}');" data-banner="${nk.settingConfig.get('current_banner')}"></div></div>
             <div class="person-avatar">
               <span class="person-avatar__image-wrapper ${nk.settingConfig.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
                 <img class="person-avatar__image" src="resources/cherepkhed32_thumb.png" alt="${nk.locale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager">

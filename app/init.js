@@ -193,8 +193,6 @@ window.showLoadPercentage = function () {
 
 
 
-
-
 if (nk.settingConfig.get('turn_off_preloader') !== true) { nk.ui.preLoader({ hiding_role: 'hide', }); };
 
 
