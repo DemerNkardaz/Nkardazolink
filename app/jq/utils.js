@@ -34,6 +34,10 @@ async function replaceTextLinkToTag (text) {
 }
 window.replaceTextLinkToTag = replaceTextLinkToTag;
 
+String.prototype.stripHTML = function() {
+  return this.replace(/<[^>]+>/g, '');
+};
+
 function unpackArrayToStrings(text) {
 	if (Array.isArray(text)) {
 		return text.join('\n');

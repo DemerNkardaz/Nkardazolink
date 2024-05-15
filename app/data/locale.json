@@ -209,7 +209,9 @@
       "preview": {
         "image": {
           "src": "https://www.kcpinternational.com/wp-content/uploads/2023/02/Shogun-Tokugawa-Ieyasu.png",
-          "shift": "center -100px"
+          "shift": "center -100px",
+          "blur": "",
+          "opacity": "1"
         },
         "content": [
           "${nk.ui.tooltipInfo.header('The Matsudaira Clan', 'resources/svg/japan/kamon/Mon_of_clan_Matsudaira@32px.png')}",

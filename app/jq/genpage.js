@@ -296,7 +296,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
                 <div class="track-info__time">00:00 / 00:00</div>
                 <div class="track-info__player-progress"></div>
               </div>
-              ${unpackElementObject(new nk.ui.DropdownElement({ content: `${nk.locale.get('MusicCredits')}`, id: 'MusicCredits', hide: false }))}
+              ${unpackElementObject(new nk.ui.DropdownElement({ content: `${nk.locale.get('MusicCredits.Advanced.Warfare')}`, id: 'MusicCredits', hide: false }))}
             </span>` : ''}`;
           }
           

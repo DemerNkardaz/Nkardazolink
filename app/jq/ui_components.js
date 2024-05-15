@@ -8,7 +8,7 @@ class ItemProp extends HTMLElement {
             ${PROP.image.label ? `<div class="item-image__label">${PROP.image.label}</div>` : ''}
             ${PROP.image.types ? PROP.image.types.split(', ').map(type => `<source srcset="${type === 'svg' ? PROP.image.src.replace('_thumb.png', '.svg') : PROP.image.src.replace(/\.\w+$/, `.${type}`)}" type="image/${type}">`).join('') : ''}
 
-            <img class="item-image__element" src="${PROP.image.src}" loading="lazy" alt="${PROP.title.text ? PROP.title.text : ''}">
+            <img class="item-image__element" src="${PROP.image.src}" loading="lazy" alt="${PROP.title.text ? PROP.title.text.stripHTML() : ''}">
           </picture>
         </div>
       ` : ''}

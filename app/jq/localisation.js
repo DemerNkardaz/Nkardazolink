@@ -28,106 +28,34 @@ $(document).on('full_data_loaded', function () {
   })
 });
 
-function uLang(keyMap) {
-  const nestedKeys = keyMap.get('key').split('.');
-  let sourceLink, sourceLang, localisedString;
-  let sourceName = keyMap.get('source');
-  if (sourceName && sourceName.includes('.')) {
-      const nestedSource = sourceName.split('.');
-      let currentSource = window;
-      for (let i = 0; i < nestedSource.length; i++) {
-          const prop = nestedSource[i];
-          if (currentSource.hasOwnProperty(prop)) {
-              currentSource = currentSource[prop];
-          } else {
-              console.buildType(`Property ${prop} not found in ${sourceName}`, 'error');
-              return null;
-          }
-      }
-    sourceLink = currentSource;
-  } else {
-    sourceLink = window[sourceName];
-  }
-
-  if (sourceLink === undefined || sourceLink === null) {
-    sourceLink = nk.locale[sourceName];
-  }
-
-
-  if (sourceName) {
-    sourceLang = (keyMap.get('mode') !== null && (nk.langs.supported.includes(keyMap.get('mode')) || keyMap.get('mode') === 'common' || keyMap.get('mode') === 'templates')) ? sourceLink[keyMap.get('mode')] : sourceLink[nk.settingConfig.get('lang')];
-    if (!sourceLang) {
-      for (let lang in sourceLink) {
-        if (sourceLink.hasOwnProperty(lang)) {
-          if (sourceLink[lang].hasOwnProperty(nestedKeys[0])) {
-            sourceLang = sourceLink[lang];
-            break;
-          }
-        }
-      }
+function iLang(keyMap) {
+  const keysArray = keyMap.get('key').split('.').map(key => `[\"${key}\"]`);
+  const language = keyMap.get('mode') !== null ? keyMap.get('mode') : nk.settingConfig.get('lang');
+  let sourceName = nk.locale[keyMap.get('source')];
+  let found = false;
+  let localisedString = jsonpath.query(sourceName, `$['${language}']${keysArray.join('')}`);
+  (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..${keysArray.join('')}`));
+  (localisedString.length > 0) && (localisedString = localisedString[0], found = true);
+  if (found) {
+    if (typeof localisedString === 'object') { 
+      const resultArray = [];
+      const processObject = (obj) => {
+        Object.entries(obj).forEach(([key, value]) => {
+          if (typeof value === 'object') { const nestedResultArray = []; processObject(value); resultArray.push(nestedResultArray); }
+          else {keyMap.get('raw') === true ? resultArray.push(`${key} : ${value}`) : resultArray.push(`${value}`); }
+        });
+      };
+      (Object.keys(localisedString).length > 0) && processObject(localisedString);
+      localisedString = keyMap.get('raw') === true ? resultArray : resultArray.unpackText();
+    }
+    else {
+      localisedString = keyMap.get('raw') === true ? localisedString : localisedString.unpackText();
     }
   } else {
-    console.buildType(`Variable ${sourceName} not found in global scope`, 'error');
-  }
-
-    
-  localisedString = sourceLang;
-  for (let i = 0; i < nestedKeys.length; i++) {
-    const k = nestedKeys[i];
-    let keyFound = false;
-    if (k.includes('*')) {
-      if (k === '*') {
-        localisedString = sourceLang;
-        keyFound = true;
-      } else {
-        const keys = k.split('*');
-        let source = sourceLang;
-        for (let j = 0; j < keys.length; j++) {
-          if (source.hasOwnProperty(keys[j])) {
-            source = source[keys[j]];
-          } else {
-            break;
-          }
-        }
-        if (source) {
-          localisedString = source;
-          keyFound = true;
-        }
-      }
+    if (keyMap.get('mode') !== 'check') {
+      console.buildType(`[LOCALE] → Key “${keysArray.join('')}” not found in source “${keyMap.get('source')}”`, 'error');
     }
-    if (localisedString.hasOwnProperty(k)) {
-      localisedString = localisedString[k];
-      keyFound = true;
-    }
-    if (!keyFound) {
-      const skippedLangs = new Set();
-      let statusSended = false;
-      function fallback(skippedLangs, currentKey) {
-        for (let lang in sourceLink) {
-          if (sourceLink.hasOwnProperty(lang) && !skippedLangs.has(lang)) {
-            if (sourceLink[lang].hasOwnProperty(currentKey)) {
-              localisedString = sourceLink[lang][currentKey];
-              keyFound = true;
-              break;
-            } else {
-              skippedLangs.add(lang);
-              fallback(skippedLangs, currentKey);
-              if (statusSended !== true && keyMap.get('mode') !== "check" &&  keyFound !== true) {
-                let formattedSkipped = Array.from(skippedLangs).map(lang => `[${lang}]`).join(' : ').toUpperCase();
-                formattedSkipped.length > 0 && console.buildType(`[LOCALE] → Ignored languages ${formattedSkipped} when trying to get “${keyMap.get('key')}”`, 'warning');
-                console.buildType(`[LOCALE] → The sended key “${currentKey}” instead of “${keyMap.get('key')}” in cycle of Fallback(). When not identical then context is lost`, 'important');
-                statusSended = true;
-              }
-            }
-          }
-        }
-      }
-      fallback(skippedLangs, k);
-      
-      if (!keyFound) {
-        return null;
-      }
-    }
+    return null;
   }
 
   if (keyMap.get('placement') !== null) {
@@ -147,29 +75,8 @@ function uLang(keyMap) {
       }
     }
   }
-  if (typeof localisedString === 'object') {
-    const resultArray = [];
 
-    const processObject = (obj) => {
-      Object.entries(obj).forEach(([key, value]) => {
-        if (typeof value === 'object') {
-          const nestedResultArray = [];
-          processObject(value);
-          resultArray.push(nestedResultArray);
-        } else {
-          keyMap.get('raw') === true ? resultArray.push(`${key} : ${value}`) : resultArray.push(`${value}`);
-        }
-      });
-    };
-
-    if (Object.keys(localisedString).length > 0) {
-      processObject(localisedString);
-    }
-
-    localisedString = resultArray;
-  }
-
-  return keyMap.get('raw') === true ? localisedString : localisedString.unpackText();
+  return found ? localisedString : null;
 }
 
 window.nk.locale = {
@@ -204,51 +111,27 @@ window.nk.locale = {
     } else {
       return console.error('[LOCALE] → Wrong type of key');
     }
-    //console.log(keyMap);
 
-    result = (cut && cut !== 'raw') ? cutter(uLang(keyMap)) : uLang(keyMap);
-    if (result === null && keyMap.get('mode') !== 'check') {
-      console.buildType(`[LOCALE] → Key “${keyMap.get('key')}” not found in “${keyMap.get('source')}”`, 'error');
-      return `${key}&nbsp;${NoAv}`;
-    } else if (result === null && keyMap.get('mode') === 'check') {
-      return;
-    }
+    result = (cut && cut !== 'raw') ? cutter(iLang(keyMap)) : iLang(keyMap);
+    if (result === null && keyMap.get('mode') !== 'check') { return `${key}&nbsp;${NoAv}`; }
+    else if (result === null && keyMap.get('mode') === 'check') { return; };
     if (keyMap.get('mode') !== '0' && keyMap.get('raw') !== true) return eval('`' + result + '`');
     return result;
   },
   entity: function (source) {
-    let value;
+    const language = nk.settingConfig.get('lang');
     let found = false;
-    for (let lang in source) {
-      if (source.hasOwnProperty(lang) && lang === nk.settingConfig.get('lang')) {
-        value = source[lang];
-        found = true;
-        break;
-      } else {
-        for (let i = 0; i < nk.langs.supported.length; i++) {
-          if (lang === nk.langs.supported[i]) {
-            value = source[lang];
-            found = true;
-            break;
-          }
-        }
-      }
-    }
-
-    return found ? value : null;
+    let localisedString = jsonpath.query(source, `$['${language}']`);
+    (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..`));
+    (localisedString.length > 0) && (localisedString = localisedString[0].unpackText(), found = true, localisedString = eval('`' + localisedString + '`'));
+    console.log(localisedString);
+    return found ? localisedString : null;
   }
 }
 
 window.nk.locale.update = function ({ target, source, parent} = {}) {
   let sourceName;
-  let keyElements = target ? $(target.selector) : $('[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
-  $('*').filter(function () {
-    return this.shadowRoot !== null;
-  }).each(function () {
-    const shadowElements = $(this.shadowRoot).find(target ? target.selector : '[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
-    keyElements = keyElements.add(shadowElements);
-  });
-
+  let keyElements = nk.collectTargets(target ? target.selector : '[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
 
   function update () {
     keyElements.each(function () {
@@ -265,15 +148,16 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
 
         if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
 
-        if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META'
-          ? ($(this).tagName() !== 'INPUT' ? $(this).html(interpolatedLocale) : $(this).attr('placeholder', interpolatedLocale))
-          : $(this).attr('content', interpolatedLocale);
+        if ((dataKey || key) && !eventLessKey) {
+          ($.inArray($(this).tagName(), ['META', 'INPUT']) !== -1) ?$(this).attr($(this).tagName() === 'META' ? 'content' : 'placeholder', interpolatedLocale)
+            : $(this).html(interpolatedLocale);
+        }
+
         if (altKey) $(this).attr('alt', interpolatedLocale);
         if (eventLessKey) $(this).attr('data-tooltip', interpolatedLocale);
         if (imageKey) {
           $(this).attr('src', nk.locale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
           let folder = imageKey.replace('.src', '');
-          console.log(folder);
           nk.locale.get(`check:${folder}.shift`) ? $(this).css('--shift', nk.locale.get(`${folder}.shift`)) : $(this).css('--shift', '');
           nk.locale.get(`check:${folder}.opacity`) ? $(this).css('--image-opacity', nk.locale.get(`${folder}.opacity`)) : $(this).css('--image-opacity', '');
           nk.locale.get(`check:${folder}.h`) ? $(this).closest('.tooltip--previews__image-wrapper').css('--h', nk.locale.get(`${folder}.h`)) : $(this).closest('.tooltip--previews__image-wrapper').css('--h', '');
