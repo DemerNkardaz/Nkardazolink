@@ -217,7 +217,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             );
 
             header = `
-            <input nk-prop-search="kamon" type="text" placeholder="Поиск знака…">
+            <input nk-prop-search="kamon" type="text" placeholder="Поиск знака…" data-key="inputs.kamon_search">
             `;
 
             main = `

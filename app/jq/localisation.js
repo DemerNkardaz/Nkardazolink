@@ -265,7 +265,9 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
 
         if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
 
-        if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META' ? $(this).html(interpolatedLocale) : $(this).attr('content', interpolatedLocale);
+        if ((dataKey || key) && !eventLessKey) $(this).tagName() !== 'META'
+          ? ($(this).tagName() !== 'INPUT' ? $(this).html(interpolatedLocale) : $(this).attr('placeholder', interpolatedLocale))
+          : $(this).attr('content', interpolatedLocale);
         if (altKey) $(this).attr('alt', interpolatedLocale);
         if (eventLessKey) $(this).attr('data-tooltip', interpolatedLocale);
         if (imageKey) {
@@ -298,9 +300,9 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
                 found = true;
                 break;
               }
-              if (!found) { console.buildType(`[ITEMS] → Not found any ${key} in ${JSON.stringify(localisedString)}`, 'error'); }
-              else { localisedString = localisedString.unpackText(); let interpolate = eval('`' + localisedString + '`'); $(this).html(interpolate); }
             }
+            if (!found) { console.buildType(`[ITEMS] → Not found “${key}” in “{ entity_prop: "${path.entity_prop}" }” of “nk.items.${entityType}”`, 'error'); }
+            else { localisedString = localisedString.unpackText(); let interpolate = eval('`' + localisedString + '`'); $(this).html(interpolate); }
           });
         } else {
           console.buildType(`[ITEMS] → nk.items.${entityType} source not found for ${entityType}`, 'error');

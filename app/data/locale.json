@@ -147,6 +147,9 @@
       "ambience_off": "Отключить фоновую музыку"
     },
 
+    "inputs": {
+      "kamon_search": "Поиск знака…"
+    },
 
     "kamon": {
       "rarities": {
@@ -230,7 +233,7 @@
       "Romania": "Romania"
     },
     "links": {
-      "ContentLinks": "The Co(⁛macron_z,2⁛)ntentum",
+      "ContentLinks": "The Co(⁛macron_z,0.175⁛)ntentum",
       "SocialLinks": "The Socialus",
       "Ficbook": "Ficbook",
       "AuthorToday": "Author.Today",
@@ -284,6 +287,11 @@
     "save_selected_item": "Save last selected item",
     "turn_off_preloader": "Turn off preloader animation",
     "OCKhertahiron": "Hertahiron - Original Character (Persona)",
+
+    "inputs": {
+      "kamon_search": "Search of symbols…"
+    },
+
 
     "kamon": {
       "rarities": {
@@ -405,6 +413,9 @@
       }
     },
 
+    "inputs": {
+      "kamon_search": "紋章を探す。。。"
+    },
 
     
     "console": "コンソール: システムユーザーインターフェイス",
