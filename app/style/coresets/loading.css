@@ -118,8 +118,16 @@ page-preloader .progress-value, #preloader .progress-value {
   display: flex;
   width: var(--progress);
   height: 100%;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-size: 1rem 1rem;
   background-color: var(--color_dark_gold);
   box-shadow: inset 3px 3px 3px 1px var(--color_dark_gold_emboss), 0 1px 3px 1px var(--shadow_22a86);
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+  from { background-position: 0 0; }
+  to { background-position: 50px 0; }
 }
 
 .loadmarker-dots::after {

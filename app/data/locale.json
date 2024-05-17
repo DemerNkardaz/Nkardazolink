@@ -198,7 +198,7 @@
     "dropdown": {
       "music_attribution": [
         "${nk.ui.dropdownHeader('Атрибуция : Фоновая музыка', 'attribution')}",
-        "Автор используемых фоновых композиций&nbsp;<a href=\"https://pixabay.com/users/valentineseasons-38534292/\" target=\"_blank\">ValentineSeasons | Pixabay</a><br>",
+        "<div>Автор используемых фоновых композиций <a href=\"https://pixabay.com/users/valentineseasons-38534292/\" target=\"_blank\">ValentineSeasons | Pixabay</a></div>",
         "Композиции:",
         "<ul>",
         "<li><a href=\"https://pixabay.com/music/world-missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932/\" target=\"_blank\">«ValentineSeasons — Missing in wind»</a></li>",
