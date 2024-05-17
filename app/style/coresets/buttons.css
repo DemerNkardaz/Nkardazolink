@@ -1,0 +1,28 @@
+.button-inline {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 1.25px solid var(--grey_border);
+  box-shadow: 0 3px 2px var(--shadow_22a29);
+  border-radius: 15px;
+  padding: 0px 5px;
+  transition: all 0.3s ease;
+  user-select: none;
+  font-family: inherit;
+  font-weight: 800;
+  line-height: 1.5em;
+
+  &:hover {
+    background: var(--bg_4b);
+    border-color: black;
+    color: var(--text_ee);
+  }
+  &:active {
+    background: var(--bg_4b);
+    border-color: var(--color_dark_gold);
+    color: var(--color_dark_gold);
+  }
+}

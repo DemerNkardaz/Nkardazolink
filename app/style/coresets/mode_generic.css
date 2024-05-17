@@ -68,7 +68,7 @@
     }
   }
 
-  & button {
+  & .button-music-controls {
     position: relative;
     display: flex;
     align-items: center;

@@ -16,7 +16,7 @@ nk.ui.DropdownElement = DropdownElement;
 
 
 nk.ui.dropdownHeader = function (text, type) {
-  return `<div class=\"dropdown-header\"><span class=\"material-icons\">${type}</span>&ensp;${text}</div><hr class=\"w-100 mt-1 mb-3\">`
+  return `<div class="dropdown-header">${type ? `<span class="material-icons">${type}</span>&ensp;` : ''}${text}</div><hr class="w-100 mt-1 mb-3">`
 }
 
 function dropdownOperations(target) {

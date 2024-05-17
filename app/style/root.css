@@ -26,6 +26,7 @@
   --bg_ef: #efefef;
   --bg_efab3: #efefefb3;
   --bg_efa80: #efefef80;
+  --bg_4b: #4b4b4b;
 
   --bg_gr_efToff: linear-gradient(0deg, var(--bg_ef), var(--bg_ff));
   --bg_gr_efToff_b3: linear-gradient(0deg, var(--bg_efab3), var(--bg_ffab3));

@@ -288,9 +288,9 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             footer = `
             <span class="copyright"><span data-key="Nkardaz.copyright">${nk.locale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nk.locale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
                 `<span class="ambient-music-controls ms-auto me-3">
-              <button nk-music="pause/play"><span class="material-icons">pause</span></button>
-              <button nk-music="random"><span class="material-icons">shuffle</span></button>
-              <button nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top"><span class="material-icons">attribution</span></button>
+              <button class="button-music-controls" nk-music="pause/play"><span class="material-icons">pause</span></button>
+              <button class="button-music-controls" nk-music="random"><span class="material-icons">shuffle</span></button>
+              <button class="button-music-controls" nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top"><span class="material-icons">attribution</span></button>
               <div class="ambient-music-controls__track_info ms-2">
                 <div class="track-info__title">Track — none</div>
                 <div class="track-info__time">00:00 / 00:00</div>
