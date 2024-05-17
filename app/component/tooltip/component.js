@@ -1,12 +1,12 @@
 class TooltipElement extends HTMLElement {
-  constructor({ tooltip, tooltip_key, tooltip_pos, tooltip_role, tooltip_classes, tooltip_customs, tooltip_meta, id } = {}) {
+  constructor(tooltip) {
     super();
     const component = `
-    <div class="tooltip__arrow" ${tooltip_pos ? `data-parent-tooltip-pos="${tooltip_pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
-    <div class="tooltip__content" ${tooltip_key ? `data-key="${tooltip_key}"` : ''} ${tooltip_customs ? `style="${tooltip_customs}"` : ''}>${tooltip_role !== 'preview' ? tooltip.unpackText() : `<tooltip-preview ${nk.extractAttributes(tooltip)}>${tooltip.innerHTML}</tooltip-preview>`}</div>
+    <div class="tooltip__arrow" ${tooltip.pos ? `data-parent-tooltip-pos="${tooltip.pos}"` : 'data-parent-tooltip-pos="bottom"'}></div>
+    <div class="tooltip__content" ${tooltip.key ? `data-key="${tooltip.key}"` : ''} ${tooltip.customs ? `style="${tooltip.customs}"` : ''}>${tooltip.role !== 'preview' ? tooltip.content.unpackText() : `<tooltip-preview ${nk.extractAttributes(tooltip.content)}>${tooltip.content.innerHTML}</tooltip-preview>`}</div>
     `;
-    (tooltip_classes ? $(this).addClass(tooltip_classes) : '');
-    $(this).attr({ 'role': 'tooltip', 'id': id ? id : null, 'data-meta-anchor': tooltip_meta ? tooltip_meta : null });
+    (tooltip.classes ? $(this).addClass(tooltip.classes) : '');
+    $(this).attr({ 'role': 'tooltip', 'id': tooltip.id ? tooltip.id : null, 'data-meta-anchor': tooltip.meta ? tooltip.meta : null });
     this.innerHTML = component;
   }
 

@@ -59,6 +59,7 @@ nk.initTooltips = function () {
         
         const tooltipElements = $('tooltip-element');
         tooltipElements.each(function () {
+          let $this = $(this);
           const tooltipId = $(this).attr('id');
           const tooltipMeta = $(this).attr('data-meta-anchor');
           const found = tooltipParentsIdes.toArray().some(parent => parent.getAttribute('data-tooltip-id') === tooltipId);
@@ -74,38 +75,46 @@ nk.initTooltips = function () {
           }
           if (regeneratedTooltip) {
             clearTimeout(timers_array[tooltipId]);
-
-            tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta && parent.setAttribute('data-tooltip-id', tooltipId));
-            const checkDuplicated = tooltipMetaAnchors.toArray().filter(duplicated => duplicated.getAttribute('data-meta-tooltip') === tooltipMeta);
-            const count = checkDuplicated.length;
-            let duplicate;
-
-            if (checkDuplicated.length > 1) {
-              const firstDuplicateIndex = Array.from(tooltipMetaAnchors).findIndex(duplicated => duplicated.getAttribute('data-meta-tooltip') === tooltipMeta);
-              if (firstDuplicateIndex !== -1) {
-                tooltipMetaAnchors[firstDuplicateIndex].setAttribute('data-tooltip-id', tooltipId);
-              }
-              let message = `<span class="w-100 meta-duplicate-alert mb-3" style="max-width: 512px; max-height: 100px; overflow: auto;">[${tooltipMeta}] : Найдены дубликаты якора : ${count} : `;
-              checkDuplicated.forEach((duplicated, index) => {
-                if (index !== firstDuplicateIndex) {
-                  duplicate = duplicated;
-                  message += `<br><span class="fs--1 em lh-1">&lt;${duplicate.nodeName} ${nk.extractAttributes(duplicate).toUpperCase().replace(`DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"`, `<span style="color: red; font-weight: 800">DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"</span>`)}&gt;${duplicate.innerHTML}&lt;/${duplicate.nodeName}&gt;</span>`;
-                }
-              });
-              message += `</span>`
-
-                  
-              console.log(`[TOOLTIP] → Tooltip ${tooltipId} has been duplicated`);
-              if (!$(this).find('.meta-duplicate-alert').length) {
-                $(this).find('.tooltip__content').filter(function () {
-                  if ($(this).text().trim().length > 0 && $(this).children().length === 0) {
-                    $(this).prepend(message);
-                  } else if ($(this).text().trim().length > 0 && $(this).children().length > 0) {
-                    $(this).children().filter(function () { return $(this).text().trim().length > 0 }).first().prepend(message);
-                  }
-                });
+            if (tooltipMeta && $(`[data-meta-tooltip="${tooltipMeta}"]`).length) {
+              let anchoredParent = $(`[data-meta-tooltip="${tooltipMeta}"]`).closestParent('tooltip-element');
+              if (anchoredParent && anchoredParent.length && anchoredParent.prevAll().filter($this).length) {
+                anchoredParent.after($this);
               }
             }
+
+            setTimeout(function () {
+              tooltipMetaAnchors.toArray().some(parent => parent.getAttribute('data-meta-tooltip') === tooltipMeta && parent.setAttribute('data-tooltip-id', tooltipId));
+              const checkDuplicated = tooltipMetaAnchors.toArray().filter(duplicated => duplicated.getAttribute('data-meta-tooltip') === tooltipMeta);
+              const count = checkDuplicated.length;
+              let duplicate;
+
+              if (checkDuplicated.length > 1) {
+                const firstDuplicateIndex = Array.from(tooltipMetaAnchors).findIndex(duplicated => duplicated.getAttribute('data-meta-tooltip') === tooltipMeta);
+                if (firstDuplicateIndex !== -1) {
+                  tooltipMetaAnchors[firstDuplicateIndex].setAttribute('data-tooltip-id', tooltipId);
+                }
+                let message = `<span class="w-100 meta-duplicate-alert mb-3" style="max-width: 512px; max-height: 100px; overflow: auto;">[${tooltipMeta}] : Найдены дубликаты якора : ${count} : `;
+                checkDuplicated.forEach((duplicated, index) => {
+                  if (index !== firstDuplicateIndex) {
+                    duplicate = duplicated;
+                    message += `<br><span class="fs--1 em lh-1">&lt;${duplicate.nodeName} ${nk.extractAttributes(duplicate).toUpperCase().replace(`DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"`, `<span style="color: red; font-weight: 800">DATA-META-TOOLTIP="${tooltipMeta.toUpperCase()}"</span>`)}&gt;${duplicate.innerHTML}&lt;/${duplicate.nodeName}&gt;</span>`;
+                  }
+                });
+                message += `</span>`
+
+                  
+                console.log(`[TOOLTIP] → Tooltip ${tooltipId} has been duplicated`);
+                if (!$(this).find('.meta-duplicate-alert').length) {
+                  $(this).find('.tooltip__content').filter(function () {
+                    if ($(this).text().trim().length > 0 && $(this).children().length === 0) {
+                      $(this).prepend(message);
+                    } else if ($(this).text().trim().length > 0 && $(this).children().length > 0) {
+                      $(this).children().filter(function () { return $(this).text().trim().length > 0 }).first().prepend(message);
+                    }
+                  });
+                }
+              }
+            }, 25);
           }
         });
         
@@ -130,7 +139,7 @@ nk.initTooltips = function () {
 
 
   function addEvent_TooltipClearTimer(target, owner) {
-    const targetId = target.attr('id');;
+    const targetId = target.attr('id');
     const ownerId = $(owner).attr('data-tooltip-id');
     const targetPromise = new Promise((resolve, reject) => {
       try {
@@ -240,15 +249,11 @@ nk.initTooltips = function () {
       });
       previewEntity = new nk.ui.TooltipPreviews(previewParams);
       tooltip = new nk.ui.TooltipElement({
-        tooltip: previewEntity,
-        tooltip_role: 'preview',
-        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
+          content: previewEntity, role: 'preview', pos: pos, id: uniqId, customs: customs ? customs : null, classes: classes ? classes : null, meta: metaAnchor ? metaAnchor : null
       });
     } else {
       tooltip = new nk.ui.TooltipElement({
-        tooltip: nk.locale.get(key) ? nk.locale.get(key) : key,
-        tooltip_key: nk.locale.get(`${key}`) ? key : null,
-        tooltip_pos: pos, id: uniqId, tooltip_customs: customs ? customs : null, tooltip_classes: classes ? classes : null, tooltip_meta: metaAnchor ? metaAnchor : null
+          content: nk.locale.get(key) ? nk.locale.get(key) : key, key: key, pos: pos, id: uniqId, customs: customs ? customs : null, classes: classes ? classes : null, meta: metaAnchor ? metaAnchor : null
       });
     }
 
