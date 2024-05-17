@@ -19,7 +19,6 @@ import './script/bind_events.js';
 import './script/localisation.js';
 import './script/page_generation.js';
 //import './jq/tooltips.js';
-import './script/howler_init.js';
 
 //? ------------------------------- ENDPOINT INITIALISATION -------------------------------
 window.addEventListener('DOMContentLoaded', async () => { await import('./script/init_settings.js') });
