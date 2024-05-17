@@ -105,50 +105,35 @@ window.showLoadPercentage = function () {
   let percentElement = document.querySelector('.loadmarker-percent');
   let percentBar = document.querySelector('.progress-value');
   let currentPercentage = 0;
-  let intervalDuration = Math.round(Math.random() * (8 - 10) + 10);
   let roundedPercentage;
-
-  let updateInvervalDuration = setInterval(function () {
-    intervalDuration = Math.round(Math.random() * (8 - 10) + 10);
-  }, 10);
 
   function fillFakePercentage() {
     let fakePerc = Math.round(Math.random() * (20 - 50) + 37);
-    let increment = Math.random() * (0.32 - 1) + 1;
-    let updateIncrement = setInterval(function () {
-      increment = Math.random() * (0.32 - 1) + 1;
-    }, 10);
     let interval = setInterval(function () {
       if (currentPercentage < fakePerc) {
-        currentPercentage += increment;
+        currentPercentage += Math.random() * (0.32 - 0.6) + 0.6;
         roundedPercentage = Math.round(currentPercentage);
         percentElement.textContent = roundedPercentage;
         percentBar.style.setProperty('--progress', `${roundedPercentage}%`);
       } else {
         clearInterval(interval);
-        clearInterval(updateIncrement);
       }
-    }, intervalDuration);
+    }, Math.round(Math.random() * (8 - 10) + 10));
   }
   fillFakePercentage();
 
   function randomAddition() {
     let maxPercent = 50;
-    let increment = Math.random() * (0 - 1) + 1;
-    let updateIncrement = setInterval(function () {
-      increment = Math.random() * (0 - 1) + 1;
-    }, 10);
     let randomAddInverval = setInterval(function () {
       if (currentPercentage < maxPercent) {
-        currentPercentage += increment;
+        currentPercentage += Math.random() * (0 - 1) + 1;
         roundedPercentage = Math.round(currentPercentage);
         percentElement.textContent = roundedPercentage;
         percentBar.style.setProperty('--progress', `${roundedPercentage}%`);
       } else {
         clearInterval(randomAddInverval);
-        clearInterval(updateIncrement);
       }
-    }, 50);
+    }, Math.round(Math.random() * (55 - 75) + 75));
   }
 
   randomAddition();
@@ -160,23 +145,16 @@ window.showLoadPercentage = function () {
     function imgLoaded() {
       c += 1;
       let perc = ((100 / tot * c) << 0);
-
-      let increment = Math.random() * (0.75 - 1) + 1;
-      let updateIncrement = setInterval(function () {
-        increment = Math.random() * (0.75 - 1) + 1;
-      }, 10);
       let interval = setInterval(function () {
         if (currentPercentage < perc) {
-          currentPercentage += increment;
+          currentPercentage += Math.random() * (0.8 - 1) + 1;
           roundedPercentage = Math.round(currentPercentage);
           percentElement.textContent = roundedPercentage;
           percentBar.style.setProperty('--progress', `${roundedPercentage}%`);
-          roundedPercentage > 95 && clearInterval(updateInvervalDuration);
         } else {
           clearInterval(interval);
-          clearInterval(updateIncrement);
         }
-      }, intervalDuration);
+      }, Math.round(Math.random() * (8 - 10) + 10));
 
       if (c === tot) return;
     }
@@ -196,18 +174,18 @@ window.showLoadPercentage = function () {
 if (nk.settingConfig.get('turn_off_preloader') !== true) { nk.ui.preLoader({ hiding_role: 'hide', }); };
 
 
-waitFor('title', () => {
+/*waitFor('title', () => {
   var title = document.querySelector('title');
   if (title) {
     title.textContent = (metaData['title'][nk.url.mode] && metaData['title'][nk.url.mode][nk.url.select]) ? metaData['title'][nk.url.mode][nk.url.select][nk.settingConfig.get('lang')] : (metaData['title'][nk.url.mode] ? metaData['title'][nk.url.mode][nk.settingConfig.get('lang')] : metaData['title']['common'][nk.settingConfig.get('lang')]);
   }
-});
+});*/
 
 let dataArray = [];
-dataArray.push({ to: 'nk.locale', source: 'app/data/miscellaneous.json', as: 'miscellaneous'  });
-dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json', as: 'languageJSON'  });
-nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON'  });
-nk.url.mode && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
+dataArray.push({ to: 'nk.locale', source: 'app/data/miscellaneous.json', as: 'miscellaneous' });
+dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
+nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON' });
+['kamon', 'banners'].includes(nk.url.mode) && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
 let dataTimer;
 DataExtend(dataArray, true).then((loadedData) => {
   const loadingPromise = new Promise((resolve, reject) => {

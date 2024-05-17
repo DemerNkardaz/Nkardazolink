@@ -1,10 +1,10 @@
 {
   "data_type": "kamon",
-  "default_img_path": "resources/svg",
+  "default_img_path": "resources/modes/crests/",
   "root": [
     {
       "category": "JA",
-      "img_folder": "/japan/kamon/",
+      "img_folder": "japanese/",
       "items": [
         {
           "entity_prop": "ent_maru-ni-mitsu-aoi.clan_matsudaira",
@@ -107,7 +107,7 @@
     },
     {
       "category": "ZH",
-      "img_folder": "/china/crests/",
+      "img_folder": "chinese/",
       "items": [
         {
           "entity_prop": "ent_lin-mianju-yinzhang.clan_linguang",
@@ -122,7 +122,7 @@
     },
     {
       "category": "KO",
-      "img_folder": "/korea/crests/",
+      "img_folder": "korean/",
       "items": [
         {
           "entity_prop": "ent_hishimon.clan_2takeda",

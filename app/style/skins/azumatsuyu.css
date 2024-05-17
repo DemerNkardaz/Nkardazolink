@@ -19,6 +19,11 @@
   --suouDark: #471722;
 }
 
+
+page-preloader, #preloader {
+  filter: hue-rotate(-60deg);
+}
+
 .root-container[data-active-interface="default"] {
   background: var(--kihada60);
   color: var(--suou);

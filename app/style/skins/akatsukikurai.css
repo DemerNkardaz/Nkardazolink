@@ -23,7 +23,9 @@
   --higosusutake: #7F5D3B;
 }
 
-
+page-preloader, #preloader {
+  filter: saturate(110%) hue-rotate(-12deg);
+}
 
 .root-container[data-active-interface="default"] {
   background: var(--bg_00ad);

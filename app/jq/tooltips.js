@@ -215,11 +215,6 @@ if (isMobileDevice() !== true) {
         return;
       }
 
-      //if ((key !== null || key !== undefined) && (pos === null || pos === undefined)) {
-      //  console.buildType(`[TOOLTIP] → Can't create tooltip without position : [data-tooltip-pos] attribute not exists in <${$(target).tagName()}> with KEY “${key}”`, 'error');
-      //  return;
-      //}
-
       const uniqId = randomId('tooltip', 'weak');
 
       if (role !== undefined && role === 'preview') {
