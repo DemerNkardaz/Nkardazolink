@@ -194,6 +194,17 @@
 
         "shinwashi": ""
       }
+    },
+    "dropdown": {
+      "music_attribution": [
+        "${nk.ui.dropdownHeader('Атрибуция : Фоновая музыка', 'attribution')}",
+        "Автор используемых фоновых композиций&nbsp;<a href=\"https://pixabay.com/users/valentineseasons-38534292/\" target=\"_blank\">ValentineSeasons | Pixabay</a><br>",
+        "Композиции:",
+        "<ul>",
+        "<li><a href=\"https://pixabay.com/music/world-missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932/\" target=\"_blank\">«ValentineSeasons — Missing in wind»</a></li>",
+        "<li><a href=\"https://pixabay.com/music/world-sakura-dance-background-music-traditional-japanese-165338/\" target=\"_blank\">«ValentineSeasons — Sakura dance»</a></li>",
+        "</ul>"
+      ]
     }
   },
 
@@ -338,8 +349,18 @@
 
         "shinwashi": ""
       }
+    },
+    "dropdown": {
+      "music_attribution": [
+        "${nk.ui.dropdownHeader('Attribution : Ambient', 'attribution')}",
+        "This music was created by <a href=\"https://pixabay.com/users/valentineseasons-38534292/\" target=\"_blank\">ValentineSeasons | Pixabay</a><br>",
+        "Композиции:",
+        "<ul>",
+        "<li><a href=\"https://pixabay.com/music/world-missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932/\" target=\"_blank\">«ValentineSeasons — Missing in wind»</a></li>",
+        "<li><a href=\"https://pixabay.com/music/world-sakura-dance-background-music-traditional-japanese-165338/\" target=\"_blank\">«ValentineSeasons — Sakura dance»</a></li>",
+        "</ul>"
+      ]
     }
-
   },
   "ja": {
 

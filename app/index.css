@@ -1,0 +1,22 @@
+@import "./style/root.css";
+@import "./style/basic.css";
+@import "./style/shapes.css";
+@import "./style/util.css";
+@import "./style/fonts.css";
+@import "./style/root_fonts.css";
+@import './style/coresets/masks.css';
+@import "./style/coresets/cmd.css";
+@import './style/coresets/typography.css';
+@import './style/coresets/buttons.css';
+@import './style/coresets/dropdown.css';
+@import './style/coresets/tooltip.css';
+@import './style/coresets/scrollbars.css';
+@import './style/coresets/loading.css';
+@import './style/coresets/body.css';
+@import './style/coresets/inputs.css';
+@import './style/coresets/lang.css';
+@import './style/help_classes/help_compiled.css';
+
+@import './style/coresets/item_props.css';
+@import './style/coresets/mode_generic.css';
+@import './style/coresets/mode_license.css';

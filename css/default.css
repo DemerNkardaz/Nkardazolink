@@ -1778,12 +1778,12 @@ div:has(.dropdown_menu):not(.dropdown_menu) {
   gap: 10px;
 }
 
-[data-language_selector].selected {
+[data-language-selector].selected {
   background: var(--background_dark);
   border-color: black;
   color: var(--text_light);
 }
-[data-language_selector].selected:hover {
+[data-language-selector].selected:hover {
   background: var(--background_dark);
   color: var(--color_dark_gold);
   border-color: var(--color_dark_gold);

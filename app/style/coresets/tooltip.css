@@ -1,4 +1,3 @@
-@layer element {
   tooltip-element {
     position: fixed;
     display: flex;
@@ -431,7 +430,6 @@
       width: 1.5rem;
     }
   }
-}
 
 .tooltip-quest {
   text-decoration: underline dotted grey;

@@ -77,7 +77,10 @@ nk.collectTargets = function (target) {
 };
 
 
-
+$.fn.setSelected = function () { $(this).addClass('selected'); }
+$.fn.setUnselected = function () { $(this).removeClass('selected'); }
+$.fn.setActive = function () { $(this).addClass('active'); }
+$.fn.setInactive = function () { $(this).removeClass('active'); }
 $.fn.reapplyClass = function (addClass, selector) { $(selector).removeClass(addClass); $(this).addClass(addClass); };
 $.fn.tagName = function () { return this.prop("tagName") };
 $.fn.timedClass = function (className, end, start) { $(this).addClass(className); setTimeout(() => { setTimeout(() => { $(this).removeClass(className) }, end ? end : 100) }, start ? start : null) }
@@ -313,6 +316,17 @@ window.waitFor = function(selector, callback) {
   observer.observe(document.documentElement, { childList: true, subtree: true });
 }
 
+window.changeMode = function (mode) {
+  if (!mode.includes("&")) {
+    history.replaceState({}, null, `?mode=${mode}`);
+  } else if (mode.includes("&")) {
+    let matches = mode.split("&");
+    let mode = matches[0];
+    let select = matches[1];
+    history.replaceState({}, null, `?mode=${mode}&select=${select}`);
+  }
+}
+
 window.redirect = function(linkOrigin) {
   let methods = {};
   methods.origin = function () { if (window.localHostIP) { window.location.replace(window.location.href.split('?')[0]); } else { window.location.replace(window.location.href.split('.html')[0]); } };
@@ -408,7 +422,7 @@ window.exportStorageData = function() {
     a.click();
 }
 
-window.unpackElementObject = function (obj) {
+window.unpackElement = function (obj) {
   const uniqId = randomId('object');
   $('body').append(`<div id="${uniqId}"></div>`);
   $(`#${uniqId}`).hide();

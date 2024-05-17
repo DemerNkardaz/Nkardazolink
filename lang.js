@@ -1,9 +1,9 @@
 
 
-$(document).on('click', '[data-language_selector]', function () {
+$(document).on('click', '[data-language-selector]', function () {
   var $this = $(this);
   var lang_val = $this.attr('value').toLowerCase();
-  $('[data-language_selector]').removeClass('selected');
+  $('[data-language-selector]').removeClass('selected');
   $this.addClass('selected');
   localStorage.setItem('selected_language', lang_val);
 
@@ -18,7 +18,7 @@ $(document).on('click', '[data-language_selector]', function () {
 });
 
 $(document).ready(function() {
-  $('[data-language_selector]').each(function () {
+  $('[data-language-selector]').each(function () {
     var $this = $(this);
     var lang_val = $this.attr('value').toLowerCase();
     if (lang_val === global_selected_language) {

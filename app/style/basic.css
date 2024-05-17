@@ -1,55 +1,21 @@
-html {
-  font-size: 12pt;
-  line-height: 1.45em;
+html {font-size: 12pt;line-height: 1.45em;}
+*, ::after, ::before {scroll-behavior: smooth;box-sizing: border-box;}
+
+p, hr {margin: 0;}
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid;
+  opacity: .25;
 }
-
-@media (750px <= width <= 1200px) {
-
-}
-
-*, ::after, ::before {
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-}
-
-p, hr {
-  margin: 0;
-}
-
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;
-  margin: 0;
-}
-
-h1 {
-  font-size: 1.75rem;
-}
-
-h2 {
-  font-size: 1.60rem;
-}
-
-h3 {
-  font-size: 1.45rem;
-}
-
-h4 {
-  font-size: 1.30rem;
-}
-
-h5 {
-  font-size: 1.15rem;
-}
-
-h6 {
-  font-size: 1.00rem;
-}
+h1,h2,h3,h4,h5,h6 {font-family: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif TC', 'Noto Serif KR', 'Noto Color Emoji', serif;margin: 0;}
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.60rem; }
+h3 { font-size: 1.45rem; }
+h4 { font-size: 1.30rem; }
+h5 { font-size: 1.15rem; }
+h6 { font-size: 1.00rem; }
 
 
 a {
@@ -104,15 +70,8 @@ ruby {
 }  
 
 
-img {
-  color: transparent;
-  font-size: 0;
-  text-indent: -9999px;
-}
-
-:has(img:not([alt])) {
-  background: red;
-}
+img {color: transparent;font-size: 0;text-indent: -9999px;}
+:has(img:not([alt])) {background: red;}
 
 body {
   position: relative;
@@ -131,10 +90,7 @@ body {
 }
 
 
-no-br {
-  display: inline;
-  white-space: nowrap;
-}
+no-br {display: inline;white-space: nowrap;}
 
 char-name {
   display: inherit;
@@ -151,103 +107,7 @@ char-name {
   justify-content: start;
   text-decoration: none;
 }
-/*
-.diacritic_upper {
-  position: relative;
-  display: inline;
 
-  &::before {
-    position: absolute;
-    width: 1ch;
-    right: 50%;
-    translate: 0 0.05em;
-  }
-  &.upcase {
-    &::before {
-      translate: 0 -0.1em;
-    }
-  }
+.material-icons {
+  user-select: none;
 }
-
-.diacritic_lower {
-  position: relative;
-  display: inline;
-
-  &::before {
-    position: absolute;
-    right: 50%;
-    translate: 0 0;
-  }
-}
-
-d-mac {
-  &::before {
-    content: '\0304';
-  }
-}
-
-d-cir {
-  &::before {
-    content: '\0302';
-  }
-}
-
-d-car {
-  &::before {
-    content: '\030C';
-  }
-}
-
-d-til {
-  &::before {
-    content: '\0303';
-  }
-}
-
-d-bre {
-  &::before {
-    content: '\0306';
-  }
-}
-
-
-d-dia {
-  &::before {
-    content: '\0308';
-  }
-}
-
-d-dot {
-  &::before {
-    content: '\0307';
-  }
-}
-
-d-ced {
-  &::before {
-    content: '\0327';
-  }
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-/* SAMPLE OF BLUR BORDER
-main {
-  position: relative;
-  mask: var(--border_transparency);
-  height: 200px;
-  overflow: auto;
-  margin-top: 20px;
-  z-index: 1;
-}
-*/

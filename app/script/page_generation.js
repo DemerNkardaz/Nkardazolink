@@ -221,8 +221,8 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             `;
 
             main = `
-            <div data-items-container="kamon" style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElementObject(nk.ui.itemPropArray(nk.items.kamon))}</div>
-            <div style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElementObject(nk.ui.itemPropArray(null, 'template'))}</div>`;
+            <div data-items-container="kamon" style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElement(nk.ui.itemPropArray(nk.items.kamon))}</div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 30px; column-gap: 15px;">${unpackElement(nk.ui.itemPropArray(null, 'template'))}</div>`;
             
             
             footer = `
@@ -265,7 +265,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             <div>Теставые букавы<span>${nk.locale.get('test')}</span><br/><span data-key="C.test"></span>${nk.locale.get('C.test')}<br>
               ${repoStatus.join('<br>')}
             </div>
-            <div class="lang-optionOwner">${nk.ui.langList('row')}</div>${nk.locale.get('testqu')}<br>
+            <div class="lang-optionOwner">${unpackElement(new nk.ui.LanguageList())}</div>${nk.locale.get('testqu')}<br>
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
             `;
 
@@ -274,13 +274,13 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
               <h2 class="link-plates-section__header"><hr><span data-key="links.ContentLinks">${nk.locale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper" >
                 <div class="link-plates-section__grid" data-tooltip-key="Tess" data-tooltip-pos="left">
-                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.content }))}
+                  ${unpackElement(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.content }))}
                 </div>
               </div>
               <h2 class="link-plates-section__header"><hr><span data-key="links.SocialLinks">${nk.locale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper">
                 <div class="link-plates-section__grid">
-                  ${unpackElementObject(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.social }))}
+                  ${unpackElement(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.social }))}
                 </div
               </div>
             </section>`;
@@ -290,13 +290,12 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
                 `<span class="ambient-music-controls ms-auto me-3">
               <button nk-music="pause/play"><span class="material-icons">pause</span></button>
               <button nk-music="random"><span class="material-icons">shuffle</span></button>
-              <button nk-music="credits" data-drop_target="musicCredits"><span class="material-icons">attribution</span></button>
+              <button nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top"><span class="material-icons">attribution</span></button>
               <div class="ambient-music-controls__track_info ms-2">
                 <div class="track-info__title">Track — none</div>
                 <div class="track-info__time">00:00 / 00:00</div>
                 <div class="track-info__player-progress"></div>
               </div>
-              ${unpackElementObject(new nk.ui.DropdownElement({ content: `${nk.locale.get('MusicCredits.Advanced.Warfare')}`, id: 'MusicCredits', hide: false }))}
             </span>` : ''}`;
           }
           
@@ -322,11 +321,14 @@ PAGE_BUILD.then(function () {
   
   $(document).trigger(`${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select + '_page_loaded' : (nk.url.mode ? nk.url.mode + '_page_loaded' : 'default_page_loaded')}`);
 
-    return new Promise(function (resolve) { try { setTimeout(() => { nk.locale.update(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
-      console.buildType(`[GENPAGE] → Content Loaded and updated`, 'important');
-      $(document).trigger('page_fully_builded');
-    });
+  return new Promise(function (resolve) { try { setTimeout(() => { nk.locale.update(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
+    console.buildType(`[GENPAGE] → Content Loaded and updated`, 'important');
+    $(document).trigger('page_fully_builded');
+  });
     
 });
 
+$(document).on('page_fully_builded', function () {
+  if (isMobileDevice() !== true) { nk.initTooltips(); }
+});
 //logCurrentTrigger();
