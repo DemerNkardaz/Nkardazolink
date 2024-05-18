@@ -82,6 +82,7 @@ window.sortItems = function (itemsArray) {
 
 nk.ui.itemPropArray = function (source, mode) {
   let itemsArray = [];
+  let thumbnail = moreThan1080p ? '.svg' : '_thumb.png';
   if (mode === 'template') {
     Object.keys(statuses).forEach(status => {
       let items = new ItemProp({
@@ -108,7 +109,7 @@ nk.ui.itemPropArray = function (source, mode) {
               category: category.category,
               rarity: statuses[item.status],
               title: { text: nk.locale.entity(item.clan_names), key: "clan_names" },
-              image: { src: `${source.default_img_path}${category.img_folder}${item.image}_thumb.png` },
+              image: { src: `${source.default_img_path}${category.img_folder}${item.image}${item.extension ? item.extension : thumbnail}` },
               multiextension: item.multiextension ? item.multiextension : null,
             }
           }
@@ -311,6 +312,7 @@ $(document).on('click', 'item-prop', function () {
 });
 
 function openInventoryPanel(itemProp) {
+  const thumbnail = moreThan1080p ? '.svg' : '.png';
   const entity = itemProp.attr('data-entity');
   const propClass = itemProp.attr('data-prop-class');
   const language = nk.settingConfig.get('lang');
@@ -333,7 +335,7 @@ function openInventoryPanel(itemProp) {
               second_text: path.kanji_second ? path.kanji_second.unpackText() : null,
               transcript_first: path.transcript_first ? path.transcript_first[language].unpackText() : null,
             },
-            image: `${nk.items[propClass].default_img_path}${categoryPath.img_folder}${path.image}.png`,
+            image: `${nk.items[propClass].default_img_path}${categoryPath.img_folder}${path.image}${path.extension ? path.extension : thumbnail}`,
             prop_class: propClass, category: categoryPath.category, rarity: statuses[path.status],
           }
         })

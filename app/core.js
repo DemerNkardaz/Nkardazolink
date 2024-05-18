@@ -14,9 +14,23 @@ window.parseUrlParameter = function (name) {
 window.isMobileDevice = function () {
   let chk = false;
   const isMobile = /Android|MIUI|Galaxy|Xiaomi|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile/i.test(navigator.userAgent);
-  (isMobile && window.screen.width <= 600 /*&& window.navigator.maxTouchPoints > 1*/) ? chk = true : chk = false;
+  (isMobile && window.screen.width <= 600 && window.navigator.maxTouchPoints > 1) ? chk = true : chk = false;
   return chk;
 }
+
+window.checkResolution = function () {
+  let resolution = window.screen.width + 'x' + window.screen.height;
+  return resolution;
+}
+
+window.isResolutionGreaterThan = function (width, height) {
+  let resolution = window.checkResolution();
+  let [screenWidth, screenHeight] = resolution.split('x').map(Number);
+
+  if (screenWidth > width && screenHeight > height) { return true; }
+  else { return false; }
+}
+window.moreThan1080p = isResolutionGreaterThan(1920, 1080);
 
 window.randomId = function (prefix, mode) {
   prefix = prefix ? `${prefix}-` : '';
