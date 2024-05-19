@@ -16,6 +16,11 @@
             "thumb": "artwork/1_thumb.png"
             
           },
+          "img_test" : {
+            "src": "artwork/1",
+            "formats": {"low": "_thumb.webp", "med": "_med.webp", "high": "_high.png", "max": "_maxres.png"},
+            "alt": "Artwork 1"
+          },
           "extra": {
             "maxres": "artwork/1_maxres.png",
             "pdf": "artwork/1.pdf",

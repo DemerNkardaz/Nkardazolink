@@ -9,6 +9,7 @@
         {
           "entity_prop": "ent_maru-ni-mitsu-aoi.clan_matsudaira",
           "image": "Mon_of_clan_Matsudaira",
+          "formats": {"low": "_thumb.webp", "med": ".svg"},
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Мацудайра", "en": "Matsudaira", "ja": "松平", "zh": "松平", "ko": "상파리", "vi": "Matsudaira"},
           "status": 5,
@@ -47,6 +48,7 @@
         {
           "entity_prop": "ent_maru-ni-mitsu-aoi.clan_tokugawa",
           "image": "Mon_of_clan_Tokugawa",
+          "formats": {"low": "_thumb.webp", "med": ".svg"},
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Токугава", "en": "Tokugawa", "ja": "徳川", "zh": "徳川", "ko": "도쿠가와", "vi": "Tokugawa" },
           "status": 5,
@@ -56,6 +58,7 @@
         {
           "entity_prop": "ent_ageha-chou.clan_taira",
           "image": "Mon_of_clan_Taira",
+          "formats": {"low": "_thumb.webp", "med": ".png"},
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Тайра", "en": "Taira", "ja": "平家", "zh": "平家", "ko": "헤이케", "vi": "Taira" },
           "status": 5,
@@ -65,6 +68,7 @@
         {
           "entity_prop": "ent_sasarindou.clan_minamoto",
           "image": "Mon_of_clan_Minamoto",
+          "formats": {"low": "_thumb.webp", "med": ".png"},
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Минамото", "en": "Minamoto", "ja": "源", "zh": "源", "ko": "미나모토", "vi": "Minamoto" },
           "status": 6,
@@ -74,6 +78,7 @@
         {
           "entity_prop": "ent_kiku-no-gomon.tennou_lineage",
           "image": "Mon_of_Emperor",
+          "formats": {"low": "_thumb.webp", "med": ".svg"},
           "names": { "ru": "Хризантемовый императорский герб", "en": "Chrysanthemum Imperial Crest of Tenno(⁛macron_0.255⁛)", "ja": "菊の天皇紋章", "zh": "菊天皇的紋章", "ko": "크리산테미안의 국가장식", "vi": "Huy hiệu hoàng gia Cúc Hoàng đế"},
           "clan_names": {"ru": "Тэнно(⁛macron_0.255⁛)", "en": "Tenno(⁛macron_0.255⁛)", "ja": "天皇", "zh": "天皇", "ko": "황제", "vi": "Hoàng đế"},
           "status": 7,
@@ -96,6 +101,7 @@
         {
           "entity_prop": "ent_hishimon.clan_takeda",
           "image": "Mon_of_clan_Takeda",
+          "formats": {"low": "_thumb.webp", "med": ".png"},
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Такэда", "en": "Takeda", "ja": "武田", "zh": "武田", "ko": "다케다", "vi": "Takeda" },
           "status": 4,
@@ -112,6 +118,7 @@
         {
           "entity_prop": "ent_lin-mianju-yinzhang.clan_linguang",
           "image": "Linguang_Family_Crest",
+          "formats": {"low": "_thumb.webp", "med": ".svg"},
           "names": { "ru": "Печать из лесной маски", "en": "Seal of Forest Mask", "ja": "森お面の封印", "zh": "林面具印章", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Линь Гуан", "en": "Lin Guang", "ja": "林光", "zh": "林光", "ko": "다케다", "vi": "Lin Guang" },
           "status": 2,
@@ -127,6 +134,7 @@
         {
           "entity_prop": "ent_hishimon.clan_2takeda",
           "image": "Mon_of_clan_Takeda",
+          "formats": {"low": "_thumb.webp", "med": ".svg"},
           "names": { "ru": "Три листа мальвы", "en": "Three Leaves of Mallow", "ja": "葵の三葉", "zh": "葵的三叶", "ko": "월리의 모리", "vi": "Tam la lá của Aoi" },
           "clan_names": { "ru": "Такэда", "en": "Takeda", "ja": "武田", "zh": "武田", "ko": "다케다", "vi": "Takeda" },
           "status": 4,

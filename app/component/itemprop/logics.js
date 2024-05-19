@@ -82,7 +82,6 @@ window.sortItems = function (itemsArray) {
 
 nk.ui.itemPropArray = function (source, mode) {
   let itemsArray = [];
-  let thumbnail = moreThan1080p ? '.svg' : '_thumb.png';
   if (mode === 'template') {
     Object.keys(statuses).forEach(status => {
       let items = new ItemProp({
@@ -98,10 +97,11 @@ nk.ui.itemPropArray = function (source, mode) {
     });
   } else {
   const dataType = source.data_type;
-  $.each(source.root, function (_, category) {
-    $.each(category.items, function (_, item) {
+    $.each(source.root, function (_, category) {
+      $.each(category.items, function (_, item) {
         let itemData;
         if (dataType === 'kamon') {
+          let thumbnail = moreThan1080p ? item.formats.med : item.formats.low;
           itemData = {
             PROP: {
               entity: item.entity_prop,
@@ -312,7 +312,6 @@ $(document).on('click', 'item-prop', function () {
 });
 
 function openInventoryPanel(itemProp) {
-  const thumbnail = moreThan1080p ? '.svg' : '.png';
   const entity = itemProp.attr('data-entity');
   const propClass = itemProp.attr('data-prop-class');
   const language = nk.settingConfig.get('lang');
@@ -335,7 +334,7 @@ function openInventoryPanel(itemProp) {
               second_text: path.kanji_second ? path.kanji_second.unpackText() : null,
               transcript_first: path.transcript_first ? path.transcript_first[language].unpackText() : null,
             },
-            image: `${nk.items[propClass].default_img_path}${categoryPath.img_folder}${path.image}${path.extension ? path.extension : thumbnail}`,
+            image: `${nk.items[propClass].default_img_path}${categoryPath.img_folder}${path.image}${path.extension ? path.extension : path.formats.med}`,
             prop_class: propClass, category: categoryPath.category, rarity: statuses[path.status],
           }
         })

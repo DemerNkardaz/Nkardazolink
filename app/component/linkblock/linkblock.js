@@ -332,3 +332,18 @@ class LinkBlock extends HTMLElement {
 
 customElements.define('link-block', LinkBlock);
 nk.ui.LinkBlock = LinkBlock;
+
+
+
+nk.ui.linkBlockArray = function ({ source, linkClass } = {}) {
+  let lArray = [];
+  
+  for (let key in source) {
+    let link = source[key];
+    if (linkClass) {
+      link.LINK_Class = linkClass ? linkClass : 'default';
+    };
+    lArray.push(new nk.ui.LinkBlock(link));
+  };
+  return lArray;
+}

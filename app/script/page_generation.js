@@ -17,54 +17,6 @@ function generateLinks({ linkClass, source } = {}) {
   return lArray;
 };
 
-window.createObject = {
-  link: function ({ source, linkClass } = {}) {
-    let lArray = [];
-    
-    for (let key in source) {
-      let link = source[key];
-      if (linkClass) {
-        link.LINK_Class = linkClass ? linkClass : 'default';
-      };
-      lArray.push(new nk.ui.LinkBlock(link));
-    };
-    return lArray;
-  },
-  item: function ({ source, entClass } = {}) {
-    let itemArray = [];
-    $.each(source.root, function (_, category) {
-      let image_default = data.default_img_path;
-      let image_folder = image_default + category.img_folder;
-      $.each(category.items, function (_, item) {
-        let itemEntity = new ItemProp({
-          PROP_Class: entClass ? entClass : 'kamon',
-          PROP_ENTITY: item.entity_prop,
-          PROP_Rarity: item.rarity,
-        });
-        itemArray.push(itemEntity);
-      });
-    });
-
-    return itemArray;
-  },
-  portfolio: function ({ source, entClass } = {}) {
-    let itemArray = [];
-    $.each(source.root, function (_, category) {
-      $.each(category.items, function (_, item) {
-        let itemEntity = new item_portfolio({
-          PROP_Class: entClass ? entClass : 'default',
-          PROP_ENTITY: item.entity_prop,
-          PROP_Thumb: item.image.thumb ? item.image.thumb : item.image.source,
-          PROP_Image: item.image.source,
-          PROP_Fullres: item.image.fullres ? item.image.fullres : null,
-        });
-        itemArray.push(itemEntity);
-      });
-    });
-    return itemArray;
-  }
-};
-
 const PAGE_BUILD = new Promise(function (resolve, reject) {
   function anErrorOnBuild(err, str) {
     console.error(`An error occured during ${str}: ${err}`);
@@ -274,13 +226,13 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
               <h2 class="link-plates-section__header"><hr><span data-key="links.ContentLinks">${nk.locale.get('links.ContentLinks')}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper" >
                 <div class="link-plates-section__grid" data-tooltip-key="Tess" data-tooltip-pos="left">
-                  ${unpackElement(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.content }))}
+                  ${unpackElement(nk.ui.linkBlockArray({ linkClass: 'default', source: DATA_BLOCKS.default.links.content }))}
                 </div>
               </div>
               <h2 class="link-plates-section__header"><hr><span data-key="links.SocialLinks">${nk.locale.get('links.SocialLinks')}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper">
                 <div class="link-plates-section__grid">
-                  ${unpackElement(createObject.link({ linkClass: 'default', source: DATA_BLOCKS.default.links.social }))}
+                  ${unpackElement(nk.ui.linkBlockArray({ linkClass: 'default', source: DATA_BLOCKS.default.links.social }))}
                 </div
               </div>
             </section>`;
