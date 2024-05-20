@@ -1,5 +1,5 @@
 class LinkBlock extends HTMLElement {
-  constructor({ LINK_Class, LINK_Title, LINK_Title_Key, LINK_Subscript, LINK_Subscript_Key, LINK_Types, LINK_Background, LINK_Image, LINK_Icon, LINK_Source, Arrow, Class, Tooltip, Shadow } = {}) {
+  constructor(LINK) {
     super();
     const types = {
 			artwork: 'resources/svg/icos/art_alt.svg',
@@ -11,22 +11,22 @@ class LinkBlock extends HTMLElement {
     }
     function returnTypes() {
       var constructor = `<span class="linkTypes" part="link-types">`
-      const matchingTypes = Object.keys(types).filter(type => LINK_Types.includes(type));
+      const matchingTypes = Object.keys(types).filter(type => LINK.contentTypes.includes(type));
       matchingTypes.forEach(type => {
         constructor += `<span class="linkType" part="link-type"><img src="${types[type]}" alt="decorator" loading="eager" part="link-type-image"></span>`;
       });
       constructor += `</span>`;
       return constructor;
     }
-    const component = `<div class="link-plate-wrapper${nk.settingConfig.get('skin') === 'azumatsuyu' && LINK_Class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
-    <a ${LINK_Source ? `href="${LINK_Source}" target="_blank"` : ''} tabindex="0" part="link" class="link-plate ${LINK_Class}">
-      ${LINK_Image && LINK_Class !== 'long-thin' ? `<img ${Tooltip ? `data-tooltip-key="${Tooltip.key}" data-tooltip-pos="${Tooltip.pos}"` : ''} src="${LINK_Image}" alt="${LINK_Title ? LINK_Title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''} 
-      ${LINK_Class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK_Title_Key ? `data-key="${LINK_Title_Key}"` : ''}>${LINK_Title ? LINK_Title : ''}</h3>${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
-      ${LINK_Class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
-      <span part="link-plate__subscription" class="link-plate__subscription" ${LINK_Subscript_Key ? `data-key="${LINK_Subscript_Key}"` : ''}>
-      ${LINK_Types ? returnTypes() : (LINK_Subscript ? LINK_Subscript : '')}</span>
-      ${LINK_Class === 'long-thin' ? `</div></div>` : ''}
-      ${LINK_Icon ? `<div part="link-plate__icon" class="link-plate__icon"><img alt="Icon" src="${LINK_Icon.image}" part="link-plate__icon-image"></div>` : ''}
+    const component = `<div class="link-plate-wrapper${nk.settingConfig.get('skin') === 'azumatsuyu' && LINK.class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
+    <a ${LINK.href ? `href="${LINK.href}" target="_blank"` : ''} tabindex="0" part="link" class="link-plate ${LINK.class}">
+      ${LINK.image && LINK.class !== 'long-thin' ? `<img ${LINK.tooltip ? `data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}"` : ''} src="${LINK.image}" alt="${LINK.title ? LINK.title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''} 
+      ${LINK.class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK.titleKey ? `data-key="${LINK.titleKey}"` : ''}>${LINK.title ? LINK.title : ''}</h3>${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
+      ${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
+      <span part="link-plate__subscription" class="link-plate__subscription" ${LINK.subscriptionKey ? `data-key="${LINK.subscriptionKey}"` : ''}>
+      ${LINK.contentTypes ? returnTypes() : (LINK.subscription ? LINK.subscription : '')}</span>
+      ${LINK.class === 'long-thin' ? `</div></div>` : ''}
+      ${LINK.icon ? `<div part="link-plate__icon" class="link-plate__icon"><img alt="Icon" src="${LINK.icon.image}" part="link-plate__icon-image"></div>` : ''}
     </a></div>
     `
 
@@ -43,7 +43,7 @@ class LinkBlock extends HTMLElement {
         filter: grayscale(0%);
       }
       ::part(link-plate-wrapper), .link-plate-wrapper {
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         border-radius: 50px;
         transition: all 0.15s ease;
         `: `
@@ -57,7 +57,7 @@ class LinkBlock extends HTMLElement {
       a {
         position: relative;
         gap: 0 5px;
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         width: 1024px;
         height: 42px;
         border-radius: 0;
@@ -86,10 +86,10 @@ class LinkBlock extends HTMLElement {
           position: absolute;
           left: 0;
           top: 0;
-          background: ${LINK_Background && LINK_Background.image ? `url("${LINK_Background.image}") no-repeat, ${LINK_Background.color}` : 'transparent'};
-          background-size: ${LINK_Background && LINK_Background.size ? LINK_Background.size : 'cover'};
-          background-position: ${LINK_Background && LINK_Background.position ? LINK_Background.position : 'center center'};
-          ${LINK_Class == 'long-thin' ? `
+          background: ${LINK.background && LINK.background.image ? `url("${LINK.background.image}") no-repeat, ${LINK.background.color}` : 'transparent'};
+          background-size: ${LINK.background && LINK.background.size ? LINK.background.size : 'cover'};
+          background-position: ${LINK.background && LINK.background.position ? LINK.background.position : 'center center'};
+          ${LINK.class == 'long-thin' ? `
           width: 50%;
           height: 100%;
           `: `
@@ -106,8 +106,8 @@ class LinkBlock extends HTMLElement {
           content: 'arrow_outward';
           font-family: 'material icons';
           line-height: 1em;
-          color: ${Arrow && Arrow.color ? Arrow.color : 'var(--text_33)'};
-          mix-blend-mode: ${Arrow && Arrow.blend ? Arrow.blend : 'color-dodge'};
+          color: ${LINK.arrow && LINK.arrow.color ? LINK.arrow.color : 'var(--text_33)'};
+          mix-blend-mode: ${LINK.arrow && LINK.arrow.blend ? LINK.arrow.blend : 'color-dodge'};
           top: 0;
           right: 0;
           font-size: 1.5em;
@@ -119,7 +119,7 @@ class LinkBlock extends HTMLElement {
       }
       .link-plate-wrapper:focus-within,
       .link-plate-wrapper:hover {
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         transform: scale(1.1);
         `: `
         transform: translateY(-15px);
@@ -155,7 +155,7 @@ class LinkBlock extends HTMLElement {
       }
 
       .link-plate-wrapper:active {
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         transform: scale(1.01);
         `: `
         transform: translateY(-15px) scale(0.95);
@@ -183,7 +183,7 @@ class LinkBlock extends HTMLElement {
       ::part(link-plate__title-wrapper), .link-plate__title-wrapper {
         width: 700px;
         height: 42px;
-        filter: ${Shadow ? Shadow : `drop-shadow(-5px 0 3px var(--shadow_22a64))`};
+        filter: ${LINK.shadow ? LINK.shadow : `drop-shadow(-5px 0 3px var(--shadow_22a64))`};
         transition: all 0.3s ease;
       }
 
@@ -205,7 +205,7 @@ class LinkBlock extends HTMLElement {
         display: flex;
         height: 42px;
         width: 100%;
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         justify-self: end;
         align-items: center;
         justify-content: flex-end;
@@ -234,7 +234,7 @@ class LinkBlock extends HTMLElement {
         position: relative;
         display: flex;
         inset: 0;
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         justify-content: flex-start;
         padding-left: 5px;
         grid-column: 4;
@@ -252,7 +252,7 @@ class LinkBlock extends HTMLElement {
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         width: 40px;
         height: 40px;
         right: 0;
@@ -262,20 +262,20 @@ class LinkBlock extends HTMLElement {
         border-radius: 50%;
         border: 2px solid var(--light_border);
         `: `
-        ${LINK_Icon.pos ? `${LINK_Icon.pos.bottom ? `bottom: ${LINK_Icon.pos.bottom}px;` : ''}${LINK_Icon.pos.right ? `right: ${LINK_Icon.pos.right}px;` : ''}` : ''}
-        ${LINK_Icon.w ? `width: ${LINK_Icon.w}px;` : 'width: 70px;'}
+        ${LINK.icon.pos ? `${LINK.icon.pos.bottom ? `bottom: ${LINK.icon.pos.bottom}px;` : ''}${LINK.icon.pos.right ? `right: ${LINK.icon.pos.right}px;` : ''}` : ''}
+        ${LINK.icon.w ? `width: ${LINK.icon.w}px;` : 'width: 70px;'}
         `}
       }
       ::part(link-plate__icon img), .link-plate__icon img {
         width: 100%;
         height: 100%;
-        ${LINK_Class == 'long-thin' ? `
+        ${LINK.class == 'long-thin' ? `
         filter: brightness(10) drop-shadow(0 0 1px var(--shadow_22a86)) drop-shadow(0 0 2px var(--shadow_22a64));
-        ${LINK_Icon.label.transform ? `transform: ${LINK_Icon.label.transform};` : ''}
-        ${LINK_Icon.label.state === 'absolute' ? `position: absolute;` : ''}
-        ${LINK_Icon.label.left ? `left: ${LINK_Icon.label.left};` : ''}
-        ${LINK_Icon.label.top ? `right: ${LINK_Icon.label.top};` : ''}
-        ${LINK_Icon.label.size ? `width: ${LINK_Icon.label.size}; height: ${LINK_Icon.label.size};` : ''}
+        ${LINK.icon.label.transform ? `transform: ${LINK.icon.label.transform};` : ''}
+        ${LINK.icon.label.state === 'absolute' ? `position: absolute;` : ''}
+        ${LINK.icon.label.left ? `left: ${LINK.icon.label.left};` : ''}
+        ${LINK.icon.label.top ? `right: ${LINK.icon.label.top};` : ''}
+        ${LINK.icon.label.size ? `width: ${LINK.icon.label.size}; height: ${LINK.icon.label.size};` : ''}
         `:`
         opacity: 0.05;
         `}
@@ -318,8 +318,8 @@ class LinkBlock extends HTMLElement {
 
     </style>`
     $(this).attr({
-      'data-link-class': LINK_Class
-    }).addClass(`link-plate__host${Class ? ` ${Class}` : ' m-3'}`);
+      'data-link-class': LINK.class
+    }).addClass(`link-plate__host${LINK.classes ? ` ${LINK.classes}` : ' m-3'}`);
     
 
     const concatenated = component + styles;
@@ -335,15 +335,26 @@ nk.ui.LinkBlock = LinkBlock;
 
 
 
-nk.ui.linkBlockArray = function ({ source, linkClass } = {}) {
+nk.ui.linkBlockArray = function (source, category, isTree) {
   let lArray = [];
-  
-  for (let key in source) {
-    let link = source[key];
-    if (linkClass) {
-      link.LINK_Class = linkClass ? linkClass : 'default';
-    };
-    lArray.push(new nk.ui.LinkBlock(link));
-  };
+  $.each(source[category], function (_, item) {
+    let parameters = {};
+    parameters.class = !isTree ? source.class : source.tree_class;
+    parameters.title = nk.locale.get(item.title_key);
+    parameters.titleKey = item.title_key;
+    parameters.href = item.href;
+    parameters.image = item.image;
+    !isTree ? parameters.background = item.background : parameters.background = item.tree_mode.background;
+    !isTree ? item.external_resource_icon && (parameters.icon = item.external_resource_icon)
+    : item.tree_mode.external_resource_icon && (parameters.icon = item.tree_mode.external_resource_icon);
+    (!isTree && item.external_link_arrow) && (parameters.arrow = item.external_link_arrow);
+    item.content_types && (parameters.contentTypes = item.content_types);
+    item.subscription_key && (parameters.subscriptionKey = item.subscription_key, parameters.subscription = nk.locale.get(item.subscription_key));
+    (!isTree && item.tooltip) && (parameters.tooltip = item.tooltip);
+    (isTree && item.tree_mode.shadow) && (parameters.shadow = item.tree_mode.shadow);
+    item.added_classes && (parameters.classes = item.added_classes);
+    !(item.only_tree && !isTree) && lArray.push(new nk.ui.LinkBlock(parameters));
+  });
+
   return lArray;
 }
