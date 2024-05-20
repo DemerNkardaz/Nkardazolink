@@ -18,9 +18,18 @@ class LinkBlock extends HTMLElement {
       constructor += `</span>`;
       return constructor;
     }
+    let imageComponent;
+    LINK.image_type !== 'video' && (imageComponent = `
+    ${LINK.image && LINK.class !== 'long-thin' ? `<img ${LINK.tooltip ? `data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}"` : ''} src="${LINK.image}" alt="${LINK.title ? LINK.title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''}
+    `);
+    LINK.image_type === 'video' && (imageComponent = `
+    ${LINK.image && LINK.class !== 'long-thin' ? `<video loop autoplay muted playsinline style="pointer-events: none;" part="link-plate__avatar" class="link-plate__avatar" data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}">
+      <source src="${LINK.image}">
+    </video>` : ''}
+    `);
     const component = `<div class="link-plate-wrapper${nk.settingConfig.get('skin') === 'azumatsuyu' && LINK.class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
     <a ${LINK.href ? `href="${LINK.href}" target="_blank"` : ''} tabindex="0" part="link" class="link-plate ${LINK.class}">
-      ${LINK.image && LINK.class !== 'long-thin' ? `<img ${LINK.tooltip ? `data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}"` : ''} src="${LINK.image}" alt="${LINK.title ? LINK.title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''} 
+      ${imageComponent}
       ${LINK.class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK.titleKey ? `data-key="${LINK.titleKey}"` : ''}>${LINK.title ? LINK.title : ''}</h3>${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-plate__subscription" class="link-plate__subscription" ${LINK.subscriptionKey ? `data-key="${LINK.subscriptionKey}"` : ''}>
@@ -344,6 +353,7 @@ nk.ui.linkBlockArray = function (source, category, isTree) {
       titleKey: item.title_key,
       href: item.href,
       image: !isTree ? item.image : undefined,
+      image_type: (!isTree && item.image_type) ? item.image_type : undefined,
       background: isTree ? item.tree_mode.background : item.background,
       icon: (isTree ? item.tree_mode.external_resource_icon : item.external_resource_icon) || undefined,
       arrow: (!isTree && item.external_link_arrow) ? item.external_link_arrow : undefined,

@@ -5,7 +5,7 @@
 window.nkPreferences = {
   banner: {
     asanoha: { url: '../../../resources/svg/pattern_asanoha_90deg.svg', name: 'Asa-no ha', },
-    kanprovince: { url: '../../../resources/png/china/jiangu_full_bg_golden v2_thumb.png', name: 'The Kan Province', }
+    kanprovince: { url: '../../../resources/png/china/jiangu_full_bg_golden v2_thumb512.avif', name: 'The Kan Province', }
   }
 }
 

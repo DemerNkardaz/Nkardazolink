@@ -85,7 +85,19 @@ body {
   height: 100vh;
   color: var(--text_33);
   font-family: var(--font_common_set);
-  background: url(https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg) no-repeat fixed center center;
+  /*background: url(https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg) no-repeat fixed center center;*/
+  @media screen and (min-width: 1921px) {
+    & {background-image: url('../../external/temp_JouCherryBlossom_\(pexels.com\)_background_1440p.avif');}
+  }
+  @media screen and (min-width: 1281px) and (max-width: 1920px) {
+    & {background-image: url('../../external/temp_JouCherryBlossom_\(pexels.com\)_background_720p.avif');}
+  }
+  @media screen and (max-width: 1280px) {
+    & {background-image: url('../../external/temp_JouCherryBlossom_\(pexels.com\)_background_341p.avif');}
+  }
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
   background-size: cover;
 }
 
