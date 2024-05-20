@@ -49,7 +49,7 @@
       "external_resource_icon": { "image": "external/artstation_logo.svg", "pos": { "right": -15, "bottom": -12 } },
       "tooltip": { "key": "links.Hachiman-jin_Tooltip", "pos": "right" },
       "tree_mode": {
-        "background": { "image": "https://cdnb.artstation.com/p/users/covers/004/308/091/default/ed360d2bc08458597cbfa650a51c8f7e.jpg", "color": "#b85d14", "size": "100%", "position": "-50px 25%" },
+        "background": { "image": "https://cdnb.artstation.com/p/users/covers/004/308/091/default/ed360d2bc08458597cbfa650a51c8f7e.jpg", "color": "#b85d14", "size": "100%", "position": "-80px 25%" },
         "external_resource_icon": {
           "image": "external/artstation_logo.svg", "label": { "state": "absolute", "left": "3px", "filter": "invert(0.45) sepia(1) saturate(180%)", "size": "30px" }
         }
@@ -66,7 +66,7 @@
       "external_resource_icon": { "image": "external/VK_logo.svg", "pos": { "right": -15, "bottom": -20 } },
       "tooltip": { "key": "links.Hachiman-jin_Tooltip", "pos": "right" },
       "tree_mode": {
-        "background": { "image": "resources/png/china/jiangu_full_bg_golden v2_thumb1024.avif", "color": "#fffd51", "size": "100%", "position": "-50px 25%" },
+        "background": { "image": "resources/png/china/jiangu_full_bg_golden v2_thumb1024.avif", "color": "#fffd51", "size": "65%", "position": "0px 78%" },
         "external_resource_icon": {
           "image": "external/VK_logo.svg", "label": { "state": "absolute", "left": "3px", "filter": "invert(0.45) sepia(1) saturate(180%)", "size": "30px" }
         }
@@ -84,7 +84,7 @@
       "external_link_arrow": { "blend": "color-burn" },
       "tooltip": { "key": "links.Anime_Naruto_Tooltip", "pos": "right" },
       "tree_mode": {
-        "background": { "image": "https://leonardo.osnova.io/15784ecb-c2bd-54ca-91d3-fbaf396d3002/-/scale_crop/960/-/format/webp/", "color": "#dbe1da", "size": "100%", "position": "-50px 25%" },
+        "background": { "image": "https://leonardo.osnova.io/15784ecb-c2bd-54ca-91d3-fbaf396d3002/-/scale_crop/960/-/format/webp/", "color": "#dbe1da", "size": "65%", "position": "0px 40%" },
         "external_resource_icon": {
           "image": "external/DTF_logo.svg", "label": { "state": "absolute", "left": "3px", "filter": "invert(0.45) sepia(1) saturate(180%)", "size": "30px" }
         }
@@ -103,7 +103,7 @@
       "external_link_arrow": { "color": "var(--text_a4)" },
       "tooltip": { "key": "Nkardaz.fursona", "pos": "right" },
       "tree_mode": {
-        "background": { "image": "external/Ghost_of_Tsushima_thumb1024.avif", "color": "#5d1d13", "size": "100%", "position": "-50px 25%" },
+        "background": { "image": "external/Ghost_of_Tsushima_thumb1024.avif", "color": "#5d1d13", "size": "70%", "position": "0px 50%" },
         "external_resource_icon": {
           "image": "external/VK_logo.svg", "label": { "state": "absolute", "left": "3px", "filter": "invert(0.45) sepia(1) saturate(180%)", "size": "30px" }
         }
@@ -123,7 +123,7 @@
       "external_link_arrow": { "blend": "color-burn" },
       "tooltip": { "key": "links.Anime_Naruto_Tooltip", "pos": "right" },
       "tree_mode": {
-        "background": { "image": "https://i.imgur.com/QqfSX2E.png", "color": "#ffcad4", "size": "100%", "position": "-100px 50%" },
+        "background": { "image": "https://i.imgur.com/QqfSX2E.png", "color": "#ffcad4", "size": "65%", "position": "0px 50%" },
         "external_resource_icon": {
           "image": "external/shikimori_logo.svg", "label": { "state": "absolute", "left": "3px", "filter": "invert(0.45) sepia(1) saturate(180%)", "size": "30px" }
         },
@@ -141,7 +141,7 @@
       "external_resource_icon": { "image": "external/steam_logo.svg", "pos": { "right": 2, "bottom": 5 } },
       "tooltip": { "key": "links.Steam_Hi", "pos": "right" },
       "tree_mode": {
-        "background": { "image": "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/570/51c2cf9ddfe8a170b458fc37ff55b083f6a5ec6c.jpg", "color": "#2868ee", "size": "100%", "position": "-100px 50%" },
+        "background": { "image": "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/570/51c2cf9ddfe8a170b458fc37ff55b083f6a5ec6c.jpg", "color": "#2868ee", "size": "70%", "position": "-25px 25%" },
         "external_resource_icon": {
           "image": "external/steam_logo.svg", "label": { "state": "absolute", "left": "3px", "filter": "invert(0.45) sepia(1) saturate(180%)", "size": "30px" }
         },

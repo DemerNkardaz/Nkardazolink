@@ -336,25 +336,25 @@ nk.ui.LinkBlock = LinkBlock;
 
 
 nk.ui.linkBlockArray = function (source, category, isTree) {
-  let lArray = [];
-  $.each(source[category], function (_, item) {
-    let parameters = {};
-    parameters.class = !isTree ? source.class : source.tree_class;
-    parameters.title = nk.locale.get(item.title_key);
-    parameters.titleKey = item.title_key;
-    parameters.href = item.href;
-    parameters.image = item.image;
-    !isTree ? parameters.background = item.background : parameters.background = item.tree_mode.background;
-    !isTree ? item.external_resource_icon && (parameters.icon = item.external_resource_icon)
-    : item.tree_mode.external_resource_icon && (parameters.icon = item.tree_mode.external_resource_icon);
-    (!isTree && item.external_link_arrow) && (parameters.arrow = item.external_link_arrow);
-    item.content_types && (parameters.contentTypes = item.content_types);
-    item.subscription_key && (parameters.subscriptionKey = item.subscription_key, parameters.subscription = nk.locale.get(item.subscription_key));
-    (!isTree && item.tooltip) && (parameters.tooltip = item.tooltip);
-    (isTree && item.tree_mode.shadow) && (parameters.shadow = item.tree_mode.shadow);
-    item.added_classes && (parameters.classes = item.added_classes);
-    !(item.only_tree && !isTree) && lArray.push(new nk.ui.LinkBlock(parameters));
+  const lArray = [];
+  source[category].forEach(item => {
+    const parameters = {
+      class: isTree ? source.tree_class : source.class,
+      title: nk.locale.get(item.title_key),
+      titleKey: item.title_key,
+      href: item.href,
+      image: !isTree ? item.image : undefined,
+      background: isTree ? item.tree_mode.background : item.background,
+      icon: (isTree ? item.tree_mode.external_resource_icon : item.external_resource_icon) || undefined,
+      arrow: (!isTree && item.external_link_arrow) ? item.external_link_arrow : undefined,
+      contentTypes: item.content_types || undefined,
+      subscriptionKey: item.subscription_key,
+      subscription: item.subscription_key ? nk.locale.get(item.subscription_key) : undefined,
+      tooltip: (!isTree && item.tooltip) ? item.tooltip : undefined,
+      shadow: (isTree && item.tree_mode.shadow) ? item.tree_mode.shadow : undefined,
+      classes: item.added_classes || undefined
+    };
+    !(item.only_tree === true && !isTree) && lArray.push(new nk.ui.LinkBlock(parameters));
   });
-
   return lArray;
 }
