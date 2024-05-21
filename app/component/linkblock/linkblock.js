@@ -43,6 +43,7 @@ class LinkBlock extends HTMLElement {
     <link rel="stylesheet" href="app/style/basic.css">
     <link rel="stylesheet" href="app/style/shapes.css">
     <link rel="stylesheet" href="app/style/util.css">
+    <link rel="stylesheet" href="app/style/item_linkblock.css">
     <style>
       :host(.inactive) {
         filter: grayscale(100%);
