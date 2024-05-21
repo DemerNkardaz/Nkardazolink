@@ -1,33 +1,40 @@
-$(document).on('miscellaneous_loaded', function () {
+$(document).on('repositoryInfoJSON_loaded', function () {
   window.repoStatus = [];
   window.repositoryInfo = function (type) {
-    $.ajax({
-      url: localHostIP ? '../repository-info.json' : 'https://demernkardaz.github.io/Nkardazolink/repository-info.json',
-      dataType: 'json',
-      success: function (data) {
-
-        let sizeInMB = Math.round(data.size / 1024);
-        let sizeFinal, sizeType;
-        if (sizeInMB >= 1024) {
-          sizeFinal = (sizeInMB / 1024).toFixed(2);
-          sizeType = '<span data-key="GB" data-key-source="miscellaneous">ГБ</span>';
-        } else {
-          sizeFinal = sizeInMB;
-          sizeType = '<span data-key="MB" data-key-source="miscellaneous">МБ</span>';
-        }
-        let repoSize = `<span>${sizeFinal}&ensp;${sizeType}</span>`;
-        repoStatus.push(repoSize);
-
-        let createdAt = `<span>${formatDate(new Date(data.created_at))}</span>`;
-        repoStatus.push(createdAt);
-
-        let updatedAt = `<span>${formatDate(new Date(data.updated_at))}</span>`;
-        repoStatus.push(updatedAt);
-
+    function processRepositoryData(data) {
+      let sizeInMB = Math.round(data.size / 1024);
+      let sizeFinal, sizeType;
+      if (sizeInMB >= 1024) {
+        sizeFinal = (sizeInMB / 1024).toFixed(2);
+        sizeType = '<span data-key="GB" data-key-source="miscellaneous">ГБ</span>';
+      } else {
+        sizeFinal = sizeInMB;
+        sizeType = '<span data-key="MB" data-key-source="miscellaneous">МБ</span>';
       }
-    });
+      let repoSize = `<span>${sizeFinal}&ensp;${sizeType}</span>`;
+      repoStatus.push(repoSize);
+
+      let createdAt = `<span>${formatDate(new Date(data.created_at))}</span>`;
+      repoStatus.push(createdAt);
+
+      let updatedAt = `<span>${formatDate(new Date(data.updated_at))}</span>`;
+      repoStatus.push(updatedAt);
+    }
+
+    if (type === 'variable') {
+      processRepositoryData(repositoryInfoJSON);
+    } else {
+      $.ajax({
+        url: localHostIP ? '../repository-info.json' : 'https://demernkardaz.github.io/Nkardazolink/repository-info.json',
+        dataType: 'json',
+        success: function (data) {
+          processRepositoryData(data);
+        }
+      });
+    }
   }
-  repositoryInfo();
+
+  repositoryInfo('variable');
 
   function formatDate(date) {
     let now = new Date();
