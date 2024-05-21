@@ -44,30 +44,15 @@ var metaData = {
 }
 
 
-if (nk.settingConfig.get('turn_off_preloader') !== true) { $('body').prepend(new nk.ui.Preloader()) };
+//if (nk.settingConfig.get('turn_off_preloader') !== true) { $('body').prepend(new nk.ui.Preloader()) };
 
 
 
 let dataArray = [];
+let dataTimer;
 dataArray.push({ to: 'nk.locale', source: 'app/data/miscellaneous.json', as: 'miscellaneous' });
 dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
 (nk.url.mode === 'tree' || nk.url.mode === null) && dataArray.push({ to: 'nk.items', source: 'app/data/links.json', as: 'links' });
 nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON' });
 ['kamon', 'banners'].includes(nk.url.mode) && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
-let dataTimer;
-DataExtend(dataArray, true).then((loadedData) => {
-  const loadingPromise = new Promise((resolve, reject) => {
-    try {
-      loadedData.forEach(({ as, source }) => {
-        console.buildType(`[DATA_IN] → “${as}” : loaded with “${source}”`, 'success');
-        clearTimeout(dataTimer);
-      });
-      dataTimer = setTimeout(() => { resolve() }, 500);
-    } catch (err) { console.error(err); reject(err); }
-  });
-
-  loadingPromise.then(() => {
-    console.buildType(`[DATA_IN] → All of data JSON was loaded`, 'success');
-    $(document).trigger('full_data_loaded');
-  })
-})
+DataExtend(dataArray, true, nk.timers.data).then((loadedData) => { });

@@ -10,6 +10,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
   }
   try {
     $(document).on('full_data_loaded', function () {
+      console.buildType(`[DATA_IN] → All of data JSON was loaded`, 'success');
       const ACTIVATE_INTERFACE_TYPE =
         nk.url.mode === 'cv' ? 'cv' :
           nk.url.mode === 'tree' ? 'linktree' :
@@ -145,7 +146,7 @@ PAGE_BUILD.then(function () {
   
   $(document).trigger(`${nk.url.mode && nk.url.select ? nk.url.mode + nk.url.select + '_page_loaded' : (nk.url.mode ? nk.url.mode + '_page_loaded' : 'default_page_loaded')}`);
 
-  return new Promise(function (resolve) { try { setTimeout(() => { nk.locale.update(); resolve(); }, 1000); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
+  return new Promise(function (resolve) { try { setTimeout(() => { nk.locale.update(); resolve(); }, 100); } catch (err) { anErrorOnBuild(err, 'language update'); } }).then(function () {
     console.buildType(`[GENPAGE] → Content Loaded and updated`, 'important');
     $(document).trigger('page_fully_builded');
   });

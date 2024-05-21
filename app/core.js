@@ -3,6 +3,9 @@ nk.ui = {};
 nk.skins = {};
 nk.locale = {};
 nk.items = {};
+nk.timers = {
+  data: null
+};
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
 
@@ -290,12 +293,23 @@ window.DataExtend = function (dataArray, isPromise) {
       }).done(function () {
         $(document).trigger(`${dataArray.as}_loaded`);
         console.buildType(`[DATA_IN] → “${dataArray.as}” : loaded with “${dataArray.source}”${dataArray.to ? ` : → “${dataArray.to}”` : ''}`, 'success');
+        function clearTimer() {
+          if (nk.timers.data) {
+            clearTimeout(nk.timers.data);
+            console.buildType(`[DATA_IN] → “${dataArray.as}” : timer cleared`, 'success');
+          } else {
+            console.buildType(`[DATA_IN] → “${dataArray.as}” : timer not found`, 'warning');
+          }
+        }
+
+        clearTimer();
+        nk.timers.data = setTimeout(function () { $(document).trigger(`full_data_loaded`) }, 25);
 
       });
     } else {
       dataArray.forEach(function (data) {
         DataExtend(data, callback);
-      })
+      });
     }
   }
 }
