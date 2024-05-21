@@ -4,8 +4,27 @@
   "description": "Demer Nkardaz's personal website.",
   "start_url": "/Nkardazolink/",
   "display": "standalone",
+  "orientation": "any",
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "categories": ["books", "literature", "3d", "art", "design", "layout", "wolrdbuilding", "lore", "artist"],
   "background_color": "#333333",
   "theme_color": "#eeeeee",
+  "shortcuts" : [
+    {
+      "name": "Demer Nkardaz",
+      "url": "/Nkardazolink/"
+    },
+    {
+      "name": "Monjōshō | The Gallery of Crests",
+      "url": "/Nkardazolink/?mode=kamon"
+    },
+    {
+      "name": "Sashimono Tenrankai | The Banners Exhibition",
+      "url": "/Nkardazolink/?mode=banners"
+    }
+  ],
   "icons": [
     {
       "src": "./manifest/icon-64x64.png",
