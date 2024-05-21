@@ -17,12 +17,12 @@
       "url": "/Nkardazolink/",
       "icons": [
         {
-          "src": "./manifest/icon-shortcut-64x64.png",
+          "src": "./manifest/icon-64x64.png",
           "sizes": "64x64",
           "type": "image/png"
         },
         {
-          "src": "./manifest/icon-shortcut-128x128.png",
+          "src": "./manifest/icon-128x128.png",
           "sizes": "128x128",
           "type": "image/png"
         }
@@ -33,12 +33,12 @@
       "url": "/Nkardazolink/?mode=kamon",
       "icons": [
         {
-          "src": "./manifest/icon-shortcut-64x64.png",
+          "src": "./manifest/icon-64x64.png",
           "sizes": "64x64",
           "type": "image/png"
         },
         {
-          "src": "./manifest/icon-shortcut-128x128.png",
+          "src": "./manifest/icon-128x128.png",
           "sizes": "128x128",
           "type": "image/png"
         }
@@ -49,12 +49,12 @@
       "url": "/Nkardazolink/?mode=banners",
       "icons": [
         {
-          "src": "./manifest/icon-shortcut-64x64.png",
+          "src": "./manifest/icon-64x64.png",
           "sizes": "64x64",
           "type": "image/png"
         },
         {
-          "src": "./manifest/icon-shortcut-128x128.png",
+          "src": "./manifest/icon-128x128.png",
           "sizes": "128x128",
           "type": "image/png"
         }
