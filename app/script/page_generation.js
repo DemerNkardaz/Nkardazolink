@@ -154,6 +154,8 @@ PAGE_BUILD.then(function () {
 });
 
 $(document).on('page_fully_builded', function () {
-  if (isMobileDevice() !== true) { nk.initTooltips(); /*import('../script/howler_init.js');*/ }
+  setTimeout(function () {
+    if (isMobileDevice() !== true) { nk.initTooltips(); /*import('../script/howler_init.js');*/ }
+  }, 500);
 });
 //logCurrentTrigger();
