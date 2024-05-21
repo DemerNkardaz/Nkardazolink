@@ -62,7 +62,7 @@ DataExtend(dataArray, true).then((loadedData) => {
         console.buildType(`[DATA_IN] → “${as}” : loaded with “${source}”`, 'success');
         clearTimeout(dataTimer);
       });
-      dataTimer = setTimeout(() => { resolve() }, 2000);
+      dataTimer = setTimeout(() => { resolve() }, 1000);
     } catch (err) { console.error(err); reject(err); }
   });
 

@@ -124,5 +124,5 @@ function preloaderPrecentage() {
       tImg.src = img[i].src;
     }
     
-  }, 2200);
+  }, 1200);
 }
