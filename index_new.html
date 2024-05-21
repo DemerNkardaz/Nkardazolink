@@ -104,14 +104,19 @@
   </head>
 
   <body>
-    <section class="root-container">
-      <header class="root-container__header-block" role="banner">
-        <section class="root-container__header-block__inner-grid-section">
+    <section class="root-container temporary-no-transition">
+      <header class="root-container__header-block temporary-no-transition" role="banner">
+        <section class="root-container__header-block__inner-grid-section temporary-no-transition">
         </section>
       </header>
-      <main class="root-container__main-block" role="main">
+      <main class="root-container__main-block temporary-no-transition" role="main">
       </main>
-      <footer class="root-container__footer-block" role="contentinfo"></footer>
+      <footer class="root-container__footer-block temporary-no-transition" role="contentinfo"></footer>
     </section>
+    <style id="temporary-no-transition">
+      .temporary-no-transition {
+        transition: none !important;
+      }
+    </style>
   </body>
 </html>

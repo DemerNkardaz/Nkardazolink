@@ -3,8 +3,16 @@
 
 nk.settingConfig.get('lang') ? $('html').attr('lang', nk.settingConfig.get('lang')) : $('html').attr('lang', 'ru');
 
+const ACTIVATE_INTERFACE_TYPE =
+  nk.url.mode === 'cv' ? 'cv' :
+    nk.url.mode === 'tree' ? 'linktree' :
+      nk.url.mode === 'license' ? 'license' :
+        nk.url.mode === 'landing' ? 'landing' :
+          nk.url.mode === 'reader' ? 'reader' :
+            ['kamon', 'pattern', 'banners', 'clans'].includes(nk.url.mode) ? 'gallery' : null;
+nk.rootContainer.attr('data-active-interface', ACTIVATE_INTERFACE_TYPE ? ACTIVATE_INTERFACE_TYPE : 'default');
 
-var metaData = {
+let metaData = {
   "title": {
     "common": {
       ru: 'Демер Нкардаз・2D・3D・Писательство・Вёрстка',
@@ -56,4 +64,4 @@ dataArray.push({ to: 'window',    source: 'repository-info.json',        as: 're
 (nk.url.mode === 'tree' || nk.url.mode === null) && dataArray.push({ to: 'nk.items', source: 'app/data/links.json', as: 'links' });
 nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON' });
 ['kamon', 'banners'].includes(nk.url.mode) && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
-DataExtend(dataArray, true, nk.timers.data).then((loadedData) => { });
+DataExtend(dataArray, true, nk.timers.data).then((loadedData) => {});

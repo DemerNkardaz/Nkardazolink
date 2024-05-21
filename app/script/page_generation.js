@@ -11,15 +11,8 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
   try {
     $(document).on('full_data_loaded', function () {
       console.buildType(`[DATA_IN] → All of data JSON was loaded`, 'success');
-      const ACTIVATE_INTERFACE_TYPE =
-        nk.url.mode === 'cv' ? 'cv' :
-          nk.url.mode === 'tree' ? 'linktree' :
-            nk.url.mode === 'license' ? 'license' :
-              nk.url.mode === 'landing' ? 'landing' :
-                nk.url.mode === 'reader' ? 'reader' :
-                  ['kamon', 'pattern', 'banners', 'clans'].includes(nk.url.mode) ? 'gallery' : null;
-      nk.rootContainer.attr('data-active-interface', ACTIVATE_INTERFACE_TYPE ? ACTIVATE_INTERFACE_TYPE : 'default');
-      
+      $('.temporary-no-transition').removeClass('temporary-no-transition');
+      $('#temporary-no-transition').remove();
       let header;
       let main;
       let footer;
