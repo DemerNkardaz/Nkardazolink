@@ -14,15 +14,51 @@
   "shortcuts" : [
     {
       "name": "Demer Nkardaz",
-      "url": "/Nkardazolink/"
+      "url": "/Nkardazolink/",
+      "icons": [
+        {
+          "src": "./manifest/icon-shortcut-64x64.png",
+          "sizes": "64x64",
+          "type": "image/png"
+        },
+        {
+          "src": "./manifest/icon-shortcut-128x128.png",
+          "sizes": "128x128",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Monjōshō | The Gallery of Crests",
-      "url": "/Nkardazolink/?mode=kamon"
+      "url": "/Nkardazolink/?mode=kamon",
+      "icons": [
+        {
+          "src": "./manifest/icon-shortcut-64x64.png",
+          "sizes": "64x64",
+          "type": "image/png"
+        },
+        {
+          "src": "./manifest/icon-shortcut-128x128.png",
+          "sizes": "128x128",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Sashimono Tenrankai | The Banners Exhibition",
-      "url": "/Nkardazolink/?mode=banners"
+      "url": "/Nkardazolink/?mode=banners",
+      "icons": [
+        {
+          "src": "./manifest/icon-shortcut-64x64.png",
+          "sizes": "64x64",
+          "type": "image/png"
+        },
+        {
+          "src": "./manifest/icon-shortcut-128x128.png",
+          "sizes": "128x128",
+          "type": "image/png"
+        }
+      ]
     }
   ],
   "icons": [
