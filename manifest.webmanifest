@@ -95,5 +95,26 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "./manifest/screenshot720p_win.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "platform": "windows"
+    },
+    {
+      "src": "./manifest/screenshot720p_mob.webp",
+      "sizes": "324x720",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "platform": "android"
+    }
+  ],
+  "serviceworker": {
+    "src": "./serviceworker.js",
+    "scope": "./",
+    "use_cache": true
+  }
 }
