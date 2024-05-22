@@ -5,7 +5,7 @@ const ASSETS = [
   './index_new.html',
   './repository-info.json',
   './app/',
-  
+
   'https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap',
   'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap',
   'https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap',
@@ -22,33 +22,12 @@ const ASSETS = [
   'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'
 ]
 
-async function scanFiles(directory) {
-  const files = await fetch(directory);
-  const fileNames = await files.json();
-  for (const fileName of fileNames) {
-    const filePath = directory + fileName;
-    const response = await fetch(filePath);
-    if (response.ok) {
-      ASSETS.push(filePath);
-      if (fileName.endsWith('/')) {
-        await scanFiles(filePath);
-      }
-    }
-  }
-}
-
-// Добавляем все файлы и папки в кэш
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHENAME).then((cache) => {
-      console.log('caching');
-      cache.addAll(ASSETS);
-      scanFiles('./app/');
-    })
+    caches.open(CACHENAME).then((cache) => {console.log('caching'); cache.addAll(ASSETS)})
   );
 });
 
-// Остальные события остаются без изменений
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys => {
