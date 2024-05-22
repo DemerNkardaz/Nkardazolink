@@ -1,6 +1,7 @@
 @import "./style/root.css";
 @import "./style/basic.css";
 @import "./style/shapes.css";
+@import "./style/def.css";
 @import "./style/util.css";
 @import "./style/fonts.css";
 @import "./style/root_fonts.css";

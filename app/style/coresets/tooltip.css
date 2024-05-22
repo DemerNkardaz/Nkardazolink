@@ -466,7 +466,7 @@
     padding: 10px;
     border-radius: 10px;
     font-size: 0.9rem;
-    filter: drop-shadow(0 5px 10px var(--shadow_22a29)) drop-shadow(0 2px 1px var(--shadow_22a29));
+    filter: drop-shadow(0 5px 5px var(--shadow_22a29)) drop-shadow(0 2px 1px var(--shadow_22a29));
     opacity: 0;
     transition: all 0.3s ease;
     z-index: 1080;
@@ -491,7 +491,7 @@
     }
   }
   &:hover {
-    cursor: pointer;
+    cursor: help;
 
     &::after {
       user-select: text;

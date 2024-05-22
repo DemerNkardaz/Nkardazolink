@@ -106,13 +106,13 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             footer = `
             <span class="copyright"><span data-key="Nkardaz.copyright">${nk.locale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nk.locale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
                 `<span class="ambient-music-controls ms-auto me-3">
-              <button class="button-music-controls" nk-music="pause/play" title="${nk.locale.get('buttonLabels.pause')}" title-key="buttonLabels.pause"><span class="material-icons">pause</span></button>
-              <button class="button-music-controls" nk-music="random" title="${nk.locale.get('buttonLabels.shuffle')}" title-key="buttonLabels.shuffle"><span class="material-icons">shuffle</span></button>
-              <button class="button-music-controls" nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top" title="${nk.locale.get('buttonLabels.attribution')}" title-key="buttonLabels.attribution"><span class="material-icons">attribution</span></button>
+              <button type="button" class="button-music-controls" nk-music="pause/play" title="${nk.locale.get('buttonLabels.pause')}" title-key="buttonLabels.pause"><span class="material-icons" aria-hidden="true">pause</span></button>
+              <button type="button" class="button-music-controls" nk-music="random" title="${nk.locale.get('buttonLabels.shuffle')}" title-key="buttonLabels.shuffle"><span class="material-icons" aria-hidden="true">shuffle</span></button>
+              <button type="button" class="button-music-controls" nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top" title="${nk.locale.get('buttonLabels.attribution')}" title-key="buttonLabels.attribution"><span class="material-icons" aria-hidden="true">attribution</span></button>
               <div class="ambient-music-controls__track_info ms-2">
-                <div class="track-info__title">Track — none</div>
-                <div class="track-info__time">00:00 / 00:00</div>
-                <div class="track-info__player-progress"></div>
+                <div class="track-info__title" aria-hidden="true">Track — none</div>
+                <div class="track-info__time" aria-hidden="true">00:00 / 00:00</div>
+                <div class="track-info__player-progress" aria-hidden="true"></div>
               </div>
             </span>` : ''}`;
           }

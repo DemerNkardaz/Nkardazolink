@@ -60,6 +60,65 @@ String.prototype.ideoSpaceToCJKV = function() {
   return ideographicsSpaceToCJKV(this);
 }
 
+const socials = {
+  '@twitter': ['https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg', 'Twitter', ['(x.com)']],
+  '@pixiv': ['https://upload.wikimedia.org/wikipedia/commons/7/7e/Pixiv_Icon.svg', 'Pixiv.net'],
+}
+
+function replaceSocials(text) {
+  return text.replace(/@\w+\b/g, (match) => {
+    if (socials[match]) {
+      const src = socials[match][0];
+      const alt = `${socials[match][1]}${socials[match][2] ? `&nbsp;${socials[match][2]}` : ''}`;
+      const classes = `mark-logo__${socials[match][1].split('.')[0].toLowerCase()}`;
+      const template = `<span class="tooltip--event-less tooltip-bottom mark-logo ${classes}" data-tooltip="${alt}"><img src="${src}" alt="${alt}" draggable="false"></span>`;
+      return template;
+    } else {
+      return match;
+    }
+  });
+}
+
+String.prototype.replaceSocials = function() {
+  return replaceSocials(this);
+}
+
+let searchEngines = {
+  'Google:': 'https://www.google.com/search?q=',
+  'Wikipedia.en:': 'https://en.wikipedia.org/w/index.php?search=',
+  'Wikipedia.ru:': 'https://ru.wikipedia.org/w/index.php?search=',
+  'Wikipedia.ja:': 'https://ja.wikipedia.org/w/index.php?search=',
+  'Wikipedia.zh:': 'https://zh.wikipedia.org/w/index.php?search=',
+  'Wikipedia.ko:': 'https://ko.wikipedia.org/w/index.php?search=',
+  'Wikipedia.vi:': 'https://vi.wikipedia.org/w/index.php?search=',
+}
+
+
+function replaceSearching(text) {
+  searchEngines['Wikipedia:'] = `https://${nk.settingConfig.get('lang')}.wikipedia.org/w/index.php?search=`;
+  const searchRegex = new RegExp(`(${Object.keys(searchEngines).join('|')})(.*?)\\-\\?`, 'g');
+  return text.replace(searchRegex, (match, engine, query) => {
+    const baseUrl = searchEngines[engine];
+    if (baseUrl) {
+      let queryArray;
+      let engineQuery = query;
+      if (query.includes('/')) {
+        queryArray = query.split('/');
+        query = queryArray[0];
+        engineQuery = queryArray[1];
+      }
+      return `<a href="${baseUrl}${encodeURIComponent(engineQuery)}" target="_blank">${query}</a>`;
+    } else {
+      return match;
+    }
+  });
+}
+
+
+String.prototype.replaceSearching = function() {
+  return replaceSearching(this);
+}
+
 
 const diacritics = {
   macron:        { sup: '&#772;', sub: '&#817;' },
@@ -177,9 +236,10 @@ String.prototype.transcripts = function () {
 
 function defaultReplacement(text) {
 	return text
-		.replace(/\/n/g, '<br>')
-    .replace(/\/t/g, '&Tab;')
+		.replace(/\/n\b/g, '<br>') 
+    .replace(/\/t\b/g, '&Tab;');
 }
+
 
 String.prototype.defReplace = function () {
   return defaultReplacement(this);
@@ -198,7 +258,7 @@ function textUnPacker(text) {/*
 		)
   );
   unpacked = diacriticReplaces(unpacked);*/
-  let unpacked = text.unpackArray().ideoSpaceToCJKV().defReplace().transcripts().diacritics();
+  let unpacked = text.unpackArray().ideoSpaceToCJKV().defReplace().transcripts().diacritics().replaceSocials().replaceSearching();
 	return unpacked;
 }
 String.prototype.unpackText = function () {

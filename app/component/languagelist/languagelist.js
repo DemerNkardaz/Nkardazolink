@@ -6,9 +6,9 @@ class LanguageList extends HTMLElement {
       const language = nk.langs.list[key];
       const isSelected = nk.settingConfig.get('lang') === key;
       let component = `
-      <div tabindex="0"${variant === 'row' ? ` data-tooltip-key="${key.toUpperCase()}" data-tooltip-pos="top"` : ''} class="lang-option${variant === 'row' ? ' inline' : ''}" value="${key}" data-language-selector="${isSelected ? 'selected' : ''}">
+      <button type="button"${variant === 'row' ? ` data-tooltip-key="${key.toUpperCase()}" data-tooltip-pos="top"` : ''} class="lang-option${variant === 'row' ? ' inline' : ''}" value="${key}" data-language-selector="${isSelected ? 'selected' : ''}" aria-label="${nk.locale.get(`buttonLabels.lang_select.${key}`)}">
       ${variant !== 'row' ? `${language.name}&nbsp;` : ''}<span class="ms-auto emoji_font">${language.emoji}</span>
-      </div>`;
+      </button>`;
       optionsArray.push(component);
     }
     const component = `${optionsArray.join('')}`;

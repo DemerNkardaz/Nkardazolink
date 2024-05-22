@@ -13,24 +13,24 @@ class LinkBlock extends HTMLElement {
       var constructor = `<span class="linkTypes" part="link-types">`
       const matchingTypes = Object.keys(types).filter(type => LINK.contentTypes.includes(type));
       matchingTypes.forEach(type => {
-        constructor += `<span class="linkType" part="link-type"><img src="${types[type]}" alt="decorator" loading="eager" part="link-type-image"></span>`;
+        constructor += `<span class="linkType" part="link-type"><img src="${types[type]}" alt="decorator" loading="lazy" part="link-type-image"></span>`;
       });
       constructor += `</span>`;
       return constructor;
     }
     let imageComponent;
     LINK.image_type !== 'video' && (imageComponent = `
-    ${LINK.image && LINK.class !== 'long-thin' ? `<img ${LINK.tooltip ? `data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}"` : ''} src="${LINK.image}" alt="${LINK.title ? LINK.title : ''}" part="link-plate__avatar" class="link-plate__avatar">` : ''}
+    ${LINK.image && LINK.class !== 'long-thin' ? `<img ${LINK.tooltip ? `data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}"` : ''} src="${LINK.image}" alt="${LINK.title ? LINK.title.alt : ''}" alt-key="${LINK.titleKey}.alt" part="link-plate__avatar" class="link-plate__avatar">` : ''}
     `);
     LINK.image_type === 'video' && (imageComponent = `
-    ${LINK.image && LINK.class !== 'long-thin' ? `<video loop autoplay muted playsinline style="pointer-events: none;" part="link-plate__avatar" class="link-plate__avatar" data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}">
-      <source src="${LINK.image}">
+    ${LINK.image && LINK.class !== 'long-thin' ? `<video tabindex="-1" loop autoplay muted playsinline part="link-plate__avatar" class="link-plate__avatar" data-tooltip-key="${LINK.tooltip.key}" data-tooltip-pos="${LINK.tooltip.pos}">
+      <source src="${LINK.image}" alt="${LINK.title ? LINK.title.alt : ''}" alt-key="${LINK.titleKey}.alt">
     </video>` : ''}
     `);
     const component = `<div class="link-plate-wrapper${nk.settingConfig.get('skin') === 'azumatsuyu' && LINK.class !== 'long-thin' ? ` plate_chinese` : ''}" part="link-plate-wrapper">
     <a ${LINK.href ? `href="${LINK.href}" target="_blank"` : ''} tabindex="0" part="link" class="link-plate ${LINK.class}">
       ${imageComponent}
-      ${LINK.class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK.titleKey ? `data-key="${LINK.titleKey}"` : ''}>${LINK.title ? LINK.title : ''}</h3>${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
+      ${LINK.class === 'long-thin' ? `<div part="link-plate__title-wrapper" class="link-plate__title-wrapper"><div part="link-plate__title-wrapper-inner" class="link-plate__title-wrapper-inner plate_chinese">` : ''}<h3 part="link-plate__title" class="link-plate__title" ${LINK.titleKey ? `data-key="${LINK.titleKey}.title"` : ''}>${LINK.title ? LINK.title.text : ''}</h3>${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator rotate-180">` : ''}
       ${LINK.class === 'long-thin' ? `<img alt="Decorator" src="resources/svg/break_decorator_left.svg" part="title-decorator" class="title-decorator">` : ''}
       <span part="link-plate__subscription" class="link-plate__subscription" ${LINK.subscriptionKey ? `data-key="${LINK.subscriptionKey}"` : ''}>
       ${LINK.contentTypes ? returnTypes() : (LINK.subscription ? LINK.subscription : '')}</span>
@@ -350,7 +350,7 @@ nk.ui.linkBlockArray = function (source, category, isTree) {
   source[category].forEach(item => {
     const parameters = {
       class: isTree ? source.tree_class : source.class,
-      title: nk.locale.get(item.title_key),
+      title: { text: nk.locale.get(`${item.title_key}.title`), alt: nk.locale.get(`${item.title_key}.alt`) },
       titleKey: item.title_key,
       href: item.href,
       image: !isTree ? item.image : undefined,
@@ -359,9 +359,12 @@ nk.ui.linkBlockArray = function (source, category, isTree) {
       icon: (isTree ? item.tree_mode.external_resource_icon : item.external_resource_icon) || undefined,
       arrow: (!isTree && item.external_link_arrow) ? item.external_link_arrow : undefined,
       contentTypes: item.content_types || undefined,
-      subscriptionKey: item.subscription_key,
-      subscription: item.subscription_key ? nk.locale.get(item.subscription_key) : undefined,
-      tooltip: (!isTree && item.tooltip) ? item.tooltip : undefined,
+      subscriptionKey: nk.locale.get(`check:${item.title_key}.subscription`) && `${item.title_key}.subscription`,
+      subscription: nk.locale.get(`check:${item.title_key}.subscription`) ? nk.locale.get(`${item.title_key}.subscription`) : undefined,
+      tooltip: {
+        key: (!isTree && nk.locale.get(`check:${item.title_key}.tooltip`)) ? `${item.title_key}.tooltip` : undefined,
+        pos: 'right'
+      },
       shadow: (isTree && item.tree_mode.shadow) ? item.tree_mode.shadow : undefined,
       classes: item.added_classes || undefined
     };

@@ -12,7 +12,6 @@
       "image": "external/temp_BlackClover_thumb128.avif",
       "external_resource_icon": { "image": "external/fickbook_logo.svg", "pos": { "right": -2, "bottom": -2 }, "w": 50 },
       "external_link_arrow": { "blend": "color-burn" },
-      "tooltip": { "key": "links.Anime_BlackClover_Tooltip", "pos": "right" },
       "tree_mode": {
         "background": { "image": "https://assets.ficbook.net/assets/design/profile_default_bg.png", "color": "#f6ecda", "size": "100%", "position": "-100px 50%" },
         "external_resource_icon": {
@@ -30,7 +29,6 @@
       },
       "image": "external/temp_Peropicnic_art_Biwa_HeikeMonogatari_thumb128.avif",
       "external_resource_icon": { "image": "external/author_today_logo.svg", "pos": { "right": -15, "bottom": -12 } },
-      "tooltip": { "key": "links.Anime_Heike-monogatari", "pos": "right" },
       "tree_mode": {
         "background": { "image": "external/temp_NarutoBG@artpaji(twitter)_thumb1024.avif", "color": "#7b85a3", "size": "100%", "position": "-50px 25%" },
         "external_resource_icon": {
@@ -47,7 +45,6 @@
       },
       "image": "resources/png/japan/icons/bf_00_Hachiman_s_thumb128.avif",
       "external_resource_icon": { "image": "external/artstation_logo.svg", "pos": { "right": -15, "bottom": -12 } },
-      "tooltip": { "key": "links.Hachiman-jin_Tooltip", "pos": "right" },
       "tree_mode": {
         "background": { "image": "external/temp_ArtStationBG_thumb1024.avif", "color": "#b85d14", "size": "100%", "position": "-80px 25%" },
         "external_resource_icon": {
@@ -64,7 +61,6 @@
       },
       "image": "resources/png/japan/icons/bf_00_Hachiman_yellow_s_thumb128.avif",
       "external_resource_icon": { "image": "external/VK_logo.svg", "pos": { "right": -15, "bottom": -20 } },
-      "tooltip": { "key": "links.Hachiman-jin_Tooltip", "pos": "right" },
       "tree_mode": {
         "background": { "image": "resources/png/china/jiangu_full_bg_golden v2_thumb1024.avif", "color": "#fffd51", "size": "65%", "position": "0px 78%" },
         "external_resource_icon": {
@@ -82,7 +78,6 @@
       "image": "external/temp_Naruto1_thumb128.avif",
       "external_resource_icon": { "image": "external/DTF_logo.svg", "pos": { "right": -10, "bottom": -5 }, "w": 100 },
       "external_link_arrow": { "blend": "color-burn" },
-      "tooltip": { "key": "links.Anime_Naruto_Tooltip", "pos": "right" },
       "tree_mode": {
         "background": { "image": "external/temp_NarutoBG_thumb1024.avif", "color": "#dbe1da", "size": "65%", "position": "0px 40%" },
         "external_resource_icon": {
@@ -101,7 +96,6 @@
       "image": "resources/cherepkhed32_thumb128.avif",
       "external_resource_icon": { "image": "external/VK_logo.svg", "pos": { "right": -15, "bottom": -20 } },
       "external_link_arrow": { "color": "var(--text_a4)" },
-      "tooltip": { "key": "Nkardaz.fursona", "pos": "right" },
       "tree_mode": {
         "background": { "image": "external/Ghost_of_Tsushima_thumb1024.avif", "color": "#5d1d13", "size": "70%", "position": "0px 50%" },
         "external_resource_icon": {
@@ -114,14 +108,12 @@
     {
       "title_key": "links.Shikimori",
       "href": "https://shikimori.one/Демер+Нкардаз",
-      "subscription_key": "links.Shikimori_description",
       "background": {
         "image": "external/temp_GenshinBG@Sheya(pixiv.user.11764388)_thumb512.avif", "color": "#ffcad4", "size": "100%", "position": "50% 57%"
       },
       "image": "external/temp_Naruto2_thumb128.avif",
       "external_resource_icon": { "image": "external/shikimori_logo.svg", "pos": { "right": -13, "bottom": -15 }, "w": 60 },
       "external_link_arrow": { "blend": "color-burn" },
-      "tooltip": { "key": "links.Anime_Naruto_Tooltip", "pos": "right" },
       "tree_mode": {
         "background": { "image": "external/temp_GenshinBG@Sheya(pixiv.user.11764388)_thumb512.avif", "color": "#ffcad4", "size": "65%", "position": "0px 50%" },
         "external_resource_icon": {
@@ -133,14 +125,12 @@
     {
       "title_key": "links.Steam",
       "href": "https://steamcommunity.com/profiles/76561198177249942",
-      "subscription_key": "links.Steam_description",
       "background": {
         "image": "external/temp_SteamBG_thumb512.avif", "color": "#2868ee", "size": "110%", "position": "50% 25%"
       },
       "image": "external/temp_Steam_thumb128.mp4",
       "image_type": "video",
       "external_resource_icon": { "image": "external/steam_logo.svg", "pos": { "right": 2, "bottom": 5 } },
-      "tooltip": { "key": "links.Steam_Hi", "pos": "right" },
       "tree_mode": {
         "background": { "image": "external/temp_SteamBG_thumb1024.avif", "color": "#2868ee", "size": "70%", "position": "-25px 25%" },
         "external_resource_icon": {

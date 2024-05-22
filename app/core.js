@@ -242,77 +242,75 @@ window.observeOn = function (type, element, callback, timeout, context) {
 
 
 window.DataExtend = function (dataArray, isPromise) {
+  const loadJSON = (data) => {
+    return new Promise((resolve, reject) => {
+      $.getJSON(data.source)
+        .done(function (json, status, xhr) {
+          if (typeof data.as !== 'undefined') {
+            if (typeof data.to !== 'undefined') {
+              const nestedProperties = data.to.split('.');
+              let nestingWindow = window;
+              for (const property of nestedProperties) {
+                if (!nestingWindow[property]) {
+                  nestingWindow[property] = {};
+                }
+                nestingWindow = nestingWindow[property];
+              }
+              nestingWindow[data.as] = json;
+            } else {
+              window[data.as] = json;
+            }
+          }
+
+          if (xhr.readyState === 4 && xhr.status === 200) {
+          
+            $(document).trigger(`${data.as}_loaded`);
+            console.buildType(`[DATA_IN] → “${data.as}” : loaded with “${data.source}”${data.to ? ` : → “${data.to}”` : ''}`, 'success');
+          
+            if (nk.timers.data) {
+              clearTimeout(nk.timers.data);
+              console.buildType(`[DATA_IN] → “${data.as}” : timer cleared`, 'success');
+            } else {
+              console.buildType(`[DATA_IN] → “${data.as}” : timer not found`, 'warning');
+            }
+            nk.timers.data = setTimeout(function () {
+              $(document).trigger(`full_data_loaded`);
+            }, 75);
+
+            resolve();
+          }
+        })
+        .fail(function (jqxhr, textStatus, error) {
+          console.buildType(`[DATA_IN] → “${data.as}” : failed to load with “${data.source}” : ${error}`, 'error');
+          reject(error);
+        });
+    });
+  };
+
   if (isPromise) {
     return new Promise((resolve, reject) => {
-      const loadedData = [];
       if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
-        $.getJSON(dataArray.source)
-          .done(function (json) {
-            if (typeof dataArray.as !== 'undefined') {
-              if (typeof dataArray.to !== 'undefined') {
-                const nestedProperties = dataArray.to.split('.');
-                let nestingWindow = window;
-                for (const property of nestedProperties) {
-                  if (!nestingWindow[property]) { nestingWindow[property] = {}; } nestingWindow = nestingWindow[property];
-                }
-                nestingWindow[dataArray.as] = json;
-                console.log(nestingWindow);
-              } else {
-                window[dataArray.as] = json;
-              }
-              loadedData.push({ as: data.as, source: data.source, to: data.to });
-            }
-            resolve(loadedData);
-          })
-          .fail(function (jqxhr, textStatus, error) {
-            reject(error);
-          });
+        loadJSON(dataArray)
+          .then(() => resolve([{ as: dataArray.as, source: dataArray.source, to: dataArray.to }]))
+          .catch(error => reject(error));
       } else {
-        const promises = dataArray.map(data => DataExtend(data));
+        const promises = dataArray.map(data => loadJSON(data));
         Promise.all(promises)
-          .then(() => resolve(loadedData))
+          .then(results => resolve(results))
           .catch(error => reject(error));
       }
     });
   } else {
     if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
-      $.getJSON(dataArray.source, function (json) {
-        if (typeof dataArray.as !== 'undefined') {
-          if (typeof dataArray.to !== 'undefined') {
-            const nestedProperties = dataArray.to.split('.');
-            let nestingWindow = window;
-            for (const property of nestedProperties) {
-              if (!nestingWindow[property]) { nestingWindow[property] = {}; } nestingWindow = nestingWindow[property];
-            }
-            nestingWindow[dataArray.as] = json;
-          } else {
-            window[dataArray.as] = json;
-          }
-        }
-    
-      }).done(function () {
-        $(document).trigger(`${dataArray.as}_loaded`);
-        console.buildType(`[DATA_IN] → “${dataArray.as}” : loaded with “${dataArray.source}”${dataArray.to ? ` : → “${dataArray.to}”` : ''}`, 'success');
-        function clearTimer() {
-          if (nk.timers.data) {
-            clearTimeout(nk.timers.data);
-            console.buildType(`[DATA_IN] → “${dataArray.as}” : timer cleared`, 'success');
-          } else {
-            console.buildType(`[DATA_IN] → “${dataArray.as}” : timer not found`, 'warning');
-          }
-        }
-
-        clearTimer();
-        nk.timers.data = setTimeout(function () { $(document).trigger(`full_data_loaded`) }, 25);
-
-      });
+      loadJSON(dataArray).catch(error => console.error(error));
     } else {
       dataArray.forEach(function (data) {
-        DataExtend(data, callback);
+        loadJSON(data).catch(error => console.error(error));
       });
     }
   }
-}
+};
+
 
 window.waitFor = function(selector, callback) {
   const targetElement = document.querySelector(selector);

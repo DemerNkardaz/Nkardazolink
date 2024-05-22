@@ -152,12 +152,12 @@ nk.initTooltips = function () {
             setTimeout(() => $(this).removeClass('tooltip--highlight'), 100);
           }
           if (!$(this).find('.tooltip__button-close').length) {
-            $(this).append(`<button class="tooltip__button-close" title="${nk.locale.get('buttonLabels.close')}" title-key="buttonLabels.close">close</button>`);
+            $(this).append(`<button type="button" class="tooltip__button-close" title="${nk.locale.get('buttonLabels.close')}" title-key="buttonLabels.close">close</button>`);
           }
         });
         target.on('mouseenter', function () {
           $(this).css('opacity', 1);
-          (!$(this).find('.tooltip__button-close').length && !$(this).find('tooltip-preview').length) ? $(this).append(`<button class="tooltip__button-close" title="${nk.locale.get('buttonLabels.close')}" title-key="buttonLabels.close">close</button>`) : null;
+          (!$(this).find('.tooltip__button-close').length && !$(this).find('tooltip-preview').length) ? $(this).append(`<button type="button" class="tooltip__button-close" title="${nk.locale.get('buttonLabels.close')}" title-key="buttonLabels.close">close</button>`) : null;
           clearTimeout(timers_array[ownerId]);
         });
         target.on('mouseleave', function () {

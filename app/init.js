@@ -59,8 +59,8 @@ if (nk.settingConfig.get('turn_off_preloader') !== true) { $('body').prepend(new
 let dataArray = [];
 let dataTimer;
 dataArray.push({ to: 'nk.locale', source: 'app/data/miscellaneous.json', as: 'miscellaneous' });
-dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
 dataArray.push({ to: 'window',    source: 'repository-info.json',        as: 'repositoryInfoJSON' });
+dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
 (nk.url.mode === 'tree' || nk.url.mode === null) && dataArray.push({ to: 'nk.items', source: 'app/data/links.json', as: 'links' });
 nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON' });
 ['kamon', 'banners'].includes(nk.url.mode) && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
