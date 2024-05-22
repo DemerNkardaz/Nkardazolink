@@ -10,7 +10,7 @@
   "launch_handler": {
     "client_mode": ["focus-existing", "auto"]
   },
-  "categories": ["books", "literature", "3d", "art", "design", "layout", "wolrdbuilding", "lore", "artist"],
+  "categories": ["books", "literature", "3d", "art", "design", "graphics", "layout", "wolrdbuilding", "lore", "artist", "developer"],
   "background_color": "#333333",
   "theme_color": "#eeeeee",
   "protocol_handlers": [
@@ -94,6 +94,12 @@
       "src": "./manifest/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "./manifest/icon-512x512mask.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
