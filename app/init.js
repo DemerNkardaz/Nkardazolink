@@ -52,7 +52,7 @@ let metaData = {
 }
 
 
-//if (nk.settingConfig.get('turn_off_preloader') !== true) { $('body').prepend(new nk.ui.Preloader()) };
+if (nk.settingConfig.get('turn_off_preloader') !== true) { $('body').prepend(new nk.ui.Preloader()) };
 
 
 

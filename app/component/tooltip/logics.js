@@ -152,12 +152,12 @@ nk.initTooltips = function () {
             setTimeout(() => $(this).removeClass('tooltip--highlight'), 100);
           }
           if (!$(this).find('.tooltip__button-close').length) {
-            $(this).append('<button class="tooltip__button-close">close</button>');
+            $(this).append(`<button class="tooltip__button-close" title="${nk.locale.get('buttonLabels.close')}" title-key="buttonLabels.close">close</button>`);
           }
         });
         target.on('mouseenter', function () {
           $(this).css('opacity', 1);
-          (!$(this).find('.tooltip__button-close').length && !$(this).find('tooltip-preview').length) ? $(this).append('<button class="tooltip__button-close">close</button>') : null;
+          (!$(this).find('.tooltip__button-close').length && !$(this).find('tooltip-preview').length) ? $(this).append(`<button class="tooltip__button-close" title="${nk.locale.get('buttonLabels.close')}" title-key="buttonLabels.close">close</button>`) : null;
           clearTimeout(timers_array[ownerId]);
         });
         target.on('mouseleave', function () {
@@ -515,17 +515,25 @@ nk.initTooltips = function () {
     
   console.buildType('[TOOLTIP] → Tooltips Initialized', 'success');
 
-
   //? BIND SHORTCUS
   $(document).on('click', '.tooltip--previews__image__button-toggle-fullres-wrapper', function () {
     const tooltip = $(this).closest('tooltip-element');
     const imageAlt = $(this).siblings('.tooltip--previews__image').attr('alt');
+    const title = $(this).attr('title');
+    const titleKey = $(this).attr('title-key');
     let imageSource = $(this).siblings('.tooltip--previews__image').attr('src');
     imageSource = imageSource.replace('_thumb', '');
     if (tooltip.find('tooltip-img').find('img').attr('src') !== imageSource) {
-      tooltip.append(new nk.ui.TooltipImage({ src: imageSource, alt: imageAlt })); $(this).text('fullscreen_exit'); return;
+      tooltip.append(new nk.ui.TooltipImage({ src: imageSource, alt: imageAlt }));
+      $(this).text('fullscreen_exit');
+      $(this).attr('title-key', 'buttonLabels.fullres_off');
+      $(this).attr('title', nk.locale.get('buttonLabels.fullres_off'));
+      return;
     } else {
-      tooltip.children('tooltip-img').hide('fast'); setTimeout(() => { tooltip.children('tooltip-img').remove(); }, 500); $(this).text('fullscreen');
+      tooltip.children('tooltip-img').hide('fast'); setTimeout(() => { tooltip.children('tooltip-img').remove(); }, 500);
+      $(this).text('fullscreen');
+      $(this).attr('title-key', 'buttonLabels.fullres');
+      $(this).attr('title', nk.locale.get('buttonLabels.fullres'));
     }
   });
   $(document).on('dblclick', 'tooltip-img', function () {

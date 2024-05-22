@@ -117,7 +117,7 @@ window.nk.locale = {
 
 window.nk.locale.update = function ({ target, source, parent} = {}) {
   let sourceName;
-  let keyElements = nk.collectTargets(target ? target.selector : '[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image]');
+  let keyElements = nk.collectTargets(target ? target.selector : '[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image], [title-key]');
 
   function update () {
     keyElements.each(function () {
@@ -125,20 +125,22 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
         let sourceKey = $(this).attr('data-key-source');
         let dataKey = $(this).attr('data-key');
         let altKey = $(this).attr('alt-key');
+        let titleKey = $(this).attr('title-key');
         let eventLessKey = $(this).attr('data-eless-tooltip-key');
         let imageKey = $(this).attr('data-key-image');
         let cutKey = $(this).attr('data-key-cutter');
-        let key = target ? $(this).attr(target.attrib) : (dataKey || altKey || eventLessKey || imageKey);
+        let key = target ? $(this).attr(target.attrib) : (dataKey || titleKey || altKey || eventLessKey || imageKey);
         let getLocale = cutKey ? nk.locale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key), cutKey) : nk.locale.get(sourceName ? `${key}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key));
         let interpolatedLocale = eval('`' + getLocale + '`');
 
         if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
 
-        if ((dataKey || key) && !eventLessKey) {
+        if ((dataKey || key) && !eventLessKey && !titleKey) {
           ($.inArray($(this).tagName(), ['META', 'INPUT']) !== -1) ?$(this).attr($(this).tagName() === 'META' ? 'content' : 'placeholder', interpolatedLocale)
             : $(this).html(interpolatedLocale);
         }
 
+        if (titleKey) $(this).attr('title', interpolatedLocale);
         if (altKey) $(this).attr('alt', interpolatedLocale);
         if (eventLessKey) $(this).attr('data-tooltip', interpolatedLocale);
         if (imageKey) {

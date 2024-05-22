@@ -1,8 +1,10 @@
 {
+  "id": "com.demernkardaz.app",
   "name": "Nkardazolink",
   "short_name": "Nkardaz",
   "description": "Demer Nkardaz's personal website.",
   "start_url": "/Nkardazolink/",
+  "display_override": ["window-controls-overlay"],
   "display": "standalone",
   "orientation": "any",
   "launch_handler": {
@@ -11,6 +13,12 @@
   "categories": ["books", "literature", "3d", "art", "design", "layout", "wolrdbuilding", "lore", "artist"],
   "background_color": "#333333",
   "theme_color": "#eeeeee",
+  "protocol_handlers": [
+    {
+      "protocol": "web+nkardaz",
+      "url": "/Nkardazolink/?mode=%s"
+    }
+  ],
   "shortcuts" : [
     {
       "name": "Demer Nkardaz",

@@ -146,6 +146,14 @@
       "skins": "${nk.skins.check('emoji').removeCJK().removeQuotes()}",
       "ambience_off": "Отключить фоновую музыку"
     },
+    "buttonLabels": {
+      "close": "Закрыть",
+      "pause": "Пауза",
+      "shuffle": "Перемешать",
+      "attribution": "Атрибуция",
+      "fullres": "Открыть в полном размере",
+      "fullres_off": "Скрыть полноразмерное изображение"
+    },
 
     "inputs": {
       "kamon_search": "Поиск знака…"
@@ -301,10 +309,13 @@
     "turn_off_preloader": "Turn off preloader animation",
     "OCKhertahiron": "Hertahiron - Original Character (Persona)",
 
+    "buttonLabels": {
+      "fullres": "Open fullresolution image",
+      "fullres_off": "Close fullresolution image"
+    },
     "inputs": {
       "kamon_search": "Search of symbols…"
     },
-
 
     "kamon": {
       "rarities": {
