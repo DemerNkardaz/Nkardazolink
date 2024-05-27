@@ -35,7 +35,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             );
 
             header = `
-            <input nk-prop-search="kamon" type="text" placeholder="" data-key="inputs.kamon_search">
+            ${unpackElement(new nk.ui.GallerySearcher('kamon'))}
             `;
 
             main = `

@@ -81,6 +81,79 @@ label {
 }
 
 
+gallery-searcher {
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+  width: 350px;
+  height: 36px;
+
+  & > input {
+    display: flex;
+    font-size: 1rem;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    font-family: inherit;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0 10px 0 10px;
+    border: 1px solid var(--grey_border);
+    background: var(--bg_ffa80);
+    box-shadow: inset 0px 1px 2px var(--shadow_22a64);
+
+    &:focus {
+      outline: 3px solid var(--color_gobg_ffa80d_hover_pre_light);
+    }
+  }
+
+  & > button {
+    position: absolute;
+    right: 0;
+    color: var(--text_d5);
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
+    border: none;
+    background: none;
+    border-radius: 0 15px 15px 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 100%;
+    transition: all 0.1s ease;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+
+    & > span {
+      margin-block-start: 1.5px;
+    }
+
+    &:hover {
+      color: var(--text_33);
+    }
+
+    &:active {
+      font-size: 1.1rem;
+    }
+
+    &.active {
+      opacity: 1;
+      pointer-events: all;
+      cursor: pointer;
+    }
+  }
+}
+
 /*
 settings-check:focus [option_type="checkbox"] {
   border-width: 1px;
