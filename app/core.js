@@ -490,6 +490,62 @@ function getAttributes(element) {
   return attrs.trim();
 }
 
+const tagsLibrary = {
+  badges: [
+    { tag: 'ability', localeKey: 'tags.ability', badgeColor: 'pink' },
+    { tag: 'addon', localeKey: 'tags.addon', badgeColor: 'red' },
+    { tag: 'entity', localeKey: 'tags.entity', badgeColor: 'blue' },
+    { tag: 'formations', localeKey: 'tags.formations', badgeColor: 'yellow' },
+    { tag: 'modifiers', localeKey: 'tags.modifiers', badgeColor: 'turquoise' },
+    { tag: 'race', localeKey: 'tags.race', badgeColor: 'darkred' },
+    { tag: 'requirements', localeKey: 'tags.requirements', badgeColor: 'lightindigo' },
+    { tag: 'research', localeKey: 'tags.research', badgeColor: 'grey' },
+    { tag: 'squad', localeKey: 'tags.squad', badgeColor: 'purple' },
+    { tag: 'tables', localeKey: 'tags.tables', badgeColor: 'lightbrown' },
+    { tag: 'tuning', localeKey: 'tags.tuning', badgeColor: 'cyan1' },
+    { tag: 'types', localeKey: 'tags.types', badgeColor: 'lavanda' },
+    { tag: 'weapon', localeKey: 'tags.weapon', badgeColor: 'green' },
+    { tag: 'lua', localeKey: 'tags.lua', badgeColor: 'lua' },
+    { tag: 'scar', localeKey: 'tags.scar', badgeColor: 'relic' },
+    { tag: 'map', localeKey: 'tags.map', badgeColor: 'lime' },
+    { tag: 'guide', localeKey: 'tags.guide', badgeColor: 'guide' },
+    { tag: 'ui', localeKey: 'tags.ui', badgeColor: 'skyblue' },
+    { tag: '3d', localeKey: 'tags.3d', badgeColor: 'orange' },
+    { tag: 'textures', localeKey: 'tags.textures', badgeColor: 'lavandadark' },
+    { tag: 'fx', localeKey: 'tags.fx', badgeColor: 'lightpink' },
+    { tag: 'sfx', localeKey: 'tags.sfx', badgeColor: 'sfx' },
+    { tag: 'error', localeKey: 'tags.error', badgeColor: 'red' },
+  ],
+  extensions: [
+    { tag: 'ability', localeKey: 'tags.ability_ext' },
+    { tag: 'addon', localeKey: 'tags.addon_ext' },
+    { tag: 'entity', localeKey: 'tags.ebpextension' },
+    { tag: 'race', localeKey: 'tags.raceextension' },
+    { tag: 'requirements', localeKey: 'tags.requiredextension' },
+    { tag: 'research', localeKey: 'tags.researchextension' },
+    { tag: 'squad', localeKey: 'tags.sbpextension' },
+    { tag: 'weapon', localeKey: 'tags.weapextension' },
+  ]
+};
+
+
+function tagParser(tagsArray, type) {
+  let result = '';
+  const tags = tagsLibrary[type];
+  tagsArray.forEach(tag => {
+    const tagInfo = tags.find(item => item.tag === tag);
+    if (tagInfo) {
+      if (type === 'badges') {
+        result += `<span class="badge badge--${tagInfo.badgeColor}" data-key="${tagInfo.localeKey}">${nk.locale.get(tagInfo.localeKey)}</span>`;
+      } else if (type === 'extensions') {
+        result += `<p class="badge" data-key="${tagInfo.localeKey}">${nk.locale.get(tagInfo.localeKey)}</p>`;
+      }
+    }
+  });
+  return result;
+}
+window.tagParser = tagParser;
+
 
 function fetchArticleStructure(xmlUrl) {
   return new Promise((resolve, reject) => {
@@ -508,6 +564,12 @@ function fetchArticleStructure(xmlUrl) {
         const xmlDoc = parser.parseFromString(xmlText, "application/xml");
         
         const userLang = nk.settingConfig.get('lang');
+
+        let badges = xmlDoc.querySelector('badges').textContent.toLowerCase().split(' ');
+        badges = tagParser(badges, 'badges');
+
+        let extension = xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' ');
+        extension = tagParser(extension, 'extensions');
         
         let title = xmlDoc.querySelector(`title > ${userLang} > h1`).textContent;
         let content = xmlDoc.querySelector(`content > ${userLang} > div`).textContent;
@@ -519,9 +581,15 @@ function fetchArticleStructure(xmlUrl) {
         footer = eval('`' + footer + '`');
 
         let articleStructure = `
-          <article ${getAttributes(xmlDoc.querySelector('article'))}>
-            <header ${getAttributes(xmlDoc.querySelector('title'))}>${title}</header>
-            <main ${getAttributes(xmlDoc.querySelector('content'))}>${content}</main>
+          <article class="wiki-aricle" ${getAttributes(xmlDoc.querySelector('article'))}>
+            <header ${getAttributes(xmlDoc.querySelector('title'))}>
+              ${title}${badges ? `&nbsp;${badges}` : ''}
+            </header>
+            <hr class="w-100 mt-1 mb-3">
+            <main ${getAttributes(xmlDoc.querySelector('content'))}>
+              ${extension ? extension : ''}
+              ${content}
+            </main>
             <footer ${getAttributes(xmlDoc.querySelector('footer'))}>${footer}</footer>
             ${script ? `<script>${script.innerHTML}</script>` : ''}
             ${style ? `<style>${style.innerHTML}</style>` : ''}
