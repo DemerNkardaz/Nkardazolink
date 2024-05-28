@@ -480,6 +480,70 @@ window.downloadDATA = function (varToDownload) {
   a.click();
 }
 
+function getAttributes(element) {
+  let attrs = '';
+  const attributes = element.attributes;
+  for (let i = 0; i < attributes.length; i++) {
+    const value = eval('`' + attributes[i].value + '`');
+    attrs += `${attributes[i].name}="${value}" `;
+  }
+  return attrs.trim();
+}
+
+
+function fetchArticleStructure(xmlUrl) {
+  return new Promise((resolve, reject) => {
+    let xmlPages = JSON.parse(sessionStorage.getItem('xmlPages')) || {};
+/*
+    if (xmlPages[xmlUrl]) {
+      console.log('xmlPages[xmlUrl]', xmlPages[xmlUrl]);
+      resolve(xmlPages[xmlUrl]);
+      return;
+    }*/
+    
+    fetch(xmlUrl)
+      .then(response => response.text())
+      .then(xmlText => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+        
+        const userLang = nk.settingConfig.get('lang');
+        
+        let title = xmlDoc.querySelector(`title > ${userLang} > h1`).textContent;
+        let content = xmlDoc.querySelector(`content > ${userLang} > div`).textContent;
+        let footer = xmlDoc.querySelector(`footer > ${userLang} > div`).textContent;
+        const script = xmlDoc.querySelector('script');
+        const style = xmlDoc.querySelector('style');
+        title = eval('`' + title + '`');
+        content = eval('`' + content + '`');
+        footer = eval('`' + footer + '`');
+
+        let articleStructure = `
+          <article ${getAttributes(xmlDoc.querySelector('article'))}>
+            <header ${getAttributes(xmlDoc.querySelector('title'))}>${title}</header>
+            <main ${getAttributes(xmlDoc.querySelector('content'))}>${content}</main>
+            <footer ${getAttributes(xmlDoc.querySelector('footer'))}>${footer}</footer>
+            ${script ? `<script>${script.innerHTML}</script>` : ''}
+            ${style ? `<style>${style.innerHTML}</style>` : ''}
+          </article>
+        `;
+        
+        xmlPages[xmlUrl] = articleStructure;
+
+        const keys = Object.keys(xmlPages);
+        if (keys.length > 20) {
+          const oldestKey = keys[0];
+          delete xmlPages[oldestKey];
+        }
+        
+        sessionStorage.setItem('xmlPages', JSON.stringify(xmlPages));
+        
+        resolve(articleStructure);
+      })
+      .catch(error => reject(error));
+  });
+}
+window.fetchArticleStructure = fetchArticleStructure;
 
 /*
 document.addEventListener('DOMContentLoaded', function() {
