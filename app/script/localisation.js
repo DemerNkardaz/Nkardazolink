@@ -28,7 +28,7 @@ $(document).on('full_data_loaded', function () {
   })
 });
 
-function iLang(keyMap) {
+function iLang(keyMap, checking) {
   const keysArray = keyMap.get('key').split('.').map(key => `[\"${key}\"]`);
   const language = keyMap.get('mode') !== null ? keyMap.get('mode') : nk.settingConfig.get('lang');
   let sourceName = nk.locale[keyMap.get('source')];
@@ -52,7 +52,7 @@ function iLang(keyMap) {
       localisedString = keyMap.get('raw') === true ? localisedString : localisedString.unpackText();
     }
   } else {
-    if (keyMap.get('mode') !== 'check') {
+    if (keyMap.get('mode') !== 'check' && checking !== true) {
       console.buildType(`[LOCALE] → Key “${keysArray.join('')}” not found in source “${keyMap.get('source')}”`, 'error');
     }
     return null;
@@ -65,7 +65,7 @@ function iLang(keyMap) {
     });
   }
 
-
+  if (checking === true) { return found ? true : false; }
   return found ? localisedString : null;
 }
 
@@ -112,6 +112,28 @@ window.nk.locale = {
     (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..`));
     (localisedString.length > 0) && (localisedString = localisedString[0].unpackText(), found = true, localisedString = eval('`' + localisedString + '`'));
     return found ? localisedString : null;
+  },
+  check: function (key) {
+    let result;
+    const keyMap = new Map();
+    if (typeof key === 'object') {
+      keyMap.set('mode', key.mode || null).set('key', key.key || null).set('source', key.source || 'languageJSON' || null);
+      ('placements' in key) && keyMap.set('placements', key.placements || null);
+
+    } else if (typeof key === 'string') {
+      const parts = key.split(':');
+      const mode = parts.length > 1 ? parts.shift() : null;
+      const remainingKey = parts.join(':');
+      
+      keyMap.set('mode', mode)
+        .set('key', remainingKey.includes('↓') ? remainingKey.split('↓')[0].split('>')[0] : remainingKey.split('>')[0])
+        .set('source', remainingKey.split('>')[1] || 'languageJSON' || null);
+    } else {
+      return console.error('[LOCALE] → Wrong type of key');
+    }
+
+    result = iLang(keyMap, true);
+    return result;
   }
 }
 

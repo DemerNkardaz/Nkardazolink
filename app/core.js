@@ -529,16 +529,18 @@ const tagsLibrary = {
 };
 
 
-function tagParser(tagsArray, type) {
+function tagParser(tagsArray, type, addText) {
   let result = '';
   const tags = tagsLibrary[type];
   tagsArray.forEach(tag => {
     const tagInfo = tags.find(item => item.tag === tag);
     if (tagInfo) {
+      let contentText = addText && nk.locale.check(addText) ? nk.locale.get(addText) : (addText ? addText : nk.locale.get(tagInfo.localeKey));
+      let dataKey = addText && nk.locale.check(addText) ? ` data-key="${addText}"` : (addText ? '' : ` data-key="${tagInfo.localeKey}"`);
       if (type === 'badges') {
-        result += `<span class="badge badge--${tagInfo.badgeColor}" data-key="${tagInfo.localeKey}">${nk.locale.get(tagInfo.localeKey)}</span>`;
+        result += `<span class="badge badge--${tagInfo.badgeColor}"${dataKey}">${contentText}</span>`;
       } else if (type === 'extensions') {
-        result += `<p class="badge" data-key="${tagInfo.localeKey}">${nk.locale.get(tagInfo.localeKey)}</p>`;
+        result += `<p class="badge"${dataKey}>${contentText}</p>`;
       }
     }
   });
@@ -571,9 +573,9 @@ function fetchArticleStructure(xmlUrl) {
         let extension = xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' ');
         extension = tagParser(extension, 'extensions');
         
-        let title = xmlDoc.querySelector(`title > ${userLang} > h1`).textContent;
-        let content = xmlDoc.querySelector(`content > ${userLang} > div`).textContent;
-        let footer = xmlDoc.querySelector(`footer > ${userLang} > div`).textContent;
+        let title = xmlDoc.querySelector(`title > ${userLang}`).innerHTML;
+        let content = xmlDoc.querySelector(`content > ${userLang}`).innerHTML;
+        let footer = xmlDoc.querySelector(`footer > ${userLang}`).innerHTML;
         const script = xmlDoc.querySelector('script');
         const style = xmlDoc.querySelector('style');
         title = eval('`' + title + '`');
@@ -583,7 +585,7 @@ function fetchArticleStructure(xmlUrl) {
         let articleStructure = `
           <article class="wiki-aricle" ${getAttributes(xmlDoc.querySelector('article'))}>
             <header ${getAttributes(xmlDoc.querySelector('title'))}>
-              ${title}${badges ? `&nbsp;${badges}` : ''}
+              ${title}${badges ? badges : ''}
             </header>
             <hr class="w-100 mt-1 mb-3">
             <main ${getAttributes(xmlDoc.querySelector('content'))}>
