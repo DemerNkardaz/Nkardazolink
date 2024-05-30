@@ -24,7 +24,7 @@ jobs:
 
       - name: Run script to get repository info
         run: |
-          node get-repository-info.js
+          node app/workflow/get-repository-info.js
         env:
           GITHUB_REPOSITORY: ${{ secrets.SUPER_SECRET }}
 
