@@ -26,7 +26,7 @@ async function getRepositoryInfo() {
       created_at: repoResponse.data.created_at,
       updated_at: latestCommitDate
     };
-    fs.writeFileSync('app/data/repository/repository-info.json', JSON.stringify(info, null, 2));
+    fs.writeFileSync('repository-info.json', JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
         
 
