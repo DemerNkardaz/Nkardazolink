@@ -27,7 +27,7 @@ async function getRepositoryInfo() {
       created_at: repoResponse.data.created_at,
       updated_at: latestCommitDate
     };
-    const filePath = path.resolve(__dirname, '../../app/data/repository/repository-info.json');
+    const filePath = path.resolve(__dirname, '../../../app/data/repository/repository-info.json');
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
         
