@@ -26,7 +26,7 @@ jobs:
         run: |
           node get-repository-info.js
         env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY: ${{ secrets.SUPER_SECRET }}
 
       - name: Check for changes
         run: |
