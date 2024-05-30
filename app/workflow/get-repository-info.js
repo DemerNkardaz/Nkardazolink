@@ -40,6 +40,7 @@ async function getRepositoryInfo() {
     ensureDirectoryExistence(filePath);
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
+    markupRepositoryInfo(info);
 
   } catch (error) {
     console.error('Error getting repository info:', error.message);
@@ -136,29 +137,30 @@ function markupRepositoryInfo(info) {
   }
 
 
-    let sizeInMB = Math.round(info.size / 1024);
-    let sizeFinal, sizeType;
-    if (sizeInMB >= 1024) {
-        sizeFinal = (sizeInMB / 1024).toFixed(2);
-        sizeType = '<span data-key="GB" data-key-source="misc">ГБ</span>';
-    } else {
-        sizeFinal = sizeInMB;
-        sizeType = '<span data-key="MB" data-key-source="misc">МБ</span>';
-    }
-    let repoSize = `<span>${sizeFinal}&ensp;${sizeType}</span>`;
-    repoStatus.push(repoSize);
+  let sizeInMB = Math.round(info.size / 1024);
+  let sizeFinal, sizeType;
+  if (sizeInMB >= 1024) {
+    sizeFinal = (sizeInMB / 1024).toFixed(2);
+    sizeType = '<span data-key="GB" data-key-source="misc">ГБ</span>';
+  } else {
+    sizeFinal = sizeInMB;
+    sizeType = '<span data-key="MB" data-key-source="misc">МБ</span>';
+  }
+  let repoSize = `<span>${sizeFinal}&ensp;${sizeType}</span>`;
+  repoStatus.push(repoSize);
 
-    let createdAt = `<span>${formatDate(new Date(info.created_at))}</span>`;
-    repoStatus.push(createdAt);
+  let createdAt = `<span>${formatDate(new Date(info.created_at))}</span>`;
+  repoStatus.push(createdAt);
 
-    let updatedAt = `<span>${formatDate(new Date(info.updated_at))}</span>`;
-    repoStatus.push(updatedAt);
+  let updatedAt = `<span>${formatDate(new Date(info.updated_at))}</span>`;
+  repoStatus.push(updatedAt);
 
-    const filePath = 'app/data/repository/status.js';
-    const repoStatusString = `let repoStatus = ${JSON.stringify(repoStatus)}; export default repoStatus;`;
-    fs.writeFileSync(filePath, repoStatusString);
+  const filePath = 'app/data/repository/status.js';
+  ensureDirectoryExistence(filePath);
+  const repoStatusString = `let repoStatus = ${JSON.stringify(repoStatus)}; export default repoStatus;`;
+  fs.writeFileSync(filePath, repoStatusString);
 
-    console.log('Markup repository info saved to status.js:', repoStatus);
+  console.log('Markup repository info saved to status.js:', repoStatus);
 }
 
 getRepositoryInfo();

@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - "repository-info.json"
+      - "app/data/repository/repository-info.json"
 
 jobs:
   get-repository-info:
