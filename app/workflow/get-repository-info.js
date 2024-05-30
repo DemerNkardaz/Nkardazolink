@@ -14,7 +14,7 @@ function ensureDirectoryExistence(filePath) {
   fs.mkdirSync(dirname);
 }
 
-ensureDirectoryExistence('app/data/repository/');
+
 
 async function getRepositoryInfo() {
   try {
@@ -39,6 +39,7 @@ async function getRepositoryInfo() {
       updated_at: latestCommitDate
     };
     const filePath = 'app/data/repository/repository-info.json';
+    ensureDirectoryExistence(filePath);
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
 
