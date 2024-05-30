@@ -157,7 +157,7 @@ function markupRepositoryInfo(info) {
 
   const filePath = 'app/data/repository/status.js';
   ensureDirectoryExistence(filePath);
-  const repoStatusString = `let repoStatus = ${JSON.stringify(repoStatus)}; export default repoStatus;`;
+  const repoStatusString = `export const REPO_STATUS = ${JSON.stringify(repoStatus)};`;
   fs.writeFileSync(filePath, repoStatusString);
 
   console.log('Markup repository info saved to status.js:', repoStatus);

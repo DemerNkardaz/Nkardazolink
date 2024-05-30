@@ -1,4 +1,4 @@
-import { repoStatus } from './data/repository/status.js';
+import { REPO_STATUS } from './data/repository/status.js';
 window.nk = {};
 nk.ui = {};
 nk.skins = {};
@@ -8,7 +8,7 @@ nk.items = {};
 nk.timers = {
   data: null
 };
-window.repoStatus = repoStatus || [];
+window.repoStatus = REPO_STATUS || [];
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
 

@@ -6,6 +6,7 @@ on:
       - main
     paths-ignore:
       - "app/data/repository/repository-info.json"
+      - "app/data/repository/status.js"
 
 jobs:
   get-repository-info:
@@ -41,5 +42,5 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git commit -m "Update repository-info.json"
+          git commit -m "Update repository-info.json & status.js"
           git push origin HEAD:${{ github.ref }}
