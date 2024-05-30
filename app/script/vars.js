@@ -26,8 +26,8 @@ nk.langs.list = {
   ro: { emoji: '🇷🇴', name: 'Română' },
 };
 nk.langs.supported = Object.keys(nk.langs.list);
-const navigatorLanguae = navigator.language.includes('-') ? navigator.language.split('-')[0].toLowerCase() : navigator.language.toLowerCase();
-window.navigatorLanguage = nk.langs.supported.includes(navigatorLanguae) ? navigatorLanguae : 'en';
+const getNavigatorLanguage = navigator.language.includes('-') ? navigator.language.split('-')[0].toLowerCase() : navigator.language.toLowerCase();
+window.navigatorLanguage = nk.langs.supported.includes(getNavigatorLanguage) ? getNavigatorLanguage : 'en';
 
 window.availableModes = ['kamon', 'banners', 'clans', 'cv', 'landing', 'tree', 'license', 'pattern', 'reader'];
 window.availableSelects = ['2d', '3d'];
