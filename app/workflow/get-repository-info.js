@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const path = require('path');
 
 const repository = process.env.GITHUB_REPOSITORY;
 const apiUrl = `https://api.github.com/repos/${repository}`;
