@@ -33,6 +33,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git add app/data/repository/repository-info.json
+          git add app/data/repository/status.js
           if git diff --cached --quiet; then
             echo "No changes detected, skipping commit and push."
             exit 0
