@@ -26,12 +26,8 @@ async function getRepositoryInfo() {
             created_at: repoResponse.data.created_at,
             updated_at: latestCommitDate
         };
-
-        processRepositoryData(info);
-
         console.log('Repository info:', info);
 
-        // Запуск второго скрипта
         markupRepositoryInfo(info);
     } catch (error) {
         console.error('Error getting repository info:', error.message);

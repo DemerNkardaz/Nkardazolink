@@ -2,8 +2,7 @@
     "name": "nkardazolink",
     "version": "1.0.0",
     "scripts": {
-        "get-repository-info": "node app/workflow/get-repository-info.js",
-        "markup-repository-info": "node app/workflow/markup-repository-info.js"
+        "get-repository-info": "node app/workflow/get-repository-info.js"
     },
     "dependencies": {
         "axios": "^0.21.1"
