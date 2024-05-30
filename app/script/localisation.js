@@ -158,7 +158,7 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
         if (getLocale === null) { console.log(`[LOCALE] → ${key} not found${sourceName ? ` in ${sourceName}` : `${sourceKey ? ` in ${sourceKey}` : ''}`}`); return };
 
         if ((dataKey || key) && !eventLessKey && !titleKey) {
-          ($.inArray($(this).tagName(), ['META', 'INPUT']) !== -1) ?$(this).attr($(this).tagName() === 'META' ? 'content' : 'placeholder', interpolatedLocale)
+          ($.inArray($(this).tagName(), ['META', 'INPUT', 'LINK']) !== -1) ? $(this).attr($(this).tagName() === 'META' ? 'content' : ($(this).tagName() === 'INPUT' ? 'placeholder' : 'href'), interpolatedLocale)
             : $(this).html(interpolatedLocale);
         }
 

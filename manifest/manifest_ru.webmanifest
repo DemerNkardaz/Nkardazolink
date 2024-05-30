@@ -1,8 +1,8 @@
 {
   "id": "com.demernkardaz.app",
-  "name": "Nkardazolink",
-  "short_name": "Nkardaz",
-  "description": "Demer Nkardaz's personal website.",
+  "name": "Нкардазолинк",
+  "short_name": "Нкардаз",
+  "description": "Персональный сайт Демера Нкардаз.",
   "start_url": "/Nkardazolink/",
   "display_override": ["window-controls-overlay"],
   "display": "standalone",
@@ -21,7 +21,7 @@
   ],
   "shortcuts" : [
     {
-      "name": "Demer Nkardaz",
+      "name": "Демер Нкардаз",
       "url": "/Nkardazolink/",
       "icons": [
         {
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "name": "Monjōshō | The Gallery of Crests",
+      "name": "Мондзёсё | Галерея Гербов",
       "url": "/Nkardazolink/?mode=kamon",
       "icons": [
         {
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "name": "Sashimono Tenrankai | The Banners Exhibition",
+      "name": "Сасимоно Тэнранкай | Выставка Штандартов",
       "url": "/Nkardazolink/?mode=banners",
       "icons": [
         {
