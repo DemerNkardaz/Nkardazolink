@@ -60,9 +60,9 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             header = ``;
 
             main = `<div class="licensePages lh-3">
-              <div data-key="Title" data-key-source="licenseJSON">${nk.locale.get('Title>licenseJSON')}</div>
-              <div data-key="Text" data-key-source="licenseJSON">${nk.locale.get('Text>licenseJSON')}</div>
-              </div>`;
+              <div data-key="Title" data-key-source="licenseJSON">{{ Title>licenseJSON }}</div>
+              <div data-key="Text" data-key-source="licenseJSON">{{ Text>licenseJSON }}</div>
+              </div>`.unpackText();
 
             footer = `<span data-key="Nkardaz.copyright" data-key-cutter="&ensp;|"></span>`;
 
@@ -76,49 +76,47 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             <div class="person-banner-wrapper ${(nk.settingConfig.get('skin') === "sekiban" || nk.settingConfig.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nk.settingConfig.get('skin')}" style="--banner: url('${nkPreferences.banner[nk.settingConfig.get('current_banner')].url}');" data-banner="${nk.settingConfig.get('current_banner')}"></div></div>
             <div class="person-avatar">
               <span class="person-avatar__image-wrapper ${nk.settingConfig.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
-                <img class="person-avatar__image" src="resource/images/cherepkhed32_thumb256.avif" alt="${nk.locale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager" data-lightbox-entity="person_avatar">
+                <img class="person-avatar__image" src="resource/images/cherepkhed32_thumb256.avif" alt="{{ Nkardaz.fursona }}" alt-key="Nkardaz.fursona" width="74" loading="eager" data-lightbox-entity="person_avatar">
               </span>
               ${nk.settingConfig.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">` : ''}
             </div>
-            <div>Теставые букавы<span>${nk.locale.get('test')}</span><br/><span data-key="C.test"></span>${nk.locale.get('C.test')}<br>
+            <div>Теставые букавы<span>{{ Nkardaz.name }}</span><br/><span data-key="C.test"></span>{{ C.test }}<br>
               ${repoStatus.join('<br>')}
             </div>
-            <div class="lang-optionOwner">${unpackElement(new nk.ui.LanguageList())}</div>${nk.locale.get('testqu')}<br>
+            <div class="lang-optionOwner">${unpackElement(new nk.ui.LanguageList())}</div>{{ testqu }}<br>
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
-            `;
+            `.unpackText();
 
-            main =
-              `<section class="link-plates-section">
-              <h2 class="link-plates-section__header"><hr><span data-key="links.ContentLinks">${nk.locale.get('links.ContentLinks')}</span><hr></h2>
+            main =`
+            <section class="link-plates-section">
+              <h2 class="link-plates-section__header"><hr><span data-key="links.ContentLinks">{{ links.ContentLinks }}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper" >
                 <div class="link-plates-section__grid" data-tooltip-key="Tess" data-tooltip-pos="left">
                   ${unpackElement(nk.ui.linkBlockArray(nk.items.links, 'content'))}
                 </div>
               </div>
-              <h2 class="link-plates-section__header"><hr><span data-key="links.SocialLinks">${nk.locale.get('links.SocialLinks')}</span><hr></h2>
+              <h2 class="link-plates-section__header"><hr><span data-key="links.SocialLinks">{{ links.SocialLinks }}</span><hr></h2>
               <div class="vertical-border-blur link-plates-section__grid-wrapper">
                 <div class="link-plates-section__grid">
                   ${unpackElement(nk.ui.linkBlockArray(nk.items.links, 'social'))}
-                </div
+                </div>
               </div>
-            </section>`;
+            </section>`.unpackText();
 
             footer = `
-            <span class="copyright"><span data-key="Nkardaz.copyright">${nk.locale.get('Nkardaz.copyright')}</span><span data-key="Skins.Current">${nk.locale.get('Skins.Current')}</span></span>${isMobileDevice() !== true ?
-                `<span class="ambient-music-controls ms-auto me-3">
-              <button type="button" class="button-music-controls" nk-music="pause/play" title="${nk.locale.get('buttonLabels.pause')}" title-key="buttonLabels.pause"><span class="material-icons" aria-hidden="true">pause</span></button>
-              <button type="button" class="button-music-controls" nk-music="random" title="${nk.locale.get('buttonLabels.shuffle')}" title-key="buttonLabels.shuffle"><span class="material-icons" aria-hidden="true">shuffle</span></button>
-              <button type="button" class="button-music-controls" nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top" title="${nk.locale.get('buttonLabels.attribution')}" title-key="buttonLabels.attribution"><span class="material-icons" aria-hidden="true">attribution</span></button>
+            <span class="copyright"><span data-key="Nkardaz.copyright">{{ Nkardaz.copyright }}</span><span data-key="Skins.Current">{{ Skins.Current }}</span></span>${isMobileDevice() !== true ? `
+            <span class="ambient-music-controls ms-auto me-3">
+              <button type="button" class="button-music-controls" nk-music="pause/play" title="{{ buttonLabels.pause }}" title-key="buttonLabels.pause"><span class="material-icons" aria-hidden="true">pause</span></button>
+              <button type="button" class="button-music-controls" nk-music="random" title="{{ buttonLabels.shuffle }}" title-key="buttonLabels.shuffle"><span class="material-icons" aria-hidden="true">shuffle</span></button>
+              <button type="button" class="button-music-controls" nk-music="credits" data-dropdown-key="dropdown.music_attribution" data-dropdown-pos="top" title="{{ buttonLabels.attribution }}" title-key="buttonLabels.attribution"><span class="material-icons" aria-hidden="true">attribution</span></button>
               <div class="ambient-music-controls__track_info ms-2">
                 <div class="track-info__title" aria-hidden="true">Track — none</div>
                 <div class="track-info__time" aria-hidden="true">00:00 / 00:00</div>
                 <div class="track-info__player-progress" aria-hidden="true"></div>
               </div>
-            </span>` : ''}`;
+            </span>
+            ` : ''}`.unpackText();
           }
-          
-            
-            
           resolveCFG();
         } catch (err) { anErrorOnBuild(err, 'page config'); rejectCFG(err); }
       });

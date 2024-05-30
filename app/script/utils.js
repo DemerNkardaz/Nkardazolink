@@ -306,6 +306,8 @@ window.checkKeyDowned = function () {
 	})
 }
 
+let samopl = "sf { fs }";
+
 $.fn.isdrag = function(options) {
 	let isMouseDown = false,
 		isResizing = false,
