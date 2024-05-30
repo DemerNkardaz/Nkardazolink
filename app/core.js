@@ -264,20 +264,8 @@ window.DataExtend = function (dataArray, isPromise) {
           }
 
           if (xhr.readyState === 4 && xhr.status === 200) {
-          
             $(document).trigger(`${data.as}_loaded`);
             console.buildType(`[DATA_IN] → “${data.as}” : loaded with “${data.source}”${data.to ? ` : → “${data.to}”` : ''}`, 'success');
-          
-            if (nk.timers.data) {
-              clearTimeout(nk.timers.data);
-              console.buildType(`[DATA_IN] → “${data.as}” : timer cleared`, 'success');
-            } else {
-              console.buildType(`[DATA_IN] → “${data.as}” : timer not found`, 'warning');
-            }
-            nk.timers.data = setTimeout(function () {
-              $(document).trigger(`full_data_loaded`);
-            }, 75);
-
             resolve();
           }
         })
@@ -290,16 +278,16 @@ window.DataExtend = function (dataArray, isPromise) {
 
   if (isPromise) {
     return new Promise((resolve, reject) => {
-      if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
-        loadJSON(dataArray)
-          .then(() => resolve([{ as: dataArray.as, source: dataArray.source, to: dataArray.to }]))
-          .catch(error => reject(error));
-      } else {
-        const promises = dataArray.map(data => loadJSON(data));
-        Promise.all(promises)
-          .then(results => resolve(results))
-          .catch(error => reject(error));
-      }
+      const promises = dataArray.map(data => loadJSON(data));
+      Promise.all(promises)
+        .then(() => {
+          clearTimeout(nk.timers.data);
+          nk.timers.data = setTimeout(function () {
+            $(document).trigger(`full_data_loaded`);
+          }, 75);
+          resolve();
+        })
+        .catch(error => reject(error));
     });
   } else {
     if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
@@ -311,6 +299,7 @@ window.DataExtend = function (dataArray, isPromise) {
     }
   }
 };
+
 
 
 window.waitFor = function(selector, callback) {
