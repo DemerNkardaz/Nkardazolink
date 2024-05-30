@@ -93,7 +93,7 @@
       "background": {
         "image": "external/Ghost_of_Tsushima_thumb512.avif", "color": "#5d1d13", "size": "cover", "position": "50% 40%"
       },
-      "image": "resources/cherepkhed32_thumb128.avif",
+      "image": "resource/images/cherepkhed32_thumb128.avif",
       "external_resource_icon": { "image": "external/VK_logo.svg", "pos": { "right": -15, "bottom": -20 } },
       "external_link_arrow": { "color": "var(--text_a4)" },
       "tree_mode": {

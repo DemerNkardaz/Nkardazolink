@@ -122,7 +122,7 @@
         "cv3d": "CV Демера Нкардаза, художника в области 3D"
       },
       "image": {
-        "default": "https://demernkardaz.github.io/Nkardazolink/resources/seo/img.png"
+        "default": "https://demernkardaz.github.io/Nkardazolink/resource/images/seo/img.png"
       },
       "manifest": "./app/data/manifest/manifest.ru.webmanifest"
     }

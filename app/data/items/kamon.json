@@ -1,6 +1,6 @@
 {
   "data_type": "kamon",
-  "default_img_path": "resources/modes/crests/",
+  "default_img_path": "resource/images/modes/crests/",
   "root": [
     {
       "category": "JA",

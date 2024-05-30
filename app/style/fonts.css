@@ -18,35 +18,35 @@
 
 @font-face {
     font-family: 'Shagor El Ja';
-    src: url('./resources/fonts/Shagor El Ja.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor El Ja.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Shagor El P1';
-    src: url('../resources/fonts/Shagor El P1.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor El P1.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Shagor El P2';
-    src: url('../resources/fonts/Shagor El P2.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor El P2.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Shagor El P3';
-    src: url('../resources/fonts/Shagor El P3.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor El P3.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Shagor El S';
-    src: url('../resources/fonts/Shagor El S.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor El S.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Shagor El T';
-    src: url('../resources/fonts/Shagor El T.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor El T.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Shagor Generic Magic';
-    src: url('../resources/fonts/Shagor Generic Magic.ttf') format('truetype');
+    src: url('../resource/fonts/Shagor Generic Magic.ttf') format('truetype');
 }

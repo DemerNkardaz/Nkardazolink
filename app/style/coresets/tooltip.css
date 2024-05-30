@@ -271,7 +271,7 @@
       width: 24px;
       height: 24px;
       background: var(--tooltip_body);
-      mask: url('../../../resources/filters/triangle.svg') no-repeat;
+      mask: url('../../../resource/images/filters/triangle.svg') no-repeat;
       mask-size: 100% 100%;
       z-index: -1;
     
@@ -279,7 +279,7 @@
         top: -15px;
         left: 50%;
         bottom: auto;
-        mask: url('../../../resources/filters/triangle_up.svg') no-repeat;
+        mask: url('../../../resource/images/filters/triangle_up.svg') no-repeat;
         mask-size: 100% 100%;
         background: var(--tooltip_top);
         translate: -50%;

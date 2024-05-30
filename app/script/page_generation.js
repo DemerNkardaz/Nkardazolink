@@ -76,7 +76,7 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
             <div class="person-banner-wrapper ${(nk.settingConfig.get('skin') === "sekiban" || nk.settingConfig.get('skin') === "azumatsuyu") ? `plate_chinese` : ''}"><div class="person-banner ${nk.settingConfig.get('skin')}" style="--banner: url('${nkPreferences.banner[nk.settingConfig.get('current_banner')].url}');" data-banner="${nk.settingConfig.get('current_banner')}"></div></div>
             <div class="person-avatar">
               <span class="person-avatar__image-wrapper ${nk.settingConfig.get('skin') === "azumatsuyu" ? `plate_chinese` : ''}">
-                <img class="person-avatar__image" src="resources/cherepkhed32_thumb256.avif" alt="${nk.locale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager" data-lightbox-entity="person_avatar">
+                <img class="person-avatar__image" src="resource/images/cherepkhed32_thumb256.avif" alt="${nk.locale.get('Nkardaz.fursona')}" alt-key="Nkardaz.fursona" width="74" loading="eager" data-lightbox-entity="person_avatar">
               </span>
               ${nk.settingConfig.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">` : ''}
             </div>
