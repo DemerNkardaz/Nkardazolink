@@ -80,10 +80,10 @@ const PAGE_BUILD = new Promise(function (resolve, reject) {
               </span>
               ${nk.settingConfig.get('skin') === "aogurogetsu" ? `<img src="external/avatarHalo.gif" alt="" class="person-avatar__image__halo" loading="lazy">` : ''}
             </div>
-            <div>Теставые букавы<span>{{ Nkardaz.name }}</span><br/><span data-key="C.test"></span>{{ C.test }}<br>
+            <div>Теставые букавы<span>{{ Nkardaz.name }}</span><br/><span data-key="C.test"></span>{{ testqu }}<br>{{ test }}<br>{{ C.test }}<br>
               ${repoStatus.join('<br>')}
             </div>
-            <div class="lang-optionOwner">${unpackElement(new nk.ui.LanguageList())}</div>{{ testqu }}<br>
+            <div class="lang-optionOwner">${unpackElement(new nk.ui.LanguageList())}</div><br>
             <div data-tooltip-key="prevtest" data-tooltip-pos="right" data-tooltip-role="preview">TESTING OF PREVIEW TOOLTIP</div>
             `.unpackText();
 

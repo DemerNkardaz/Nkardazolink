@@ -212,24 +212,29 @@ String.prototype.diacritics = function () {
   return diacriticReplaces(this);
 }
 
-function transcriptReplacement (text) {
+function transcriptReplacement(text) {
   return text
-    .replace(/\″(.*?)\←(.*?)\″/g, function (match, p1, p2) {
-      return `<ruby>${p1}<rt>${p2}</rt></ruby>`;
-    })
-    .replace(/\—{(.*?)\}—/g, function (match, p1) {
-      return `<ruby class='ruby_bottom'>${p1}</ruby>`;
-    })
-    .replace(/\{\.(.*?)\.\}/g, function (match, p1) {
-      return `<ruby>${p1}</ruby>`;
-    })
-    .replace(/\(\.(.*?)\:(.*?)\.\)/g, function (match, p1, p2) {
-      return `${p1}<rt>${p2}</rt>`;
-    })
-    .replace(/\≈\[(.*?)\]≈/g, function (match, p1) {
-      return `<rt>${p1}</rt>`;
+    .replace(/\<\s(.*?)\s\/\>/g, function (match, p1) {
+      p1 = p1
+        .replace(/\/(.*?)\/\?/g, function (match, sub) {
+          return `<ruby class='ruby_bottom'>${sub}</ruby>`;
+        })
+        .replace(/\{(.*?)\}/g, function (match, sub) {
+          return `<ruby>${sub}</ruby>`;
+        })
+        .replace(/\[(.*?)\]/g, function (match, sub) {
+          return `<rt>${sub}</rt>`;
+        })
+        .replace(/\″(.*?)\←(.*?)\″/g, function (match, sub1, sub2) {
+          return `<ruby>${sub1}<rt>${sub2}</rt></ruby>`;
+        })
+        .replace(/\((.*?)\:(.*?)\)/g, function (match, sub1, sub2) {
+          return `${sub1}<rt>${sub2}</rt>`;
+        });
+      return p1;
     });
 }
+
 String.prototype.transcripts = function () {
   return transcriptReplacement(this);
 }
