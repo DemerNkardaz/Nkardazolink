@@ -1,38 +1,46 @@
-  window.repositoryInfo = function (type) {
-    function processRepositoryData(data) {
-      let sizeInMB = Math.round(data.size / 1024);
-      let sizeFinal, sizeType;
-      if (sizeInMB >= 1024) {
-        sizeFinal = (sizeInMB / 1024).toFixed(2);
-        sizeType = '<span data-key="GB" data-key-source="misc">ГБ</span>';
-      } else {
-        sizeFinal = sizeInMB;
-        sizeType = '<span data-key="MB" data-key-source="misc">МБ</span>';
-      }
-      let repoSize = `<span>${sizeFinal}&ensp;${sizeType}</span>`;
-      repoStatus.push(repoSize);
+const axios = require('axios');
+const fs = require('fs');
 
-      let createdAt = `<span>${formatDate(new Date(data.created_at))}</span>`;
-      repoStatus.push(createdAt);
+const repository = process.env.GITHUB_REPOSITORY;
+const apiUrl = `https://api.github.com/repos/${repository}`;
 
-      let updatedAt = `<span>${formatDate(new Date(data.updated_at))}</span>`;
-      repoStatus.push(updatedAt);
+async function getRepositoryInfo() {
+    try {
+        const repoResponse = await axios.get(apiUrl, {
+            headers: {
+                'User-Agent': 'GitHub Actions'
+            }
+        });
+
+        const commitsUrl = `${apiUrl}/commits`;
+        const commitsResponse = await axios.get(commitsUrl, {
+            headers: {
+                'User-Agent': 'GitHub Actions'
+            }
+        });
+
+        const latestCommitDate = commitsResponse.data[0].commit.author.date;
+
+        const info = {
+            size: repoResponse.data.size,
+            created_at: repoResponse.data.created_at,
+            updated_at: latestCommitDate
+        };
+
+        processRepositoryData(info);
+
+        console.log('Repository info:', info);
+
+        // Запуск второго скрипта
+        markupRepositoryInfo(info);
+    } catch (error) {
+        console.error('Error getting repository info:', error.message);
+        process.exit(1);
     }
+}
 
-    if (type === 'variable') {
-      processRepositoryData(repositoryInfoJSON);
-    } else {
-      $.ajax({
-        url: localHostIP ? '../repository-info.json' : 'https://demernkardaz.github.io/Nkardazolink/repository-info.json',
-        dataType: 'json',
-        success: function (data) {
-          processRepositoryData(data);
-        }
-      });
-    }
-  }
-
-  repositoryInfo('variable');
+function markupRepositoryInfo(info) {
+  let repoStatus = [];
 
   function formatDate(date) {
     let now = new Date();
@@ -98,6 +106,7 @@
       return hours + `&ensp;<span data-key="hours_ago_2" data-key-source="misc"></span>`;
     }
   }
+
   function formatMinutesAgo(minutes) {
     if (minutes === 1 || minutes === 21 || minutes === 31 || minutes === 41 || minutes === 51) {
       return minutes + `&ensp;<span data-key="minute_ago" data-key-source="misc"></span>`;
@@ -105,7 +114,7 @@
       (minutes >= 32 && minutes <= 34) || (minutes >= 42 && minutes <= 44) || (minutes >= 52 && minutes <= 54)) {
       return minutes + `&ensp;<span data-key="minutes_ago" data-key-source="misc"></span>`;
     } else {
-      return minutes + `&ensp;<span data-key="minutes_ago_2" data-key-source="misc">}</span>`;
+      return minutes + `&ensp;<span data-key="minutes_ago_2" data-key-source="misc"></span>`;
     }
   }
   function formatSecondsAgo(seconds) {
@@ -118,3 +127,31 @@
       return seconds + `&ensp;<span data-key="seconds_ago_2" data-key-source="misc"></span>`;
     }
   }
+
+
+    let sizeInMB = Math.round(info.size / 1024);
+    let sizeFinal, sizeType;
+    if (sizeInMB >= 1024) {
+        sizeFinal = (sizeInMB / 1024).toFixed(2);
+        sizeType = '<span data-key="GB" data-key-source="misc">ГБ</span>';
+    } else {
+        sizeFinal = sizeInMB;
+        sizeType = '<span data-key="MB" data-key-source="misc">МБ</span>';
+    }
+    let repoSize = `<span>${sizeFinal}&ensp;${sizeType}</span>`;
+    repoStatus.push(repoSize);
+
+    let createdAt = `<span>${formatDate(new Date(info.created_at))}</span>`;
+    repoStatus.push(createdAt);
+
+    let updatedAt = `<span>${formatDate(new Date(info.updated_at))}</span>`;
+    repoStatus.push(updatedAt);
+
+    const filePath = 'app/data/repository/status.js';
+    const repoStatusString = `let repoStatus = ${JSON.stringify(repoStatus)}; export default repoStatus;`;
+    fs.writeFileSync(filePath, repoStatusString);
+
+    console.log('Markup repository info saved to status.js:', repoStatus);
+}
+
+getRepositoryInfo();

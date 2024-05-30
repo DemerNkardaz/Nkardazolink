@@ -136,7 +136,7 @@ async function generateManifest(allLangs = false) {
   if (allLangs) {
     let zip = new JSZip();
     let promises = [];
-    for (let lang in MANIFEST.name) {
+    for (let lang in nk.langs.list) {
       promises.push(generateAndDownloadManifest(lang));
     }
     let manifestDataArray = await Promise.all(promises);
@@ -216,10 +216,26 @@ function generateManifest() {
 
 let dataArray = [];
 let dataTimer;
-dataArray.push({ to: 'nk.locale', source: 'app/data/miscellaneous.json', as: 'miscellaneous' });
 dataArray.push({ to: 'window',    source: 'repository-info.json',        as: 'repositoryInfoJSON' });
-dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
-(nk.url.mode === 'tree' || nk.url.mode === null) && dataArray.push({ to: 'nk.items', source: 'app/data/links.json', as: 'links' });
-nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/license.json', as: 'licenseJSON' });
-['kamon', 'banners'].includes(nk.url.mode) && dataArray.push({ to: 'nk.items',  source: `app/data/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
+//dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
+
+
+dataArray.push({ to: 'nk.locale',              source: 'app/data/locale/misc.json',              as: 'misc' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/_templates.json', as: 'templates' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/_common.json',    as: 'common' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/ru.json',         as: 'ru' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/en.json',         as: 'en' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/ja.json',         as: 'ja' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/zh.json',         as: 'zh' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/ko.json',         as: 'ko' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/vi.json',         as: 'vi' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/mo.json',         as: 'mo' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/ro.json',         as: 'ro' });
+
+
+
+
+(nk.url.mode === 'tree' || nk.url.mode === null) && dataArray.push({ to: 'nk.items', source: 'app/data/items/links.json', as: 'links' });
+nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/locale/license.json', as: 'licenseJSON' });
+['kamon', 'banners'].includes(nk.url.mode) && dataArray.push({ to: 'nk.items',  source: `app/data/items/${nk.url.mode}.json`, as: `${nk.url.mode}`  });
 DataExtend(dataArray, true, nk.timers.data).then((loadedData) => {});

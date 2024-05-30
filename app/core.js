@@ -1,11 +1,14 @@
+import { repoStatus } from './data/repository/status.js';
 window.nk = {};
 nk.ui = {};
 nk.skins = {};
 nk.locale = {};
+nk.locale.languageJSON = {};
 nk.items = {};
 nk.timers = {
   data: null
 };
+window.repoStatus = repoStatus || [];
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
 

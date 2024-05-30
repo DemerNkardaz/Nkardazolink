@@ -2,7 +2,7 @@
 import './core.js';
 import './script/vars.js';
 import './script/utils.js';
-import './script/reporequests.js';
+//import './script/reporequests.js';
 
 //? ------------------------------- MAIN INITIALISATION -------------------------------
 import './component/preloader/preloader.js';
