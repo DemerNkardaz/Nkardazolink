@@ -2,7 +2,7 @@
   "Nkardaz": {
     "name": "Демер Нкардаз",
     "fursona": "Хертахирон — Оригинальный Персонаж (Персона)",
-    "copyright": "&copy;&nbsp;${nk.locale.get('Nkardaz.name')},&nbsp;${returnCopyright()}&ensp;|&ensp;"
+    "copyright": "&copy;&nbsp;{{ Nkardaz.name }},&nbsp;{{ ?copy }}&ensp;|&ensp;"
   },
   "Languages": {
     "template": "Язык «$(place_0)»<br>$(place_1)",
@@ -24,8 +24,8 @@
         "opacity": "0.75"
       },
       "content": [
-        "${nk.ui.tooltipInfo.header('Клан Мацудайра', 'resources/svg/japan/Mon_of_clan_Matsudaira@32px.png')}",
-        "<p>Древний клан на Нихонсёто(⁛macron⁛)${nk.ui.tooltipInfo.quest({key:'NihonshotoDesc', meta:'meta-nihon_0'}, 'top-start')}, ведущий свою родословную к роду Минамото и к древним тэнно(⁛macron⁛).</p>"
+        "{{ ?tooltip-h1: Клан Мацудайра ^ resources/svg/japan/Mon_of_clan_Matsudaira@32px.png }}",
+        "<p>Древний клан на Нихонсёто(⁛macron⁛){{ ?tooltip-quest: NihonshotoDesc^top-start^meta-nihon_0 }}, ведущий свою родословную к роду Минамото и к древним тэнно(⁛macron⁛).</p>"
       ],
       "subscript": "Клановые летописи Киото"
     }
@@ -34,11 +34,11 @@
   "Tess": [
     "Тесс",
     "<img src=\"resources/svg/NkardazKamon.svg\" width=\"48\" alt=\"\">",
-    "${nk.locale.get('Nkardaz.name')}",
-    "${nk.locale.get('test')}"
+    "{{ Nkardaz.name }}",
+    "{{ test }}"
   ],
   "C": {
-    "test": ["Тест", "${nk.locale.get(\"links.Ficbook.title\")}"]
+    "test": ["Тест", "{{ links.Ficbook.title }}"]
   },
   "links": {
     "ContentLinks": "Контент",
@@ -61,7 +61,7 @@
     "ShagorRealms": {
       "title": "«Царства Шагора»",
       "alt": "Аватар сообщества «Царства Шагора»",
-      "tooltip": "${nk.locale.get('links.ArtStation.tooltip')}"
+      "tooltip": "{{ links.ArtStation.tooltip }}"
     },
     "DTF_Blog": {
       "title": "Блог на DTF",
@@ -71,13 +71,13 @@
     "Naeda_Kitetsugi": {
       "title": "Наэда Китэцуги",
       "alt": "Аватар сообщества Наэда Китэцуги",
-      "tooltip": "${nk.locale.get('Nkardaz.fursona')}"
+      "tooltip": "{{ Nkardaz.fursona }}"
     },
     "Shikimori": {
       "title": "Шикимори",
       "alt": "Аватар на Шикимори",
       "subscription": "Манганимешный список",
-      "tooltip": "${nk.locale.get('links.DTF_Blog.tooltip')}"
+      "tooltip": "{{ links.DTF_Blog.tooltip }}"
     },
     "Steam": {
       "title": "STEAM",
@@ -87,12 +87,12 @@
     }
   },
   "Skins": {
-    "Current": "Текущий вид: ${nk.skins.check('locale')}",
-    "Byakujou": "«Бякудзё»${nk.locale.get('ja:Skins.Byakujou')}",
-    "Aoguro-no Getsu": "«Аогуро-но Гэцу»${nk.locale.get('ja:Skins.Aoguro-no Getsu')}",
-    "Akatsuki-no Kurai": "«Акацўки-но Курай»${nk.locale.get('ja:Skins.Akatsuki-no Kurai')}",
-    "Sekiban": "«Сэкибан»${nk.locale.get('ja:Skins.Sekiban')}",
-    "Azumatsuyu": "«Адзумацую»${nk.locale.get('ja:Skins.Azumatsuyu')}"
+    "Current": "Текущий вид: {{ ?skin }}",
+    "Byakujou": "«Бякудзё»{{ ja:Skins.Byakujou }}",
+    "Aoguro-no Getsu": "«Аогуро-но Гэцу»{{ ja:Skins.Aoguro-no Getsu }}",
+    "Akatsuki-no Kurai": "«Акацўки-но Курай»{{ ja:Skins.Akatsuki-no Kurai }}",
+    "Sekiban": "«Сэкибан»{{ ja:Skins.Sekiban }}",
+    "Azumatsuyu": "«Адзумацую»{{ ja:Skins.Azumatsuyu }}"
   },
   "console": "КОНСОЛЬ : Системный программный интерфейс",
   "test": [
@@ -133,7 +133,7 @@
     "turn_off_preloader": "Отключить анимацию предзагрузки",
     "change_skin_by_time": "Смена вида по времени суток",
     "current_banner": "Текущий орнамент",
-    "skins": "${nk.skins.check('emoji').removeCJK().removeQuotes()}",
+    "skins": "{{ ?skin-title }}",
     "ambience_off": "Отключить фоновую музыку"
   },
   "buttonLabels": {
@@ -205,7 +205,7 @@
   },
   "dropdown": {
     "music_attribution": [
-      "${nk.ui.dropdownHeader('Атрибуция : Фоновая музыка', 'attribution')}",
+      "{{ ?drop-head: Атрибуция : Фоновая музыка ^ attribution }}",
       "<div>Автор используемых фоновых композиций <a href=\"https://pixabay.com/users/valentineseasons-38534292/\" target=\"_blank\">ValentineSeasons | Pixabay</a></div>",
       "Композиции:",
       "<ul>",

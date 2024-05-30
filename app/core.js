@@ -15,8 +15,10 @@ window.parseUrlParameter = function (name) {
   return new URLSearchParams(window.location.search).get(name)?.toLowerCase();
 };
 
-function parsePathDepth (text) {
-  return text.split('.').map(key => `[\"${key}\"]`).join('');
+function parsePathDepth(text) {
+  text = text.split('.').map(key => `[\"${key}\"]`);
+  text.length > 1 ? text = text.join('') : text = text[0];
+  return text;
 }
 String.prototype.parsePathDepth = function () {
   return parsePathDepth(this);

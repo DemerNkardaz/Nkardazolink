@@ -53,7 +53,7 @@ function iLang(keyMap, checking) {
     }
   } else {
     if (keyMap.get('mode') !== 'check' && checking !== true) {
-      console.buildType(`[LOCALE] → Key “${keysArray.join('')}” not found in source “${keyMap.get('source')}”`, 'error');
+      console.buildType(`[LOCALE] → Key “${keysArray}” not found in source “${keyMap.get('source')}”`, 'error');
     }
     return null;
   }

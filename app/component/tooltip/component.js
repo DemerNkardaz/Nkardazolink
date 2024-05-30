@@ -67,7 +67,7 @@ nk.ui.TooltipImage = TooltipImage;
 $.extend(nk.ui, {
   tooltipInfo: {
     header: function (text, logo) { return `<div class="tooltip--previews__header-primary"><span class="tooltip-title">${text}</span>${logo ? `<img src="${logo}" alt="logo" class="tooltip-logo">` : ''}</div>`; },
-    quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${typeof key === 'object' ? key.key : key}" ${typeof key === 'object' ? `data-meta-tooltip="${key.meta}"` : ''} ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
+    quest: function (key, pos) { return `<span class="tooltip-quest" data-tooltip-key="${typeof key === 'object' ? key.key : key}" ${typeof key === 'object' && key.meta ? `data-meta-tooltip="${key.meta}"` : ''} ${pos ? `data-tooltip-pos="${pos}"` : ''}>[?]</span>`; }
   },
   tooltipEventLess: function (text, key, pos) {
     let fromData = null;

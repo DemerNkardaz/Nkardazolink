@@ -3,7 +3,7 @@
   "Nkardaz": {
     "name": "Demer Nkardaz",
     "fursona": "Khertahiron — Original Character (Person)",
-    "copyright": "Copyright&nbsp;&copy;&nbsp;${returnCopyright()}&nbsp;${nk.locale.get('Nkardaz.name')}. All rights reserved&ensp;|&ensp;"
+    "copyright": "Copyright&nbsp;&copy;&nbsp;{{ ?copy }}&nbsp;{{ Nkardaz.name }}. All rights reserved&ensp;|&ensp;"
   },
   "prevtest": {
     "preview": {
@@ -14,8 +14,8 @@
         "opacity": "1"
       },
       "content": [
-        "${nk.ui.tooltipInfo.header('The Matsudaira Clan', 'resources/svg/japan/Mon_of_clan_Matsudaira@32px.png')}",
-        "<p>An ancient clan of Nihonshoto(⁛macron⁛)${nk.ui.tooltipInfo.quest({key:'NihonshotoDesc', meta:'meta-nihon_0'}, 'top-start')}, descending one's lineage from Minamoto, and to the elden tenno(⁛macron⁛).</p>",
+        "{{ ?tooltip-h1: The Matsudaira Clan ^ resources/svg/japan/Mon_of_clan_Matsudaira@32px.png }}",
+        "<p>An ancient clan of Nihonshoto(⁛macron⁛){{ ?tooltip-quest: NihonshotoDesc^top-start^meta-nihon_0 }}, descending one's lineage from Minamoto, and to the elden tenno(⁛macron⁛).</p>",
         "<p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>"
       ],
       "subscript": "Kyo(⁛macron⁛)to “Clans' chronicles”"
@@ -55,7 +55,7 @@
     "ShagorRealms": {
       "title": "“Shagor Realms”",
       "alt": "“Shagor Realms” community's avatar",
-      "tooltip": "${nk.locale.get('links.ArtStation.tooltip')}"
+      "tooltip": "{{ links.ArtStation.tooltip }}"
     },
     "DTF_Blog": {
       "title": "Blog on DTF",
@@ -65,13 +65,13 @@
     "Naeda_Kitetsugi": {
       "title": "Naeda Kitetsugi",
       "alt": "Naeda Kitetsugi public's avatar",
-      "tooltip": "${nk.locale.get('Nkardaz.fursona')}"
+      "tooltip": "{{ Nkardaz.fursona }}"
     },
     "Shikimori": {
       "title": "Shikimori",
       "alt": "Avatar on Shikimori",
       "subscription": "Manganime list",
-      "tooltip": "${nk.locale.get('links.DTF_Blog.tooltip')}"
+      "tooltip": "{{ links.DTF_Blog.tooltip }}"
     },
     "Steam": {
       "title": "STEAM",
@@ -82,12 +82,12 @@
   },
 
   "Skins": {
-    "Current": "Сurrent view: ${nk.locale.get(nk.skins.check('locale_key'))}",
-    "Byakujou": "“Byakujo(⁛macron_0.255⁛)”${nk.locale.get('ja:Skins.Byakujou')}",
-    "Aoguro-no Getsu": "“Aoguro-no Getsu”${nk.locale.get('ja:Skins.Aoguro-no Getsu')}",
-    "Akatsuki-no Kurai": "“Akatsuki-no Kurai”${nk.locale.get('ja:Skins.Akatsuki-no Kurai')}",
-    "Sekiban": "“Sekiban”${nk.locale.get('ja:Skins.Sekiban')}",
-    "Azumatsuyu": "“Azumatsuyu”${nk.locale.get('ja:Skins.Azumatsuyu')}"
+    "Current": "Сurrent view: {{ ?skin }}",
+    "Byakujou": "“Byakujo(⁛macron_0.255⁛)”{{ ja:Skins.Byakujou }}",
+    "Aoguro-no Getsu": "“Aoguro-no Getsu”{{ ja:Skins.Aoguro-no Getsu }}",
+    "Akatsuki-no Kurai": "“Akatsuki-no Kurai”{{ ja:Skins.Akatsuki-no Kurai }}",
+    "Sekiban": "“Sekiban”{{ ja:Skins.Sekiban }}",
+    "Azumatsuyu": "“Azumatsuyu”{{ ja:Skins.Azumatsuyu }}"
   },
   "ContentLinks": "Content",
   "SocialLinks": "Socialus",
@@ -106,11 +106,6 @@
   "Anime_BlackClover_Tooltip": "“Black Clover” Anime",
   "Anime_Heike-monogatari": "Peropicnic artist, “Heike-monogatari” Anime",
   "Hachiman-jin_Tooltip": "Hachiman, The God of War",
-  "Byakujou": "“Byakujou”${nk.locale.get('ja:Skins.Byakujou')}",
-  "Aoguro-no Getsu": "“Aoguro-no Getsu”${nk.locale.get('ja:Skins.Aoguro-no Getsu')}",
-  "Sekiban": "“Sekiban”${nk.locale.get('ja:Skins.Sekiban')}",
-  "Azumatsuyu": "“Azumatsuyu”${nk.locale.get('ja:Skins.Azumatsuyu')}",
-  "CurrentSkin": "Current view: ${nk.locale.get(nk.skins.check())}",
   "console": "CONSOLE : System user interface",
   "Site_Title_Nkardaz": "Demer Nkardaz・2D・3D・Writer・Layout",
   "save_search_result": "Save search input",
