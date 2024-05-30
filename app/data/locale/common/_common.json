@@ -22,10 +22,5 @@
       }
     }
   },
-  "factorio2": {
-    "name": {
-      "sub": "Factorio"
-    }
-  },
   "Factorio": "Factorio"
 }
