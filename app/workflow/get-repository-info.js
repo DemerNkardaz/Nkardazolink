@@ -14,8 +14,6 @@ function ensureDirectoryExistence(filePath) {
   fs.mkdirSync(dirname);
 }
 
-
-
 async function getRepositoryInfo() {
   try {
     const repoResponse = await axios.get(apiUrl, {
@@ -43,13 +41,11 @@ async function getRepositoryInfo() {
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
 
-    //markupRepositoryInfo(info);
   } catch (error) {
     console.error('Error getting repository info:', error.message);
     process.exit(1);
   }
 }
-
 function markupRepositoryInfo(info) {
   let repoStatus = [];
 

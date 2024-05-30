@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'repository-info.json'
+      - "repository-info.json"
 
 jobs:
   get-repository-info:
@@ -24,22 +24,21 @@ jobs:
 
       - name: Run script to get repository info
         run: |
-          cd core
-          npm run get-repository-info
+          node get-repository-info.js
         env:
-          GITHUB_TOKEN: ${{ secrets.SUPER_SECRET }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Check for changes
         run: |
-          if git diff --quiet; then
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add app/data/repository/repository-info.json
+          if git diff --cached --quiet; then
             echo "No changes detected, skipping commit and push."
             exit 0
           fi
 
       - name: Commit and push changes
         run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git add repository-info.json
           git commit -m "Update repository-info.json"
           git push origin HEAD:${{ github.ref }}
