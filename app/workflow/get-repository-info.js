@@ -5,6 +5,16 @@ const path = require('path');
 const repository = process.env.GITHUB_REPOSITORY;
 const apiUrl = `https://api.github.com/repos/${repository}`;
 
+function ensureDirectoryExistence(filePath) {
+  const dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+}
+
+
 async function getRepositoryInfo() {
   try {
     const repoResponse = await axios.get(apiUrl, {
@@ -28,9 +38,9 @@ async function getRepositoryInfo() {
       updated_at: latestCommitDate
     };
     const filePath = path.resolve(__dirname, '../../../app/data/repository/repository-info.json');
+    ensureDirectoryExistence(filePath);
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
-        
 
     //markupRepositoryInfo(info);
   } catch (error) {
