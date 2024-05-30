@@ -145,7 +145,7 @@
 }
 
 #galleryInfoBannerOrnate::after {
-  --background: url('../resources/svg/header_ornate.svg');
+  --background: url('../../resources/svg/header_ornate.svg');
   content: '';
   position: absolute;
   width: 460px;
@@ -187,7 +187,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: url('../resources/svg/pattern_yagasuri.svg') no-repeat;
+  background: url('../../resources/svg/pattern_yagasuri.svg') no-repeat;
   background-size: 121%;
   background-position: 19.8% 51%;
   transform: scaleY(-1);
@@ -202,7 +202,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: url('../resources/svg/pattern_yagasuri.svg') no-repeat;
+  background: url('../../resources/svg/pattern_yagasuri.svg') no-repeat;
   background-size: 121%;
   background-position: 45% 50%;
   box-shadow: inset 0 0 100px var(--shadow_secondary), inset 0px 5px 5px var(--shadow_inset_info), inset 0px -5px 10px var(--shadow_inset_info);
@@ -254,7 +254,7 @@
 [show_rarity="mythical"] #galleryInfoBannerOrnate::after {
   --emboss_up: var(--mythical_emboss_up);
   --emboss_down: var(--mythical_emboss_down);
-  --background: url('../resources/svg/header_ornate_mythical.svg');
+  --background: url('../../resources/svg/header_ornate_mythical.svg');
 }
 
 [show_rarity="mythical"] #galleryInfoBanner {
@@ -314,7 +314,7 @@
 [show_rarity="great"] #galleryInfoBannerOrnate::after {
   --emboss_up: var(--great_emboss_up);
   --emboss_down: var(--great_emboss_down);
-  --background: url('../resources/svg/header_ornate_great.svg');
+  --background: url('../../resources/svg/header_ornate_great.svg');
 }
 
 [show_rarity="great"] #galleryInfoBanner {
@@ -379,7 +379,7 @@
 [show_rarity="normal"] #galleryInfoBannerOrnate::after {
   --emboss_up: var(--normal_emboss_up);
   --emboss_down: var(--normal_emboss_down);
-  --background: url('../resources/svg/header_ornate_normal.svg');
+  --background: url('../../resources/svg/header_ornate_normal.svg');
 }
 
 [show_rarity="normal"] #galleryInfoBanner {
@@ -615,7 +615,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  background: url('../resources/svg/ornate_corner.svg') no-repeat;
+  background: url('../../resources/svg/ornate_corner.svg') no-repeat;
   background-size: 100% 100%;
   background-position: -130px -16px;
   transform: scaleY(-1);
@@ -627,7 +627,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  background: url('../resources/svg/ornate_corner.svg') no-repeat;
+  background: url('../../resources/svg/ornate_corner.svg') no-repeat;
   background-size: 100% 100%;
   background-position: -130px -16px;
   transform: scaleY(-1) scaleX(-1);
@@ -1155,23 +1155,23 @@
 }
 
 .galleryItemCommon[data-filter_group="JP"]::after {
-  --background: url('../resources/svg/japan/Torii_small.svg');
+  --background: url('../../resources/svg/japan/Torii_small.svg');
   background-position: 50% 2px;
 }
 .galleryItemCommon[data-filter_group="ZH"]::after {
-  --background: url('../resources/svg/china/禄_lù_or_子_zi_symbol---red.svg');
+  --background: url('../../resources/svg/china/禄_lù_or_子_zi_symbol---red.svg');
 }
 
 .galleryItemCommon[data-filter_group="VI"]::after {
-  --background: url('../resources/svg/viet/daingu_crest.svg');
+  --background: url('../../resources/svg/viet/daingu_crest.svg');
 }
 
 .galleryItemCommon[data-filter_group="KR"]::after {
-  --background: url('../resources/svg/korea/Imperial_Seal_of_the_Korean_Empire.svg');
+  --background: url('../../resources/svg/korea/Imperial_Seal_of_the_Korean_Empire.svg');
 }
 
 .galleryItem_Template::after {
-  --background: url('../resources/svg/japan/Torii_small.svg');
+  --background: url('../../resources/svg/japan/Torii_small.svg');
   background-size: 150% 100%;
   background-position: 50% -10px;
 }

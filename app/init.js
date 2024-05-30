@@ -159,67 +159,8 @@ async function generateManifest(allLangs = false) {
 }
 window.generateManifest = generateManifest;
 
-
-
-/*
-function generateManifest() {
-  let userLang = nk.settingConfig.get('lang');
-  let nameFallback = MANIFEST.name.en;
-  let shortNameFallback = MANIFEST.short_name.en;
-  let descriptionFallback = MANIFEST.description.en;
-
-  let name = MANIFEST.name[userLang] || nameFallback;
-  let shortName = MANIFEST.short_name[userLang] || shortNameFallback;
-  let description = MANIFEST.description[userLang] || descriptionFallback;
-
-  let manifest = {
-    lang: userLang,
-    id: MANIFEST.id,
-    name: name,
-    short_name: shortName,
-    description: description,
-    start_url: MANIFEST.start_url,
-    display_override: MANIFEST.display_override,
-    display: MANIFEST.display,
-    orientation: MANIFEST.orientation,
-    theme_color: MANIFEST.theme_color,
-    background_color: MANIFEST.background_color,
-    launch_handler: MANIFEST.launch_handler,
-    categories: MANIFEST.categories,
-    icons: MANIFEST.icons,
-    screenshots: MANIFEST.screenshots,
-    serviceworker: MANIFEST.serviceworker
-  };
-
-  manifest.shortcuts = [];
-  for (let shortcut of MANIFEST.shortcuts) {
-      let shortcutName = shortcut.name[userLang] || shortcut.name.en;
-      let shortcutUrl = shortcut.url;
-      let shortcutIcons = shortcut.icons;
-
-      let translatedShortcut = {
-        name: shortcutName,
-        url: shortcutUrl,
-        icons: shortcutIcons
-      };
-
-    manifest.shortcuts.push(translatedShortcut);
-  }
-  let manifestJson = JSON.stringify(manifest);
-  let manifestBlob = new Blob([manifestJson], { type: 'application/json' });
-  let manifestBlobUrl = URL.createObjectURL(manifestBlob);
-  let manifestLink = document.getElementById('manifest');
-  manifestLink.href = manifestBlobUrl + '.webmanifest';
-}; generateManifest();*/
-
-
-
 let dataArray = [];
 let dataTimer;
-dataArray.push({ to: 'window',    source: 'repository-info.json',        as: 'repositoryInfoJSON' });
-//dataArray.push({ to: 'nk.locale', source: 'app/data/locale.json',        as: 'languageJSON' });
-
-
 dataArray.push({ to: 'nk.locale',              source: 'app/data/locale/misc.json',              as: 'misc' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/_templates.json', as: 'templates' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/_common.json',    as: 'common' });
@@ -231,9 +172,6 @@ dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/k
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/vi.json',         as: 'vi' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/mo.json',         as: 'mo' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/ro.json',         as: 'ro' });
-
-
-
 
 (nk.url.mode === 'tree' || nk.url.mode === null) && dataArray.push({ to: 'nk.items', source: 'app/data/items/links.json', as: 'links' });
 nk.url.mode === 'license' && dataArray.push({ to: 'nk.locale', source: 'app/data/locale/license.json', as: 'licenseJSON' });

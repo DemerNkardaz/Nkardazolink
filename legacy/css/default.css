@@ -649,7 +649,7 @@ body {
 }
 
 #personBannerImg {
-    background: url(../resources/svg/pattern_asanoha_90deg.svg), var(--banner_gradient);
+    background: url(../../resources/svg/pattern_asanoha_90deg.svg), var(--banner_gradient);
     background-size: 115%;
     background-position: center 50%;
     border-radius: 15px;
