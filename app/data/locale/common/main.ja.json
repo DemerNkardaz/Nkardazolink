@@ -35,7 +35,7 @@
     "copyright": "&copy;&nbsp;${returnCopyright('CJK')}&#x3000;${nk.locale.get('Nkardaz.name')}・全著作権所有｜"
   },
   "Skins": {
-    "Current": "現在の眺め：${nk.locale.get(nk.skins.check('locale_key'))}",
+    "Current": "現在の眺め：{{ ?skin-key }}",
     "Byakujou": "「白城」",
     "Aoguro-no Getsu": "「青黒月」",
     "Akatsuki-no Kurai": "「暁の暗い」",

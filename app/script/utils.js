@@ -250,6 +250,9 @@ function evalLocaleGet(text) {
     .replace(/\{{ \?skin-title }}/g, function (match) { 
       return nk.skins.check('emoji').removeCJK().removeQuotes();
     })
+    .replace(/\{{ \?skin-key }}/g, function (match) { 
+      return nk.locale.get(nk.skins.check('locale_key'));
+    })
     .replace(/\{{ \?skin }}/g, function (match) { 
       return nk.skins.check('locale');
     })
