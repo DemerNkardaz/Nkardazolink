@@ -1,4 +1,5 @@
 {
+  "lang": "ru",
   "id": "com.demernkardaz.app",
   "name": "Нкардазолинк",
   "short_name": "Нкардаз",
@@ -25,12 +26,12 @@
       "url": "/Nkardazolink/",
       "icons": [
         {
-          "src": "./manifest/icon-64x64.png",
+          "src": "./icon-64x64.png",
           "sizes": "64x64",
           "type": "image/png"
         },
         {
-          "src": "./manifest/icon-128x128.png",
+          "src": "./icon-128x128.png",
           "sizes": "128x128",
           "type": "image/png"
         }
@@ -41,12 +42,12 @@
       "url": "/Nkardazolink/?mode=kamon",
       "icons": [
         {
-          "src": "./manifest/icon-64x64.png",
+          "src": "./icon-64x64.png",
           "sizes": "64x64",
           "type": "image/png"
         },
         {
-          "src": "./manifest/icon-128x128.png",
+          "src": "./icon-128x128.png",
           "sizes": "128x128",
           "type": "image/png"
         }
@@ -57,12 +58,12 @@
       "url": "/Nkardazolink/?mode=banners",
       "icons": [
         {
-          "src": "./manifest/icon-64x64.png",
+          "src": "./icon-64x64.png",
           "sizes": "64x64",
           "type": "image/png"
         },
         {
-          "src": "./manifest/icon-128x128.png",
+          "src": "./icon-128x128.png",
           "sizes": "128x128",
           "type": "image/png"
         }
@@ -71,32 +72,32 @@
   ],
   "icons": [
     {
-      "src": "./manifest/icon-64x64.png",
+      "src": "./icon-64x64.png",
       "sizes": "64x64",
       "type": "image/png"
     },
     {
-      "src": "./manifest/icon-128x128.png",
+      "src": "./icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "./manifest/icon-192x192.png",
+      "src": "./icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./manifest/icon-256x256.png",
+      "src": "./icon-256x256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "./manifest/icon-512x512.png",
+      "src": "./icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./manifest/icon-512x512mask.png",
+      "src": "./icon-512x512mask.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -104,14 +105,14 @@
   ],
   "screenshots": [
     {
-      "src": "./manifest/screenshot720p_win.webp",
+      "src": "./screenshot720p_win.webp",
       "sizes": "1280x720",
       "type": "image/webp",
       "form_factor": "wide",
       "platform": "windows"
     },
     {
-      "src": "./manifest/screenshot720p_mob.webp",
+      "src": "./screenshot720p_mob.webp",
       "sizes": "324x720",
       "type": "image/webp",
       "form_factor": "narrow",
