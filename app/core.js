@@ -615,6 +615,10 @@ function fetchArticleStructure(xmlUrl) {
 }
 window.fetchArticleStructure = fetchArticleStructure;
 
+
+
+
+
 /*
 document.addEventListener('DOMContentLoaded', function() {
     var elementsWithTabindex = document.querySelectorAll('[tabindex]');

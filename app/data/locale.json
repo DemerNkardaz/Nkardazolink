@@ -162,7 +162,7 @@
         "image": {
           "default": "https://demernkardaz.github.io/Nkardazolink/resources/seo/img.png"
         },
-        "manifest": "./manifest/manifest_ru.webmanifest"
+        "manifest": "./manifest/manifest.ru.webmanifest"
       }
     },
     "UserPreferences": {
@@ -439,7 +439,7 @@
         "image": {
           "default": "https://demernkardaz.github.io/Nkardazolink/resources/seo/img.png"
         },
-        "manifest": "./manifest.webmanifest"
+        "manifest": "./manifest/manifest.en.webmanifest"
       }
     },
     "kamon": {

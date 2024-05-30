@@ -54,6 +54,164 @@ let metaData = {
 
 if (nk.settingConfig.get('turn_off_preloader') !== true) { $('body').prepend(new nk.ui.Preloader()) };
 
+async function generateSingleManifest(userLang, MANIFEST) {
+  let nameFallback = MANIFEST.name.en;
+  let shortNameFallback = MANIFEST.short_name.en;
+  let descriptionFallback = MANIFEST.description.en;
+
+  let name = MANIFEST.name[userLang] || nameFallback;
+  let shortName = MANIFEST.short_name[userLang] || shortNameFallback;
+  let description = MANIFEST.description[userLang] || descriptionFallback;
+
+  let manifest = {
+    lang: userLang,
+    id: MANIFEST.id,
+    name: name,
+    short_name: shortName,
+    description: description,
+    start_url: MANIFEST.start_url,
+    display_override: MANIFEST.display_override,
+    display: MANIFEST.display,
+    orientation: MANIFEST.orientation,
+    theme_color: MANIFEST.theme_color,
+    background_color: MANIFEST.background_color,
+    launch_handler: MANIFEST.launch_handler,
+    categories: MANIFEST.categories,
+    icons: MANIFEST.icons,
+    screenshots: MANIFEST.screenshots,
+    serviceworker: MANIFEST.serviceworker
+  };
+
+  manifest.shortcuts = [];
+  for (let shortcut of MANIFEST.shortcuts) {
+    let shortcutName = shortcut.name[userLang] || shortcut.name.en;
+    let shortcutUrl = shortcut.url;
+    let shortcutIcons = shortcut.icons;
+
+    let translatedShortcut = {
+      name: shortcutName,
+      url: shortcutUrl,
+      icons: shortcutIcons
+    };
+
+    manifest.shortcuts.push(translatedShortcut);
+  }
+  return manifest;
+}
+
+async function generateManifest(allLangs = false) {
+  if (typeof JSZip === 'undefined') {
+    let jsZipScript = document.createElement('script');
+    jsZipScript.src = './app/libs/standalone/JSZip/jszip.min.js';
+    jsZipScript.onload = function() {
+      generateManifest(allLangs);
+    };
+    document.head.appendChild(jsZipScript);
+    return;
+  }
+
+  let module = await import(`./templates/manifest_template.js`);
+  const MANIFEST = module.MANIFEST;
+
+  async function generateAndDownloadManifest(lang) {
+    let manifest = await generateSingleManifest(lang, MANIFEST);
+    let manifestJson = JSON.stringify(manifest);
+    let fileName = `manifest.${lang}.webmanifest`;
+
+    if (allLangs) {
+      return { fileName, manifestJson };
+    } else {
+      let manifestBlob = new Blob([manifestJson], { type: 'application/json' });
+      let manifestBlobUrl = URL.createObjectURL(manifestBlob);
+
+      let downloadLink = document.createElement('a');
+      downloadLink.href = manifestBlobUrl;
+      downloadLink.setAttribute('download', fileName);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+  }
+
+  if (allLangs) {
+    let zip = new JSZip();
+    let promises = [];
+    for (let lang in MANIFEST.name) {
+      promises.push(generateAndDownloadManifest(lang));
+    }
+    let manifestDataArray = await Promise.all(promises);
+    manifestDataArray.forEach(({ fileName, manifestJson }) => {
+      zip.file(fileName, manifestJson);
+    });
+
+    zip.generateAsync({ type: "blob" }).then(function(content) {
+      let downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(content);
+      downloadLink.setAttribute('download', 'manifests.zip');
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    });
+  } else {
+    let userLang = nk.settingConfig.get('lang');
+    await generateAndDownloadManifest(userLang);
+  }
+}
+window.generateManifest = generateManifest;
+
+
+
+/*
+function generateManifest() {
+  let userLang = nk.settingConfig.get('lang');
+  let nameFallback = MANIFEST.name.en;
+  let shortNameFallback = MANIFEST.short_name.en;
+  let descriptionFallback = MANIFEST.description.en;
+
+  let name = MANIFEST.name[userLang] || nameFallback;
+  let shortName = MANIFEST.short_name[userLang] || shortNameFallback;
+  let description = MANIFEST.description[userLang] || descriptionFallback;
+
+  let manifest = {
+    lang: userLang,
+    id: MANIFEST.id,
+    name: name,
+    short_name: shortName,
+    description: description,
+    start_url: MANIFEST.start_url,
+    display_override: MANIFEST.display_override,
+    display: MANIFEST.display,
+    orientation: MANIFEST.orientation,
+    theme_color: MANIFEST.theme_color,
+    background_color: MANIFEST.background_color,
+    launch_handler: MANIFEST.launch_handler,
+    categories: MANIFEST.categories,
+    icons: MANIFEST.icons,
+    screenshots: MANIFEST.screenshots,
+    serviceworker: MANIFEST.serviceworker
+  };
+
+  manifest.shortcuts = [];
+  for (let shortcut of MANIFEST.shortcuts) {
+      let shortcutName = shortcut.name[userLang] || shortcut.name.en;
+      let shortcutUrl = shortcut.url;
+      let shortcutIcons = shortcut.icons;
+
+      let translatedShortcut = {
+        name: shortcutName,
+        url: shortcutUrl,
+        icons: shortcutIcons
+      };
+
+    manifest.shortcuts.push(translatedShortcut);
+  }
+  let manifestJson = JSON.stringify(manifest);
+  let manifestBlob = new Blob([manifestJson], { type: 'application/json' });
+  let manifestBlobUrl = URL.createObjectURL(manifestBlob);
+  let manifestLink = document.getElementById('manifest');
+  manifestLink.href = manifestBlobUrl + '.webmanifest';
+}; generateManifest();*/
+
 
 
 let dataArray = [];
