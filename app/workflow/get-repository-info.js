@@ -14,7 +14,6 @@ function ensureDirectoryExistence(filePath) {
   fs.mkdirSync(dirname);
 }
 
-
 async function getRepositoryInfo() {
   try {
     const repoResponse = await axios.get(apiUrl, {
@@ -37,7 +36,7 @@ async function getRepositoryInfo() {
       created_at: repoResponse.data.created_at,
       updated_at: latestCommitDate
     };
-    const filePath = path.resolve(__dirname, '../../../app/data/repository/repository-info.json');
+    const filePath = 'app/data/repository/repository-info.json';
     ensureDirectoryExistence(filePath);
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
