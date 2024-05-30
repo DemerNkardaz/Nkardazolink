@@ -4,6 +4,7 @@ nk.ui = {};
 nk.skins = {};
 nk.locale = {};
 nk.locale.languageJSON = {};
+nk.locale.licenseJSON = {};
 nk.items = {};
 nk.timers = { data: null };
 REPO_STATUS().then(repoInfo => { window.repoStatus = repoInfo; });
@@ -14,6 +15,12 @@ window.parseUrlParameter = function (name) {
   return new URLSearchParams(window.location.search).get(name)?.toLowerCase();
 };
 
+function parsePathDepth (text) {
+  return text.split('.').map(key => `[\"${key}\"]`).join('');
+}
+String.prototype.parsePathDepth = function () {
+  return parsePathDepth(this);
+}
 
 window.isMobileDevice = function () {
   let chk = false;

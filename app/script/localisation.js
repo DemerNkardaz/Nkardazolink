@@ -29,12 +29,12 @@ $(document).on('full_data_loaded', function () {
 });
 
 function iLang(keyMap, checking) {
-  const keysArray = keyMap.get('key').split('.').map(key => `[\"${key}\"]`);
+  const keysArray = keyMap.get('key').parsePathDepth();
   const language = keyMap.get('mode') !== null ? keyMap.get('mode') : nk.settingConfig.get('lang');
   let sourceName = nk.locale[keyMap.get('source')];
   let found = false;
-  let localisedString = jsonpath.query(sourceName, `$['${language}']${keysArray.join('')}`);
-  (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..${keysArray.join('')}`));
+  let localisedString = jsonpath.query(sourceName, `$['${language}']${keysArray}`);
+  (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..${keysArray}`));
   (localisedString.length > 0) && (localisedString = localisedString[0], found = true);
   if (found) {
     if (typeof localisedString === 'object') {
