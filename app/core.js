@@ -5,10 +5,8 @@ nk.skins = {};
 nk.locale = {};
 nk.locale.languageJSON = {};
 nk.items = {};
-nk.timers = {
-  data: null
-};
-window.repoStatus = REPO_STATUS || [];
+nk.timers = { data: null };
+REPO_STATUS().then(repoInfo => { window.repoStatus = repoInfo; });
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
 

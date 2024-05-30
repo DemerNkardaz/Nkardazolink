@@ -40,7 +40,7 @@ async function getRepositoryInfo() {
     ensureDirectoryExistence(filePath);
     fs.writeFileSync(filePath, JSON.stringify(info, null, 2));
     console.log('Repository info:', info);
-    markupRepositoryInfo(info);
+    //markupRepositoryInfo(info);
 
   } catch (error) {
     console.error('Error getting repository info:', error.message);
