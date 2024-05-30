@@ -176,7 +176,7 @@ dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/m
 (nk.url.mode === 'tree' || nk.url.mode === null) &&
   dataArray.push({ to: 'nk.items', source: 'app/data/items/links.json', as: 'links' });
 
-nk.url.mode === 'license' &&
+nk.url.mode === 'license' && (
   dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ru.json', as: 'ru' }),
   dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.en.json', as: 'en' }),
   dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ja.json', as: 'ja' }),
@@ -184,9 +184,10 @@ nk.url.mode === 'license' &&
   dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ko.json', as: 'ko' }),
   dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.vi.json', as: 'vi' }),
   dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.mo.json', as: 'mo' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ro.json', as: 'ro' });
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ro.json', as: 'ro' })
+);
 
 ['kamon', 'banners'].includes(nk.url.mode) &&
   dataArray.push({ to: 'nk.items', source: `app/data/items/${nk.url.mode}.json`, as: `${nk.url.mode}` });
-  
+
 DataExtend(dataArray, true, nk.timers.data).then((loadedData) => {});
