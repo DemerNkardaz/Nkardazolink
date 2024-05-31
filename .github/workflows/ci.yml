@@ -1,0 +1,72 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "app/data/repository/repository-info.json"
+      - "report.md"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint_check_links:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linters
+        id: lint
+        run: |
+          npx eslint '**/*.{js,jsx,ts,tsx}' > lint-results.txt || true
+          npx stylelint '**/*.{css,scss}' > stylelint-results.txt || true
+          npx htmlhint "**/*.html" > htmlhint-results.txt || true
+          npx jsonlint '**/*.json' > jsonlint-results.txt || true
+          npx xmllint '**/*.xml' > xmllint-results.txt || true
+          cat lint-results.txt stylelint-results.txt htmlhint-results.txt jsonlint-results.txt xmllint-results.txt > lint-output.txt
+
+      - name: Check for broken links
+        id: links
+        run: |
+          npx linkinator . -r > link-results.txt || true
+
+      - name: Generate report
+        run: |
+          echo "# Ссылки" > report.md
+          if grep -q "ERROR" link-results.txt; then
+            echo "\nНайдены битые ссылки:" >> report.md
+            cat link-results.txt | grep "ERROR" >> report.md
+          else
+            echo "\nБитых ссылок не найдено" >> report.md
+          fi
+
+          echo "\n# Линтинг" >> report.md
+          cat lint-output.txt >> report.md
+
+      - name: Commit and push report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add report.md
+          git commit -m "Add CI report"
+          git push origin HEAD:${{ github.ref }}
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: report.md

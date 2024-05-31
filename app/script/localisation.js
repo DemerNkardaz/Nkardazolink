@@ -137,7 +137,7 @@ window.nk.locale = {
   }
 }
 
-window.nk.locale.update = function ({ target, source, parent} = {}) {
+window.nk.locale.update = function ({ target, source} = {}) {
   let sourceName;
   let keyElements = nk.collectTargets(target ? target.selector : '[data-key], [alt-key], [data-eless-tooltip-key], [data-key-image], [title-key]');
 
@@ -168,10 +168,10 @@ window.nk.locale.update = function ({ target, source, parent} = {}) {
         if (imageKey) {
           $(this).attr('src', nk.locale.get(sourceName ? `${imageKey}>${sourceName}` : (sourceKey ? `${key}>${sourceKey}` : key)));
           let folder = imageKey.replace('.src', '');
-          nk.locale.get(`check:${folder}.shift`) ? $(this).css('--shift', nk.locale.get(`${folder}.shift`)) : $(this).css('--shift', '');
-          nk.locale.get(`check:${folder}.opacity`) ? $(this).css('--image-opacity', nk.locale.get(`${folder}.opacity`)) : $(this).css('--image-opacity', '');
-          nk.locale.get(`check:${folder}.h`) ? $(this).closest('.tooltip--previews__image-wrapper').css('--h', nk.locale.get(`${folder}.h`)) : $(this).closest('.tooltip--previews__image-wrapper').css('--h', '');
-          nk.locale.get(`check:${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nk.locale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
+          nk.locale.check(`${folder}.shift`) ? $(this).css('--shift', nk.locale.get(`${folder}.shift`)) : $(this).css('--shift', '');
+          nk.locale.check(`${folder}.opacity`) ? $(this).css('--image-opacity', nk.locale.get(`${folder}.opacity`)) : $(this).css('--image-opacity', '');
+          nk.locale.check(`${folder}.h`) ? $(this).closest('.tooltip--previews__image-wrapper').css('--h', nk.locale.get(`${folder}.h`)) : $(this).closest('.tooltip--previews__image-wrapper').css('--h', '');
+          nk.locale.check(`${folder}.blur`) ? $(this).closest('tooltip-preview').attr('data-blur', nk.locale.get(`${folder}.blur`)) : $(this).closest('tooltip-preview').removeAttr('data-blur');
         }
       } else {
         let entity = $(this).closestParent('[data-entity], [data-entity-given]');
