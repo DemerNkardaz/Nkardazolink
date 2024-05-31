@@ -60,7 +60,7 @@ jobs:
           cat htmlhint-results.txt >> report.md
 
           echo "## CSS" >> report.md
-          cat stylelint-results.txt.txt >> report.md
+          cat stylelint-results.txt >> report.md
 
       - name: Check for changes
         run: |
