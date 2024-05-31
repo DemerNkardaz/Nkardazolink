@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <article id="template-${Math.round(Math.random() * 1000)}">
+    <date>2024-05-31T20:30:10Z</date>
+    <authors>{{ Nkardaz.name }}</authors>
     <tags>
       <badges>ability entity</badges>
       <extensions>addon</extensions>
@@ -10,12 +12,17 @@
       <en><h1>Template header</h1></en>
     </title>
     <content>
-      <ru><div>Шаблонный контент</div></ru>
-      <en><div>Template content</div></en>
+      <div>
+      <ru>Шаблонный контент</ru>
+      <en>Template content</en>
+      {{ ?get>@[value="ru"] IN @.lang-optionOwner> }}
+      </div>
     </content>
     <footer>
-      <ru><div>Шаблонный футер</div></ru>
-      <en><div>Template footer</div></en>
+      <div>{{ ?get>authors> }} {{ ?get>date> }} 
+      <ru>Шаблонный футер</ru>
+      <en>Template footer</en>
+    </div>
     </footer>
   </article>
   <script>

@@ -216,21 +216,11 @@ function transcriptReplacement(text) {
   return text
     .replace(/\<\s(.*?)\s\/\>/g, function (match, p1) {
       p1 = p1
-        .replace(/\/(.*?)\/\?/g, function (match, sub) {
-          return `<ruby class='ruby_bottom'>${sub}</ruby>`;
-        })
-        .replace(/\{(.*?)\}/g, function (match, sub) {
-          return `<ruby>${sub}</ruby>`;
-        })
-        .replace(/\[(.*?)\]/g, function (match, sub) {
-          return `<rt>${sub}</rt>`;
-        })
-        .replace(/\″(.*?)\←(.*?)\″/g, function (match, sub1, sub2) {
-          return `<ruby>${sub1}<rt>${sub2}</rt></ruby>`;
-        })
-        .replace(/\((.*?)\:(.*?)\)/g, function (match, sub1, sub2) {
-          return `${sub1}<rt>${sub2}</rt>`;
-        });
+        .replace(/\/(.*?)\/\?/g, function (match, sub) { return `<ruby class='ruby_bottom'>${sub}</ruby>`; })
+        .replace(/\{(.*?)\}/g, function (match, sub) { return `<ruby>${sub}</ruby>`; })
+        .replace(/\[(.*?)\]/g, function (match, sub) { return `<rt>${sub}</rt>`; })
+        .replace(/\″(.*?)\←(.*?)\″/g, function (match, sub1, sub2) { return `<ruby>${sub1}<rt>${sub2}</rt></ruby>`; })
+        .replace(/\((.*?)\:(.*?)\)/g, function (match, sub1, sub2) { return `${sub1}<rt>${sub2}</rt>`; });
       return p1;
     });
 }
@@ -250,18 +240,43 @@ String.prototype.defReplace = function () {
   return defaultReplacement(this);
 }
 
-function evalLocaleGet(text) { 
+function evalStringCommands(text) { 
   text = text
-    .replace(/\{{ \?skin-title }}/g, function (match) { 
+    .replace(/\{{\s\?get\>(.*?)\sIN\s(.*?)\>\s}}/g, function (match, tag, parentTag) {
+      const [tagProp, cssSelectors] = tag.includes('@') ? tag.split('@') : [tag, '']
+      const [parentProp, parentCssSelectors] = parentTag.includes('@') ? parentTag.split('@') : [parentTag, '']
+      const parentPairs = new RegExp(`<${parentProp}>(.*?)</${parentProp}>`);
+      const parentMatch = text.match(parentPairs);
+
+      if (parentMatch && parentMatch[1] && parentCssSelectors === '') {
+        const tagPairs = new RegExp(`<${tagProp}>(.*?)</${tagProp}>`);
+        const tagMatch = parentMatch[1].match(tagPairs);
+        if (tagMatch && tagMatch[1] && cssSelectors === '') { return tagMatch[1]; }
+      }
+
+      if ($(`${parentProp}${parentCssSelectors}`).find(`${tagProp}${cssSelectors}`).length > 0) {
+        return $(`${parentProp}${parentCssSelectors}`).find(`${tagProp}${cssSelectors}`).html();
+      }
+      return match;
+    })
+    .replace(/\{{\s\?get\>(.*?)\>\s}}/g, function (match, tag) {
+      const [tagProp, cssSelectors] = tag.includes('@') ? tag.split('@') : [tag, '']
+      const pairs = new RegExp(`<${tagProp}>(.*?)</${tagProp}>`);
+      const tagMatch = text.match(pairs);
+      if (tagMatch && tagMatch[1] && cssSelectors === '') { return tagMatch[1]; }
+      if ($(`${tagProp}${cssSelectors}`).length > 0) { return $(`${tagProp}${cssSelectors}`).html(); }
+      return match;
+    })
+    .replace(/\{{ \?skin-title }}/g, function (match) {
       return nk.skins.check('emoji').removeCJK().removeQuotes();
     })
-    .replace(/\{{ \?skin-key }}/g, function (match) { 
+    .replace(/\{{ \?skin-key }}/g, function (match) {
       return nk.locale.get(nk.skins.check('locale_key'));
     })
-    .replace(/\{{ \?skin }}/g, function (match) { 
+    .replace(/\{{ \?skin }}/g, function (match) {
       return nk.skins.check('locale');
     })
-    .replace(/\{{ \?copy }}/g, function (match) { 
+    .replace(/\{{ \?copy }}/g, function (match) {
       return returnCopyright();
     })
     .replace(/\{{ \?drop-head: (.*?) }}/g, function (match, p1) {
@@ -274,7 +289,7 @@ function evalLocaleGet(text) {
     })
     .replace(/\{{ \?tooltip-quest: (.*?) }}/g, function (match, p1) {
       let p1Array = p1.split('^');
-      return nk.ui.tooltipInfo.quest({key: p1Array[0], meta: p1Array[2] ? p1Array[2] : null}, p1Array[1]);
+      return nk.ui.tooltipInfo.quest({ key: p1Array[0], meta: p1Array[2] ? p1Array[2] : null }, p1Array[1]);
     })
     .replace(/\{{ (.*?)\ }}/g, function (match, p1) {
       return nk.locale.get(p1);
@@ -283,20 +298,12 @@ function evalLocaleGet(text) {
   return text;
 }
 
-String.prototype.evalLocaleGet = function () {
-  return evalLocaleGet(this);
+String.prototype.evalStringCommands = function () {
+  return evalStringCommands(this);
 }
 
-function textUnPacker(text) {/*
-  let unpacked = transcriptReplacement(
-		defaultReplacement(
-			ideographicsSpaceToCJKV(
-				unpackArrayToStrings(text)
-			)
-		)
-  );
-  unpacked = diacriticReplaces(unpacked);*/
-  let unpacked = text.unpackArray().evalLocaleGet().ideoSpaceToCJKV().defReplace().transcripts().diacritics().replaceSocials().replaceSearching();
+function textUnPacker(text) {
+  let unpacked = text.unpackArray().evalStringCommands().ideoSpaceToCJKV().defReplace().transcripts().diacritics().replaceSocials().replaceSearching();
 	return unpacked;
 }
 String.prototype.unpackText = function () {

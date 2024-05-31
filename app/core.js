@@ -547,6 +547,25 @@ function tagParser(tagsArray, type, addText) {
 }
 window.tagParser = tagParser;
 
+function escapeXmlEntities(text) {
+  return text.replace(/[\u00A0\u2002\u2003]/g, function(char) {
+    return {
+      '\u00A0': '&nbsp;',
+      '\u2002': '&ensp;',
+      '\u2003': '&emsp;' 
+    }[char];
+  });
+}
+
+function unescapeXmlEntities(text) {
+  return text.replace(/&nbsp;|&ensp;|&emsp;/g, function(entity) {
+    return {
+      '&nbsp;': '\u00A0',
+      '&ensp;': '\u2002',
+      '&emsp;': '\u2003' 
+    }[entity];
+  });
+}
 
 function fetchArticleStructure(xmlUrl) {
   return new Promise((resolve, reject) => {
@@ -557,29 +576,39 @@ function fetchArticleStructure(xmlUrl) {
       resolve(xmlPages[xmlUrl]);
       return;
     }*/
-    
+    const userLang = nk.settingConfig.get('lang');
     fetch(xmlUrl)
       .then(response => response.text())
       .then(xmlText => {
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+        const otherLangsRegex = new RegExp(`<(${nk.langs.supported.filter(lang => lang !== userLang).join('|')})>(.*?)<\/\\1>`, 'g');
+        const decodedXMLDoc = unescapeXmlEntities(
+          xmlText
+          .replace(otherLangsRegex, '')
+          .replace(new RegExp(`<${userLang}>(.*?)<\/${userLang}>`, 'g'), function (match, p1) { return p1; })
+          .split('\n').filter(line => line.trim() !== '').unpackText()
+        );
+        console.log('decodedXMLDoc', decodedXMLDoc);
+        const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
         
-        const userLang = nk.settingConfig.get('lang');
+        
 
         let badges = xmlDoc.querySelector('badges').textContent.toLowerCase().split(' ');
         badges = tagParser(badges, 'badges');
 
         let extension = xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' ');
         extension = tagParser(extension, 'extensions');
+        //xmlDoc.querySelectorAll(userLang).forEach(tag => { $(tag).contents().unwrap() });
+        //nk.langs.supported.forEach(lang => { xmlDoc.querySelectorAll(lang).forEach(tag => { $(tag).remove() }); });
         
-        let title = xmlDoc.querySelector(`title > ${userLang}`).innerHTML;
-        let content = xmlDoc.querySelector(`content > ${userLang}`).innerHTML;
-        let footer = xmlDoc.querySelector(`footer > ${userLang}`).innerHTML;
+        let title = xmlDoc.querySelector(`title`).innerHTML;
+        let content = xmlDoc.querySelector(`content`).innerHTML;
+        let footer = xmlDoc.querySelector(`footer`).innerHTML;
         const script = xmlDoc.querySelector('script');
         const style = xmlDoc.querySelector('style');
-        title = eval('`' + title + '`');
-        content = eval('`' + content + '`');
-        footer = eval('`' + footer + '`');
+        title = eval('`' + escapeXmlEntities(title) + '`');
+        content = eval('`' + escapeXmlEntities(content) + '`');
+        footer = eval('`' + escapeXmlEntities(footer) + '`');
 
         let articleStructure = `
           <article class="wiki-aricle" ${getAttributes(xmlDoc.querySelector('article'))}>
@@ -595,7 +624,7 @@ function fetchArticleStructure(xmlUrl) {
             ${script ? `<script>${script.innerHTML}</script>` : ''}
             ${style ? `<style>${style.innerHTML}</style>` : ''}
           </article>
-        `;
+        `.unpackText();
         
         xmlPages[xmlUrl] = articleStructure;
 
