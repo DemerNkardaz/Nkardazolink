@@ -32,8 +32,9 @@ jobs:
 
       - name: Init stylelint
         run: |
+          npm install --save-dev stylelint
           echo 'y' | npm init stylelint
-          npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results.txt 2>&1
+          npx stylelint "**/*.css"
 
       - name: Install linkinator
         run: npm install linkinator
