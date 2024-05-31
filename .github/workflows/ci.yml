@@ -27,11 +27,11 @@ jobs:
       - name: Run linters
         id: lint
         run: |
-          npx eslint '**/*.{js,jsx,ts,tsx}' > lint-results.txt || true
-          npx stylelint '**/*.{css,scss}' > stylelint-results.txt || true
-          npx htmlhint "**/*.html" > htmlhint-results.txt || true
-          npx jsonlint '**/*.json' > jsonlint-results.txt || true
-          npx xmllint '**/*.xml' > xmllint-results.txt || true
+          npx eslint '**/*.{js,jsx,ts,tsx}' --format stylish > lint-results.txt || true
+          npx stylelint '**/*.{css,scss}' --formatter verbose > stylelint-results.txt || true
+          npx htmlhint '**/*.html' > htmlhint-results.txt || true
+          npx jsonlint '**/*.json' -q > jsonlint-results.txt || true
+          find . -name '*.xml' -exec xmllint --noout {} \; > xmllint-results.txt 2>&1 || true
           cat lint-results.txt stylelint-results.txt htmlhint-results.txt jsonlint-results.txt xmllint-results.txt > lint-output.txt
 
       - name: Check for broken links
@@ -60,7 +60,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes detected, skipping commit and push."
             exit 0
-          fi
 
       - name: Commit and push changes
         env:
