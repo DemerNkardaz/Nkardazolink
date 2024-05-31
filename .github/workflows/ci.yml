@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -32,6 +32,9 @@ jobs:
 
       - name: Init stylelint
         run: echo 'y' | npm init stylelint
+
+      - name: Install linkinator
+        run: npm install linkinator
 
       - name: Run linters
         id: lint
