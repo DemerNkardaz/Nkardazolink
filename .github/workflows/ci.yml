@@ -39,8 +39,9 @@ jobs:
         run: |
           npx linkinator . -r > link-results.txt || true
 
-      - name: Write links report
+      - name: Write report
         run: |
+          echo "<br><br>" > report.md
           echo "# Ссылки" > report.md
           echo "<br><br>" > report.md
           if grep -q "ERROR" link-results.txt; then
@@ -50,8 +51,6 @@ jobs:
             echo "Битых ссылок не найдено" >> report.md
           fi
 
-      - name: Write linter report
-        run: |
           echo "<br><br>" >> report.md
           echo "# Линтинг" >> report.md
           echo "<br><br>" >> report.md
