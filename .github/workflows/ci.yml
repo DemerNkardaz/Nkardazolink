@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
@@ -55,18 +55,19 @@ jobs:
           echo "\n# Линтинг" >> report.md
           cat lint-output.txt >> report.md
 
-      - name: Commit and push report
-        env:
-          GITHUB_TOKEN: ${{ secrets.SUPER_SECRET }}
+      - name: Check for changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git add report.md
+          if git diff --cached --quiet; then
+            echo "No changes detected, skipping commit and push."
+            exit 0
+          fi
+
+      - name: Commit and push report
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUPER_SECRET }}
+        run: |
           git commit -m "Add CI report"
           git push origin HEAD:${{ github.ref }}
-
-      - name: Upload report artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: report
-          path: report.md
