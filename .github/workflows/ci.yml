@@ -24,12 +24,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+
+      - name: Install htmlhint
+        run: npm install @linthtml/linthtml --save-dev
+
       - name: Run linters
         id: lint
         run: |
           npx eslint '**/*.{js,jsx,ts,tsx}' --format stylish > lint-results.txt || true
           npx stylelint '**/*.{css,scss}' --formatter verbose > stylelint-results.txt || true
-          npx htmlhint '**/*.html' > htmlhint-results.txt || true
+          npx linthtml '**/*.html' | tee htmlhint-results.txt
           npx jsonlint '**/*.json' -q > jsonlint-results.txt || true
           find . -name '*.xml' -exec xmllint --noout {} \; > xmllint-results.txt 2>&1 || true
           cat lint-results.txt stylelint-results.txt htmlhint-results.txt jsonlint-results.txt xmllint-results.txt > lint-output.txt
@@ -37,20 +43,21 @@ jobs:
       - name: Check for broken links
         id: links
         run: |
-          npx linkinator . -r > link-results.txt || true
+          npx linkinator . -r --skip "data:,about:blank" > link-results.txt || true
 
       - name: Generate report
         run: |
           echo "# Ссылки" > report.md
-          if grep -q "ERROR" link-results.txt; then
+          if grep -q "BROKEN" link-results.txt; then
             echo "Найдены битые ссылки:" >> report.md
-            cat link-results.txt | grep "ERROR" >> report.md
+            grep "BROKEN" link-results.txt >> report.md
           else
             echo "Битых ссылок не найдено" >> report.md
           fi
 
           echo "# Линтинг" >> report.md
-          cat lint-output.txt >> report.md
+          echo "## HTML" >> report.md
+          cat htmlhint-results.txt >> report.md
 
       - name: Check for changes
         run: |
