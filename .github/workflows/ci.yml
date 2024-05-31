@@ -29,10 +29,15 @@ jobs:
           npm install stylelint --save-dev
           echo 'y' | npm init stylelint
 
+      - name: Display permissions
+        run: ls -la
+
       - name: Run linters
         id: lint
         run: |
           npx linkinator . -r > link-results.txt 2>&1
+          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
+          npx stylelint "**/*.css" --formatter verbose > stylelint-results.txt 2>&1
 
       - name: Generate report
         run: |
