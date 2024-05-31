@@ -36,16 +36,20 @@ jobs:
         id: lint
         run: |
           npx linkinator . -r 2>&1 | tee -a link-results.txt
+          npx linthtml '**/*.html' 2>&1 | tee -a htmlhint-results.txt
+          npx stylelint "**/*.css" --formatter verbose 2>&1 | tee -a stylelint-results.txt
 
       - name: Generate report
         run: |
           echo "# Ссылки" > report.md
-          if grep -q "BROKEN" link-results.txt; then
-            echo "Найдены битые ссылки:" >> report.md
-            grep "BROKEN" link-results.txt >> report.md
-          else
-            echo "Битых ссылок не найдено" >> report.md
-          fi
+          cat link-results.txt >> report.md
+
+          echo "# Линтинг" >> report.md
+          echo "## HTML" >> report.md
+          cat htmlhint-results.txt >> report.md
+
+          echo "## CSS" >> report.md
+          cat stylelint-results.txt >> report.md
 
       - name: Check for changes
         run: |
