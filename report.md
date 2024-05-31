@@ -10,4 +10,7 @@
 [37m      L891 |[90m...e id="selectedYouTubeVideo" width="100%" src frameborder="0" allow="accelerometer; autoplay; clipboar...[39m
 [37m                                                       ^ [31mThe attribute [ src ] of the tag [ iframe ] must have a value. (src-not-empty)[39m
 
-Scanned 3 files, found 3 errors in 1 files (61 ms)
+Scanned 3 files, found 3 errors in 1 files (56 ms)
+find: ‘xmllint’: No such file or directory
+find: ‘xmllint’: No such file or directory
+find: ‘xmllint’: No such file or directory
