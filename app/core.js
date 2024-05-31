@@ -576,22 +576,13 @@ function fetchArticleStructure(xmlUrl) {
       resolve(xmlPages[xmlUrl]);
       return;
     }*/
-    const userLang = nk.settingConfig.get('lang');
     fetch(xmlUrl)
       .then(response => response.text())
       .then(xmlText => {
         const parser = new DOMParser();
-        const otherLangsRegex = new RegExp(`<(${nk.langs.supported.filter(lang => lang !== userLang).join('|')})>(.*?)<\/\\1>`, 'g');
-        const decodedXMLDoc = unescapeXmlEntities(
-          xmlText
-          .replace(otherLangsRegex, '')
-          .replace(new RegExp(`<${userLang}>(.*?)<\/${userLang}>`, 'g'), function (match, p1) { return p1; })
-          .split('\n').filter(line => line.trim() !== '').unpackText()
-        );
+        const decodedXMLDoc = unescapeXmlEntities(xmlText.XMLLanguageHandler().unpackText());
         console.log('decodedXMLDoc', decodedXMLDoc);
         const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
-        
-        
 
         let badges = xmlDoc.querySelector('badges').textContent.toLowerCase().split(' ');
         badges = tagParser(badges, 'badges');
@@ -626,7 +617,7 @@ function fetchArticleStructure(xmlUrl) {
           </article>
         `.unpackText();
         
-        xmlPages[xmlUrl] = articleStructure;
+        /*xmlPages[xmlUrl] = articleStructure;
 
         const keys = Object.keys(xmlPages);
         if (keys.length > 20) {
@@ -634,7 +625,7 @@ function fetchArticleStructure(xmlUrl) {
           delete xmlPages[oldestKey];
         }
         
-        sessionStorage.setItem('xmlPages', JSON.stringify(xmlPages));
+        sessionStorage.setItem('xmlPages', JSON.stringify(xmlPages));*/
         
         resolve(articleStructure);
       })

@@ -302,6 +302,17 @@ String.prototype.evalStringCommands = function () {
   return evalStringCommands(this);
 }
 
+function XMLLanguageHandler(xmlText) { 
+  const otherLangsRegex = new RegExp(`<(${nk.langs.supported.filter(lang => lang !== nk.settingConfig.get('lang')).join('|')})>(.*?)<\/\\1>`, 'g');
+  return xmlText
+    .replace(otherLangsRegex, '')
+    .replace(new RegExp(`<${nk.settingConfig.get('lang')}>(.*?)<\/${nk.settingConfig.get('lang')}>`, 'g'), function (match, p1) { return p1; })
+    .split('\n').filter(line => line.trim() !== '');
+}
+String.prototype.XMLLanguageHandler = function () {
+  return XMLLanguageHandler(this);
+}
+
 function textUnPacker(text) {
   let unpacked = text.unpackArray().evalStringCommands().ideoSpaceToCJKV().defReplace().transcripts().diacritics().replaceSocials().replaceSearching();
 	return unpacked;
