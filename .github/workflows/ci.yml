@@ -7,6 +7,7 @@ on:
     paths-ignore:
       - "app/data/repository/repository-info.json"
       - "report.md"
+
 jobs:
   lint_check_links:
     runs-on: ubuntu-latest
@@ -59,6 +60,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes detected, skipping commit and push."
             exit 0
+          fi
 
       - name: Commit and push changes
         env:
