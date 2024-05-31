@@ -30,15 +30,14 @@ jobs:
       - name: Install htmlhint
         run: npm install @linthtml/linthtml --save-dev
 
+      - name: Init stylelint
+        run: echo 'y' | npm init stylelint
+
       - name: Run linters
         id: lint
         run: |
-          npx eslint '**/*.{js,jsx,ts,tsx}' --format stylish > lint-results.txt || true
-          npx stylelint '**/*.{css,scss}' --formatter verbose > stylelint-results.txt || true
-          npx linthtml '**/*.html' | tee htmlhint-results.txt
-          npx jsonlint '**/*.json' -q > jsonlint-results.txt || true
-          find . -name '*.xml' -exec xmllint --noout {} \; > xmllint-results.txt 2>&1 || true
-          cat lint-results.txt stylelint-results.txt htmlhint-results.txt jsonlint-results.txt xmllint-results.txt > lint-output.txt
+          npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results-detail.txt 2>&1
+          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
 
       - name: Check for broken links
         id: links
@@ -58,6 +57,9 @@ jobs:
           echo "# Линтинг" >> report.md
           echo "## HTML" >> report.md
           cat htmlhint-results.txt >> report.md
+
+          echo "## CSS" >> report.md
+          cat stylelint-results-detail.txt >> report.md
 
       - name: Check for changes
         run: |
