@@ -3,6 +3,8 @@
 [200] .
 [404] favicon.png
 [200] legacy/glob.js
+[200] https://code.jquery.com/jquery-3.7.1.min.js
+[200] https://www.googletagmanager.com/gtag/js?id=G-SJ669488HJ
 [200] legacy/variables.js
 [200] legacy/default.js
 [200] legacy/css/fonts.css
@@ -10,90 +12,82 @@
 [200] legacy/css/adaptive.css
 [200] legacy/css/skins.css
 [200] legacy/css/word.css
-[200] https://code.jquery.com/jquery-3.7.1.min.js
-[200] legacy/css/cv.css
-[200] https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css
-[200] https://code.jquery.com/ui/1.13.2/jquery-ui.min.js
-[200] legacy/css/modes.css
 [200] resources/svg/social_youtube_dark.svg
+[200] legacy/css/cv.css
+[200] legacy/css/modes.css
 [200] resources/svg/NkardazKamon.svg
-[404] license
-[200] resources/svg/chinese_coin_silver.svg
 [200] legacy/util.js
-[200] resources/png/factorio_mods/resin_icon.png
-[200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css
+[404] license
 [200] legacy/lang.js
-[200] resources/svg/NkardazSeal.svg
+[200] resources/svg/chinese_coin_silver.svg
 [200] legacy/modes.js
-[200] https://cdn.jsdelivr.net/npm/overlayscrollbars/css/OverlayScrollbars.min.css
-[200] https://www.googletagmanager.com/gtag/js?id=G-SJ669488HJ
+[200] resources/png/factorio_mods/resin_icon.png
+[200] https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css
+[200] resources/svg/NkardazSeal.svg
 [200] resource/images/cherepkhed32.png
 [200] resources/svg/icos/art.svg
 [200] resources/svg/icos/3d.svg
 [200] resources/svg/icos/book.svg
 [200] resources/svg/icos/github.svg
 [200] resources/svg/icos/mods.svg
+[200] https://demernkardaz.github.io/MechaniCodeus/
 [200] resources/png/magic/lunna_03_fire_02.png
-[200] https://jqueryui.com/favicon.ico
-[200] resources/png/japan/chars/D_Hatagama_Musatada_Glyph_thumb.png
+[200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css
 [200] https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg
 [200] resources/png/japan/kamon_of_deidara_clan.png
+[200] https://code.jquery.com/ui/1.13.2/jquery-ui.min.js
+[200] resources/png/japan/chars/D_Hatagama_Musatada_Glyph_thumb.png
 [200] resources/png/china/jiangu_full_bg_golden%20v2_thumb.png
-[200] https://avatars.githubusercontent.com/u/70142?s=48&v=4
+[200] https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
 [200] resources/png/magic/zodiac_wheel_thumb.png
 [200] resources/png/magic/shining_core_thumb.png
-[200] https://avatars.githubusercontent.com/u/11524380?s=48&v=4
-[200] https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
+[200] https://cdn.jsdelivr.net/npm/overlayscrollbars/css/OverlayScrollbars.min.css
+[200] https://avatars.githubusercontent.com/u/70142?s=48&v=4
+[200] https://github.com/jquery/jquery-ui
 [200] resources/png/japan/Map_of_Taira_Hashirama.png
+[200] https://mods.factorio.com/mod/PLORD_Prometheus_GrenadeLauncher
 [200] resources/png/japan/sashimono_of_sakatori_clan.png
+[200] https://github.com/twbs/bootstrap
+[200] https://github.com/jquery/jquery
 [200] resources/png/japan/sashimono_of_matsudaira_clan_royal.png
+[200] https://factorio.com/static/img/factorio-wheel.png
 [200] resources/png/japan/sashimono_of_arima_clan.png
 [200] resources/png/darksesses/general_ash_thumb.png
 [200] resources/png/ferrolyths/Corbodon_armor_thumb.png
-[200] https://demernkardaz.github.io/MechaniCodeus/
+[200] https://avatars.githubusercontent.com/u/11524380?s=48&v=4
 [200] resources/png/japan/cards_of_clans/Card_of_Matsudaira_thumb.png
 [200] resources/png/vietnam/banner_of_vietnam_empire.png
 [200] resources/png/astro/Getameda_Galaxy_Map_thumb.png
+[200] https://jqueryui.com/favicon.ico
 [200] resources/png/3DBooks/Nakabashira_thumb.png
 [200] resources/png/3DBooks/Lorebook_Yamato_thumb.png
 [200] resources/png/3DBooks/Lorebook_Nindo_thumb.png
-[200] https://github.com/twbs/bootstrap
 [200] resources/png/ferrolyths/AT12_thumb.png
 [200] resources/png/ferrolyths/AT12A7_thumb.png
-[200] resources/png/ferrolyths/HT1_thumb.png
-[200] resources/png/ferrolyths/Lasgun_rigel_thumb.png
-[200] https://github.com/jquery/jquery-ui
-[200] resources/png/ferrolyths/Lasraycaster_rigel_thumb.png
-[200] https://img.shields.io/factorio-mod-portal/dt/PLORD?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
-[200] resources/png/ferrolyths/Lacrimator_HMG_thumb.png
-[200] https://mods.factorio.com/mod/PLORD_Prometheus_GrenadeLauncher
-[200] resources/png/ferrolyths/Mascannon_rigel_thumb.png
-[200] https://factorio.com/static/img/factorio-wheel.png
-[200] https://img.shields.io/factorio-mod-portal/v/PLORD?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
-[200] https://img.shields.io/factorio-mod-portal/dt/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
-[200] resources/png/factorio_mods/16_tin_thumb.png
-[200] https://img.shields.io/factorio-mod-portal/v/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
-[200] resources/png/factorio_mods/Prometheus_tech_thumb.png
-[200] https://github.com/jquery/jquery
-[200] https://github.com/DemerNkardaz/Misc-Scripts
-[200] resources/png/ferrolyths/Sch_stpz_thumb.png
 [200] https://mods.factorio.com/user/demernkardaz
-[200] resources/png/ferrolyths/Lander_thumb.png
+[200] resources/png/ferrolyths/HT1_thumb.png
+[200] https://github.com/DemerNkardaz/Misc-Scripts
+[200] https://img.shields.io/factorio-mod-portal/v/PLORD?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
+[200] resources/png/ferrolyths/Lasgun_rigel_thumb.png
+[200] https://img.shields.io/factorio-mod-portal/dt/PLORD?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
+[200] https://img.shields.io/factorio-mod-portal/dt/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
+[200] resources/png/ferrolyths/Lasraycaster_rigel_thumb.png
+[200] https://img.shields.io/factorio-mod-portal/v/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
+[200] resources/png/ferrolyths/Lacrimator_HMG_thumb.png
+[200] resources/png/ferrolyths/Mascannon_rigel_thumb.png
+[200] resources/png/factorio_mods/16_tin_thumb.png
+[200] resources/png/ferrolyths/Sch_stpz_thumb.png
+[200] resources/png/factorio_mods/Prometheus_tech_thumb.png
 [200] resources/png/Stone_1_thumb.png
+[200] resources/png/ferrolyths/Lander_thumb.png
 [200] resources/png/Stone_2_thumb.png
 [200] resources/png/magic/elements_binary_reactions_ru_thumb.png
 [200] resources/png/astro/Shagor_during_year_thumb.png
 [200] resources/png/ferrolyths/Sonma_lascannon_sheet_thumb.png
 [200] resources/png/magic/AstralConnection_ru_thumb.png
-[403] https://author.today/u/demer_nkardaz
 [200] resources/png/magic/MagatePeriodicTable_v4_thumb.png
-[403] https://ficbook.net/authors/4241255
 [200] resources/png/2DBooks/Nakabashira_cover_thumb.png
 [200] resources/png/2DBooks/Nakabashira_Title_thumb.png
-[200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js
-[200] https://unpkg.com/react-dom@18/umd/react-dom.production.min.js
-[200] https://unpkg.com/react@18/umd/react.production.min.js
-[200] https://cdn.jsdelivr.net/npm/overlayscrollbars/js/OverlayScrollbars.min.js
 [200] resources/png/2DBooks/Nakabashira_Chapter_1_Edisode_1_Title_thumb.png
 [200] resources/png/2DBooks/Nakabashira_Chapter_1_Edisode_1_Pages_1_2_thumb.png
 [200] resources/png/2DBooks/Nakabashira_Chapter_1_Edisode_1_Pages_3_4_thumb.png
@@ -103,11 +97,17 @@
 [200] resources/png/misc_scripts_thumb.png
 [200] resources/png/factorio_mods/prometheus_thumb.png
 [200] resources/png/factorio_mods/plord_thumb.png
+[200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js
 [200] https://demernkardaz.github.io/Nkardazolink/index_new
+[200] https://unpkg.com/react@18/umd/react.production.min.js
+[200] https://unpkg.com/react-dom@18/umd/react-dom.production.min.js
+[200] https://cdn.jsdelivr.net/npm/overlayscrollbars/js/OverlayScrollbars.min.js
+[403] https://ficbook.net/authors/4241255
+[403] https://author.today/u/demer_nkardaz
 [403] https://www.artstation.com/demernkardaz
 [200] https://mc.yandex.ru/watch/96561174
-[200] https://steamcommunity.com/profiles/76561198177249942
 [200] https://dtf.ru/u/266902-demer-nkardaz
+[200] https://steamcommunity.com/profiles/76561198177249942
 [200] https://shikimori.one/%D0%94%D0%B5%D0%BC%D0%B5%D1%80+%D0%9D%D0%BA%D0%B0%D1%80%D0%B4%D0%B0%D0%B7
 [200] https://vk.com/public219642160
 [200] https://vk.com/club203543966
@@ -116,6 +116,8 @@
 .
   [404] favicon.png
   [200] legacy/glob.js
+  [200] https://code.jquery.com/jquery-3.7.1.min.js
+  [200] https://www.googletagmanager.com/gtag/js?id=G-SJ669488HJ
   [200] legacy/variables.js
   [200] legacy/default.js
   [200] legacy/css/fonts.css
@@ -123,90 +125,82 @@
   [200] legacy/css/adaptive.css
   [200] legacy/css/skins.css
   [200] legacy/css/word.css
-  [200] https://code.jquery.com/jquery-3.7.1.min.js
-  [200] legacy/css/cv.css
-  [200] https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css
-  [200] https://code.jquery.com/ui/1.13.2/jquery-ui.min.js
-  [200] legacy/css/modes.css
   [200] resources/svg/social_youtube_dark.svg
+  [200] legacy/css/cv.css
+  [200] legacy/css/modes.css
   [200] resources/svg/NkardazKamon.svg
-  [404] license
-  [200] resources/svg/chinese_coin_silver.svg
   [200] legacy/util.js
-  [200] resources/png/factorio_mods/resin_icon.png
-  [200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css
+  [404] license
   [200] legacy/lang.js
-  [200] resources/svg/NkardazSeal.svg
+  [200] resources/svg/chinese_coin_silver.svg
   [200] legacy/modes.js
-  [200] https://cdn.jsdelivr.net/npm/overlayscrollbars/css/OverlayScrollbars.min.css
-  [200] https://www.googletagmanager.com/gtag/js?id=G-SJ669488HJ
+  [200] resources/png/factorio_mods/resin_icon.png
+  [200] https://code.jquery.com/ui/1.13.2/themes/dark-hive/jquery-ui.css
+  [200] resources/svg/NkardazSeal.svg
   [200] resource/images/cherepkhed32.png
   [200] resources/svg/icos/art.svg
   [200] resources/svg/icos/3d.svg
   [200] resources/svg/icos/book.svg
   [200] resources/svg/icos/github.svg
   [200] resources/svg/icos/mods.svg
+  [200] https://demernkardaz.github.io/MechaniCodeus/
   [200] resources/png/magic/lunna_03_fire_02.png
-  [200] https://jqueryui.com/favicon.ico
-  [200] resources/png/japan/chars/D_Hatagama_Musatada_Glyph_thumb.png
+  [200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css
   [200] https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg
   [200] resources/png/japan/kamon_of_deidara_clan.png
+  [200] https://code.jquery.com/ui/1.13.2/jquery-ui.min.js
+  [200] resources/png/japan/chars/D_Hatagama_Musatada_Glyph_thumb.png
   [200] resources/png/china/jiangu_full_bg_golden%20v2_thumb.png
-  [200] https://avatars.githubusercontent.com/u/70142?s=48&v=4
+  [200] https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
   [200] resources/png/magic/zodiac_wheel_thumb.png
   [200] resources/png/magic/shining_core_thumb.png
-  [200] https://avatars.githubusercontent.com/u/11524380?s=48&v=4
-  [200] https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg
+  [200] https://cdn.jsdelivr.net/npm/overlayscrollbars/css/OverlayScrollbars.min.css
+  [200] https://avatars.githubusercontent.com/u/70142?s=48&v=4
+  [200] https://github.com/jquery/jquery-ui
   [200] resources/png/japan/Map_of_Taira_Hashirama.png
+  [200] https://mods.factorio.com/mod/PLORD_Prometheus_GrenadeLauncher
   [200] resources/png/japan/sashimono_of_sakatori_clan.png
+  [200] https://github.com/twbs/bootstrap
+  [200] https://github.com/jquery/jquery
   [200] resources/png/japan/sashimono_of_matsudaira_clan_royal.png
+  [200] https://factorio.com/static/img/factorio-wheel.png
   [200] resources/png/japan/sashimono_of_arima_clan.png
   [200] resources/png/darksesses/general_ash_thumb.png
   [200] resources/png/ferrolyths/Corbodon_armor_thumb.png
-  [200] https://demernkardaz.github.io/MechaniCodeus/
+  [200] https://avatars.githubusercontent.com/u/11524380?s=48&v=4
   [200] resources/png/japan/cards_of_clans/Card_of_Matsudaira_thumb.png
   [200] resources/png/vietnam/banner_of_vietnam_empire.png
   [200] resources/png/astro/Getameda_Galaxy_Map_thumb.png
+  [200] https://jqueryui.com/favicon.ico
   [200] resources/png/3DBooks/Nakabashira_thumb.png
   [200] resources/png/3DBooks/Lorebook_Yamato_thumb.png
   [200] resources/png/3DBooks/Lorebook_Nindo_thumb.png
-  [200] https://github.com/twbs/bootstrap
   [200] resources/png/ferrolyths/AT12_thumb.png
   [200] resources/png/ferrolyths/AT12A7_thumb.png
-  [200] resources/png/ferrolyths/HT1_thumb.png
-  [200] resources/png/ferrolyths/Lasgun_rigel_thumb.png
-  [200] https://github.com/jquery/jquery-ui
-  [200] resources/png/ferrolyths/Lasraycaster_rigel_thumb.png
-  [200] https://img.shields.io/factorio-mod-portal/dt/PLORD?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
-  [200] resources/png/ferrolyths/Lacrimator_HMG_thumb.png
-  [200] https://mods.factorio.com/mod/PLORD_Prometheus_GrenadeLauncher
-  [200] resources/png/ferrolyths/Mascannon_rigel_thumb.png
-  [200] https://factorio.com/static/img/factorio-wheel.png
-  [200] https://img.shields.io/factorio-mod-portal/v/PLORD?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
-  [200] https://img.shields.io/factorio-mod-portal/dt/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
-  [200] resources/png/factorio_mods/16_tin_thumb.png
-  [200] https://img.shields.io/factorio-mod-portal/v/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
-  [200] resources/png/factorio_mods/Prometheus_tech_thumb.png
-  [200] https://github.com/jquery/jquery
-  [200] https://github.com/DemerNkardaz/Misc-Scripts
-  [200] resources/png/ferrolyths/Sch_stpz_thumb.png
   [200] https://mods.factorio.com/user/demernkardaz
-  [200] resources/png/ferrolyths/Lander_thumb.png
+  [200] resources/png/ferrolyths/HT1_thumb.png
+  [200] https://github.com/DemerNkardaz/Misc-Scripts
+  [200] https://img.shields.io/factorio-mod-portal/v/PLORD?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
+  [200] resources/png/ferrolyths/Lasgun_rigel_thumb.png
+  [200] https://img.shields.io/factorio-mod-portal/dt/PLORD?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
+  [200] https://img.shields.io/factorio-mod-portal/dt/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%F0%9F%A1%87%C2%A0%E2%80%8D
+  [200] resources/png/ferrolyths/Lasraycaster_rigel_thumb.png
+  [200] https://img.shields.io/factorio-mod-portal/v/PLORD_Prometheus_GrenadeLauncher?color=yellow&label=%E2%9C%AA%C2%A0%E2%80%8D
+  [200] resources/png/ferrolyths/Lacrimator_HMG_thumb.png
+  [200] resources/png/ferrolyths/Mascannon_rigel_thumb.png
+  [200] resources/png/factorio_mods/16_tin_thumb.png
+  [200] resources/png/ferrolyths/Sch_stpz_thumb.png
+  [200] resources/png/factorio_mods/Prometheus_tech_thumb.png
   [200] resources/png/Stone_1_thumb.png
+  [200] resources/png/ferrolyths/Lander_thumb.png
   [200] resources/png/Stone_2_thumb.png
   [200] resources/png/magic/elements_binary_reactions_ru_thumb.png
   [200] resources/png/astro/Shagor_during_year_thumb.png
   [200] resources/png/ferrolyths/Sonma_lascannon_sheet_thumb.png
   [200] resources/png/magic/AstralConnection_ru_thumb.png
-  [403] https://author.today/u/demer_nkardaz
   [200] resources/png/magic/MagatePeriodicTable_v4_thumb.png
-  [403] https://ficbook.net/authors/4241255
   [200] resources/png/2DBooks/Nakabashira_cover_thumb.png
   [200] resources/png/2DBooks/Nakabashira_Title_thumb.png
-  [200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js
-  [200] https://unpkg.com/react-dom@18/umd/react-dom.production.min.js
-  [200] https://unpkg.com/react@18/umd/react.production.min.js
-  [200] https://cdn.jsdelivr.net/npm/overlayscrollbars/js/OverlayScrollbars.min.js
   [200] resources/png/2DBooks/Nakabashira_Chapter_1_Edisode_1_Title_thumb.png
   [200] resources/png/2DBooks/Nakabashira_Chapter_1_Edisode_1_Pages_1_2_thumb.png
   [200] resources/png/2DBooks/Nakabashira_Chapter_1_Edisode_1_Pages_3_4_thumb.png
@@ -216,28 +210,23 @@
   [200] resources/png/misc_scripts_thumb.png
   [200] resources/png/factorio_mods/prometheus_thumb.png
   [200] resources/png/factorio_mods/plord_thumb.png
+  [200] https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js
   [200] https://demernkardaz.github.io/Nkardazolink/index_new
+  [200] https://unpkg.com/react@18/umd/react.production.min.js
+  [200] https://unpkg.com/react-dom@18/umd/react-dom.production.min.js
+  [200] https://cdn.jsdelivr.net/npm/overlayscrollbars/js/OverlayScrollbars.min.js
+  [403] https://ficbook.net/authors/4241255
+  [403] https://author.today/u/demer_nkardaz
   [403] https://www.artstation.com/demernkardaz
   [200] https://mc.yandex.ru/watch/96561174
-  [200] https://steamcommunity.com/profiles/76561198177249942
   [200] https://dtf.ru/u/266902-demer-nkardaz
+  [200] https://steamcommunity.com/profiles/76561198177249942
   [200] https://shikimori.one/%D0%94%D0%B5%D0%BC%D0%B5%D1%80+%D0%9D%D0%BA%D0%B0%D1%80%D0%B4%D0%B0%D0%B7
   [200] https://vk.com/public219642160
   [200] https://vk.com/club203543966
-ERROR: Detected 5 broken links. Scanned 111 links in 2.903 seconds.
+ERROR: Detected 5 broken links. Scanned 111 links in 2.284 seconds.
 # Линтинг
 ## HTML
-/home/runner/work/Nkardazolink/Nkardazolink/node_modules/@linthtml/linthtml/dist/messages.js:5
-const chalk_1 = tslib_1.__importDefault(require("chalk"));
-                                        ^
-
-Error [ERR_REQUIRE_ESM]: require() of ES Module /home/runner/work/Nkardazolink/Nkardazolink/node_modules/chalk/source/index.js from /home/runner/work/Nkardazolink/Nkardazolink/node_modules/@linthtml/linthtml/dist/messages.js not supported.
-Instead change the require of index.js in /home/runner/work/Nkardazolink/Nkardazolink/node_modules/@linthtml/linthtml/dist/messages.js to a dynamic import() which is available in all CommonJS modules.
-    at Object.<anonymous> (/home/runner/work/Nkardazolink/Nkardazolink/node_modules/@linthtml/linthtml/dist/messages.js:5:41) {
-  code: 'ERR_REQUIRE_ESM'
-}
-
-Node.js v20.13.1
 ## CSS
 
 app/index.css
