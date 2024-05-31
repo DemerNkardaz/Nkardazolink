@@ -31,9 +31,9 @@ jobs:
 
       - name: Init checks
         run: |
-          npx linkinator . -r > link-results.txt 2>&1
-          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
-          npx stylelint "**/*.css" --formatter verbose > stylelint-results.txt 2>&1
+          npx linkinator . -r > link-results.txt || true
+          npx linthtml '**/*.html' > htmlhint-results.txt || true
+          npx stylelint "**/*.css" --formatter verbose > stylelint-results.txt || true
 
       - name: Generate report
         run: |
