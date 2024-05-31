@@ -66,5 +66,6 @@ jobs:
         env:
           GITHUB_REPOSITORY: ${{ secrets.SUPER_SECRET }}
         run: |
+          git pull origin main --ff-only
           git commit -m "Add CI report"
           git push origin HEAD:${{ github.ref }}
