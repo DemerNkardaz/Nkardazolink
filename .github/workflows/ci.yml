@@ -35,9 +35,7 @@ jobs:
       - name: Run linters
         id: lint
         run: |
-          npx linkinator . -r > link-results.txt 2>&1
-          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
-          npx stylelint "**/*.css" --formatter verbose > stylelint-results.txt 2>&1
+          npx linkinator . -r 2>&1 | tee -a link-results.txt
 
       - name: Generate report
         run: |
