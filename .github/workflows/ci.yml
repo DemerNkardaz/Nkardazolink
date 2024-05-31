@@ -47,13 +47,6 @@ jobs:
             echo "Битых ссылок не найдено" >> report.md
           fi
 
-          echo "# Линтинг" >> report.md
-          echo "## HTML" >> report.md
-          cat htmlhint-results.txt >> report.md
-
-          echo "## CSS" >> report.md
-          cat stylelint-results.txt >> report.md
-
       - name: Check for changes
         run: |
           git config --global user.email "actions@github.com"
