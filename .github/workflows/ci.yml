@@ -31,13 +31,12 @@ jobs:
         run: npm install @linthtml/linthtml --save-dev
 
       - name: Init stylelint
-        run: echo 'y' | npm init stylelint
+        run: |
+          echo 'y' | npm init stylelint
+          npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results.txt 2>&1
 
       - name: Install linkinator
         run: npm install linkinator
-
-      - name: Lint css
-        run: npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results.txt 2>&1
 
       - name: Lint html
         run: npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
