@@ -7,7 +7,6 @@ on:
     paths-ignore:
       - "app/data/repository/repository-info.json"
       - "report.md"
-
 jobs:
   lint_check_links:
     runs-on: ubuntu-latest
