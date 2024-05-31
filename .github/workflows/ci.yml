@@ -36,16 +36,14 @@ jobs:
       - name: Install linkinator
         run: npm install linkinator
 
-      - name: Run linters
-        id: lint
-        run: |
-          npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results.txt 2>&1
-          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
+      - name: Lint css
+        run: npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results.txt 2>&1
+
+      - name: Lint html
+        run: npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
 
       - name: Check for broken links
-        id: links
-        run: |
-          npx linkinator . -r > link-results.txt 2>&1
+        run: npx linkinator . -r > link-results.txt 2>&1
 
       - name: Generate report
         run: |
