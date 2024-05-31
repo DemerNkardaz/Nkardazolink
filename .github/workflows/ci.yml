@@ -7,16 +7,13 @@ on:
     paths-ignore:
       - "app/data/repository/repository-info.json"
       - "report.md"
-  pull_request:
-    branches:
-      - main
 
 jobs:
   lint_check_links:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -65,9 +62,9 @@ jobs:
             exit 0
           fi
 
-      - name: Commit and push report
+      - name: Commit and push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.SUPER_SECRET }}
+          GITHUB_REPOSITORY: ${{ secrets.SUPER_SECRET }}
         run: |
           git commit -m "Add CI report"
           git push origin HEAD:${{ github.ref }}
