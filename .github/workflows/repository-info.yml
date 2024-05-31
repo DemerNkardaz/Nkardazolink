@@ -6,7 +6,7 @@ on:
       - main
     paths-ignore:
       - "app/data/repository/repository-info.json"
-      - "report.md"
+      - "report.txt"
 
 jobs:
   get-repository-info:

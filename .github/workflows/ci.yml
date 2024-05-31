@@ -6,7 +6,7 @@ on:
       - main
     paths-ignore:
       - "app/data/repository/repository-info.json"
-      - "report.md"
+      - "report.txt"
 
 jobs:
   lint_check_links:
@@ -41,21 +41,21 @@ jobs:
 
       - name: Generate report
         run: |
-          echo "# Ссылки" > report.md
-          cat link-results.txt >> report.md
+          echo "# Ссылки" > report.txt
+          cat link-results.txt >> report.txt
 
-          echo "# Линтинг" >> report.md
-          echo "## HTML" >> report.md
-          cat htmlhint-results.txt >> report.md
+          echo "# Линтинг" >> report.txt
+          echo "## HTML" >> report.txt
+          cat htmlhint-results.txt >> report.txt
 
-          echo "## CSS" >> report.md
-          cat stylelint-results.txt >> report.md
+          echo "## CSS" >> report.txt
+          cat stylelint-results.txt >> report.txt
 
       - name: Check for changes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add report.md
+          git add report.txt
           if git diff --cached --quiet; then
             echo "No changes detected, skipping commit and push."
             exit 0
