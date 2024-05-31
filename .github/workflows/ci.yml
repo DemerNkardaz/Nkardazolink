@@ -19,26 +19,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Install htmlhint
         run: |
-          npm install @linthtml/linthtml --save-dev
-          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
-
-      - name: Init stylelint
-        run: |
-          npm install --save-dev stylelint
-          echo 'y' | npm init stylelint
-          npx stylelint "**/*.css" --formatter verbose > stylelint-results.txt 2>&1
-
-      - name: Install linkinator
-        run: |
+          npm install
           npm install linkinator
+          npm install @linthtml/linthtml --save-dev
+          npm install stylelint --save-dev
+          echo 'y' | npm init stylelint
+
+      - name: Init checks
+        run: |
           npx linkinator . -r > link-results.txt 2>&1
+          npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
+          npx stylelint "**/*.css" --formatter verbose > stylelint-results.txt 2>&1
 
       - name: Generate report
         run: |
