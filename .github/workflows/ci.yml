@@ -36,13 +36,13 @@ jobs:
       - name: Run linters
         id: lint
         run: |
-          npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results-detail.txt 2>&1
+          npx stylelint "**/*.{css,scss}" --formatter verbose > stylelint-results.txt 2>&1
           npx linthtml '**/*.html' > htmlhint-results.txt 2>&1
 
       - name: Check for broken links
         id: links
         run: |
-          npx linkinator . -r --skip "data:,about:blank" > link-results.txt || true
+          npx linkinator . -r > link-results.txt 2>&1
 
       - name: Generate report
         run: |
@@ -59,7 +59,7 @@ jobs:
           cat htmlhint-results.txt >> report.md
 
           echo "## CSS" >> report.md
-          cat stylelint-results-detail.txt >> report.md
+          cat stylelint-results.txt.txt >> report.md
 
       - name: Check for changes
         run: |
