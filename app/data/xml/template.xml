@@ -13,16 +13,17 @@
     </title>
     <content>
       <div>
-      <ru>Шаблонный контент</ru>
-      <en>Template content</en>
-      {{ ?get>@[value="ru"] IN @.lang-optionOwner> }}
+        <ru>Шаблонный контент</ru>
+        <en>Template content</en>
+        {{ ?get>@[value="ru"] IN @.lang-optionOwner> }}
+        <![CDATA[< /{(日本:にほん)(皇室:こうしつ)(の?)(紋章:もんしょう)}[Герб императорской семьи Японии]/? />]]>
       </div>
     </content>
     <footer>
       <div>{{ ?get>authors> }} {{ ?get>date> }} 
-      <ru>Шаблонный футер</ru>
-      <en>Template footer</en>
-    </div>
+        <ru>Шаблонный футер</ru>
+        <en>Template footer</en>
+      </div>
     </footer>
   </article>
   <script>

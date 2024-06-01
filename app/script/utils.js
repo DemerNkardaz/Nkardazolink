@@ -214,15 +214,15 @@ String.prototype.diacritics = function () {
 
 function transcriptReplacement(text) {
   return text
-    .replace(/\<\s(.*?)\s\/\>/g, function (match, p1) {
-      p1 = p1
-        .replace(/\/(.*?)\/\?/g, function (match, sub) { return `<ruby class='ruby_bottom'>${sub}</ruby>`; })
-        .replace(/\{(.*?)\}/g, function (match, sub) { return `<ruby>${sub}</ruby>`; })
-        .replace(/\[(.*?)\]/g, function (match, sub) { return `<rt>${sub}</rt>`; })
-        .replace(/\″(.*?)\←(.*?)\″/g, function (match, sub1, sub2) { return `<ruby>${sub1}<rt>${sub2}</rt></ruby>`; })
-        .replace(/\((.*?)\:(.*?)\)/g, function (match, sub1, sub2) { return `${sub1}<rt>${sub2}</rt>`; });
-      return p1;
-    });
+    .replace(/\<\s(.*?)\s\/\>/g, (_, result) =>
+      result
+        .replace(/\/(.*?)\/\?/g, (_, sub) => `<ruby class='ruby_bottom'>${sub}</ruby>`)
+        .replace(/\{(.*?)\}/g, (_, sub) => `<ruby>${sub}</ruby>`)
+        .replace(/\[(.*?)\]/g, (_, sub) => `<rt>${sub}</rt>`)
+        .replace(/\″(.*?)\←(.*?)\″/g, (_, sub1, sub2) => `<ruby>${sub1}<rt>${sub2}</rt></ruby>`)
+        .replace(/\(([^:)]+):([^)]+)\)/g, (_, sub1, sub2) => `${sub1}<rt>${sub2}</rt>`)
+        .replace(/\((.*?)\?\)/g, (_, sub1) => `${sub1}<rt> </rt>`)
+    );
 }
 
 String.prototype.transcripts = function () {
@@ -302,15 +302,16 @@ String.prototype.evalStringCommands = function () {
   return evalStringCommands(this);
 }
 
-function XMLLanguageHandler(xmlText) { 
+function XMLAsStringHandler(xmlText) { 
   const otherLangsRegex = new RegExp(`<(${nk.langs.supported.filter(lang => lang !== nk.settingConfig.get('lang')).join('|')})>(.*?)<\/\\1>`, 'g');
   return xmlText
+    .replace(/<!\[CDATA\[(.*?)\]\]>/g, function (match, p1) { return p1; })
     .replace(otherLangsRegex, '')
     .replace(new RegExp(`<${nk.settingConfig.get('lang')}>(.*?)<\/${nk.settingConfig.get('lang')}>`, 'g'), function (match, p1) { return p1; })
     .split('\n').filter(line => line.trim() !== '');
 }
-String.prototype.XMLLanguageHandler = function () {
-  return XMLLanguageHandler(this);
+String.prototype.XMLAsStringHandler = function () {
+  return XMLAsStringHandler(this);
 }
 
 function textUnPacker(text) {

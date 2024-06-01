@@ -569,8 +569,8 @@ function unescapeXmlEntities(text) {
 
 function fetchArticleStructure(xmlUrl) {
   return new Promise((resolve, reject) => {
-    let xmlPages = JSON.parse(sessionStorage.getItem('xmlPages')) || {};
-/*
+/*    let xmlPages = JSON.parse(sessionStorage.getItem('xmlPages')) || {};
+
     if (xmlPages[xmlUrl]) {
       console.log('xmlPages[xmlUrl]', xmlPages[xmlUrl]);
       resolve(xmlPages[xmlUrl]);
@@ -580,7 +580,8 @@ function fetchArticleStructure(xmlUrl) {
       .then(response => response.text())
       .then(xmlText => {
         const parser = new DOMParser();
-        const decodedXMLDoc = unescapeXmlEntities(xmlText.XMLLanguageHandler().unpackText());
+        console.log('xmlText', xmlText);
+        const decodedXMLDoc = unescapeXmlEntities(xmlText.XMLAsStringHandler().unpackText());
         console.log('decodedXMLDoc', decodedXMLDoc);
         const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
 
