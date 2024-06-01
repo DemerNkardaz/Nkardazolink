@@ -52,8 +52,9 @@
         <div data-key="yamlSource" data-key-source="articles.template">
           <!--
             ? You can use .json or .yaml files instead of tags <ru><en> etc. for localise, use <package /> tag in <packages> for load data.
-              * ** source path must be from site root where located index.html.
+              * ** Source path must be from site root where located index.html (i.e starts with “app/”).
               * ** So, you can load non-localise data for script features if you want.
+              * ** Use the “data-key” for mark what key will return content to the tag and “data-key-source” for custom locale package.
           -->
         </div>
         <div data-key="yamlSource" data-key-source="articles.multi_language_yaml"></div>

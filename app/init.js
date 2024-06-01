@@ -161,15 +161,15 @@ window.generateManifest = generateManifest;
 
 let dataArray = [];
 let dataTimer;
-dataArray.push({ to: 'nk.locale',              source: 'app/data/locale/misc.json',              as: 'misc' });
+dataArray.push({ to: 'nk.locale',              source: 'app/data/locale/misc.yaml',              as: 'misc' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.templates.yaml', as: 'templates' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.common.yaml',    as: 'common' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ru.yaml',         as: 'ru' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.en.json',         as: 'en' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ja.json',         as: 'ja' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.zh.json',         as: 'zh' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ko.json',         as: 'ko' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.vi.json',         as: 'vi' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.en.yaml',         as: 'en' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ja.yaml',         as: 'ja' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.zh.yaml',         as: 'zh' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ko.yaml',         as: 'ko' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.vi.yaml',         as: 'vi' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.mo.yaml',         as: 'mo' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ro.yaml',         as: 'ro' });
 
