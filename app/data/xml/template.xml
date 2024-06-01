@@ -28,6 +28,11 @@
       * ** { } тело <ruby> для тегов <rt> и содержит (основной текст:текст rt) с результатом “основной текст<rt>текст rt</rt>” или (текст?) для “текст<rt></rt>”.
 -->
 <root>
+  <packages>
+    <package source="app/data/xml/template.ru.yaml" to="articles.template" as="ru" />
+    <package source="app/data/xml/template.en.yaml" to="articles.template" as="en" />
+    <package source="app/data/xml/template.multi.yaml" to="articles" as="multi_language_yaml" />
+  </packages>
   <meta>
     <date>2024-05-31T20:30:10Z</date>
     <authors>{{ Nkardaz.name }}</authors>
@@ -44,6 +49,13 @@
     </header>
     <main>
       <div>
+        <div data-key="yamlSource" data-key-source="articles.template">
+          <!--
+            ? You can use .json or .yaml files instead of tags <ru><en> etc. for localise, use <package /> tag in <packages> for load data.
+              * ** source path must be from site root where located index.html.
+              * ** So, you can load non-localise data for script features if you want.
+          -->
+        </div>
         <ru>Шаблонный контент</ru>
         <en>Template content</en>
         {{ ?get>@[value="ru"] IN @.lang-optionOwner> }}
@@ -66,7 +78,6 @@
     </footer>
   </article>
   <script>
-    console.log('TEMPLATE XML PAGE');
   </script>
   <style>
     [data-article-title="{{ ?get>h1 IN header> }}"] {
@@ -77,7 +88,7 @@
     }
   </style>
   <imports>
-    <link rel="stylesheet" href="template.css" />
-    <script src="template.js"></script>
+    <link rel="stylesheet" href="app/data/xml/template.css" />
+    <script src="app/data/xml/template.js"></script>
   </imports>
 </root>

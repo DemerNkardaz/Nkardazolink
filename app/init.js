@@ -190,4 +190,4 @@ nk.url.mode === 'license' && (
 ['kamon', 'banners'].includes(nk.url.mode) &&
   dataArray.push({ to: 'nk.items', source: `app/data/items/${nk.url.mode}.json`, as: `${nk.url.mode}` });
 
-DataExtend(dataArray, true, nk.timers.data).then((loadedData) => {});
+DataExtend(dataArray, true).then((loadedData) => {});

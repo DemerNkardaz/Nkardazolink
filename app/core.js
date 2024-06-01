@@ -7,7 +7,7 @@ nk.locale = {};
 nk.locale.languageJSON = {};
 nk.locale.licenseJSON = {};
 nk.items = {};
-nk.timers = { data: null };
+nk.timers = { data: null, xmlPage: null };
 REPO_STATUS().then(repoInfo => { window.repoStatus = repoInfo; });
 window.localHostIP = window.location.href.startsWith("http://localhost") || window.location.href.startsWith("http://127.0.0.1") || window.location.href.startsWith("http://192.168");
 
@@ -310,7 +310,7 @@ window.DataExtend = function (dataArray, isPromise) {
   }
 };
 */
-window.DataExtend = function (dataArray, isPromise) {
+window.DataExtend = function (dataArray, isPromise, trigger) {
   const loadJSON = (data) => {
     return new Promise((resolve, reject) => {
       const fileExtension = data.source.split('.').pop().toLowerCase();
@@ -368,10 +368,17 @@ window.DataExtend = function (dataArray, isPromise) {
       const promises = dataArray.map(data => loadJSON(data));
       Promise.all(promises)
         .then(() => {
-          clearTimeout(nk.timers.data);
-          nk.timers.data = setTimeout(function () {
-            $(document).trigger(`full_data_loaded`);
-          }, 75);
+          if (trigger !== false && typeof trigger !== 'string') {
+            clearTimeout(nk.timers.data);
+            nk.timers.data = setTimeout(function () {
+              $(document).trigger(`full_data_loaded`);
+            }, 75);
+          } else if (trigger === 'xmlPackages') {
+            clearTimeout(nk.timers.xmlPage);
+            nk.timers.xmlPage = setTimeout(function () {
+              $(document).trigger(`xmlPackages_loaded`);
+            }, 75);
+          }
           resolve();
         })
         .catch(error => reject(error));
@@ -630,41 +637,67 @@ function switchHTMLEntities(text, to) {
   else { ENTITIES.forEach(function (entity) { text = text.replace(new RegExp(entity[1], 'g'), entity[0]); }); }
   return text;
 }
+let latestXMLUrl = '';
 function fetchArticleStructure(xmlUrl) {
   return new Promise((resolve, reject) => {
-    fetch(xmlUrl)
-      .then(response => response.text())
-      .then(xmlText => {
-        const parser = new DOMParser();
-        const decodedXMLDoc = switchHTMLEntities(xmlText.XMLAsStringHandler().unpackText(), 'xml');
-        const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
-        const badges = tagParser(xmlDoc.querySelector('badges').textContent.toLowerCase().split(' '), 'badges');
-        const extension = tagParser(xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' '), 'extensions');
-        const styles = xmlDoc.querySelector('style').innerHTML;
-        const scripts = xmlDoc.querySelector('script').innerHTML;
-        const htmlDoc = parser.parseFromString(eval('`' + xmlDoc.documentElement.innerHTML + '`'), "text/html");
-        const article = $(htmlDoc.querySelector('article'));
+    if (!$(`[data-xmlurl="${xmlUrl}"]`).length) {
+      fetch(xmlUrl)
+        .then(response => response.text())
+        .then(xmlText => {
+          const parser = new DOMParser();
+          const decodedXMLDoc = switchHTMLEntities(xmlText.XMLAsStringHandler().unpackText(), 'xml');
+          const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
+          const badges = tagParser(xmlDoc.querySelector('badges').textContent.toLowerCase().split(' '), 'badges');
+          const extension = tagParser(xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' '), 'extensions');
+          const styles = xmlDoc.querySelector('style').innerHTML;
+          const scripts = xmlDoc.querySelector('script').innerHTML;
+          const htmlDoc = parser.parseFromString(eval('`' + xmlDoc.documentElement.innerHTML + '`'), "text/html");
+          const article = $(htmlDoc.querySelector('article'));
+          
+          function buildXMLPage(hasPackages) {
+            article.addClass('wiki-aricle').attr('data-XMLURL', xmlUrl).children('header').addClass('wiki-aricle__header');
+            badges && article.children('header').append(badges);
+            extension && article.children('main').prepend(extension);
+            article.children('header').after('<hr class="w-100 mt-1 mb-3">');
+            const styleElement = document.createElement('style');
+            const scriptElement = document.createElement('script');
+            const imports = $(xmlDoc.querySelector('imports')).html();
+            styleElement.innerHTML = styles;
+            scriptElement.innerHTML = scripts;
+            latestXMLUrl = xmlUrl;
+            waitFor(`[data-xmlurl="${latestXMLUrl}"]`, () => {
+              afterFetchArticleStructure([imports, scriptElement, styleElement]);
+              hasPackages && nk.locale.update();
+            });
+            resolve(article);
+          }
 
-        article.addClass('wiki-aricle').children('header').addClass('wiki-aricle__header');
-        badges && article.children('header').append(badges);
-        extension && article.children('main').prepend(extension);
-        article.children('header').after('<hr class="w-100 mt-1 mb-3">');
-        const styleElement = document.createElement('style');
-        const scriptElement = document.createElement('script');
-        const imports = $(xmlDoc.querySelector('imports')).html();
-        styleElement.innerHTML = styles;
-        scriptElement.innerHTML = scripts;
-        article.append(styleElement, scriptElement, imports && imports);
-
-        eval(scriptElement.innerHTML);
-        resolve(article);
-      })
-      .catch(error => reject(error));
+          if ($(xmlDoc.querySelector('packages')).length) {
+            const getPackages = xmlDoc.querySelector('packages');
+            let dataArray = [];
+            getPackages.querySelectorAll('package').forEach(packageElement => {
+              dataArray.push({ to: $(packageElement).attr('to'), source: $(packageElement).attr('source'), as: $(packageElement).attr('as') });
+            });
+            DataExtend(dataArray, true, 'xmlPackages').then(() => {
+              $(document).on('xmlPackages_loaded', function () { buildXMLPage(true); });
+            });
+          } else {
+            buildXMLPage();
+          }
+          
+        })
+        .catch(error => reject(error));
+    } else {
+      console.buildType(`[DATA_IN] → “${xmlUrl}” : already loaded`, 'warning');
+      resolve();
+    }
   });
 }
 window.fetchArticleStructure = fetchArticleStructure;
 
-
+function afterFetchArticleStructure(array) {
+  array.forEach(element => $(`[data-xmlurl="${latestXMLUrl}"]`).append(element));
+}
 
 
 

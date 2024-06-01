@@ -32,6 +32,7 @@ function iLang(keyMap, checking) {
   const keysArray = keyMap.get('key').parsePathDepth();
   const language = keyMap.get('mode') !== null ? keyMap.get('mode') : nk.settingConfig.get('lang');
   let sourceName = nk.locale[keyMap.get('source')];
+  if (sourceName === undefined || sourceName === null) sourceName = eval(`window${keyMap.get('source').parsePathDepth()}`);
   let found = false;
   let localisedString = jsonpath.query(sourceName, `$['${language}']${keysArray}`);
   (localisedString.length === 0) && (localisedString = jsonpath.query(sourceName, `$..${keysArray}`));
