@@ -3,13 +3,13 @@
   <article id="template-${Math.round(Math.random() * 1000)}" data-article-title="{{ ?get>h1 IN header> }}">
     <date>2024-05-31T20:30:10Z</date>
     <authors>{{ Nkardaz.name }}</authors>
+    <translators><rus>Георг</rus><eng>Johny Cage</eng><jap><![CDATA[< {(中島:Nakajima)} />　< {(苗里:Naesato)} />]]></jap></translators>
     <tags>
       <badges>ability entity</badges>
       <extensions>addon</extensions>
     </tags>
     <header>
-      <ru><h1>Шаблонный заголовок</h1></ru>
-      <en><h1>Template header</h1></en>
+      <h1><ru>Шаблонный заголовок</ru><en>Template header</en></h1>
     </header>
     <main>
       <div>
@@ -23,6 +23,14 @@
       <div>{{ ?get>authors> }} {{ ?get>date> }}
         <ru>Шаблонный футер</ru>
         <en>Template footer</en>
+      </div>
+      <div>
+        <ru>Переводчики:</ru>
+        <en>Translators:</en>
+        <br/>
+        {{ ?get>rus IN translators> }}<br/>
+        {{ ?get>eng IN translators> }}<br/>
+        {{ ?get>jap IN translators> }}
       </div>
     </footer>
   </article>
