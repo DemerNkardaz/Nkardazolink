@@ -1,4 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ? Site available languages: RU EN JA ZH KO VI.
+    ! Translators can't be in tags identical to language keys (function removes it for build translated article).
+    * The double-brackers “{{ cmd }}” used for string commands (spaces around “cmd” required):
+      * ** Command like {{ key }} returns the localisation key value.
+      * ** Command like {{ ?get>TAG> }} return html “TAG” content of current string or document. It can use css selectors with “@”:
+        * *** Examples: {{ ?get>div@.message-box }} will return content of <div class="message-box"></div> from document.
+      * ** Command like {{ ?get>TAG IN TAG }} works similar, but searching target tag in parent tag.
+    * < /{(kanji:hiragana)}[Bottom ruby]/? /> — another string command to build <ruby>:
+      * ** < /> the main body of command, must be in <![CDATA[ ]]>.
+      * ** / /? optional if you want place additional text in the bottom of ruby you need to place next code in / /?.
+        * *** [ ] is additional bottom text for / /? and must be placed before end, i.e. — /*[]/?.
+      * ** { } <ruby> body for <rt> tags and containts (main text:rt text) with result the “main text<rt>rt text</rt>” or (text?) for “text<rt></rt>”.
+-->
 <root>
   <article id="template-${Math.round(Math.random() * 1000)}" data-article-title="{{ ?get>h1 IN header> }}">
     <date>2024-05-31T20:30:10Z</date>
