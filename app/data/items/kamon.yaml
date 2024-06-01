@@ -7,179 +7,7 @@ root:
       - Нихонсимагуни
       - Nihonshimaguni
     items:
-      - entity_prop: ent_maru-ni-mitsu-aoi.clan_matsudaira
-        image: Mon_of_clan_Matsudaira
-        formats: 
-          low: _thumb.webp
-          med: .svg
-        names:
-          ru: Три листа мальвы
-          en: Three Leaves of Mallow
-          ja: 葵の三葉
-          zh: 葵的三叶
-          ko: 월리의 모리
-          vi: Tam la lá của Aoi
-        clan_names:
-          ru: Мацудайра
-          en: Matsudaira
-          ja: 松平
-          zh: 松平
-          ko: 상파리
-          vi: Matsudaira
-        status: 5
-        search_tags:
-          - *JapanTags
-          - Три листа мальвы в кругу
-          - Благородный дом
-          - Noble Family
-        descending:
-          - ent_kiku-no-gomon.tennou_lineage
-          - ent_sasarindou.clan_minamoto
-          - ent_maru-ni-mitsu-aoi.clan_matsudaira
-        kanji_first: 丸に三つ葵
-        kanji_second: 松平家の家紋、侍
-        transcript_first:
-          ru: < /{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Три листа мальвы в кругу]/? />
-          en: < /{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Three Leaves of Mallow]/? />
-          ja: < {(丸:まる)(に?)(三つ?)(葵:あおい)} />
-        transcript_second:
-          ru: < /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(?)(侍:Samurai)}[Фамильный герб рода самураев «Мацудайра»]/? />
-          en: < /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(?)(侍:Samurai)}[The crest of samurai clan “Matsudaira”]/? />
-          ja: < {(松平:まつだいら)(氏:し)(の?)(家紋:かもん)、(侍:さむらい)} />
-        description:
-          ru: Какой-то текст про герб рода Мацудайра
-          en: Some text about the clan Matsudaira
-          ja: 松平の家紋の説明
-
-      - entity_prop: ent_maru-ni-mitsu-aoi.clan_tokugawa
-        image: Mon_of_clan_Tokugawa
-        formats: 
-          low: _thumb.webp
-          med: .svg
-        names:
-          ru: 
-          en: 
-          ja: 
-          zh: 
-          ko: 
-          vi: 
-        clan_names:
-          ru: Токугава
-          en: Tokugawa
-          ja: 徳川
-          zh: 徳川
-          ko: 도쿠가와
-          vi: Tokugawa
-        status: 5
-        search_tags:
-          - *JapanTags
-          - Благородный дом
-          - Noble Family
-        descending:
-          - ent_kiku-no-gomon.tennou_lineage
-          - ent_sasarindou.clan_minamoto
-          - ent_maru-ni-mitsu-aoi.clan_matsudaira
-          - ent_maru-ni-mitsu-aoi.clan_tokugawa
-        kanji_first:
-        kanji_second:
-        transcript_first:
-          ru: 
-          en: 
-          ja: 
-        transcript_second:
-          ru: 
-          en: 
-          ja: 
-        description:
-          ru: 
-          en: 
-          ja: 
-
-      - entity_prop: ent_ageha-chou.clan_taira
-        image: Mon_of_clan_Taira
-        formats: 
-          low: _thumb.webp
-          med: .png
-        names:
-          ru: 
-          en: 
-          ja: 
-          zh: 
-          ko: 
-          vi: 
-        clan_names:
-          ru: Тайра
-          en: Taira
-          ja: 平
-          zh: 平
-          ko: 헤이케
-          vi: Taira
-        status: 5
-        search_tags:
-          - *JapanTags
-          - Благородный дом
-          - Noble Family
-        descending:
-          - ent_kiku-no-gomon.tennou_lineage
-          - ent_ageha-chou.clan_taira
-        kanji_first:
-        kanji_second:
-        transcript_first:
-          ru: 
-          en: 
-          ja: 
-        transcript_second:
-          ru: 
-          en: 
-          ja: 
-        description:
-          ru: 
-          en: 
-          ja: 
-
-      - entity_prop: ent_sasarindou.clan_minamoto
-        image: Mon_of_clan_Minamoto
-        formats: 
-          low: _thumb.webp
-          med: .png
-        names:
-          ru: 
-          en: 
-          ja: 
-          zh: 
-          ko: 
-          vi: 
-        clan_names:
-          ru: Минамото
-          en: Minamoto
-          ja: 源
-          zh: 源
-          ko: 미나모토
-          vi: Minamoto
-        status: 6
-        search_tags:
-          - *JapanTags
-          - Благородный дом
-          - Noble Family
-        descending:
-          - ent_kiku-no-gomon.tennou_lineage
-          - ent_sasarindou.clan_minamoto
-        kanji_first:
-        kanji_second:
-        transcript_first:
-          ru: 
-          en: 
-          ja: 
-        transcript_second:
-          ru: 
-          en: 
-          ja: 
-        description:
-          ru: 
-          en: 
-          ja: 
-
-      - entity_prop: ent_kiku-no-gomon.tennou_lineage
+      - entity_prop: &Tennou-lineage ent_kiku-no-gomon.tennou_lineage
         image: Mon_of_Emperor
         formats: 
           low: _thumb.webp
@@ -208,7 +36,275 @@ root:
           - Благородный дом
           - Noble Family
         descending:
-          - ent_kiku-no-gomon.tennou_lineage
+          - *Tennou-lineage
+        kanji_first:
+        kanji_second:
+        transcript_first:
+          ru: 
+          en: 
+          ja: 
+        transcript_second:
+          ru: 
+          en: 
+          ja: 
+        description:
+          ru: 
+          en: 
+          ja: 
+
+      - entity_prop: &Taira-clan ent_ageha-chou.clan_taira
+        image: Mon_of_clan_Taira
+        formats: 
+          low: _thumb.webp
+          med: .png
+        names:
+          ru: 
+          en: 
+          ja: 
+          zh: 
+          ko: 
+          vi: 
+        clan_names:
+          ru: Тайра
+          en: Taira
+          ja: 平
+          zh: 平
+          ko: 헤이케
+          vi: Taira
+        status: 5
+        search_tags:
+          - *JapanTags
+          - Благородный дом
+          - Noble Family
+        descending:
+          - *Tennou-lineage
+          - *Taira-clan
+        kanji_first:
+        kanji_second:
+        transcript_first:
+          ru: 
+          en: 
+          ja: 
+        transcript_second:
+          ru: 
+          en: 
+          ja: 
+        description:
+          ru: 
+          en: 
+          ja: 
+
+      - entity_prop: &Minamoto-clan ent_sasarindou.clan_minamoto
+        image: Mon_of_clan_Minamoto
+        formats: 
+          low: _thumb.webp
+          med: .png
+        names:
+          ru: 
+          en: 
+          ja: 
+          zh: 
+          ko: 
+          vi: 
+        clan_names:
+          ru: Минамото
+          en: Minamoto
+          ja: 源
+          zh: 源
+          ko: 미나모토
+          vi: Minamoto
+        status: 6
+        search_tags:
+          - *JapanTags
+          - Благородный дом
+          - Noble Family
+        descending:
+          - *Tennou-lineage
+          - *Minamoto-clan
+        kanji_first:
+        kanji_second:
+        transcript_first:
+          ru: 
+          en: 
+          ja: 
+        transcript_second:
+          ru: 
+          en: 
+          ja: 
+        description:
+          ru: 
+          en: 
+          ja: 
+
+      - entity_prop: &Matsudaira-clan ent_maru-ni-mitsu-aoi.clan_matsudaira
+        image: Mon_of_clan_Matsudaira
+        formats: 
+          low: _thumb.webp
+          med: .svg
+        names:
+          ru: Три листа мальвы
+          en: Three Leaves of Mallow
+          ja: 葵の三葉
+          zh: 葵的三叶
+          ko: 월리의 모리
+          vi: Tam la lá của Aoi
+        clan_names:
+          ru: Мацудайра
+          en: Matsudaira
+          ja: 松平
+          zh: 松平
+          ko: 상파리
+          vi: Matsudaira
+        status: 5
+        search_tags:
+          - *JapanTags
+          - Три листа мальвы в кругу
+          - Благородный дом
+          - Noble Family
+        descending:
+          - *Tennou-lineage
+          - *Minamoto-clan
+          - *Matsudaira-clan
+        kanji_first: 丸に三つ葵
+        kanji_second: 松平家の家紋、侍
+        transcript_first:
+          ru: < /{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Три листа мальвы в кругу]/? />
+          en: < /{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Three Leaves of Mallow]/? />
+          ja: < {(丸:まる)(に?)(三つ?)(葵:あおい)} />
+        transcript_second:
+          ru: < /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(?)(侍:Samurai)}[Фамильный герб рода самураев «Мацудайра»]/? />
+          en: < /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(?)(侍:Samurai)}[The crest of samurai clan “Matsudaira”]/? />
+          ja: < {(松平:まつだいら)(氏:し)(の?)(家紋:かもん)、(侍:さむらい)} />
+        description:
+          ru: Какой-то текст про герб рода Мацудайра
+          en: Some text about the clan Matsudaira
+          ja: 松平の家紋の説明
+
+      - entity_prop: &Tokugawa-clan ent_maru-ni-mitsu-aoi.clan_tokugawa
+        image: Mon_of_clan_Tokugawa
+        formats: 
+          low: _thumb.webp
+          med: .svg
+        names:
+          ru: 
+          en: 
+          ja: 
+          zh: 
+          ko: 
+          vi: 
+        clan_names:
+          ru: Токугава
+          en: Tokugawa
+          ja: 徳川
+          zh: 徳川
+          ko: 도쿠가와
+          vi: Tokugawa
+        status: 5
+        search_tags:
+          - *JapanTags
+          - Благородный дом
+          - Noble Family
+        descending:
+          - *Tennou-lineage
+          - *Minamoto-clan
+          - *Matsudaira-clan
+          - *Tokugawa-clan
+        kanji_first:
+        kanji_second:
+        transcript_first:
+          ru: 
+          en: 
+          ja: 
+        transcript_second:
+          ru: 
+          en: 
+          ja: 
+        description:
+          ru: 
+          en: 
+          ja: 
+
+      - entity_prop: &Takeda-clan ent_hishimon.clan_takeda
+        image: Mon_of_clan_Takeda
+        formats: 
+          low: _thumb.webp
+          med: .png
+        names:
+          ru: 
+          en: 
+          ja: 
+          zh: 
+          ko: 
+          vi: 
+        clan_names:
+          ru: Такэда
+          en: Takeda
+          ja: 武田
+          zh: 武田
+          ko: 다케다
+          vi: Takeda
+        status: 4
+        search_tags:
+          - *JapanTags
+          - Благородный дом
+          - Noble Family
+        descending:
+          - *Tennou-lineage
+          - *Minamoto-clan
+          - *Takeda-clan
+        kanji_first:
+        kanji_second:
+        transcript_first:
+          ru: 
+          en: 
+          ja: 
+        transcript_second:
+          ru: 
+          en: 
+          ja: 
+        description:
+          ru: 
+          en: 
+          ja: 
+
+
+  - category: ZH
+    img_folder: chinese/
+    defaultTags: &ChineseTags
+      - Китай
+      - China
+    items:
+      - entity_prop: &Linguang-clan ent_lin-mianju-yinzhang.clan_linguang
+        image: Linguang_Family_Crest
+        formats: 
+          low: _thumb.webp
+          med: .svg
+        names:
+          ru: Печать из лесной маски
+          en: Seal of Forest Mask
+          ja: 森お面の封印
+          zh: 林面具印章
+          ko: 월리의 모리
+          vi: 
+        clan_names:
+          ru: Линь Гуан
+          en: Lin Guang
+          ja: 林光
+          zh: 林光
+          ko: 다케다
+          vi: Lin Guang
+        status: 2
+        search_tags:
+          - *ChineseTags
+          - Западный Китай
+          - Western China
+          - Провинция Кань
+          - Kan Province
+          - Guang Jian Gu
+          - Гуан Цзянь Гу
+        descending:
+          - ent_.western_feng_dynasty
+          - *Linguang-clan
         kanji_first:
         kanji_second:
         transcript_first:

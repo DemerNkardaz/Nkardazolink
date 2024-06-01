@@ -191,7 +191,7 @@ function recursiveChildrenJSONPath(mapobject, targets, item, value) {
   }
 }
 
-
+let flattenArray = arr => arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flattenArray(val) : val), []);
 function filterDescendats(itemProps, value) {
   const correctedValue = value.replace('eg:>:', '').replace('*', '').trim().toLowerCase();
   itemProps.each(function () {
@@ -201,7 +201,7 @@ function filterDescendats(itemProps, value) {
     $.each(tagsSource.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (entity === item.entity_prop) {
-          const containsValue = item.search_tags.some(tag => tag.toLowerCase().includes(correctedValue)) || Object.values(item.clan_names).some(name => name.toLowerCase().includes(correctedValue));
+          const containsValue = flattenArray(item.search_tags).some(tag => tag.toLowerCase().includes(correctedValue)) || Object.values(item.clan_names).some(name => name.toLowerCase().includes(correctedValue));
           const isVisible = containsValue || $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') === 'true';
           $(`[data-entity="${item.entity_prop}"]`).attr({
             'data-gallery-visible': isVisible ? 'visible' : 'hidden',
@@ -260,9 +260,9 @@ function filterTags(itemProps, value) {
     $.each(tagsSource.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (entity === item.entity_prop) {
-          let visible = item.search_tags.some(tag => tag.toLowerCase().includes(value.toLowerCase())) ||
-                        Object.entries(item.names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
-                        Object.entries(item.clan_names).some(([key, name]) => name.toLowerCase().includes(value.toLowerCase())) ||
+          let visible = flattenArray(item.search_tags).some(tag => tag.toLowerCase().includes(value.toLowerCase())) ||
+                        Object.entries(item.names).some(([key, name]) => name && name.toLowerCase().includes(value.toLowerCase())) ||
+                        Object.entries(item.clan_names).some(([key, name]) => name && name.toLowerCase().includes(value.toLowerCase())) ||
                         item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||
                         item.image.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_'));
           $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-visible', visible ? 'visible' : 'hidden');
@@ -324,7 +324,7 @@ function openInventoryPanel(itemProp) {
         new nk.ui.InventoryInfoPanel({
           PANEL: {
             entity: path.entity_prop,
-            title: { text: path.names[language].unpackText(), key: 'names', clan: path.clan_names[language].unpackText(), clan_key: 'clan_names' },
+            title: { text: path.names[language] && path.names[language].unpackText(), key: 'names', clan: path.clan_names[language] && path.clan_names[language].unpackText(), clan_key: 'clan_names' },
             description: {
               text: path.description && path.description[language] ? path.description[language].unpackText() : 'No description',
               key: path.description && 'description'
@@ -332,7 +332,7 @@ function openInventoryPanel(itemProp) {
             CJK: {
               first_text: path.kanji_first ? path.kanji_first.unpackText() : null,
               second_text: path.kanji_second ? path.kanji_second.unpackText() : null,
-              transcript_first: path.transcript_first ? path.transcript_first[language].unpackText() : null,
+              transcript_first: path.transcript_first[language] ? path.transcript_first[language].unpackText() : null,
             },
             image: `${nk.items[propClass].default_img_path}${categoryPath.img_folder}${path.image}${path.extension ? path.extension : path.formats.med}`,
             prop_class: propClass, category: categoryPath.category, rarity: statuses[path.status],

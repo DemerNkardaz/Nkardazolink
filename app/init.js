@@ -188,7 +188,7 @@ nk.url.mode === 'license' && (
 );
 
 ['kamon', 'banners'].includes(nk.url.mode) &&
-  dataArray.push({ to: 'nk.items', source: `app/data/items/${nk.url.mode}.json`, as: `${nk.url.mode}` });
-  dataArray.push({ to: 'nk.items', source: `app/data/items/${nk.url.mode}.yaml`, as: `${nk.url.mode}_yaml` });
+  //dataArray.push({ to: 'nk.items', source: `app/data/items/${nk.url.mode}.json`, as: `${nk.url.mode}` });
+  dataArray.push({ to: 'nk.items', source: `app/data/items/${nk.url.mode}.yaml`, as: `${nk.url.mode}` });
 
 DataExtend(dataArray, true).then((loadedData) => {});
