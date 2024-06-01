@@ -1,10 +1,22 @@
 {
-    "name": "nkardazolink",
-    "version": "1.0.0",
-    "scripts": {
-        "get-repository-info": "node app/workflow/get-repository-info.js"
-    },
-    "dependencies": {
-        "axios": "^0.21.1"
-    }
+  "name": "nkardazolink",
+  "version": "1.0.0",
+  "scripts": {
+    "get-repository-info": "node app/workflow/get-repository-info.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "next": "14.2.3"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "postcss": "^8",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3"
+  }
 }
