@@ -1,7 +1,7 @@
 Nkardaz:
   name: &Nkardaz Демер Нкардаз
   fursona: Хертахирон — Оригинальный Персонаж (Персона)
-  copyright: &Copy "&copy;&nbsp;{{ Nkardaz.name }},&nbsp;{{ ?copy }}&ensp;|&ensp;"
+  copyright: &Copy ["&copy;&nbsp;", *Nkardaz, ",&nbsp;{{ ?copy }}&ensp;|&ensp;"]
 
 Languages:
   template: Язык «$(place_0)»<br>$(place_1)
@@ -34,7 +34,8 @@ prevtest:
     content: |
       {{ ?tooltip-h1: Клан Мацудайра ^ resources/svg/japan/Mon_of_clan_Matsudaira@32px.png }}
       <p>Древний клан на Нихонсёто(⁛macron⁛){{ ?tooltip-quest: NihonshotoDesc^top-start^meta-nihon_0 }}, ведущий свою родословную к роду Минамото и к древним тэнно(⁛macron⁛).</p>
-    subscript: Клановые летописи Киото
+    title: &Мацудайра Мацудайра
+    subscript:  [*Мацудайра, ・Клановые летописи Киото]
 
 NihonshotoDesc: Восточный архипелаг Восходящего Солнца, родина Ямато
 Tess: |

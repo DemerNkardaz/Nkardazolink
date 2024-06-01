@@ -162,29 +162,29 @@ window.generateManifest = generateManifest;
 let dataArray = [];
 let dataTimer;
 dataArray.push({ to: 'nk.locale',              source: 'app/data/locale/misc.json',              as: 'misc' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.templates.json', as: 'templates' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.common.json',    as: 'common' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.templates.yaml', as: 'templates' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.common.yaml',    as: 'common' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ru.yaml',         as: 'ru' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.en.json',         as: 'en' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ja.json',         as: 'ja' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.zh.json',         as: 'zh' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ko.json',         as: 'ko' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.vi.json',         as: 'vi' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.mo.json',         as: 'mo' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ro.json',         as: 'ro' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.mo.yaml',         as: 'mo' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ro.yaml',         as: 'ro' });
 
 (nk.url.mode === 'tree' || nk.url.mode === null) &&
   dataArray.push({ to: 'nk.items', source: 'app/data/items/links.json', as: 'links' });
 
 nk.url.mode === 'license' && (
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ru.json', as: 'ru' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.en.json', as: 'en' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ja.json', as: 'ja' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.zh.json', as: 'zh' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ko.json', as: 'ko' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.vi.json', as: 'vi' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.mo.json', as: 'mo' }),
-  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ro.json', as: 'ro' })
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ru.yaml', as: 'ru' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.en.yaml', as: 'en' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ja.yaml', as: 'ja' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.zh.yaml', as: 'zh' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ko.yaml', as: 'ko' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.vi.yaml', as: 'vi' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.mo.yaml', as: 'mo' }),
+  dataArray.push({ to: 'nk.locale.licenseJSON', source: 'app/data/locale/common/license.ro.yaml', as: 'ro' })
 );
 
 ['kamon', 'banners'].includes(nk.url.mode) &&

@@ -40,7 +40,7 @@ String.prototype.stripHTML = function() {
 
 function unpackArrayToStrings(text) {
 	if (Array.isArray(text)) {
-		return text.join('\n');
+		return text.join('');
 	} else {
 		return text;
 	}
