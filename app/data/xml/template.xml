@@ -1,20 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     ? Site available languages: RU EN JA ZH KO VI.
-    ! Translators can't be in tags identical to language keys (function removes it for build translated article).
-    * The double-brackers “{{ cmd }}” used for string commands (spaces around “cmd” required):
-      * ** Command like {{ key }} returns the localisation key value.
-      * ** Command like {{ ?get>TAG> }} return html “TAG” content of current string or document. It can use css selectors with “@”:
-        * *** Examples: {{ ?get>div@.message-box }} will return content of <div class="message-box"></div> from document.
-      * ** Command like {{ ?get>TAG IN TAG }} works similar, but searching target tag in parent tag.
+    ! Translators cannot be in tags identical to language keys (the function removes them for building the translated article).
+    * The double-brackets “{{ cmd }}” are used for string commands (spaces around “cmd” are required):
+      * ** A command like {{ key }} returns the localization key value.
+      * ** A command like {{ ?get>TAG> }} returns the HTML content of the “TAG” from the current string or document. It can use CSS selectors with “@”:
+        * *** Examples: {{ ?get>div@.message-box }} will return the content of <div class="message-box"></div> from the document.
+      * ** A command like {{ ?get>TAG IN TAG }} works similarly, but searches for the target tag within the parent tag.
     * < /{(kanji:hiragana)}[Bottom ruby]/? /> — another string command to build <ruby>:
-      * ** < /> the main body of command, must be in <![CDATA[ ]]>.
-      * ** / /? optional if you want place additional text in the bottom of ruby you need to place next code in / /?.
-        * *** [ ] is additional bottom text for / /? and must be placed before end, i.e. — /*[]/?.
-      * ** { } <ruby> body for <rt> tags and containts (main text:rt text) with result the “main text<rt>rt text</rt>” or (text?) for “text<rt></rt>”.
+      * ** < /> the main body of the command, must be in <![CDATA[ ]]>.
+      * ** / /? optional: if you want to place additional text at the bottom of the <ruby>, you need to place the next code in / /?.
+        * *** [ ] is additional bottom text for / /? and must be placed before the end, i.e. — /*[]/?.
+      * ** { } <ruby> body for <rt> tags and contains (main text:rt text) with the result of “main text<rt>rt text</rt>” or (text?) for “text<rt></rt>”.
+-->
+<!--
+    ? Доступные языки сайта: RU EN JA ZH KO VI.
+    ! «Translators» не могут находиться в тегах, идентичных ключам языков (функция удаляет их для построения переведённой статьи).
+    * Двойные скобки “{{ cmd }}” используются для строковых команд (вокруг “cmd” необходимы пробелы):
+      * ** Команда вида {{ key }} возвращает значение ключа локализации.
+      * ** Команда вида {{ ?get>TAG> }} возвращает HTML-контент тега “TAG” из текущей строки или документа. Она может использовать селекторы CSS с “@”:
+        * *** Примеры: {{ ?get>div@.message-box }} вернет содержимое <div class="message-box"></div> из документа.
+      * ** Команда вида {{ ?get>TAG IN TAG }} работает аналогично, но ищет целевой тег внутри родительского тега.
+    * < /{(kanji:hiragana)}[Нижний ruby-текст]/? /> — другая строковая команда для построения <ruby>:
+      * ** < /> основное тело команды, должно находиться в <![CDATA[ ]]>.
+      * ** / /? опционально: если вы хотите разместить дополнительный текст в нижней части <ruby>, вам нужно разместить следующий код в / /?.
+        * *** [ ] дополнительный текст для / /? и должен быть размещен перед окончанием, то есть — /*[]/?.
+      * ** { } тело <ruby> для тегов <rt> и содержит (основной текст:текст rt) с результатом “основной текст<rt>текст rt</rt>” или (текст?) для “текст<rt></rt>”.
 -->
 <root>
-  <article id="template-${Math.round(Math.random() * 1000)}" data-article-title="{{ ?get>h1 IN header> }}">
+  <meta>
     <date>2024-05-31T20:30:10Z</date>
     <authors>{{ Nkardaz.name }}</authors>
     <translators><rus>Георг</rus><eng>Johny Cage</eng><jap><![CDATA[< {(中島:Nakajima)} />　< {(苗里:Naesato)} />]]></jap></translators>
@@ -22,6 +36,9 @@
       <badges>ability entity</badges>
       <extensions>addon</extensions>
     </tags>
+  </meta>
+
+  <article id="template-${Math.round(Math.random() * 1000)}" data-article-title="{{ ?get>h1 IN header> }}">
     <header>
       <h1><ru>Шаблонный заголовок</ru><en>Template header</en></h1>
     </header>

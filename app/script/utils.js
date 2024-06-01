@@ -305,6 +305,7 @@ String.prototype.evalStringCommands = function () {
 function XMLAsStringHandler(xmlText) { 
   const otherLangsRegex = new RegExp(`<(${nk.langs.supported.filter(lang => lang !== nk.settingConfig.get('lang')).join('|')})>(.*?)<\/\\1>`, 'g');
   return xmlText
+    .replace(/<!--[\s\S]*?-->\s*(?=<root>)/g, '')
     .replace(/<!\[CDATA\[(.*?)\]\]>/g, function (match, p1) { return p1; })
     .replace(otherLangsRegex, '')
     .replace(new RegExp(`<${nk.settingConfig.get('lang')}>(.*?)<\/${nk.settingConfig.get('lang')}>`, 'g'), function (match, p1) { return p1; })

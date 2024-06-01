@@ -565,7 +565,6 @@ function fetchArticleStructure(xmlUrl) {
         const extension = tagParser(xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' '), 'extensions');
         const htmlDoc = parser.parseFromString(eval('`' + xmlDoc.documentElement.innerHTML + '`'), "text/html");
         const article = $(htmlDoc.querySelector('article'));
-        article.children(':not(header, main, footer)').remove();
 
         article.addClass('wiki-aricle').children('header').addClass('wiki-aricle__header');
         badges && article.children('header').append(badges);
