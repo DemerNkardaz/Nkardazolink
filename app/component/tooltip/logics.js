@@ -227,19 +227,19 @@ nk.initTooltips = function () {
 
     if (role !== undefined && role === 'preview') {
       let previewParams = {};
-      if (nk.locale.get(`check:${key}.preview.image.src`) !== undefined) {
+      if (nk.locale.check(`${key}.preview.image.src`) !== undefined) {
         previewParams.image = { src: nk.locale.get(`${key}.preview.image.src`) };
         previewParams.image.key = `${key}.preview.image.src`
       }
-      nk.locale.get(`check:${key}.preview.image.shift`) !== undefined ? (previewParams.image.shift = nk.locale.get(`${key}.preview.image.shift`)) : null;
-      nk.locale.get(`check:${key}.preview.image.blur`) !== undefined ? (previewParams.image.blur = nk.locale.get(`${key}.preview.image.blur`)) : null;
-      nk.locale.get(`check:${key}.preview.image.opacity`) !== undefined ? (previewParams.image.opacity = nk.locale.get(`${key}.preview.image.opacity`)) : null;
-      nk.locale.get(`check:${key}.preview.image.h`) !== undefined ? (previewParams.image.h = nk.locale.get(`${key}.preview.image.h`)) : null;
-      nk.locale.get(`check:${key}.preview.content`) !== undefined ? (previewParams.content = {
+      nk.locale.check(`${key}.preview.image.shift`) ? (previewParams.image.shift = nk.locale.get(`${key}.preview.image.shift`)) : null;
+      nk.locale.check(`${key}.preview.image.blur`) ? (previewParams.image.blur = nk.locale.get(`${key}.preview.image.blur`)) : null;
+      nk.locale.check(`${key}.preview.image.opacity`) ? (previewParams.image.opacity = nk.locale.get(`${key}.preview.image.opacity`)) : null;
+      nk.locale.check(`${key}.preview.image.h`) ? (previewParams.image.h = nk.locale.get(`${key}.preview.image.h`)) : null;
+      nk.locale.check(`${key}.preview.content`) ? (previewParams.content = {
         text: nk.locale.get(`${key}.preview.content`),
         key: `${key}.preview.content`
       }) : null;
-      nk.locale.get(`check:${key}.preview.subscript`) !== undefined ? (previewParams.subscript = {
+      nk.locale.check(`${key}.preview.subscript`) ? (previewParams.subscript = {
         text: nk.locale.get(`${key}.preview.subscript`),
         key: `${key}.preview.subscript`
       }) : null;

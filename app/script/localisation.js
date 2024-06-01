@@ -131,7 +131,6 @@ window.nk.locale = {
     } else {
       return console.error('[LOCALE] → Wrong type of key');
     }
-
     result = iLang(keyMap, true);
     return result;
   }

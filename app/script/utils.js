@@ -319,6 +319,10 @@ function textUnPacker(text) {
   let unpacked = text.unpackArray().evalStringCommands().ideoSpaceToCJKV().defReplace().transcripts().diacritics().replaceSocials().replaceSearching();
 	return unpacked;
 }
+
+Number.prototype.unpackText = function () {
+  return textUnPacker(this.toString());
+}
 String.prototype.unpackText = function () {
   return textUnPacker(this);
 }
