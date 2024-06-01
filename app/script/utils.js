@@ -245,26 +245,26 @@ function evalStringCommands(text) {
     .replace(/\{{\s\?get\>(.*?)\sIN\s(.*?)\>\s}}/g, function (match, tag, parentTag) {
       const [tagProp, cssSelectors] = tag.includes('@') ? tag.split('@') : [tag, '']
       const [parentProp, parentCssSelectors] = parentTag.includes('@') ? parentTag.split('@') : [parentTag, '']
-      const parentPairs = new RegExp(`<${parentProp}>(.*?)</${parentProp}>`);
+      const parentPairs = new RegExp(`<${parentProp}>([\\s\\S]*?)</${parentProp}>`)
       const parentMatch = text.match(parentPairs);
+      let found = false;
 
       if (parentMatch && parentMatch[1] && parentCssSelectors === '') {
-        const tagPairs = new RegExp(`<${tagProp}>(.*?)</${tagProp}>`);
-        const tagMatch = parentMatch[1].match(tagPairs);
-        if (tagMatch && tagMatch[1] && cssSelectors === '') { return tagMatch[1]; }
-      }
-
-      if ($(`${parentProp}${parentCssSelectors}`).find(`${tagProp}${cssSelectors}`).length > 0) {
+        const pairs = new RegExp(`<${tagProp}>([\\s\\S]*?)</${tagProp}>`);
+        const tagMatch = parentMatch[1].match(pairs);
+        if (tagMatch && tagMatch[1] && cssSelectors === '') { found = true; return tagMatch[1]; }
+      } else if (!found && $(`${parentProp}${parentCssSelectors}`).find(`${tagProp}${cssSelectors}`).length > 0) {
         return $(`${parentProp}${parentCssSelectors}`).find(`${tagProp}${cssSelectors}`).html();
       }
       return match;
     })
     .replace(/\{{\s\?get\>(.*?)\>\s}}/g, function (match, tag) {
       const [tagProp, cssSelectors] = tag.includes('@') ? tag.split('@') : [tag, '']
-      const pairs = new RegExp(`<${tagProp}>(.*?)</${tagProp}>`);
+      const pairs = new RegExp(`<${tagProp}>([\\s\\S]*?)</${tagProp}>`);
       const tagMatch = text.match(pairs);
-      if (tagMatch && tagMatch[1] && cssSelectors === '') { return tagMatch[1]; }
-      if ($(`${tagProp}${cssSelectors}`).length > 0) { return $(`${tagProp}${cssSelectors}`).html(); }
+      let found = false;
+      if (tagMatch && tagMatch[1] && cssSelectors === '') { found = true; return tagMatch[1]; }
+      else if (!found && $(`${tagProp}${cssSelectors}`).length > 0) { return $(`${tagProp}${cssSelectors}`).html(); }
       return match;
     })
     .replace(/\{{ \?skin-title }}/g, function (match) {

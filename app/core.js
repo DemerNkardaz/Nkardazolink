@@ -563,15 +563,15 @@ function fetchArticleStructure(xmlUrl) {
         const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
         const badges = tagParser(xmlDoc.querySelector('badges').textContent.toLowerCase().split(' '), 'badges');
         const extension = tagParser(xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' '), 'extensions');
-        const article = $(xmlDoc.querySelector('article'));
+        const htmlDoc = parser.parseFromString(eval('`' + xmlDoc.documentElement.innerHTML + '`'), "text/html");
+        const article = $(htmlDoc.querySelector('article'));
+        article.children(':not(header, main, footer)').remove();
 
         article.addClass('wiki-aricle').children('header').addClass('wiki-aricle__header');
         badges && article.children('header').append(badges);
         extension && article.children('main').prepend(extension);
-        article.children(':not(header, main, footer)').remove();
-        article.children('header').after('<hr class="w-100 mt-1 mb-3"/>');
-        const rootContent = eval('`' + xmlDoc.documentElement.innerHTML + '`');
-        resolve(rootContent);
+        article.children('header').after('<hr class="w-100 mt-1 mb-3">');
+        resolve(article);
       })
       .catch(error => reject(error));
   });

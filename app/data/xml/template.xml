@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <article id="template-${Math.round(Math.random() * 1000)}">
+  <article id="template-${Math.round(Math.random() * 1000)}" data-article-title="{{ ?get>h1 IN header> }}">
     <date>2024-05-31T20:30:10Z</date>
     <authors>{{ Nkardaz.name }}</authors>
     <tags>
@@ -20,7 +20,7 @@
       </div>
     </main>
     <footer>
-      <div>{{ ?get>authors> }} {{ ?get>date> }} 
+      <div>{{ ?get>authors> }} {{ ?get>date> }}
         <ru>Шаблонный футер</ru>
         <en>Template footer</en>
       </div>
