@@ -251,7 +251,7 @@ window.observeOn = function (type, element, callback, timeout, context) {
   observer.observe(element, { attributes: true });
 }
 
-
+/*
 window.DataExtend = function (dataArray, isPromise) {
   const loadJSON = (data) => {
     return new Promise((resolve, reject) => {
@@ -284,6 +284,83 @@ window.DataExtend = function (dataArray, isPromise) {
           reject(error);
         });
     });
+  };
+
+  if (isPromise) {
+    return new Promise((resolve, reject) => {
+      const promises = dataArray.map(data => loadJSON(data));
+      Promise.all(promises)
+        .then(() => {
+          clearTimeout(nk.timers.data);
+          nk.timers.data = setTimeout(function () {
+            $(document).trigger(`full_data_loaded`);
+          }, 75);
+          resolve();
+        })
+        .catch(error => reject(error));
+    });
+  } else {
+    if (typeof dataArray === 'object' && !Array.isArray(dataArray)) {
+      loadJSON(dataArray).catch(error => console.error(error));
+    } else {
+      dataArray.forEach(function (data) {
+        loadJSON(data).catch(error => console.error(error));
+      });
+    }
+  }
+};
+*/
+window.DataExtend = function (dataArray, isPromise) {
+  const loadJSON = (data) => {
+    return new Promise((resolve, reject) => {
+      const fileExtension = data.source.split('.').pop().toLowerCase();
+      if (fileExtension === 'json') {
+        $.getJSON(data.source)
+          .done(function (json, status, xhr) {
+            processResult(json, data);
+            resolve();
+          })
+          .fail(function (jqxhr, textStatus, error) {
+            console.buildType(`[DATA_IN] → “${data.as}” : failed to load with “${data.source}” : ${error}`, 'error');
+            reject(error);
+          });
+      } else if (fileExtension === 'yaml') {
+        $.ajax({
+          url: data.source,
+          success: function (yamlData) {
+            const jsonData = jsyaml.load(yamlData);
+            processResult(jsonData, data);
+            resolve();
+          },
+          error: function (jqxhr, textStatus, error) {
+            console.buildType(`[DATA_IN] → “${data.as}” : failed to load with “${data.source}” : ${error}`, 'error');
+            reject(error);
+          }
+        });
+      } else {
+        reject(new Error(`Unsupported file extension: ${fileExtension}`));
+      }
+    });
+  };
+
+  const processResult = (result, data) => {
+    if (typeof data.as !== 'undefined') {
+      if (typeof data.to !== 'undefined') {
+        const nestedProperties = data.to.split('.');
+        let nestingWindow = window;
+        for (const property of nestedProperties) {
+          if (!nestingWindow[property]) {
+            nestingWindow[property] = {};
+          }
+          nestingWindow = nestingWindow[property];
+        }
+        nestingWindow[data.as] = result;
+      } else {
+        window[data.as] = result;
+      }
+    }
+    $(document).trigger(`${data.as}_loaded`);
+    console.buildType(`[DATA_IN] → “${data.as}” : loaded with “${data.source}”${data.to ? ` : → “${data.to}”` : ''}`, 'success');
   };
 
   if (isPromise) {

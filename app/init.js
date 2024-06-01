@@ -164,7 +164,7 @@ let dataTimer;
 dataArray.push({ to: 'nk.locale',              source: 'app/data/locale/misc.json',              as: 'misc' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.templates.json', as: 'templates' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/asset.common.json',    as: 'common' });
-dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ru.json',         as: 'ru' });
+dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ru.yaml',         as: 'ru' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.en.json',         as: 'en' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.ja.json',         as: 'ja' });
 dataArray.push({ to: 'nk.locale.languageJSON', source: 'app/data/locale/common/main.zh.json',         as: 'zh' });
