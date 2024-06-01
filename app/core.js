@@ -563,6 +563,8 @@ function fetchArticleStructure(xmlUrl) {
         const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
         const badges = tagParser(xmlDoc.querySelector('badges').textContent.toLowerCase().split(' '), 'badges');
         const extension = tagParser(xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' '), 'extensions');
+        const styles = xmlDoc.querySelector('style').innerHTML;
+        const scripts = xmlDoc.querySelector('script').innerHTML;
         const htmlDoc = parser.parseFromString(eval('`' + xmlDoc.documentElement.innerHTML + '`'), "text/html");
         const article = $(htmlDoc.querySelector('article'));
 
@@ -570,6 +572,14 @@ function fetchArticleStructure(xmlUrl) {
         badges && article.children('header').append(badges);
         extension && article.children('main').prepend(extension);
         article.children('header').after('<hr class="w-100 mt-1 mb-3">');
+        const styleElement = document.createElement('style');
+        const scriptElement = document.createElement('script');
+        const imports = $(xmlDoc.querySelector('imports')).html();
+        styleElement.innerHTML = styles;
+        scriptElement.innerHTML = scripts;
+        article.append(styleElement, scriptElement, imports && imports);
+
+        eval(scriptElement.innerHTML);
         resolve(article);
       })
       .catch(error => reject(error));

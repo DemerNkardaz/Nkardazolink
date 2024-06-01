@@ -66,9 +66,18 @@
     </footer>
   </article>
   <script>
-
+    console.log('TEMPLATE XML PAGE');
   </script>
   <style>
-
+    [data-article-title="{{ ?get>h1 IN header> }}"] {
+      background: var(--bg_gr_efToff_80);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 3px 5px var(--shadow_22a64);
+    }
   </style>
+  <imports>
+    <link rel="stylesheet" href="template.css" />
+    <script src="template.js"></script>
+  </imports>
 </root>
