@@ -191,7 +191,7 @@ function recursiveChildrenJSONPath(mapobject, targets, item, value) {
   }
 }
 
-let flattenArray = arr => arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flattenArray(val) : val), []);
+
 function filterDescendats(itemProps, value) {
   const correctedValue = value.replace('eg:>:', '').replace('*', '').trim().toLowerCase();
   itemProps.each(function () {
@@ -201,7 +201,7 @@ function filterDescendats(itemProps, value) {
     $.each(tagsSource.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (entity === item.entity_prop) {
-          const containsValue = flattenArray(item.search_tags).some(tag => tag.toLowerCase().includes(correctedValue)) || Object.values(item.clan_names).some(name => name.toLowerCase().includes(correctedValue));
+          const containsValue = item.search_tags.toFlatArray().some(tag => tag.toLowerCase().includes(correctedValue)) || Object.values(item.clan_names).some(name => name.toLowerCase().includes(correctedValue));
           const isVisible = containsValue || $(`[data-entity="${item.entity_prop}"]`).attr('data-gallery-nested') === 'true';
           $(`[data-entity="${item.entity_prop}"]`).attr({
             'data-gallery-visible': isVisible ? 'visible' : 'hidden',
@@ -260,7 +260,7 @@ function filterTags(itemProps, value) {
     $.each(tagsSource.root, function (_, category) {
       $.each(category.items, function (_, item) {
         if (entity === item.entity_prop) {
-          let visible = flattenArray(item.search_tags).some(tag => tag.toLowerCase().includes(value.toLowerCase())) ||
+          let visible = item.search_tags.toFlatArray().some(tag => tag.toLowerCase().includes(value.toLowerCase())) ||
                         Object.entries(item.names).some(([key, name]) => name && name.toLowerCase().includes(value.toLowerCase())) ||
                         Object.entries(item.clan_names).some(([key, name]) => name && name.toLowerCase().includes(value.toLowerCase())) ||
                         item.entity_prop.toLowerCase().includes(value.toLowerCase().replace(/\s/g, '_')) ||

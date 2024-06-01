@@ -25,6 +25,9 @@ String.prototype.parsePathDepth = function () {
   return parsePathDepth(this);
 }
 
+const flattenArray = arr => arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flattenArray(val) : val), []);
+Array.prototype.toFlatArray = function () { return flattenArray(this); };
+
 window.isMobileDevice = function () {
   let chk = false;
   const isMobile = /Android|MIUI|Galaxy|Xiaomi|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile/i.test(navigator.userAgent);
