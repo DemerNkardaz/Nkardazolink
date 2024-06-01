@@ -1,4 +1,5 @@
 import { REPO_STATUS } from './data/repository/status.js';
+import { ENTITIES } from './data/dtd/entities.js';
 window.nk = {};
 nk.ui = {};
 nk.skins = {};
@@ -537,7 +538,7 @@ function tagParser(tagsArray, type, addText) {
       let contentText = addText && nk.locale.check(addText) ? nk.locale.get(addText) : (addText ? addText : nk.locale.get(tagInfo.localeKey));
       let dataKey = addText && nk.locale.check(addText) ? ` data-key="${addText}"` : (addText ? '' : ` data-key="${tagInfo.localeKey}"`);
       if (type === 'badges') {
-        result += `<span class="badge badge--${tagInfo.badgeColor}"${dataKey}">${contentText}</span>`;
+        result += `<span class="badge badge--${tagInfo.badgeColor}"${dataKey}>${contentText}</span>`;
       } else if (type === 'extensions') {
         result += `<p class="badge"${dataKey}>${contentText}</p>`;
       }
@@ -547,88 +548,30 @@ function tagParser(tagsArray, type, addText) {
 }
 window.tagParser = tagParser;
 
-function escapeXmlEntities(text) {
-  return text.replace(/[\u00A0\u2002\u2003]/g, function(char) {
-    return {
-      '\u00A0': '&nbsp;',
-      '\u2002': '&ensp;',
-      '\u2003': '&emsp;' 
-    }[char];
-  });
+function switchHTMLEntities(text, to) {
+  if (to === 'xml') { ENTITIES.forEach(function (entity) { text = text.replace(new RegExp(entity[0], 'g'), entity[1]); }); }
+  else { ENTITIES.forEach(function (entity) { text = text.replace(new RegExp(entity[1], 'g'), entity[0]); }); }
+  return text;
 }
-
-function unescapeXmlEntities(text) {
-  return text.replace(/&nbsp;|&ensp;|&emsp;/g, function(entity) {
-    return {
-      '&nbsp;': '\u00A0',
-      '&ensp;': '\u2002',
-      '&emsp;': '\u2003' 
-    }[entity];
-  });
-}
-
 function fetchArticleStructure(xmlUrl) {
   return new Promise((resolve, reject) => {
-/*    let xmlPages = JSON.parse(sessionStorage.getItem('xmlPages')) || {};
-
-    if (xmlPages[xmlUrl]) {
-      console.log('xmlPages[xmlUrl]', xmlPages[xmlUrl]);
-      resolve(xmlPages[xmlUrl]);
-      return;
-    }*/
     fetch(xmlUrl)
       .then(response => response.text())
       .then(xmlText => {
         const parser = new DOMParser();
-        console.log('xmlText', xmlText);
-        const decodedXMLDoc = unescapeXmlEntities(xmlText.XMLAsStringHandler().unpackText());
-        console.log('decodedXMLDoc', decodedXMLDoc);
+        const decodedXMLDoc = switchHTMLEntities(xmlText.XMLAsStringHandler().unpackText(), 'xml');
         const xmlDoc = parser.parseFromString(decodedXMLDoc, "application/xml");
+        const badges = tagParser(xmlDoc.querySelector('badges').textContent.toLowerCase().split(' '), 'badges');
+        const extension = tagParser(xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' '), 'extensions');
+        const article = $(xmlDoc.querySelector('article'));
 
-        let badges = xmlDoc.querySelector('badges').textContent.toLowerCase().split(' ');
-        badges = tagParser(badges, 'badges');
-
-        let extension = xmlDoc.querySelector('extensions').textContent.toLowerCase().split(' ');
-        extension = tagParser(extension, 'extensions');
-        //xmlDoc.querySelectorAll(userLang).forEach(tag => { $(tag).contents().unwrap() });
-        //nk.langs.supported.forEach(lang => { xmlDoc.querySelectorAll(lang).forEach(tag => { $(tag).remove() }); });
-        
-        let title = xmlDoc.querySelector(`title`).innerHTML;
-        let content = xmlDoc.querySelector(`content`).innerHTML;
-        let footer = xmlDoc.querySelector(`footer`).innerHTML;
-        const script = xmlDoc.querySelector('script');
-        const style = xmlDoc.querySelector('style');
-        title = eval('`' + escapeXmlEntities(title) + '`');
-        content = eval('`' + escapeXmlEntities(content) + '`');
-        footer = eval('`' + escapeXmlEntities(footer) + '`');
-
-        let articleStructure = `
-          <article class="wiki-aricle" ${getAttributes(xmlDoc.querySelector('article'))}>
-            <header ${getAttributes(xmlDoc.querySelector('title'))}>
-              ${title}${badges ? badges : ''}
-            </header>
-            <hr class="w-100 mt-1 mb-3">
-            <main ${getAttributes(xmlDoc.querySelector('content'))}>
-              ${extension ? extension : ''}
-              ${content}
-            </main>
-            <footer ${getAttributes(xmlDoc.querySelector('footer'))}>${footer}</footer>
-            ${script ? `<script>${script.innerHTML}</script>` : ''}
-            ${style ? `<style>${style.innerHTML}</style>` : ''}
-          </article>
-        `.unpackText();
-        
-        /*xmlPages[xmlUrl] = articleStructure;
-
-        const keys = Object.keys(xmlPages);
-        if (keys.length > 20) {
-          const oldestKey = keys[0];
-          delete xmlPages[oldestKey];
-        }
-        
-        sessionStorage.setItem('xmlPages', JSON.stringify(xmlPages));*/
-        
-        resolve(articleStructure);
+        article.addClass('wiki-aricle').children('header').addClass('wiki-aricle__header');
+        badges && article.children('header').append(badges);
+        extension && article.children('main').prepend(extension);
+        article.children(':not(header, main, footer)').remove();
+        article.children('header').after('<hr class="w-100 mt-1 mb-3"/>');
+        const rootContent = eval('`' + xmlDoc.documentElement.innerHTML + '`');
+        resolve(rootContent);
       })
       .catch(error => reject(error));
   });

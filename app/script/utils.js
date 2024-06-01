@@ -221,7 +221,7 @@ function transcriptReplacement(text) {
         .replace(/\[(.*?)\]/g, (_, sub) => `<rt>${sub}</rt>`)
         .replace(/\″(.*?)\←(.*?)\″/g, (_, sub1, sub2) => `<ruby>${sub1}<rt>${sub2}</rt></ruby>`)
         .replace(/\(([^:)]+):([^)]+)\)/g, (_, sub1, sub2) => `${sub1}<rt>${sub2}</rt>`)
-        .replace(/\((.*?)\?\)/g, (_, sub1) => `${sub1}<rt> </rt>`)
+        .replace(/\((.*?)\?\)/g, (_, sub1) => `${sub1}<rt><!-- --></rt>`)
     );
 }
 

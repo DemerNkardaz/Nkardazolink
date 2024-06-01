@@ -21,14 +21,14 @@
           {
             "ru": ["< /{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Три листа мальвы в кругу]/? />"],
             "en": ["< /{(丸:Maru)(に:Ni)(三つ:Mittsu)(葵:Aoi)}[Three Leaves of Mallow]/? />"],
-            "ja": ["< {(丸:まる)(に:)(三つ:)(葵:あおい)} />"]
+            "ja": ["< {(丸:まる)(に?)(三つ?)(葵:あおい)} />"]
 
           },
           "transcript_second":
           {
-            "ru": ["< /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(:)(侍:Samurai)}[Фамильный герб рода самураев «Мацудайра»]/? />"],
-            "en": ["< /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(:)(侍:Samurai)}[The crest of samurai clan “Matsudaira”]/? />"],
-            "ja": ["< {(松平:まつだいら)(氏:し)(の:)(家紋:かもん)、(侍:さむらい)} />"]
+            "ru": ["< /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(?)(侍:Samurai)}[Фамильный герб рода самураев «Мацудайра»]/? />"],
+            "en": ["< /{(松平:Matsudaira)(氏:Shi)(の:No)(家紋:Kamon)、(?)(侍:Samurai)}[The crest of samurai clan “Matsudaira”]/? />"],
+            "ja": ["< {(松平:まつだいら)(氏:し)(の?)(家紋:かもん)、(侍:さむらい)} />"]
           },
           "description": 
           {
@@ -88,18 +88,15 @@
           "kanji_second": "日本皇室の紋章",
           "transcript_first": 
           {
-            "ru": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Императорский герб хризантемы]≈}—"],
             "ru": ["< /{(菊:Kiku)(の:No)(御紋:Gomon)}[Императорский герб хризантемы]/? />"],
-            "en": ["—{{.(.菊:Kiku.)(.の:No.)(.御紋:Gomon.).}≈[Chrysanthemum Imperial Crest]≈}—"],
             "en": ["< /{(菊:Kiku)(の:No)(御紋:Gomon)}[Chrysanthemum Imperial Crest]/? />"],
-            "ja": ["{.(.菊:きく.)(.の:.)(.御紋:ごもん.).}"],
-            "ja": ["< {(菊:きく)(の:)(御紋:ごもん)} />"]
+            "ja": ["< {(菊:きく)(の?)(御紋:ごもん)} />"]
           },
           "transcript_second":
           {
             "ru": ["< /{(日本:Nihon)(皇室:Ko(⁛macron_0.255⁛)shitsu)(の:No)(紋章:Monsho(⁛macron_0.255⁛))}[Герб императорской семьи Японии]/? />"],
             "en": ["< /{(日本:Nihon)(皇室:Ko(⁛macron_0.255⁛)shitsu)(の:No)(紋章:Monsho(⁛macron_0.255⁛))}[The Crest of The Japan Imperial family]/? />"],
-            "ja": ["< {(日本:にほん)(皇室:こうしつ)(の:)(紋章:もんしょう)} />"]
+            "ja": ["< {(日本:にほん)(皇室:こうしつ)(の?)(紋章:もんしょう)} />"]
           }
         },
         {
