@@ -1,4 +1,12 @@
+some base keys:
+  Geralt: &Geralt Geralt of Rivia
+  Геральт: &Геральт Геральт из Ривии
+  Occupation: &Occupation The witcher from the Neverland
+  Занятие: &Занятие Ведьмак из Неверленда
+  Compiled: &Compiled [*Geralt, /n, *Occupation]
+  Компиляция: &Компиляция [*Геральт, /n, *Занятие]
+
 ru:
-  yamlSource: Это пример многоязычного источника .yaml
+  yamlSource: [Это пример многоязычного источника .yaml/n, *Компиляция]
 en:
-  yamlSource: This is an example of a multi-language .yaml source
+  yamlSource: [This is an example of a multi-language .yaml source/n, *Compiled]

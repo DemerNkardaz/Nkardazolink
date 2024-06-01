@@ -56,6 +56,7 @@
               * ** So, you can load non-localise data for script features if you want.
           -->
         </div>
+        <div data-key="yamlSource" data-key-source="articles.multi_language_yaml"></div>
         <ru>Шаблонный контент</ru>
         <en>Template content</en>
         {{ ?get>@[value="ru"] IN @.lang-optionOwner> }}
