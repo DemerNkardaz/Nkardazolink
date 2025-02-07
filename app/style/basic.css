@@ -42,9 +42,11 @@ ruby {
   }
 
   &.ruby_bottom {
+    -webkit-ruby-position: under;
     ruby-position: under;
 
     & ruby {
+      -webkit-ruby-position: over;
       ruby-position: over;
     }
   }
@@ -121,5 +123,6 @@ char-name {
 }
 
 .material-icons {
+  -webkit-user-select: none;
   user-select: none;
 }
